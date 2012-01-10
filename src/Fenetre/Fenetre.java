@@ -40,9 +40,4 @@ public class Fenetre extends JFrame
 
 	public PanelMenu getMenu()					{		return menu;			}
 	public PanelArbre getArborescence()			{		return arborescence;	}
-	
-	public static void main(String[] argv)
-	{
-		new Fenetre();
-	}
 }

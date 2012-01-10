@@ -1,9 +1,15 @@
 package Fenetre;
 
 import java.awt.event.*;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.*;
+
+import Main.Generateur;
 
 public class PanelMenu extends JPanel implements ActionListener
 {
@@ -11,10 +17,11 @@ public class PanelMenu extends JPanel implements ActionListener
 
 	private JMenu menuFile;
 	private JMenu menuEdit;
+	private JMenu menuElement;
 
 	// item pour le menu Fichiers
-	private JMenuItem itemNew;
-	private JMenuItem itemOpen;
+	private JMenuItem itemNewProject;
+	private JMenuItem itemOpenProject;
 	private JMenuItem itemSaveAs;
 	private JMenuItem itemSave;
 
@@ -22,6 +29,10 @@ public class PanelMenu extends JPanel implements ActionListener
 	private JMenuItem itemClose;
 	private JMenuItem itemUndo;
 	private JMenuItem itemRedo;
+	
+	// item pour le menu Element
+	private JMenuItem itemNewPage;
+	private JMenuItem itemNewElement;
 
 	public PanelMenu()
 	{
@@ -30,12 +41,13 @@ public class PanelMenu extends JPanel implements ActionListener
 		// initialisation des Menus
 		menuFile = new JMenu("Fichier");
 		menuEdit = new JMenu("Edition");
+		menuElement = new JMenu("Element");
 
 		// initialisation des items pour le menu Fichier
-		itemNew = new JMenuItem("Nouveau Projet");
-		itemNew.addActionListener(this);
-		itemOpen = new JMenuItem("Ouvrir un Projet");
-		itemOpen.addActionListener(this);
+		itemNewProject = new JMenuItem("Nouveau Projet");
+		itemNewProject.addActionListener(this);
+		itemOpenProject = new JMenuItem("Ouvrir un Projet");
+		itemOpenProject.addActionListener(this);
 		itemSaveAs = new JMenuItem("Enregistrer Sous");
 		itemSaveAs.addActionListener(this);
 		itemSave = new JMenuItem("Enregistrer");
@@ -49,9 +61,14 @@ public class PanelMenu extends JPanel implements ActionListener
 		itemRedo = new JMenuItem("Retablir");
 		itemRedo.addActionListener(this);
 
+		// initialisation des items pour le menu Element
+		itemNewPage = new JMenuItem("Nouvelle page");
+		itemNewPage.addActionListener(this);
+		itemNewElement = new JMenuItem("Nouvelle Element");
+		
 		// ajout des items dans le menu Fichier
-		menuFile.add(itemNew);
-		menuFile.add(itemOpen);
+		menuFile.add(itemNewProject);
+		menuFile.add(itemOpenProject);
 		menuFile.addSeparator();
 		menuFile.add(itemSaveAs);
 		menuFile.add(itemSave);
@@ -61,10 +78,15 @@ public class PanelMenu extends JPanel implements ActionListener
 		// ajout des items dans le menu Edition
 		menuEdit.add(itemUndo);
 		menuEdit.add(itemRedo);
-
+		
+		// ajout des items dans le menu Element
+		menuElement.add(itemNewPage);
+		menuElement.add(itemNewElement);
+		
 		// Ajout des menus dans la bar de Menu
 		menuBar.add(menuFile);
 		menuBar.add(menuEdit);
+		menuBar.add(menuElement);
 	}
 
 	// permet d'ajouter la bar de menu dans la frame
@@ -79,8 +101,14 @@ public class PanelMenu extends JPanel implements ActionListener
 		JMenuItem mi = (JMenuItem) e.getSource();
 		if (mi.equals(itemClose))
 			closeFrame();
+		if (mi.equals(itemNewPage))
+			newPage();
 	}
 
+	private void newPage()
+	{
+		Generateur.FenetreCreerPage();
+	}
 
 	private void closeFrame()
 	{

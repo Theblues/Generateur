@@ -14,8 +14,8 @@ public class PanelArbre extends JPanel
 	private JScrollPane editeurScrollHorizontal;
 	private JScrollPane editeurScrollVertical;
 	
-	public PanelArbre(JFrame f) {
-		
+	public PanelArbre(JFrame f) 
+	{
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(150, 100));
 		
