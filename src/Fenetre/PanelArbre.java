@@ -20,7 +20,7 @@ public class PanelArbre extends JPanel
 		setPreferredSize(new Dimension(150, 100));
 		
 		listRoot(f);
-		
+
 		editeurScrollHorizontal = new JScrollPane(arbre);
 		editeurScrollHorizontal.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		editeurScrollHorizontal.setPreferredSize(new Dimension(250, 145));
