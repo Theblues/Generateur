@@ -1,5 +1,7 @@
 package Fenetre;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.io.*;
 
 import javax.swing.*;
@@ -9,11 +11,26 @@ public class PanelArbre extends JPanel
 {
 	private JTree arbre;
 	private DefaultMutableTreeNode racine;
-
+	private JScrollPane editeurScrollHorizontal;
+	private JScrollPane editeurScrollVertical;
+	
 	public PanelArbre(JFrame f) {
+		
+		setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(150, 100));
+		
 		listRoot(f);
-
-		add(arbre);
+		
+		editeurScrollHorizontal = new JScrollPane(arbre);
+		editeurScrollHorizontal.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		editeurScrollHorizontal.setPreferredSize(new Dimension(250, 145));
+		
+		editeurScrollVertical = new JScrollPane(arbre);
+		editeurScrollVertical.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		editeurScrollVertical.setPreferredSize(new Dimension(250, 145));
+		
+		add(editeurScrollHorizontal);
+		add(editeurScrollVertical);
 	}
 
 	private void listRoot(JFrame f) 
@@ -21,7 +38,7 @@ public class PanelArbre extends JPanel
 		this.racine = new DefaultMutableTreeNode();
 		File file = new File("site/");
 
-		DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getAbsolutePath());
+		DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getPath());
 		try {
 			for (File nom : file.listFiles()) {
 				DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName() + "\\");
