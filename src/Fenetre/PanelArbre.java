@@ -19,7 +19,7 @@ public class PanelArbre extends JPanel
 	private void listRoot(JFrame f) 
 	{
 		this.racine = new DefaultMutableTreeNode();
-		File file = new File("./");
+		File file = new File("site/");
 
 		DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getAbsolutePath());
 		try {
