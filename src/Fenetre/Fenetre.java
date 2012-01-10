@@ -20,7 +20,7 @@ public class Fenetre extends JFrame
 		menu = new PanelMenu();
 		menu.addMenuInFrame(this);
 		
-		arborescence = new PanelArbre();
+		arborescence = new PanelArbre(this);
 		
 		splitPaneTotal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, arborescence, new Panel());
 		splitPaneTotal.setOneTouchExpandable(true);
