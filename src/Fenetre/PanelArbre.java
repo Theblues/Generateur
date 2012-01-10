@@ -12,7 +12,6 @@ public class PanelArbre extends JPanel
 
 	public PanelArbre(JFrame f) {
 		listRoot(f);
-
 		add(arbre);
 	}
 
@@ -21,7 +20,7 @@ public class PanelArbre extends JPanel
 		this.racine = new DefaultMutableTreeNode();
 		File file = new File("site/");
 
-		DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getAbsolutePath());
+		DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getPath());
 		try {
 			for (File nom : file.listFiles()) {
 				DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName() + "\\");
