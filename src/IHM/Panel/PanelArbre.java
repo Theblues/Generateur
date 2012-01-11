@@ -1,18 +1,15 @@
 package IHM.Panel;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.awt.*;
+import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.tree.*;
 
-import IHM.Frame.FenetreAjouterParagraphe;
-import IHM.Frame.FenetreAjouterTitre;
+import java.io.*;
+import java.util.*;
+
+import IHM.Frame.*;
 
 public class PanelArbre extends JPanel 
 {
@@ -26,11 +23,11 @@ public class PanelArbre extends JPanel
 	
 	public PanelArbre(JFrame f) 
 	{
+		alS = new ArrayList<String>();
+		
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(150, 100));
-		
-		alS = new ArrayList<String>();
-		cpt=0;
+
 		listRoot(f);
 
 		editeurScrollHorizontal = new JScrollPane(arbre);
@@ -46,7 +43,8 @@ public class PanelArbre extends JPanel
 	}
 	
 	
-	public String getAlS( int ind ) {
+	public String getAlS(int ind) 
+	{
 		return alS.get(ind);
 	}
 
@@ -56,16 +54,17 @@ public class PanelArbre extends JPanel
 		File file = new File("site/");
 
 		DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getPath());
-		try {
-			for (File nom : file.listFiles()) {
+		try 
+		{
+			for (File nom : file.listFiles()) 
+			{
 				if (!nom.getName().equals("content"))
 				{
 					DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName() + "\\");
 					lecteur.add(this.listFile(nom, node));
 				}
 			}
-		} catch (NullPointerException e) {
-		}
+		} catch (NullPointerException e) {}
 
 		racine.add(lecteur);
 
@@ -81,28 +80,25 @@ public class PanelArbre extends JPanel
 	}
 	
 	
-	void doMouseClicked(MouseEvent me) {
-
+	void doMouseClicked(MouseEvent me) 
+	{
 		// 3 correspond au nombre de parents depuis le dossier site
 		int tp = (arbre.getClosestRowForLocation(me.getX(), me.getY())) - 3;
 
 		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
 		
-		if (path != null) 
+		if (path != null)
 		{
-			if (tp>= 0)
+			if (tp >= 0)
 			{
 				Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
 				String str = sc.next();
 				int indice = Integer.parseInt(sc.next());
 	
-				if ( str.equals("Titre")) {
+				if ( str.equals("Titre")) 
 					new FenetreAjouterTitre(1, getAlS(tp), tp, indice);
-					
-				}
-				if ( str.equals("Paragraphe")) {
+				if ( str.equals("Paragraphe"))
 					new FenetreAjouterParagraphe(1, getAlS(tp), tp, indice);
-				}
 			}
 		}
 		getOrdreElement();
@@ -120,11 +116,11 @@ public class PanelArbre extends JPanel
 			TreePath tp = arbre.getPathForRow(i);
 			alS.add(tp.getLastPathComponent().toString());
 		}
-		
 		return alS;
 	}
 	
-	public void ajoutFils(String s, String value) {
+	public void ajoutFils(String s, String value) 
+	{
 		DefaultTreeModel dtm = new DefaultTreeModel(racine);
 		Object parent = dtm.getChild(racine,0);
 		Object parent2 = dtm.getChild(parent,0);
@@ -168,7 +164,8 @@ public class PanelArbre extends JPanel
 	}
 
 
-	public void setAlS(int indice, String text) {
+	public void setAlS(int indice, String text) 
+	{
 		alS.remove(indice);
 		alS.add(indice,text);
 	}

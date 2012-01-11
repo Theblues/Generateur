@@ -35,7 +35,6 @@ public class Generator
 	
 	public void addTitre(String s) 
 	{
-		//alTitre.add("\t\t<div class=\"titre\">"+ s +"</div><br />\n\t\t");
 		alTitre.add(s);
 	}
 	
@@ -63,20 +62,11 @@ public class Generator
 	    Scanner sc = new Scanner(s).useDelimiter("\n");
 	    String str = "";
 	    
-	    /*str +="<p>";
-	    
-	    while (sc.hasNext())
-	    	str += sc.next()+"<br />";
-	    
-	    str +="</p>\n\t\t";*/
-	    
 	    while (sc.hasNext())
 	    	str += "\n\t\t\t" + sc.next()+"<br />\n"; 
 	    
 	    alParagraphe.remove(indice-1);
 		alParagraphe.add(indice-1, str);
-		
-		System.out.println(alParagraphe);
 	}
 	
 	public void ajouterImage(String chemin)
