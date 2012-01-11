@@ -8,7 +8,7 @@ public class Generator
 	private String code;
 	private File file;
 	
-	public Generator() 
+	public Generator()
 	{
 		code = header();
 	}
