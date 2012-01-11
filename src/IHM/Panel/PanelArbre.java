@@ -10,11 +10,11 @@ import javax.swing.tree.*;
 
 public class PanelArbre extends JPanel 
 {
-	private static JTree arbre;
-	private static DefaultMutableTreeNode racine;
+	private JTree arbre;
+	private DefaultMutableTreeNode racine;
 	private JScrollPane editeurScrollHorizontal;
 	private JScrollPane editeurScrollVertical;
-	private static ArrayList<String> alS;
+	private ArrayList<String> alS;
 	private static int cpt;
 	
 	public PanelArbre(JFrame f) 
@@ -40,7 +40,7 @@ public class PanelArbre extends JPanel
 
 	private void listRoot(JFrame f) 
 	{
-		this.racine = new DefaultMutableTreeNode();
+		racine = new DefaultMutableTreeNode();
 		File file = new File("site/");
 
 		DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getPath());
@@ -52,14 +52,14 @@ public class PanelArbre extends JPanel
 		} catch (NullPointerException e) {
 		}
 
-		this.racine.add(lecteur);
+		racine.add(lecteur);
 
-		arbre = new JTree(this.racine);
+		arbre = new JTree(racine);
 		
 		f.getContentPane().add(new JScrollPane(arbre));
 	}
 	
-	public static void ajoutFils(String s, String value) {
+	public void ajoutFils(String s, String value) {
 		DefaultTreeModel dtm = new DefaultTreeModel(racine);
 		Object parent = dtm.getChild(racine,0);
 		Object parent2 = dtm.getChild(parent, 0);
@@ -71,19 +71,19 @@ public class PanelArbre extends JPanel
 		addToAls(value);
 	}
 	
-	private static void updateTree(Object o)
+	private void updateTree(Object o)
 	{
 		((DefaultTreeModel) arbre.getModel()).reload((TreeNode) o);
 	}
 	
-	private static void addToAls(String s)
+	private void addToAls(String s)
 	{
 		alS.add(s);
 		System.out.println(alS);
 	}
 
-	private DefaultMutableTreeNode listFile(File file,DefaultMutableTreeNode node) {
-
+	private DefaultMutableTreeNode listFile(File file,DefaultMutableTreeNode node) 
+	{
 		if (file.isFile())
 			return new DefaultMutableTreeNode(file.getName());
 		else 
