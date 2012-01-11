@@ -22,7 +22,7 @@ public class Generator
 	{
 		return "<html>\n" +
 					"\t<head>\n" +
-					"\t\t<title>Page 1</title>" +
+					"\t\t<title>Page 1</title>\n" +
 					"\t</head>\n" +
 					"\t<body>\n\t\t";
 	}
@@ -36,8 +36,10 @@ public class Generator
 	{
 	    Scanner sc = new Scanner(s).useDelimiter("\n");
 	    
+	    code +="<p>";
 	    while (sc.hasNext())
 	    	code += sc.next()+"<br />\n\t\t";
+	    code +="</p>";
 	}
 	
 	public void ajouterImage(String chemin)
