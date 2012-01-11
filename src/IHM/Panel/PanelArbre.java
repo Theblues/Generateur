@@ -10,7 +10,7 @@ import javax.swing.tree.*;
 
 public class PanelArbre extends JPanel 
 {
-	private JTree arbre;
+	private static JTree arbre;
 	private static DefaultMutableTreeNode racine;
 	private JScrollPane editeurScrollHorizontal;
 	private JScrollPane editeurScrollVertical;
@@ -67,7 +67,13 @@ public class PanelArbre extends JPanel
 		DefaultMutableTreeNode mtn = new DefaultMutableTreeNode(new File(s));
 		dtm.insertNodeInto(mtn,(MutableTreeNode) parent2,cpt);
 		cpt++;
+		updateTree(parent2);
 		addToAls(value);
+	}
+	
+	private static void updateTree(Object o)
+	{
+		((DefaultTreeModel) arbre.getModel()).reload((TreeNode) o);
 	}
 	
 	private static void addToAls(String s)
