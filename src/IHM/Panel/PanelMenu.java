@@ -108,7 +108,7 @@ public class PanelMenu extends JPanel implements ActionListener
 		// TODO Auto-generated method stub
 		JMenuItem mi = (JMenuItem) e.getSource();
 		if (mi.equals(itemClose))
-			closeFrame();
+			System.exit(0);
         if (mi.equals(itemNewPage))
         	Generateur.creerFenetreCreerPage();
 		if (mi.equals(itemTitre))
@@ -118,53 +118,6 @@ public class PanelMenu extends JPanel implements ActionListener
 		if (mi.equals(itemGenerer))
 			Generateur.generer();
 		if (mi.equals(itemImage))
-			ajouterImage();
+			Generateur.creerFenetreAjouterImage();
 	}
-
-	private void ajouterImage()
-	{
-		// TODO Auto-generated method stub
-		JFileChooser chooser = new JFileChooser();
-		chooser.setCurrentDirectory(new File("Users"));
-		chooser.changeToParentDirectory();
-		// on peut selectionner qu'une image
-		chooser.setMultiSelectionEnabled(false);
-		// on ajoute un filtre
-		chooser.setFileFilter(new MonFiltre(new String[] { "gif", "tif", "jpeg", "jpg" }, 
-							"les fichiers image (*.gif, *.jpg,*.jpeg)"));
-		// on ouvre la fenetre de s�lection
-		int fichier = chooser.showOpenDialog(null);
-		
-		// s'il a choisit un fichier
-		if (fichier == JFileChooser.FILES_ONLY)
-		{
-			// nom du fichier choisi
-			String nom = chooser.getSelectedFile().getName();
-
-			// chemin absolu du fichier choisi
-			String cheminDep = chooser.getSelectedFile().getAbsolutePath();
-			String cheminArr = "./site/content/IMG/";
-
-			InputStream input;
-			OutputStream output;
-
-			try
-			{
-				input = new FileInputStream(cheminDep);
-				output = new FileOutputStream(cheminArr + nom);
-				IOUtils.copy(input, output);	
-			}
-			catch (FileNotFoundException e1){	e1.printStackTrace();	}
-			catch (IOException e)			{	e.printStackTrace();	}
-
-			Generateur.creerFenetreAjouterImage(cheminArr + nom, nom);
-		}
-	}
-
-	private void closeFrame()
-	{
-		// TODO Auto-generated method stub
-		System.exit(0);
-	}
-
 }

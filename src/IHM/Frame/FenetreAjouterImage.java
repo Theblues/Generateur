@@ -1,19 +1,34 @@
 package IHM.Frame;
 
 import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
 
 import javax.swing.*;
 
-public class FenetreAjouterImage extends JFrame
+import org.apache.commons.io.IOUtils;
+
+import Main.Generateur;
+import Utilitaire.MonFiltre;
+
+public class FenetreAjouterImage extends JFrame implements ActionListener
 {
+	private AffichageImage image;
+	
 	private JButton	valider;
 	private JButton	annuler;
-	private JButton	changImage;
+	
+	private String nom;
+	private String chemin;
 
-	public FenetreAjouterImage(String chemin, String nom)
+	public FenetreAjouterImage()
 	{
+		choisirImage();
+		if (chemin == null)
+			return;
+		
 		setTitle("Ajouter Image");
-		AffichageImage image = new AffichageImage(chemin);
+		image = new AffichageImage(chemin);
 
 		add(image);
 
@@ -21,15 +36,72 @@ public class FenetreAjouterImage extends JFrame
 		pan.setLayout(new GridLayout(1, 3));
 
 		annuler = new JButton("Annuler");
+		annuler.addActionListener(this);
 		pan.add(annuler);
-		changImage = new JButton("Changer l'image");
-		pan.add(changImage);
+		
 		valider = new JButton("Valider");
+		valider.addActionListener(this);
 		pan.add(valider);
 
 		add(pan, BorderLayout.SOUTH);
+		
 		pack();
 		setVisible(true);
+	}
+	
+	private void choisirImage()
+	{
+		JFileChooser chooser = new JFileChooser();
+		chooser.setCurrentDirectory(new File("Users"));
+		chooser.changeToParentDirectory();
+		// on peut selectionner qu'une image
+		chooser.setMultiSelectionEnabled(false);
+		// on ajoute un filtre
+		chooser.setFileFilter(new MonFiltre(new String[] { "gif", "tif", "jpeg", "jpg" }, 
+							"les fichiers image (*.gif, *.jpg,*.jpeg)"));
+		// on ouvre la fenetre de selection
+		int fichier = chooser.showOpenDialog(null);
+		
+		// s'il a choisit un fichier
+		if (fichier == JFileChooser.FILES_ONLY)
+		{			
+			nom = chooser.getSelectedFile().getName();
+			// chemin absolu du fichier choisi
+			chemin =  chooser.getSelectedFile().getAbsolutePath();
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		// TODO Auto-generated method stub
+		JButton b = (JButton) e.getSource();
+		if (b.equals(annuler))
+			dispose();
+		if (b.equals(valider))
+		{
+			enregistrerImage(chemin);
+			Generateur.getGenerator().ajouterImage(chemin);
+			dispose();
+		}
+	}
+
+	private void enregistrerImage(String chemin)
+	{
+		String cheminArr = "./site/content/IMG/";
+
+		InputStream input;
+		OutputStream output;
+
+		try
+		{
+			input = new FileInputStream(chemin);
+			output = new FileOutputStream(cheminArr + nom);
+			IOUtils.copy(input, output);	
+		}
+		catch (FileNotFoundException e1){	e1.printStackTrace();	}
+		catch (IOException e)			{	e.printStackTrace();	}
+		
 	}
 }
 
@@ -56,12 +128,7 @@ class AffichageImage extends Canvas
 		if ((info & (WIDTH | HEIGHT)) != 0)
 		{
 			setSize(l, h);
-			getParent()
-					.getParent()
-					.getParent()
-					.getParent()
-					.setBounds((largeurEcran - l) / 2, (hauteurEcran - h) / 2,
-							l + 8, h + 32);
+			getParent().getParent().getParent().getParent().setBounds((largeurEcran - l) / 2, (hauteurEcran - h) / 2, l + 8, h + 32);
 		}
 
 		if ((info & (ALLBITS)) != 0)

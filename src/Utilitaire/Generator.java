@@ -78,4 +78,10 @@ public class Generator
 		}
 		System.out.println(code);
 	}
+
+	public void ajouterImage(String chemin)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

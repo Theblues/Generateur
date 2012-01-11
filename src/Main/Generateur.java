@@ -17,10 +17,10 @@ public class Generateur
 	public static Fenetre getFenetre()		{	return fenetre;		}
 	public static Generator getGenerator()	{	return generator; 	}
 	
-	public static void creerFenetreCreerPage()								{		new FenetreCreerPage();					}
-	public static void creerFenetreAjouterParagraphe()						{		new FenetreAjouterParagraphe();			}
-	public static void creerFenetreAjouterTitre()							{		new FenetreAjouterTitre();				}
-	public static void creerFenetreAjouterImage(String chemin, String nom)	{		new FenetreAjouterImage(chemin, nom);	}
+	public static void creerFenetreCreerPage()			{		new FenetreCreerPage();				}
+	public static void creerFenetreAjouterParagraphe()	{		new FenetreAjouterParagraphe();		}
+	public static void creerFenetreAjouterTitre()		{		new FenetreAjouterTitre();			}
+	public static void creerFenetreAjouterImage()		{		new FenetreAjouterImage();			}
 	
 	public static void ajouterParagraphe(String text)
 	{
