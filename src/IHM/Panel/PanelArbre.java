@@ -46,8 +46,11 @@ public class PanelArbre extends JPanel
 		DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getPath());
 		try {
 			for (File nom : file.listFiles()) {
-				DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName() + "\\");
-				lecteur.add(this.listFile(nom, node));
+				if (!nom.getName().equals("content"))
+				{
+					DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName() + "\\");
+					lecteur.add(this.listFile(nom, node));
+				}
 			}
 		} catch (NullPointerException e) {
 		}
