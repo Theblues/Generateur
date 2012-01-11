@@ -12,13 +12,15 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener {
 	private static int cpt=1;
 	private int statue;
 	private int indice;
+	private int indiceTitre;
 	private String titre;
 
-	public FenetreAjouterTitre(int statue, String titre, int indice) {
+	public FenetreAjouterTitre(int statue, String titre, int indice, int indiceTitre) {
 
 		this.statue = statue;
 		this.titre = titre;
 		this.indice = indice;
+		this.indiceTitre = indiceTitre;
 
 		// 0 = ajout, 1 = modif
 		if (statue == 0) {
@@ -44,16 +46,17 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener {
 
 		if (statue == 0) {
 			Generateur.getGenerator().addTitre(tf.getText());
-			Generateur.getFenetre().getArborescence()
-					.ajoutFils("titre" + cpt, tf.getText());
+			Generateur.getFenetre().getArborescence().ajoutFils("Titre " + cpt, tf.getText());
+			cpt++;
 			this.dispose();
 		} else {
 
-			Generateur.getGenerator().modTitre(tf.getText(), indice);
+			Generateur.getGenerator().modTitre(tf.getText(), indiceTitre);
+			Generateur.getFenetre().getArborescence().setAlS(indice, tf.getText());
 			this.dispose();
 
 		}
-		cpt++;
+		
 	}
 
 }

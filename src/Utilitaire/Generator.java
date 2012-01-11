@@ -3,6 +3,8 @@ package Utilitaire;
 import java.io.*;
 import java.util.*;
 
+import Main.Generateur;
+
 public class Generator 
 {
 	private String code;
@@ -39,27 +41,42 @@ public class Generator
 	
 	public void modTitre(String s, int indice) 
 	{
-		alTitre.remove(indice);
-		alTitre.add(indice, s);
-		
-		System.out.println(alTitre);
+		alTitre.remove(indice-1);
+		alTitre.add(indice-1, s);
 	}
-	
-	
 	
 	public void addParagraphe(String s)
 	{
 	    Scanner sc = new Scanner(s).useDelimiter("\n");
 	    String str = "";
 	    
-	    str +="<p>";
 	    while (sc.hasNext())
-	    	
-	    	str += sc.next()+"<br />";
-	    
-	    str +="</p>\n\t\t";
+	    	str += "\n\t\t\t" + sc.next()+"<br />\n";
+
 	    
 	    alParagraphe.add(str);
+	}
+	
+	
+	public void modParagraphe(String s, int indice)
+	{
+	    Scanner sc = new Scanner(s).useDelimiter("\n");
+	    String str = "";
+	    
+	    /*str +="<p>";
+	    
+	    while (sc.hasNext())
+	    	str += sc.next()+"<br />";
+	    
+	    str +="</p>\n\t\t";*/
+	    
+	    while (sc.hasNext())
+	    	str += "\n\t\t\t" + sc.next()+"<br />\n"; 
+	    
+	    alParagraphe.remove(indice-1);
+		alParagraphe.add(indice-1, str);
+		
+		System.out.println(alParagraphe);
 	}
 	
 	public void ajouterImage(String chemin)
@@ -70,8 +87,22 @@ public class Generator
 	
 	public void generate() 
 	{
+		ArrayList<String> alS = Generateur.getFenetre().getArborescence().getOrdreElement();
 		
-		String str="";
+		for (String s : alS )
+		{
+			Scanner sc = new Scanner(s);
+			sc.useDelimiter(" ");
+			
+			String type = sc.next();
+			int ind = Integer.parseInt(sc.next())-1;
+			
+			if (type.equals("Titre"))
+				code += "\t\t<div class=\"title\">"+alTitre.get(ind)+"</div>\n";
+			
+			if (type.equals("Paragraphe"))
+				code += "\t\t<p>" + alParagraphe.get(ind) + "\t\t</p>\n";
+		}
 		
 		code += "\n\t</body>\n" +
 				"</html>\n";

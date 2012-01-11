@@ -6,10 +6,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.*;
 import javax.swing.tree.*;
 
+import IHM.Frame.FenetreAjouterParagraphe;
 import IHM.Frame.FenetreAjouterTitre;
 
 public class PanelArbre extends JPanel 
@@ -45,7 +47,6 @@ public class PanelArbre extends JPanel
 	
 	
 	public String getAlS( int ind ) {
-		
 		return alS.get(ind);
 	}
 
@@ -80,16 +81,48 @@ public class PanelArbre extends JPanel
 	}
 	
 	
-	 void doMouseClicked(MouseEvent me) {
-		 
-		   // 3 correspond au nombre de parents depuis le dossier site
-		   int tp = (arbre.getClosestRowForLocation(me.getX(), me.getY())) - 3 ;
-		   
-		   if ( tp >= 0 ){
-			   new FenetreAjouterTitre(1,getAlS(tp),tp);
-		   }
-		    
-	 }
+	void doMouseClicked(MouseEvent me) {
+
+		// 3 correspond au nombre de parents depuis le dossier site
+		int tp = (arbre.getClosestRowForLocation(me.getX(), me.getY())) - 3;
+
+		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
+		
+		if (path != null) 
+		{
+			if (tp>= 0)
+			{
+				Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
+				String str = sc.next();
+				int indice = Integer.parseInt(sc.next());
+	
+				if ( str.equals("Titre")) {
+					new FenetreAjouterTitre(1, getAlS(tp), tp, indice);
+					
+				}
+				if ( str.equals("Paragraphe")) {
+					new FenetreAjouterParagraphe(1, getAlS(tp), tp, indice);
+				}
+			}
+		}
+		getOrdreElement();
+	}
+	
+	public ArrayList<String> getOrdreElement()
+	{
+		ArrayList<String> alS = new ArrayList<String>();
+		
+		// On recupere le nombre de noeud du fichier
+		int nbNoeud = arbre.getRowCount();
+		
+		for (int i = 3; i < nbNoeud; i++)
+		{
+			TreePath tp = arbre.getPathForRow(i);
+			alS.add(tp.getLastPathComponent().toString());
+		}
+		
+		return alS;
+	}
 	
 	public void ajoutFils(String s, String value) {
 		DefaultTreeModel dtm = new DefaultTreeModel(racine);
@@ -111,7 +144,6 @@ public class PanelArbre extends JPanel
 	private void addToAls(String s)
 	{
 		alS.add(s);
-		System.out.println(alS);
 	}
 
 	private DefaultMutableTreeNode listFile(File file,DefaultMutableTreeNode node) 
@@ -133,5 +165,11 @@ public class PanelArbre extends JPanel
 			}
 			return node;
 		}
+	}
+
+
+	public void setAlS(int indice, String text) {
+		alS.remove(indice);
+		alS.add(indice,text);
 	}
 }
