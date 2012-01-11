@@ -18,7 +18,7 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 	{
 		setSize(500,500);
 		setLayout(new BorderLayout());
-		setTitle("Entrer un titre");
+		setTitle("Entrer un paragraphe");
 		editorPane = new JEditorPane();
 		editorPane.setEditable(true);
 		editorPane.setContentType("text/plain");
