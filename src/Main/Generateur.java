@@ -14,11 +14,13 @@ public class Generateur
 		generator = new Generator();
 	}
 	
-	public static Fenetre getFenetre()	{		return fenetre;		}
+	public static Fenetre getFenetre()		{	return fenetre;		}
+	public static Generator getGenerator()	{	return generator; 	}
 	
-	public static void FenetreCreerPage()			{		new FenetreCreerPage();			}
-	public static void FenetreAjouterParagraphe()	{		new FenetreAjouterParagraphe();	}
-	public static void FenetreAjouterTitre()		{		new FenetreAjouterTitre();		}
+	public static void creerFenetreCreerPage()								{		new FenetreCreerPage();					}
+	public static void creerFenetreAjouterParagraphe()						{		new FenetreAjouterParagraphe();			}
+	public static void creerFenetreAjouterTitre()							{		new FenetreAjouterTitre();				}
+	public static void creerFenetreAjouterImage(String chemin, String nom)	{		new FenetreAjouterImage(chemin, nom);	}
 	
 	public static void ajouterParagraphe(String text)
 	{
@@ -41,11 +43,5 @@ public class Generateur
 	public static void main(String[] argv)
 	{
 		new Generateur();
-	}
-
-	
-
-	
-
-	
+	}	
 }
