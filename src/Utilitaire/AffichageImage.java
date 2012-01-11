@@ -25,7 +25,7 @@ public class AffichageImage extends Canvas
 		if ((info & (WIDTH | HEIGHT)) != 0)
 		{
 			setSize(l, h);
-			getParent().getParent().getParent().getParent().setBounds((largeurEcran - l) / 2, (hauteurEcran - h) / 2, l + 8, h + 32);
+			getParent().getParent().getParent().getParent().setBounds((largeurEcran - l) / 2, (hauteurEcran - h) / 2, l + 20, h + 60);
 		}
 
 		if ((info & (ALLBITS)) != 0)
