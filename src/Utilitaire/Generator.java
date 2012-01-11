@@ -40,6 +40,12 @@ public class Generator
 	    	code += sc.next()+"<br />\n\t\t";
 	}
 	
+	public void ajouterImage(String chemin)
+	{
+		// TODO Auto-generated method stub
+		code += "<img src='" + chemin + "' />\n";
+	}
+	
 	public void generate() 
 	{
 		code += "\n\t</body>\n" +
@@ -77,11 +83,5 @@ public class Generator
 			e.printStackTrace();
 		}
 		System.out.println(code);
-	}
-
-	public void ajouterImage(String chemin)
-	{
-		// TODO Auto-generated method stub
-		
 	}
 }
