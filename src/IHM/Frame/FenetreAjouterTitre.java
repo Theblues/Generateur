@@ -23,7 +23,7 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 
 	public void actionPerformed(ActionEvent arg0) 
 	{
-		Generateur.ajouterTitre(tf.getText());
+		Generateur.getGenerator().addTitre(tf.getText());
 		Generateur.getFenetre().getArborescence().ajoutFils(tf.getText(), tf.getText());
 		this.dispose();
 	}

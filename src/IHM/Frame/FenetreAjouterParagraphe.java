@@ -31,7 +31,7 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 
 	public void actionPerformed(ActionEvent arg0) 
 	{
-		Generateur.ajouterParagraphe(editorPane.getText());
+		Generateur.getGenerator().addParagraphe(editorPane.getText());
 		Generateur.getFenetre().getArborescence().ajoutFils("Paragraphe", editorPane.getText());
 		this.dispose();
 	}

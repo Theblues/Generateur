@@ -49,6 +49,22 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		setVisible(true);
 	}
 	
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		// TODO Auto-generated method stub
+		JButton b = (JButton) e.getSource();
+		if (b.equals(annuler))
+			dispose();
+		if (b.equals(valider))
+		{
+			enregistrerImage(chemin);
+			System.out.println("test");
+			Generateur.getGenerator().ajouterImage(chemin);
+			dispose();
+		}
+	}
+	
 	private void choisirImage()
 	{
 		JFileChooser chooser = new JFileChooser();
@@ -71,21 +87,6 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		}
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		// TODO Auto-generated method stub
-		JButton b = (JButton) e.getSource();
-		if (b.equals(annuler))
-			dispose();
-		if (b.equals(valider))
-		{
-			enregistrerImage(chemin);
-			Generateur.getGenerator().ajouterImage(chemin);
-			dispose();
-		}
-	}
-
 	private void enregistrerImage(String chemin)
 	{
 		String cheminArr = "./site/content/IMG/";
@@ -101,6 +102,6 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		}
 		catch (FileNotFoundException e1){	e1.printStackTrace();	}
 		catch (IOException e)			{	e.printStackTrace();	}
-		
+		this.chemin = cheminArr + nom;
 	}
 }
