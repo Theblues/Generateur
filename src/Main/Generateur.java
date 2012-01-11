@@ -42,10 +42,4 @@ public class Generateur
 	{
 		new Generateur();
 	}
-
-	
-
-	
-
-	
 }

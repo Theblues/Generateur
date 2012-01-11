@@ -6,6 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;
 
+import IHM.Panel.PanelArbre;
 import Main.*;
 
 public class FenetreAjouterParagraphe extends JFrame implements ActionListener
@@ -31,6 +32,7 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent arg0) 
 	{
 		Generateur.ajouterParagraphe(editorPane.getText());
+		PanelArbre.ajoutFils("Paragraphe", editorPane.getText());
 		this.dispose();
 	}
 	

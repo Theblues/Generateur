@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import IHM.Panel.PanelArbre;
 import Main.Generateur;
 
 public class FenetreAjouterTitre extends JFrame implements ActionListener
@@ -22,6 +23,7 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 
 	public void actionPerformed(ActionEvent arg0) {
 		Generateur.ajouterTitre(tf.getText());
+		PanelArbre.ajoutFils(tf.getText(), tf.getText());
 		this.dispose();
 	}
 	
