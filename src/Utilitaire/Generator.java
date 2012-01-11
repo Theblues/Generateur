@@ -67,7 +67,7 @@ public class Generator
 				img.mkdir();
 		}
 		
-		try 
+		try
 		{
 			// on recree le fichier lorsqu'on genere
 			file.createNewFile();
