@@ -24,12 +24,12 @@ public class Generator
 					"\t<head>\n" +
 					"\t\t<title>Page 1</title>\n" +
 					"\t</head>\n" +
-					"\t<body>\n\t\t";
+					"\t<body>\n";
 	}
 	
 	public void addTitre(String s) 
 	{
-		code += "<div class=\"titre\">"+ s +"</div><br />\n\t\t";
+		code += "\t\t<div class=\"titre\">"+ s +"</div><br />\n\t\t";
 	}
 	
 	public void addParagraphe(String s)
