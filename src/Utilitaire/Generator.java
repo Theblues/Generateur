@@ -38,8 +38,8 @@ public class Generator
 	    
 	    code +="<p>";
 	    while (sc.hasNext())
-	    	code += sc.next()+"<br />\n\t\t";
-	    code +="</p>";
+	    	code += sc.next()+"<br />";
+	    code +="</p>\n\t\t";
 	}
 	
 	public void ajouterImage(String chemin)
