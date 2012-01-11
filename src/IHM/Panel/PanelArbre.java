@@ -86,7 +86,7 @@ public class PanelArbre extends JPanel
 		   int tp = (arbre.getClosestRowForLocation(me.getX(), me.getY())) - 3 ;
 		   
 		   if ( tp >= 0 ){
-			   new FenetreAjouterTitre(1,getAlS(tp));
+			   new FenetreAjouterTitre(1,getAlS(tp),tp);
 		   }
 		    
 	 }

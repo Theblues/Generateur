@@ -7,10 +7,14 @@ public class Generator
 {
 	private String code;
 	private File file;
+	private ArrayList<String> alTitre,alParagraphe,alImage;
 	
 	public Generator()
 	{
 		code = header();
+		alTitre =  new ArrayList<String>();
+		alParagraphe =  new ArrayList<String>();
+		alImage =  new ArrayList<String>();
 	}
 	
 	public void setFichier(File file)
@@ -29,7 +33,16 @@ public class Generator
 	
 	public void addTitre(String s) 
 	{
-		code += "\t\t<div class=\"titre\">"+ s +"</div><br />\n\t\t";
+		//alTitre.add("\t\t<div class=\"titre\">"+ s +"</div><br />\n\t\t");
+		alTitre.add(s);
+	}
+	
+	public void modTitre(String s, int indice) 
+	{
+		alTitre.remove(indice);
+		alTitre.add(indice, s);
+		
+		System.out.println(alTitre);
 	}
 	
 	
@@ -37,21 +50,29 @@ public class Generator
 	public void addParagraphe(String s)
 	{
 	    Scanner sc = new Scanner(s).useDelimiter("\n");
+	    String str = "";
 	    
-	    code +="<p>";
+	    str +="<p>";
 	    while (sc.hasNext())
-	    	code += sc.next()+"<br />";
-	    code +="</p>\n\t\t";
+	    	
+	    	str += sc.next()+"<br />";
+	    
+	    str +="</p>\n\t\t";
+	    
+	    alParagraphe.add(str);
 	}
 	
 	public void ajouterImage(String chemin)
 	{
 		// TODO Auto-generated method stub
-		code += "<img src='" + chemin + "' />\n";
+		alImage.add("<img src='" + chemin + "' />\n");
 	}
 	
 	public void generate() 
 	{
+		
+		String str="";
+		
 		code += "\n\t</body>\n" +
 				"</html>\n";
 		

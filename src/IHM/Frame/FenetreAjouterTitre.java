@@ -9,14 +9,16 @@ import Main.Generateur;
 
 public class FenetreAjouterTitre extends JFrame implements ActionListener {
 	private JTextField tf;
-	private static int cpt;
+	private static int cpt=1;
 	private int statue;
+	private int indice;
 	private String titre;
 
-	public FenetreAjouterTitre(int statue, String titre) {
+	public FenetreAjouterTitre(int statue, String titre, int indice) {
 
 		this.statue = statue;
 		this.titre = titre;
+		this.indice = indice;
 
 		// 0 = ajout, 1 = modif
 		if (statue == 0) {
@@ -34,7 +36,6 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener {
 			add(tf);
 		}
 
-		cpt = 1;
 		setVisible(true);
 		pack();
 	}
@@ -48,12 +49,11 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener {
 			this.dispose();
 		} else {
 
-			Generateur.getGenerator().addTitre(tf.getText());
-			Generateur.getFenetre().getArborescence()
-					.ajoutFils("titre" + cpt, tf.getText());
+			Generateur.getGenerator().modTitre(tf.getText(), indice);
 			this.dispose();
 
 		}
+		cpt++;
 	}
 
 }
