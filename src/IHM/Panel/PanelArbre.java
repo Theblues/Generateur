@@ -46,8 +46,11 @@ public class PanelArbre extends JPanel
 		DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getPath());
 		try {
 			for (File nom : file.listFiles()) {
-				DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName() + "\\");
-				lecteur.add(this.listFile(nom, node));
+				if (!nom.getName().equals("content"))
+				{
+					DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName() + "\\");
+					lecteur.add(this.listFile(nom, node));
+				}
 			}
 		} catch (NullPointerException e) {
 		}
@@ -62,7 +65,7 @@ public class PanelArbre extends JPanel
 	public void ajoutFils(String s, String value) {
 		DefaultTreeModel dtm = new DefaultTreeModel(racine);
 		Object parent = dtm.getChild(racine,0);
-		Object parent2 = dtm.getChild(parent, 1);
+		Object parent2 = dtm.getChild(parent,0);
 
 		DefaultMutableTreeNode mtn = new DefaultMutableTreeNode(new File(s));
 		dtm.insertNodeInto(mtn,(MutableTreeNode) parent2,cpt);
