@@ -59,7 +59,6 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		if (b.equals(valider))
 		{
 			enregistrerImage(chemin);
-			System.out.println("test");
 			Generateur.getGenerator().ajouterImage(chemin);
 			dispose();
 		}
@@ -89,7 +88,7 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 
 	private void enregistrerImage(String chemin)
 	{
-		String cheminArr = "./content/IMG/";
+		String cheminArr = "./site/content/IMG/";
 
 		InputStream input;
 		OutputStream output;
@@ -102,6 +101,6 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		}
 		catch (FileNotFoundException e1){	e1.printStackTrace();	}
 		catch (IOException e)			{	e.printStackTrace();	}
-		this.chemin = cheminArr + nom;
+		this.chemin = "./content/IMG/" + nom;
 	}
 }
