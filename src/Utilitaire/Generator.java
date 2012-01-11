@@ -86,6 +86,7 @@ public class Generator
 			
 			String type = sc.next();
 			int ind = Integer.parseInt(sc.next())-1;
+			System.out.println(ind);
 			
 			if (type.equals("Titre"))
 				code += "\t\t<div class=\"title\">"+alTitre.get(ind)+"</div>\n";
@@ -113,7 +114,8 @@ public class Generator
 		}
 		
 		try
-		{			
+		{
+			System.out.println(file);
 			// on ecris le code dedans
 			BufferedWriter fichier = new BufferedWriter(new FileWriter(file));
 			fichier.write(code);

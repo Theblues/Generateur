@@ -1,5 +1,7 @@
 package Main;
 
+import java.io.File;
+
 import Utilitaire.*;
 import IHM.Frame.*;
 
@@ -25,6 +27,13 @@ public class Generateur
 	public static void main(String[] argv)
 	{
 		new Generateur();
+	}
+
+	public static void reinitiliserGenerator(File file)
+	{
+		System.out.println("Reinialisation !");
+		// TODO Auto-generated method stub
+		generator = new Generator(file);
 	}
 
 }

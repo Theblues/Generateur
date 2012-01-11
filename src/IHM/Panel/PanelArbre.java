@@ -20,8 +20,8 @@ public class PanelArbre extends JPanel
 	private JScrollPane editeurScrollVertical;
 	private ArrayList<String> alS;
 
-	private Object parentNodeFichier;
-	private Object parentNodeProjet;
+	private Object parentNodeFichier = null;
+	private Object parentNodeProjet = null;
 	
 	public PanelArbre(JFrame f) 
 	{
@@ -82,10 +82,7 @@ public class PanelArbre extends JPanel
 	}
 	
 	void doMouseClicked(MouseEvent me) 
-	{
-		// initialisation
-		parentNodeProjet = parentNodeFichier = null;
-		
+	{		
 		// 3 correspond au nombre de parents depuis le dossier site
 		int tp = (arbre.getClosestRowForLocation(me.getX(), me.getY())) - 3;
 
@@ -107,29 +104,30 @@ public class PanelArbre extends JPanel
 			}
 			if (location == 3)
 			{
+				System.out.println("salut je clic !");
 				// on selectionne le fichier pour mettre nos modifs
 				Generateur.getFenetre().getMenu().activerAjout();
+				// PAS BON ! 
+				if (parentNodeFichier == null || parentNodeFichier != arbre.getLastSelectedPathComponent())
+						Generateur.reinitiliserGenerator(new File(path.getLastPathComponent().toString()));
 				parentNodeFichier = arbre.getLastSelectedPathComponent();
-				Generateur.getGenerator().setFichier(new File(path.getLastPathComponent().toString()));
 			}
 			if (location == 2)
 			{
 				parentNodeProjet = arbre.getLastSelectedPathComponent();
 			}
 		}
-		getOrdreElement();
 	}
 	
 	public ArrayList<String> getOrdreElement()
 	{
 		ArrayList<String> alS = new ArrayList<String>();
 		
-		// On recupere le nombre de noeud du fichier
-		int nbNoeud = arbre.getRowCount();
-		
-		for (int i = 3; i < nbNoeud; i++)
+		// i n'est pas egale a 3
+		TreeNode tn = (TreeNode) parentNodeFichier;
+		for (int i = 0; i < tn.getChildCount(); i++)
 		{
-			TreePath tp = arbre.getPathForRow(i);
+			TreePath tp = arbre.getPathForRow(i+arbre.getLeadSelectionRow()+1);
 			alS.add(tp.getLastPathComponent().toString());
 		}
 		return alS;
