@@ -53,7 +53,7 @@ public class Generator
 		
 		File file, content,css,img;
 		
-		file = new File ("site/page.html");
+		file = new File ("site/a1.html");
 		content = new File ("site/content");
 		css = new File ("site/content/CSS");
 		img = new File ("site/content/IMG");
