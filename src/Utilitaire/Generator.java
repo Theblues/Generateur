@@ -6,13 +6,19 @@ import java.util.*;
 public class Generator 
 {
 	private String code;
+	private File file;
 	
 	public Generator() 
 	{
 		code = header();
 	}
 	
-	public String header() 
+	public void setFichier(File file)
+	{
+		this.file = file;
+	}
+	
+	private String header() 
 	{
 		return "<html>\n" +
 					"\t<head>\n" +
@@ -39,9 +45,9 @@ public class Generator
 		code += "\n\t</body>\n" +
 				"</html>\n";
 		
-		File file,content,css,img;
+		File file, content,css,img;
 		
-		file = new File("site/page.html");	
+		file = new File ("site/page.html");
 		content = new File ("site/content");
 		css = new File ("site/content/CSS");
 		img = new File ("site/content/IMG");
