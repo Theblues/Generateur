@@ -20,6 +20,7 @@ public class PanelMenu extends JPanel implements ActionListener
 
 	// item pour le menu Fichiers
 	private JMenuItem itemNewProject;
+	private JMenuItem itemNewPage;
 	private JMenuItem itemOpenProject;
 	private JMenuItem itemSaveAs;
 	private JMenuItem itemGenerer;
@@ -30,7 +31,6 @@ public class PanelMenu extends JPanel implements ActionListener
 	private JMenuItem itemRedo;
 	
 	// item pour le menu Ajouter
-        private JMenuItem itemNewPage;
 	private JMenuItem itemTitre;
 	private JMenuItem itemParagraphe;
 	private JMenuItem itemImage;
@@ -47,6 +47,8 @@ public class PanelMenu extends JPanel implements ActionListener
 		// initialisation des items pour le menu Fichier
 		itemNewProject = new JMenuItem("Nouveau Projet");
 		itemNewProject.addActionListener(this);
+		itemNewPage = new JMenuItem("Nouvelle page");
+		itemNewPage.addActionListener(this);
 		itemOpenProject = new JMenuItem("Ouvrir un Projet");
 		itemOpenProject.addActionListener(this);
 		itemSaveAs = new JMenuItem("Enregistrer Sous");
@@ -63,17 +65,16 @@ public class PanelMenu extends JPanel implements ActionListener
 		itemRedo.addActionListener(this);
 
 		// Initialisation des items pour le menu ajouter
-                itemNewPage = new JMenuItem("Nouvelle page");
-		itemNewPage.addActionListener(this);
 		itemTitre = new JMenuItem("Ajouter un titre");
-		itemTitre.addActionListener(this);
+		//itemTitre.addActionListener(this);
 		itemParagraphe = new JMenuItem("Ajouter un paragraphe");
-		itemParagraphe.addActionListener(this);
+		//itemParagraphe.addActionListener(this);
 		itemImage = new JMenuItem("Ajouter une image");
-		itemImage.addActionListener(this);
+		//itemImage.addActionListener(this);
 		
 		// ajout des items dans le menu Fichier
 		menuFile.add(itemNewProject);
+		menuFile.add(itemNewPage);
 		menuFile.add(itemOpenProject);
 		menuFile.addSeparator();
 		menuFile.add(itemSaveAs);
@@ -86,7 +87,6 @@ public class PanelMenu extends JPanel implements ActionListener
 		menuEdit.add(itemRedo);
 		
 		// ajout des items dans le menu Ajouter
-		menuAjouter.add(itemNewPage);
 		menuAjouter.add(itemTitre);
 		menuAjouter.add(itemParagraphe);
 		menuAjouter.add(itemImage);
@@ -105,7 +105,6 @@ public class PanelMenu extends JPanel implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
-		// TODO Auto-generated method stub
 		JMenuItem mi = (JMenuItem) e.getSource();
 		if (mi.equals(itemClose))
 			System.exit(0);
@@ -119,5 +118,20 @@ public class PanelMenu extends JPanel implements ActionListener
 			Generateur.getGenerator().generate();
 		if (mi.equals(itemImage))
 			Generateur.creerFenetreAjouterImage();
+	}
+	
+	public void activerAjout()
+	{
+		// permet de ne pas ouvrir 5 fenetres
+		itemTitre.removeActionListener(this);
+		itemTitre.addActionListener(this);
+		
+		// permet de ne pas ouvrir 5 fenetres
+		itemParagraphe.removeActionListener(this);
+		itemParagraphe.addActionListener(this);
+		
+		// permet de ne pas ouvrir 5 fenetres
+		itemImage.removeActionListener(this);
+		itemImage.addActionListener(this);
 	}
 }

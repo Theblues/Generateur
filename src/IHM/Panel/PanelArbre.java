@@ -10,6 +10,7 @@ import java.io.*;
 import java.util.*;
 
 import IHM.Frame.*;
+import Main.Generateur;
 
 public class PanelArbre extends JPanel 
 {
@@ -19,7 +20,8 @@ public class PanelArbre extends JPanel
 	private JScrollPane editeurScrollVertical;
 	private ArrayList<String> alS;
 
-	private static int cpt;
+	private Object parentNodeFichier;
+	private Object parentNodeProjet;
 	
 	public PanelArbre(JFrame f) 
 	{
@@ -81,10 +83,14 @@ public class PanelArbre extends JPanel
 	
 	void doMouseClicked(MouseEvent me) 
 	{
+		// initialisation
+		parentNodeProjet = parentNodeFichier = null;
+		
 		// 3 correspond au nombre de parents depuis le dossier site
 		int tp = (arbre.getClosestRowForLocation(me.getX(), me.getY())) - 3;
 
 		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
+
 		if (path != null)
 		{
 			int location = path.getPathCount();
@@ -102,7 +108,13 @@ public class PanelArbre extends JPanel
 			if (location == 3)
 			{
 				// on selectionne le fichier pour mettre nos modifs
-				
+				Generateur.getFenetre().getMenu().activerAjout();
+				parentNodeFichier = arbre.getLastSelectedPathComponent();
+				Generateur.getGenerator().setFichier(new File(path.getLastPathComponent().toString()));
+			}
+			if (location == 2)
+			{
+				parentNodeProjet = arbre.getLastSelectedPathComponent();
 			}
 		}
 		getOrdreElement();
@@ -126,29 +138,27 @@ public class PanelArbre extends JPanel
 	public void ajoutFils(String type, String s, String value) 
 	{
 		DefaultTreeModel dtm = new DefaultTreeModel(racine);
-		Object parent = dtm.getChild(racine,0);
-		Object parent2 = dtm.getChild(parent,0);
+		MutableTreeNode parent  = (MutableTreeNode) ((parentNodeProjet == null) ? dtm.getChild(racine, 0) : parentNodeProjet);
+		MutableTreeNode parent2 = (MutableTreeNode) ((parentNodeFichier == null) ? dtm.getChild(parent, 0) : parentNodeFichier);
 
+		
 		DefaultMutableTreeNode mtn = new DefaultMutableTreeNode(new File(s));
 		if (type.equals("element"))
 		{
-			dtm.insertNodeInto(mtn,(MutableTreeNode) parent2, cpt);
+			dtm.insertNodeInto(mtn, parent2, parent2.getChildCount());
 			updateTree(parent2);
 			addToAls(value);
 		}
 		else if (type.equals("fichier"))
 		{
-			// CE N'EST PAS CPT !!
-			dtm.insertNodeInto(mtn,(MutableTreeNode) parent, cpt);
+			dtm.insertNodeInto(mtn, parent, parent.getChildCount());
 			updateTree(parent);
 		}
 		else if (type.equals("projet"))
 		{
-			// CE N'EST PAS CPT !!!
-			dtm.insertNodeInto(mtn,(MutableTreeNode) racine, cpt);
+			dtm.insertNodeInto(mtn, racine, racine.getChildCount());
 			updateTree(racine);
 		}
-		cpt++;
 	}
 	
 	private void updateTree(Object o)

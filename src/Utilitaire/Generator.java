@@ -11,8 +11,9 @@ public class Generator
 	private File file;
 	private ArrayList<String> alTitre,alParagraphe,alImage;
 	
-	public Generator()
+	public Generator(File file)
 	{
+		this.file = file;
 		code = header();
 		alTitre =  new ArrayList<String>();
 		alParagraphe =  new ArrayList<String>();
@@ -52,7 +53,6 @@ public class Generator
 	    while (sc.hasNext())
 	    	str += "\n\t\t\t" + sc.next()+"<br />\n";
 
-	    
 	    alParagraphe.add(str);
 	}
 	
@@ -97,9 +97,8 @@ public class Generator
 		code += "\n\t</body>\n" +
 				"</html>\n";
 		
-		File file, content,css,img;
+		File content,css,img;
 		
-		file = new File ("site/a1.html");
 		content = new File ("site/content");
 		css = new File ("site/content/CSS");
 		img = new File ("site/content/IMG");
@@ -114,10 +113,7 @@ public class Generator
 		}
 		
 		try
-		{
-			// on recree le fichier lorsqu'on genere
-			file.createNewFile();
-			
+		{			
 			// on ecris le code dedans
 			BufferedWriter fichier = new BufferedWriter(new FileWriter(file));
 			fichier.write(code);

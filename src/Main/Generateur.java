@@ -11,7 +11,7 @@ public class Generateur
 	public Generateur()
 	{
 		fenetre = new Fenetre();
-		generator = new Generator();
+		generator = new Generator(null);
 	}
 	
 	public static Fenetre getFenetre()		{	return fenetre;		}

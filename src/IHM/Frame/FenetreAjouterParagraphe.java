@@ -32,9 +32,7 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		editorPane.setEditable(true);
 		editorPane.setContentType("text/plain");
 		
-		// si le statue est different de 0 on modif le texte
-		if (statue != 0)
-			editorPane.setText(paragraphe);
+		editorPane.setText(paragraphe);
 
 		add(editorPane,BorderLayout.CENTER);
 		
