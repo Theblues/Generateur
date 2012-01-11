@@ -2,11 +2,15 @@ package IHM.Panel;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.tree.*;
+
+import IHM.Frame.FenetreAjouterTitre;
 
 public class PanelArbre extends JPanel 
 {
@@ -15,6 +19,7 @@ public class PanelArbre extends JPanel
 	private JScrollPane editeurScrollHorizontal;
 	private JScrollPane editeurScrollVertical;
 	private ArrayList<String> alS;
+
 	private static int cpt;
 	
 	public PanelArbre(JFrame f) 
@@ -36,6 +41,12 @@ public class PanelArbre extends JPanel
 		
 		add(editeurScrollHorizontal);
 		add(editeurScrollVertical);
+	}
+	
+	
+	public String getAlS( int ind ) {
+		
+		return alS.get(ind);
 	}
 
 	private void listRoot(JFrame f) 
@@ -60,7 +71,25 @@ public class PanelArbre extends JPanel
 		arbre = new JTree(racine);
 		
 		f.getContentPane().add(new JScrollPane(arbre));
+		
+		arbre.addMouseListener(new MouseAdapter() {
+		      public void mouseClicked(MouseEvent me) {
+		        doMouseClicked(me);
+		      }
+		    });
 	}
+	
+	
+	 void doMouseClicked(MouseEvent me) {
+		 
+		   // 3 correspond au nombre de parents depuis le dossier site
+		   int tp = (arbre.getClosestRowForLocation(me.getX(), me.getY())) - 3 ;
+		   
+		   if ( tp >= 0 ){
+			   new FenetreAjouterTitre(1,getAlS(tp));
+		   }
+		    
+	 }
 	
 	public void ajoutFils(String s, String value) {
 		DefaultTreeModel dtm = new DefaultTreeModel(racine);

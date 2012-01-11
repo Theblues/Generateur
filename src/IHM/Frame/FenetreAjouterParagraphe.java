@@ -13,12 +13,16 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 {
 	private JEditorPane editorPane;
 	private JButton button;
+	private static int cpt;
 	
 	public FenetreAjouterParagraphe()
 	{
 		setSize(500,500);
 		setLayout(new BorderLayout());
 		setTitle("Entrer un paragraphe");
+		
+		cpt =1;
+		
 		editorPane = new JEditorPane();
 		editorPane.setEditable(true);
 		editorPane.setContentType("text/plain");
@@ -32,7 +36,7 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent arg0) 
 	{
 		Generateur.getGenerator().addParagraphe(editorPane.getText());
-		Generateur.getFenetre().getArborescence().ajoutFils("Paragraphe", editorPane.getText());
+		Generateur.getFenetre().getArborescence().ajoutFils("Paragraphe" + cpt, editorPane.getText());
 		this.dispose();
 	}
 	

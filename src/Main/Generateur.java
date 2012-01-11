@@ -19,7 +19,7 @@ public class Generateur
 	
 	public static void creerFenetreCreerPage()			{		new FenetreCreerPage();				}
 	public static void creerFenetreAjouterParagraphe()	{		new FenetreAjouterParagraphe();		}
-	public static void creerFenetreAjouterTitre()		{		new FenetreAjouterTitre();			}
+	public static void creerFenetreAjouterTitre()		{		new FenetreAjouterTitre(0,"");			}
 	public static void creerFenetreAjouterImage()		{		new FenetreAjouterImage();			}
 	
 	public static void main(String[] argv)

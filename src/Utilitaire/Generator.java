@@ -32,14 +32,16 @@ public class Generator
 		code += "\t\t<div class=\"titre\">"+ s +"</div><br />\n\t\t";
 	}
 	
+	
+	
 	public void addParagraphe(String s)
 	{
 	    Scanner sc = new Scanner(s).useDelimiter("\n");
 	    
 	    code +="<p>";
 	    while (sc.hasNext())
-	    	code += sc.next()+"<br />\n\t\t";
-	    code +="</p>";
+	    	code += sc.next()+"<br />";
+	    code +="</p>\n\t\t";
 	}
 	
 	public void ajouterImage(String chemin)
