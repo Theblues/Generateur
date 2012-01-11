@@ -43,5 +43,6 @@ public class Generateur
 	public static void main(String[] argv)
 	{
 		new Generateur();
-	}	
+	}
+
 }
