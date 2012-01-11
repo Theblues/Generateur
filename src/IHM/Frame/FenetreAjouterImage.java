@@ -60,7 +60,7 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		{
 			enregistrerImage(chemin);
 			Generateur.getGenerator().ajouterImage(chemin);
-			Generateur.getFenetre().getArborescence().ajoutFils("Image", "Image");
+			Generateur.getFenetre().getArborescence().ajoutFils("element", "Image", "Image");
 			dispose();
 		}
 	}

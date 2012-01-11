@@ -79,17 +79,16 @@ public class PanelArbre extends JPanel
 		    });
 	}
 	
-	
 	void doMouseClicked(MouseEvent me) 
 	{
 		// 3 correspond au nombre de parents depuis le dossier site
 		int tp = (arbre.getClosestRowForLocation(me.getX(), me.getY())) - 3;
 
 		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
-		
 		if (path != null)
 		{
-			if (tp >= 0)
+			int location = path.getPathCount();
+			if (location > 3)
 			{
 				Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
 				String str = sc.next();
@@ -99,6 +98,11 @@ public class PanelArbre extends JPanel
 					new FenetreAjouterTitre(1, getAlS(tp), tp, indice);
 				if ( str.equals("Paragraphe"))
 					new FenetreAjouterParagraphe(1, getAlS(tp), tp, indice);
+			}
+			if (location == 3)
+			{
+				// on selectionne le fichier pour mettre nos modifs
+				
 			}
 		}
 		getOrdreElement();
@@ -119,17 +123,32 @@ public class PanelArbre extends JPanel
 		return alS;
 	}
 	
-	public void ajoutFils(String s, String value) 
+	public void ajoutFils(String type, String s, String value) 
 	{
 		DefaultTreeModel dtm = new DefaultTreeModel(racine);
 		Object parent = dtm.getChild(racine,0);
 		Object parent2 = dtm.getChild(parent,0);
 
 		DefaultMutableTreeNode mtn = new DefaultMutableTreeNode(new File(s));
-		dtm.insertNodeInto(mtn,(MutableTreeNode) parent2,cpt);
+		if (type.equals("element"))
+		{
+			dtm.insertNodeInto(mtn,(MutableTreeNode) parent2, cpt);
+			updateTree(parent2);
+			addToAls(value);
+		}
+		else if (type.equals("fichier"))
+		{
+			// CE N'EST PAS CPT !!
+			dtm.insertNodeInto(mtn,(MutableTreeNode) parent, cpt);
+			updateTree(parent);
+		}
+		else if (type.equals("projet"))
+		{
+			// CE N'EST PAS CPT !!!
+			dtm.insertNodeInto(mtn,(MutableTreeNode) racine, cpt);
+			updateTree(racine);
+		}
 		cpt++;
-		updateTree(parent2);
-		addToAls(value);
 	}
 	
 	private void updateTree(Object o)

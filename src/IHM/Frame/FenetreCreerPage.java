@@ -52,6 +52,8 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 		{
 			ex.printStackTrace();
 		}
+		
+		Generateur.getFenetre().getArborescence().ajoutFils("fichier", f.getName(), "");
 		Generateur.getGenerator().setFichier(f);
 		dispose();
 	}
