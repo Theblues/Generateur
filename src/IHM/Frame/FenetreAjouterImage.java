@@ -89,7 +89,7 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 
 	private void enregistrerImage(String chemin)
 	{
-		String cheminArr = "./site/content/IMG/";
+		String cheminArr = "./content/IMG/";
 
 		InputStream input;
 		OutputStream output;
