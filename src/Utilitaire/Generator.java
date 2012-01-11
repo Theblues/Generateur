@@ -8,7 +8,7 @@ public class Generator
 	private String code;
 	private File file;
 	
-	public Generator() 
+	public Generator()
 	{
 		code = header();
 	}
@@ -77,5 +77,11 @@ public class Generator
 			e.printStackTrace();
 		}
 		System.out.println(code);
+	}
+
+	public void ajouterImage(String chemin)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
