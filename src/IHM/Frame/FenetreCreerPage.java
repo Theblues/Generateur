@@ -55,7 +55,7 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 		}
 		
 		Generateur.alProjet.get(0).ajouterPage(new Page(f.getName()));
-		Generateur.fenetre.getArborescence().ajoutFils("fichier", f.getName(), "");
+		Generateur.fenetre.getArborescence().ajoutFils("fichier", f.getName()/*, ""*/);
 		dispose();
 	}
 }

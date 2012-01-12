@@ -18,7 +18,6 @@ public class PanelArbre extends JPanel
 	private DefaultMutableTreeNode racine;
 	private JScrollPane editeurScrollHorizontal;
 	private JScrollPane editeurScrollVertical;
-	private ArrayList<String> alS;
 
 	private Object parentNodeFichier = null;
 	private Object parentNodeProjet = null;
@@ -26,9 +25,7 @@ public class PanelArbre extends JPanel
 	private Page pageSelectionnee;
 	
 	public PanelArbre(JFrame f) 
-	{
-		alS = new ArrayList<String>();
-		
+	{		
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(150, 100));
 
@@ -44,12 +41,6 @@ public class PanelArbre extends JPanel
 		
 		add(editeurScrollHorizontal);
 		add(editeurScrollVertical);
-	}
-	
-	
-	public String getAlS(int ind) 
-	{
-		return alS.get(ind);
 	}
 
 	private void listRoot(JFrame f) 
@@ -86,15 +77,29 @@ public class PanelArbre extends JPanel
 	}
 	
 	void doMouseClicked(MouseEvent me) 
-	{		
-		// 3 correspond au nombre de parents depuis le dossier site
-		int tp = (arbre.getClosestRowForLocation(me.getX(), me.getY())) - 3;
-
+	{
 		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
-
+		/*
+		 * Exemple path
+		 * [null, site, test.html, titre 1]
+		 */
+		Object[] tabObj = path.getPath();
+		
 		if (path != null)
 		{
 			int location = path.getPathCount();
+			/*
+			 * Exemple Location :
+			 * 1	2	3	4
+			 * /home
+			 * 		site
+			 * 			test1.html
+			 * 				Titre 1
+			 * 				Paragraphe 1
+			 * 			test2.html
+			 * 				Titre 1
+			 * 				Paragraphe 1
+			 */
 			if (location == 2)
 			{
 				parentNodeProjet = arbre.getLastSelectedPathComponent();
@@ -103,6 +108,7 @@ public class PanelArbre extends JPanel
 			{
 				Generateur.fenetre.getMenu().activerAjout();
 				
+				// on selectionne le dernier noeud selectionnee
 				parentNodeFichier = arbre.getLastSelectedPathComponent();
 				// on selectionne la page pour mettre les paragraphes, ect..
 				pageSelectionnee = Generateur.alProjet.get(0).getPage(path.getLastPathComponent().toString());
@@ -111,14 +117,24 @@ public class PanelArbre extends JPanel
 			}
 			else if (location > 3)
 			{
+				// on recupere la page et le noeud grace a path
+				parentNodeFichier = tabObj[2];
+				pageSelectionnee = Generateur.alProjet.get(0).getPage(parentNodeFichier.toString());
+				
 				Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
 				String str = sc.next();
 				int indice = Integer.parseInt(sc.next());
-	
-				if ( str.equals("Titre")) 
-					Generateur.creerFenetreAjouterTitre(pageSelectionnee, 1, getAlS(tp), tp, indice);
-				if ( str.equals("Paragraphe"))
-					Generateur.creerFenetreAjouterParagraphe(pageSelectionnee, 1, getAlS(tp), tp, indice);
+				
+				if (str.equals("Titre")) 
+				{
+					String ancienTitre = Generateur.alProjet.get(0).getPage(pageSelectionnee).getAlTitre().get(indice-1);
+					Generateur.creerFenetreAjouterTitre(pageSelectionnee, 1, ancienTitre, indice);
+				}
+				if (str.equals("Paragraphe"))
+				{
+					String ancienParagraphe = Generateur.alProjet.get(0).getPage(pageSelectionnee).getAlParagraphe().get(indice-1);
+					Generateur.creerFenetreAjouterParagraphe(pageSelectionnee, 1, ancienParagraphe, indice);
+				}
 			}
 		}
 	}
@@ -127,7 +143,6 @@ public class PanelArbre extends JPanel
 	{
 		ArrayList<String> alS = new ArrayList<String>();
 		
-		// i n'est pas egale a 3
 		TreeNode tn = (TreeNode) parentNodeFichier;
 		for (int i = 0; i < tn.getChildCount(); i++)
 		{
@@ -137,7 +152,7 @@ public class PanelArbre extends JPanel
 		return alS;
 	}
 	
-	public void ajoutFils(String type, String s, String value) 
+	public void ajoutFils(String type, String s) 
 	{
 		DefaultTreeModel dtm = new DefaultTreeModel(racine);
 		MutableTreeNode parent  = (MutableTreeNode) ((parentNodeProjet == null) ? dtm.getChild(racine, 0) : parentNodeProjet);
@@ -149,7 +164,6 @@ public class PanelArbre extends JPanel
 		{
 			dtm.insertNodeInto(mtn, parent2, parent2.getChildCount());
 			updateTree(parent2);
-			addToAls(value);
 		}
 		else if (type.equals("fichier"))
 		{
@@ -167,11 +181,6 @@ public class PanelArbre extends JPanel
 	{
 		((DefaultTreeModel) arbre.getModel()).reload((TreeNode) o);
 	}
-	
-	private void addToAls(String s)
-	{
-		alS.add(s);
-	}
 
 	private DefaultMutableTreeNode listFile(File file,DefaultMutableTreeNode node) 
 	{
@@ -182,22 +191,17 @@ public class PanelArbre extends JPanel
 			for (File nom : file.listFiles()) 
 			{
 				DefaultMutableTreeNode subNode;
-				if (nom.isDirectory()) {
+				if (nom.isDirectory()) 
+				{
 					subNode = new DefaultMutableTreeNode(nom.getName() + "\\");
 					node.add(this.listFile(nom, subNode));
-				} else {
+				} 
+				else
 					subNode = new DefaultMutableTreeNode(nom.getName());
-				}
+
 				node.add(subNode);
 			}
 			return node;
 		}
-	}
-
-
-	public void setAlS(int indice, String text) 
-	{
-		alS.remove(indice);
-		alS.add(indice,text);
 	}
 }

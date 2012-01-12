@@ -9,18 +9,20 @@ public class Generator
 {
 	private String code;
 	
-	public Generator()
+	private void header() 
 	{
-		code = header();
-	}
-	
-	private String header() 
-	{
-		return "<html>\n" +
+		code = "<html>\n" +
 					"\t<head>\n" +
 					"\t\t<title>Page 1</title>\n" +
 					"\t</head>\n" +
 					"\t<body>\n";
+	}
+	
+	private void footer()
+	{
+		// TODO Auto-generated method stub
+		code += "\n\t</body>\n" +
+				"</html>\n";
 	}
 	
 /*	public void ajouterImage(String chemin)
@@ -36,6 +38,7 @@ public class Generator
 		ArrayList<String> alTitre = Generateur.alProjet.get(0).getPage(page).getAlTitre();
 		ArrayList<String> alParagraphe = Generateur.alProjet.get(0).getPage(page).getAlParagraphe();
 		
+		header();
 		for (String s : alS )
 		{
 			Scanner sc = new Scanner(s);
@@ -51,8 +54,7 @@ public class Generator
 				code += "\t\t<p>" + alParagraphe.get(ind) + "\t\t</p>\n";
 		}
 		
-		code += "\n\t</body>\n" +
-				"</html>\n";
+		footer();
 		
 		File file, content,css,img;
 		
@@ -84,4 +86,6 @@ public class Generator
 		}
 		System.out.println(code);
 	}
+
+	
 }

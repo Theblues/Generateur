@@ -12,14 +12,12 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 	private JTextField	tf;
 	private Page 		page;
 	private int			statue;
-	private int			indice;
 	private int			indiceTitre;
 
-	public FenetreAjouterTitre(Page page, int statue, String titre, int indice, int indiceTitre)
+	public FenetreAjouterTitre(Page page, int statue, String titre, int indiceTitre)
 	{
 		this.page = page;
 		this.statue = statue;
-		this.indice = indice;
 		this.indiceTitre = indiceTitre;
 
 		// 0 = ajout, 1 = modif
@@ -46,13 +44,11 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 		{
 			Generateur.alProjet.get(0).getPage(page).ajouterTitre(tf.getText());
 			int cpt = Generateur.alProjet.get(0).getPage(page).getAlTitre().size();
-			Generateur.fenetre.getArborescence().ajoutFils("element", "Titre " + cpt, tf.getText());
+			Generateur.fenetre.getArborescence().ajoutFils("element", "Titre " + cpt);
 		}
 		else
-		{
 			Generateur.alProjet.get(0).getPage(page).modTitre(tf.getText(), indiceTitre);
-			Generateur.fenetre.getArborescence().setAlS(indice, tf.getText());
-		}
+
 		this.dispose();
 	}
 
