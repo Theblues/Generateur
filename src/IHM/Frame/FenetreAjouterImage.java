@@ -9,6 +9,7 @@ import javax.swing.*;
 import org.apache.commons.io.IOUtils;
 
 import Main.*;
+import Utilitaire.*;
 import IHM.Panel.*;
 
 public class FenetreAjouterImage extends JFrame implements ActionListener
