@@ -9,11 +9,11 @@ import javax.swing.*;
 import org.apache.commons.io.IOUtils;
 
 import Main.*;
-import Utilitaire.*;
+import IHM.Panel.*;
 
 public class FenetreAjouterImage extends JFrame implements ActionListener
 {
-	private AffichageImage image;
+	private PanelImage image;
 	
 	private JButton	valider;
 	private JButton	annuler;
@@ -28,7 +28,7 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 			return;
 		
 		setTitle("Ajouter Image");
-		image = new AffichageImage(chemin);
+		image = new PanelImage(chemin);
 
 		add(image);
 

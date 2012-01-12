@@ -1,15 +1,15 @@
-package Utilitaire;
+package IHM.Panel;
 
 import java.awt.*;
 
-public class AffichageImage extends Canvas
+public class PanelImage extends Canvas
 {
 	Dimension	screenSize		= Toolkit.getDefaultToolkit().getScreenSize();
 	int			largeurEcran	= screenSize.width;
 	int			hauteurEcran	= screenSize.height;
 	Image		image;
 
-	public AffichageImage(String url)
+	public PanelImage(String url)
 	{
 		image = getToolkit().getImage(url);
 		prepareImage(image, this);

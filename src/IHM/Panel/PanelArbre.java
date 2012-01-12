@@ -9,10 +9,8 @@ import javax.swing.tree.*;
 import java.io.*;
 import java.util.*;
 
-import IHM.Frame.*;
 import Main.Generateur;
-import Utilitaire.Page;
-import Utilitaire.Projet;
+import Utilitaire.*;
 
 public class PanelArbre extends JPanel 
 {

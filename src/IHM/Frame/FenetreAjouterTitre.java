@@ -4,7 +4,6 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import IHM.Panel.PanelArbre;
 import Main.Generateur;
 import Utilitaire.*;
 

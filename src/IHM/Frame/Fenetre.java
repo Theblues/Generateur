@@ -9,7 +9,6 @@ public class Fenetre extends JFrame
 {
 	private PanelMenu 			menu;
 	private PanelArbre			arborescence;
-	private JSplitPane 			splitPaneVertical;
 	private JSplitPane 			splitPaneTotal;
 	
 	public Fenetre()

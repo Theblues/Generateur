@@ -1,11 +1,7 @@
 package IHM.Panel;
 
 import java.awt.event.*;
-import java.io.*;
-
 import javax.swing.*;
-
-import org.apache.commons.io.IOUtils;
 
 import Main.*;
 import Utilitaire.*;
