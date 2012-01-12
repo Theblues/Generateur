@@ -6,17 +6,21 @@ import javax.swing.*;
 
 import IHM.Panel.PanelArbre;
 import Main.Generateur;
+import Utilitaire.*;
 
 public class FenetreAjouterTitre extends JFrame implements ActionListener
 {
 	private JTextField	tf;
-	private static int	cpt	= 1;
+	private Page 		page;
 	private int			statue;
 	private int			indice;
 	private int			indiceTitre;
+	
+	private static int	cpt	= 1;
 
-	public FenetreAjouterTitre(int statue, String titre, int indice, int indiceTitre)
+	public FenetreAjouterTitre(Page page, int statue, String titre, int indice, int indiceTitre)
 	{
+		this.page = page;
 		this.statue = statue;
 		this.indice = indice;
 		this.indiceTitre = indiceTitre;
@@ -43,14 +47,14 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 	{
 		if (statue == 0)
 		{
-			Generateur.getGenerator().addTitre(tf.getText());
-			Generateur.getFenetre().getArborescence().ajoutFils("element", "Titre " + cpt, tf.getText());
+			Generateur.alProjet.get(0).getPage(page).ajouterTitre(tf.getText());
+			Generateur.fenetre.getArborescence().ajoutFils("element", "Titre " + cpt, tf.getText());
 			cpt++;
 		}
 		else
 		{
-			Generateur.getGenerator().modTitre(tf.getText(), indiceTitre);
-			Generateur.getFenetre().getArborescence().setAlS(indice, tf.getText());
+			Generateur.alProjet.get(0).getPage(page).modTitre(tf.getText(), indiceTitre);
+			Generateur.fenetre.getArborescence().setAlS(indice, tf.getText());
 		}
 		this.dispose();
 	}

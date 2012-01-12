@@ -11,6 +11,8 @@ import java.util.*;
 
 import IHM.Frame.*;
 import Main.Generateur;
+import Utilitaire.Page;
+import Utilitaire.Projet;
 
 public class PanelArbre extends JPanel 
 {
@@ -22,6 +24,8 @@ public class PanelArbre extends JPanel
 
 	private Object parentNodeFichier = null;
 	private Object parentNodeProjet = null;
+	
+	private Page pageSelectionnee;
 	
 	public PanelArbre(JFrame f) 
 	{
@@ -54,6 +58,7 @@ public class PanelArbre extends JPanel
 	{
 		racine = new DefaultMutableTreeNode();
 		File file = new File("site/");
+		Generateur.alProjet.add(new Projet(file.getName()));
 
 		DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getPath());
 		try 
@@ -62,6 +67,7 @@ public class PanelArbre extends JPanel
 			{
 				if (!nom.getName().equals("content"))
 				{
+					Generateur.alProjet.get(0).ajouterPage(new Page(nom.getName()));
 					DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName() + "\\");
 					lecteur.add(this.listFile(nom, node));
 				}
@@ -91,30 +97,30 @@ public class PanelArbre extends JPanel
 		if (path != null)
 		{
 			int location = path.getPathCount();
-			if (location > 3)
+			if (location == 2)
+			{
+				parentNodeProjet = arbre.getLastSelectedPathComponent();
+			}
+			else if (location == 3)
+			{
+				Generateur.fenetre.getMenu().activerAjout();
+				
+				parentNodeFichier = arbre.getLastSelectedPathComponent();
+				// on selectionne la page pour mettre les paragraphes, ect..
+				pageSelectionnee = Generateur.alProjet.get(0).getPage(path.getLastPathComponent().toString());
+				
+				Generateur.alProjet.get(0).setPageSelectionne(pageSelectionnee);
+			}
+			else if (location > 3)
 			{
 				Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
 				String str = sc.next();
 				int indice = Integer.parseInt(sc.next());
 	
 				if ( str.equals("Titre")) 
-					new FenetreAjouterTitre(1, getAlS(tp), tp, indice);
+					Generateur.creerFenetreAjouterTitre(pageSelectionnee, 1, getAlS(tp), tp, indice);
 				if ( str.equals("Paragraphe"))
-					new FenetreAjouterParagraphe(1, getAlS(tp), tp, indice);
-			}
-			if (location == 3)
-			{
-				System.out.println("salut je clic !");
-				// on selectionne le fichier pour mettre nos modifs
-				Generateur.getFenetre().getMenu().activerAjout();
-				// PAS BON ! 
-				if (parentNodeFichier == null || parentNodeFichier != arbre.getLastSelectedPathComponent())
-						Generateur.reinitiliserGenerator(new File(path.getLastPathComponent().toString()));
-				parentNodeFichier = arbre.getLastSelectedPathComponent();
-			}
-			if (location == 2)
-			{
-				parentNodeProjet = arbre.getLastSelectedPathComponent();
+					Generateur.creerFenetreAjouterParagraphe(pageSelectionnee, 1, getAlS(tp), tp, indice);
 			}
 		}
 	}

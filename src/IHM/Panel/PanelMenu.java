@@ -8,7 +8,7 @@ import javax.swing.*;
 import org.apache.commons.io.IOUtils;
 
 import Main.*;
-import Utilitaire.MonFiltre;
+import Utilitaire.*;
 
 public class PanelMenu extends JPanel implements ActionListener
 {
@@ -105,17 +105,19 @@ public class PanelMenu extends JPanel implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
+		Page page = Generateur.alProjet.get(0).getPageSelectionne();
+		
 		JMenuItem mi = (JMenuItem) e.getSource();
 		if (mi.equals(itemClose))
 			System.exit(0);
         if (mi.equals(itemNewPage))
         	Generateur.creerFenetreCreerPage();
 		if (mi.equals(itemTitre))
-			Generateur.creerFenetreAjouterTitre();
+			Generateur.creerFenetreAjouterTitre(page, 0,"",0,0);
 		if (mi.equals(itemParagraphe))
-			Generateur.creerFenetreAjouterParagraphe();
+			Generateur.creerFenetreAjouterParagraphe(page, 0,"",0,0);
 		if (mi.equals(itemGenerer))
-			Generateur.getGenerator().generate();
+			Generateur.generator.generate();
 		if (mi.equals(itemImage))
 			Generateur.creerFenetreAjouterImage();
 	}

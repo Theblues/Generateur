@@ -7,6 +7,7 @@ import java.io.*;
 import javax.swing.*;
 
 import Main.*;
+import Utilitaire.*;
 
 public class FenetreCreerPage extends JFrame implements ActionListener
 {
@@ -53,8 +54,8 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 			ex.printStackTrace();
 		}
 		
-		Generateur.getFenetre().getArborescence().ajoutFils("fichier", f.getName(), "");
-		Generateur.getGenerator().setFichier(f);
+		Generateur.alProjet.get(0).ajouterPage(new Page(f.getName()));
+		Generateur.fenetre.getArborescence().ajoutFils("fichier", f.getName(), "");
 		dispose();
 	}
 }

@@ -8,21 +8,10 @@ import Main.Generateur;
 public class Generator 
 {
 	private String code;
-	private File file;
-	private ArrayList<String> alTitre,alParagraphe,alImage;
 	
-	public Generator(File file)
+	public Generator()
 	{
-		this.file = file;
 		code = header();
-		alTitre =  new ArrayList<String>();
-		alParagraphe =  new ArrayList<String>();
-		alImage =  new ArrayList<String>();
-	}
-	
-	public void setFichier(File file)
-	{
-		this.file = file;
 	}
 	
 	private String header() 
@@ -34,50 +23,18 @@ public class Generator
 					"\t<body>\n";
 	}
 	
-	public void addTitre(String s) 
-	{
-		alTitre.add(s);
-	}
-	
-	public void modTitre(String s, int indice) 
-	{
-		alTitre.remove(indice-1);
-		alTitre.add(indice-1, s);
-	}
-	
-	public void addParagraphe(String s)
-	{
-	    Scanner sc = new Scanner(s).useDelimiter("\n");
-	    String str = "";
-	    
-	    while (sc.hasNext())
-	    	str += "\n\t\t\t" + sc.next()+"<br />\n";
-
-	    alParagraphe.add(str);
-	}
-	
-	
-	public void modParagraphe(String s, int indice)
-	{
-	    Scanner sc = new Scanner(s).useDelimiter("\n");
-	    String str = "";
-	    
-	    while (sc.hasNext())
-	    	str += "\n\t\t\t" + sc.next()+"<br />\n"; 
-	    
-	    alParagraphe.remove(indice-1);
-		alParagraphe.add(indice-1, str);
-	}
-	
-	public void ajouterImage(String chemin)
+/*	public void ajouterImage(String chemin)
 	{
 		// TODO Auto-generated method stub
 		alImage.add("<img src='" + chemin + "' />\n");
 	}
-	
+	*/
 	public void generate() 
 	{
-		ArrayList<String> alS = Generateur.getFenetre().getArborescence().getOrdreElement();
+		ArrayList<String> alS = Generateur.fenetre.getArborescence().getOrdreElement();
+		Page page = Generateur.alProjet.get(0).getPageSelectionne();
+		ArrayList<String> alTitre = Generateur.alProjet.get(0).getPage(page).getAlTitre();
+		ArrayList<String> alParagraphe = Generateur.alProjet.get(0).getPage(page).getAlParagraphe();
 		
 		for (String s : alS )
 		{
@@ -86,7 +43,6 @@ public class Generator
 			
 			String type = sc.next();
 			int ind = Integer.parseInt(sc.next())-1;
-			System.out.println(ind);
 			
 			if (type.equals("Titre"))
 				code += "\t\t<div class=\"title\">"+alTitre.get(ind)+"</div>\n";
@@ -98,8 +54,9 @@ public class Generator
 		code += "\n\t</body>\n" +
 				"</html>\n";
 		
-		File content,css,img;
+		File file, content,css,img;
 		
+		file = new File("site/" + page.getNom());
 		content = new File ("site/content");
 		css = new File ("site/content/CSS");
 		img = new File ("site/content/IMG");
@@ -115,7 +72,6 @@ public class Generator
 		
 		try
 		{
-			System.out.println(file);
 			// on ecris le code dedans
 			BufferedWriter fichier = new BufferedWriter(new FileWriter(file));
 			fichier.write(code);

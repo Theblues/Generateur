@@ -8,18 +8,23 @@ import javax.swing.text.html.HTMLEditorKit;
 
 import IHM.Panel.PanelArbre;
 import Main.*;
+import Utilitaire.*;
 
 public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 {
 	private JEditorPane editorPane;
 	private JButton button;
-	private static int cpt=1;
+	
+	private Page page;
 	private int statue;
 	private int indice;
 	private int indiceParagraphe;
 	
-	public FenetreAjouterParagraphe(int statue, String paragraphe, int indice, int indiceParagraphe)
+	private static int cpt=1;
+	
+	public FenetreAjouterParagraphe(Page page, int statue, String paragraphe, int indice, int indiceParagraphe)
 	{
+		this.page = page;
 		this.statue = statue;
 		this.indice = indice;
 		this.indiceParagraphe = indiceParagraphe;
@@ -47,14 +52,14 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 	{
 		if (statue == 0) 
 		{
-			Generateur.getGenerator().addParagraphe(editorPane.getText());
-			Generateur.getFenetre().getArborescence().ajoutFils("element", "Paragraphe " + cpt, editorPane.getText());
+			Generateur.alProjet.get(0).getPage(page).ajouterParagraphe(editorPane.getText());
+			Generateur.fenetre.getArborescence().ajoutFils("element", "Paragraphe " + cpt, editorPane.getText());
 			cpt++;
 		}
 		else
 		{
-			Generateur.getGenerator().modParagraphe(editorPane.getText(), indiceParagraphe);
-			Generateur.getFenetre().getArborescence().setAlS(indice, editorPane.getText());
+			Generateur.alProjet.get(0).getPage(page).modParagraphe(editorPane.getText(), indiceParagraphe);
+			Generateur.fenetre.getArborescence().setAlS(indice, editorPane.getText());
 		}
 		this.dispose();
 	}
