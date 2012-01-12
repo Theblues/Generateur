@@ -38,11 +38,6 @@ public class Projet
 		return null;
 	}
 	
-	public void ajouterPage(Page p)
-	{
-		alPage.add(p);
-	}
-
 	public Page getPage(Page page)
 	{
 		for (Page p : alPage)
@@ -52,5 +47,8 @@ public class Projet
 		return null;
 	}
 
-	
+	public void ajouterPage(Page p)
+	{
+		alPage.add(p);
+	}
 }

@@ -15,8 +15,6 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 	private int			statue;
 	private int			indice;
 	private int			indiceTitre;
-	
-	private static int	cpt	= 1;
 
 	public FenetreAjouterTitre(Page page, int statue, String titre, int indice, int indiceTitre)
 	{
@@ -48,8 +46,8 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 		if (statue == 0)
 		{
 			Generateur.alProjet.get(0).getPage(page).ajouterTitre(tf.getText());
+			int cpt = Generateur.alProjet.get(0).getPage(page).getAlTitre().size();
 			Generateur.fenetre.getArborescence().ajoutFils("element", "Titre " + cpt, tf.getText());
-			cpt++;
 		}
 		else
 		{

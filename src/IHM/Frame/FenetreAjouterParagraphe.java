@@ -20,8 +20,6 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 	private int indice;
 	private int indiceParagraphe;
 	
-	private static int cpt=1;
-	
 	public FenetreAjouterParagraphe(Page page, int statue, String paragraphe, int indice, int indiceParagraphe)
 	{
 		this.page = page;
@@ -53,8 +51,8 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		if (statue == 0) 
 		{
 			Generateur.alProjet.get(0).getPage(page).ajouterParagraphe(editorPane.getText());
+			int cpt = Generateur.alProjet.get(0).getPage(page).getAlParagraphe().size();
 			Generateur.fenetre.getArborescence().ajoutFils("element", "Paragraphe " + cpt, editorPane.getText());
-			cpt++;
 		}
 		else
 		{
