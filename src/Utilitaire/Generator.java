@@ -54,12 +54,11 @@ public class Generator
 			    while (scan.hasNext())
 			    	str += "\n\t\t\t" + scan.next()+"<br />\n\t\t\t";
 			    
-				code += "\t\t<p>" + str + "\t\t</p>\n";
+				code += "\t\t<p>" + str + "</p>\n";
 			}
 			
 			if (type.equals("Image"))
-				code += "\t\t<img src=\""+alImage.get(ind)+"\">\n";
-				
+				code += "\t\t<img src=\""+alImage.get(ind)+"\">\n";	
 		}
 		
 		footer();

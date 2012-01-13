@@ -14,6 +14,11 @@ public class Generateur
 		metier = new Metier();
 		fenetre = new Fenetre();
 	}
+	
+	public static void creerFenetreCreerProjet()
+	{
+		new FenetreCreerProjet();
+	}
 
 	public static void creerFenetreCreerPage()			
 	{		
@@ -39,5 +44,7 @@ public class Generateur
 	{
 		new Generateur();
 	}
+
+	
 
 }

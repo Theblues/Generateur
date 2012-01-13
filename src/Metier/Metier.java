@@ -18,5 +18,8 @@ public class Metier
 	public Generator getGenerator()			{		return generator;	}
 	public ArrayList<Projet> getAlProjet()	{		return alProjet;	}
 	
-	
+	public void ajouterProjet(Projet p)
+	{
+		alProjet.add(p);
+	}
 }
