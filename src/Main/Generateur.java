@@ -23,14 +23,14 @@ public class Generateur
 		new FenetreCreerPage();				
 	}
 	
-	public static void creerFenetreAjouterParagraphe(Page page, int statue, String titre, int indice, int indiceParagraphe)
+	public static void creerFenetreAjouterParagraphe(Page page, int statue, String titre, int indiceParagraphe)
 	{		
-		new FenetreAjouterParagraphe(page, statue, titre, indice, indiceParagraphe);		
+		new FenetreAjouterParagraphe(page, statue, titre, indiceParagraphe);		
 	}
 	
-	public static void creerFenetreAjouterTitre(Page page, int statue, String titre, int indice, int indiceTitre)		
+	public static void creerFenetreAjouterTitre(Page page, int statue, String titre, int indiceTitre)		
 	{		
-		new FenetreAjouterTitre(page, statue, titre, indice, indiceTitre);
+		new FenetreAjouterTitre(page, statue, titre, indiceTitre);
 	}
 	
 	public static void creerFenetreAjouterImage()		

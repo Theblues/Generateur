@@ -15,14 +15,12 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 	
 	private Page page;
 	private int statue;
-	private int indice;
 	private int indiceParagraphe;
 	
-	public FenetreAjouterParagraphe(Page page, int statue, String paragraphe, int indice, int indiceParagraphe)
+	public FenetreAjouterParagraphe(Page page, int statue, String paragraphe, int indiceParagraphe)
 	{
 		this.page = page;
 		this.statue = statue;
-		this.indice = indice;
 		this.indiceParagraphe = indiceParagraphe;
 		
 		setSize(500,500);
@@ -50,13 +48,11 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		{
 			Generateur.alProjet.get(0).getPage(page).ajouterParagraphe(editorPane.getText());
 			int cpt = Generateur.alProjet.get(0).getPage(page).getAlParagraphe().size();
-			Generateur.fenetre.getArborescence().ajoutFils("element", "Paragraphe " + cpt, editorPane.getText());
+			Generateur.fenetre.getArborescence().ajoutFils("element", "Paragraphe " + cpt);
 		}
 		else
-		{
 			Generateur.alProjet.get(0).getPage(page).modParagraphe(editorPane.getText(), indiceParagraphe);
-			Generateur.fenetre.getArborescence().setAlS(indice, editorPane.getText());
-		}
+		
 		this.dispose();
 	}
 	

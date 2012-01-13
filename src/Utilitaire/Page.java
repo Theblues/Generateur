@@ -17,25 +17,10 @@ public class Page
 		alImage = new ArrayList<String>();
 	}
 	
-	public String getNom()
-	{
-		return nom;
-	}
-	
-	public ArrayList<String> getAlTitre()
-	{
-		return alTitre;
-	}
-
-	public ArrayList<String> getAlParagraphe()
-	{
-		return alParagraphe;
-	}
-
-	public ArrayList<String> getAlImage()
-	{
-		return alImage;
-	}
+	public String getNom()						{	return nom;				}
+	public ArrayList<String> getAlTitre()		{	return alTitre;			}
+	public ArrayList<String> getAlParagraphe()	{	return alParagraphe;	}
+	public ArrayList<String> getAlImage()		{	return alImage;			}
 
 	public void ajouterTitre(String titre)
 	{
