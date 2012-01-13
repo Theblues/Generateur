@@ -1,6 +1,10 @@
 package Main;
 
+import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 import javax.swing.tree.TreePath;
+import javax.swing.*;
 
 import Utilitaire.*;
 import IHM.Frame.*;
@@ -52,6 +56,20 @@ public class Generateur
 		String contenu = metier.getGenerator().previsualisation();
 		
 		fenetre.previsualisation(contenu);
+	}
+	
+	public static void ajouterStyleParagraphe() {
+		
+		JTextPane textPanel = fenetre.getjEditor();
+		
+		fenetre.initStylesForTextPane(textPanel, null, "paragraphe");
+
+		Document doc = textPanel.getDocument();
+		try {
+			doc.insertString(textPanel.getSelectionStart(), " ",textPanel.getStyle("paragraphe"));
+		} catch (BadLocationException ble) {
+			System.err.println("Couldn't insert initial text.");
+		}
 	}
 
 }

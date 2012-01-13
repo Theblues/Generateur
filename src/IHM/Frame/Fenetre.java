@@ -3,15 +3,21 @@ package IHM.Frame;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+
 import IHM.Panel.*;
 
 public class Fenetre extends JFrame
 {
 	private PanelMenu 			menu;
 	private PanelArbre			arborescence;
+	private JSplitPane 			splitPaneVertical;
 	private JSplitPane 			splitPaneTotal;
 	private JPanel				panelDroite;
-	private JEditorPane			jEditor;
+	private JTextPane			jEditor;
+	private PanelListeAction listeAction;
 	
 	public Fenetre()
 	{
@@ -23,10 +29,11 @@ public class Fenetre extends JFrame
 		menu.addMenuInFrame(this);
 		
 		arborescence = new PanelArbre(this);
+		listeAction = new PanelListeAction();
 		
 		panelDroite = new JPanel();
 		panelDroite.setLayout(new BorderLayout());
-		jEditor = new JEditorPane();
+		jEditor = new JTextPane();
 		jEditor.setEditable(false);
 		jEditor.setSize(800,800);
 		JScrollPane scroller = new JScrollPane( jEditor,
@@ -34,7 +41,11 @@ public class Fenetre extends JFrame
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
 		panelDroite.add(scroller);
 		
-		splitPaneTotal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, arborescence, panelDroite);
+		splitPaneVertical = new JSplitPane(JSplitPane.VERTICAL_SPLIT, listeAction ,panelDroite );
+		splitPaneVertical.setOneTouchExpandable(true);
+
+		
+		splitPaneTotal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, arborescence, splitPaneVertical);
 		splitPaneTotal.setOneTouchExpandable(true);
 		
 		add(splitPaneTotal);
@@ -52,9 +63,25 @@ public class Fenetre extends JFrame
 
 	public PanelMenu getMenu()					{		return menu;			}
 	public PanelArbre getArborescence()			{		return arborescence;	}
+	public JTextPane getjEditor()			{		return jEditor;	}
 	
 	public void previsualisation(String contenu)
 	{
 		jEditor.setText(contenu);
+	}
+	
+	public void initStylesForTextPane(JTextPane textPanel, String chemin, String style) {
+		// Initialize some styles
+		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
+
+		Style regular = textPanel.addStyle("regular", def);
+
+		Style s;
+
+		if (style.equals("gras")) {
+			s = textPanel.addStyle("gras", regular);
+			StyleConstants.setBold(s, true);
+			
+		}
 	}
 }
