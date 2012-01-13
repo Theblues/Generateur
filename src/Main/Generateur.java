@@ -1,21 +1,18 @@
 package Main;
 
-import java.util.*;
-
 import Utilitaire.*;
 import IHM.Frame.*;
+import Metier.*;
 
 public class Generateur
 {
 	public static Fenetre fenetre;
-	public static Generator generator;
-	public static ArrayList<Projet> alProjet;
+	public static Metier metier;
 
 	public Generateur()
 	{
-		alProjet = new ArrayList<Projet>();
+		metier = new Metier();
 		fenetre = new Fenetre();
-		generator = new Generator();
 	}
 
 	public static void creerFenetreCreerPage()			

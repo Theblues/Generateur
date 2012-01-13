@@ -101,7 +101,7 @@ public class PanelMenu extends JPanel implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
-		Page page = Generateur.alProjet.get(0).getPageSelectionne();
+		Page page = Generateur.metier.getAlProjet().get(0).getPageSelectionne();
 		
 		JMenuItem mi = (JMenuItem) e.getSource();
 		if (mi.equals(itemClose))
@@ -113,7 +113,7 @@ public class PanelMenu extends JPanel implements ActionListener
 		if (mi.equals(itemParagraphe))
 			Generateur.creerFenetreAjouterParagraphe(page, 0,"",0);
 		if (mi.equals(itemGenerer))
-			Generateur.generator.generate();
+			Generateur.metier.getGenerator().generate();
 		if (mi.equals(itemImage))
 			Generateur.creerFenetreAjouterImage(page, 0, "", 0);
 	}
