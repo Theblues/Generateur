@@ -83,10 +83,10 @@ public class PanelArbre extends JPanel
 		 * Exemple path
 		 * [null, site, test.html, titre 1]
 		 */
-		Object[] tabObj = path.getPath();
 		
 		if (path != null)
 		{
+			Object[] tabObj = path.getPath();
 			int location = path.getPathCount();
 			/*
 			 * Exemple Location :
