@@ -51,6 +51,7 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 			projet.getPage(page).modTitre(tf.getText(), indiceTitre);
 
 		this.dispose();
+		
 	}
 
 }

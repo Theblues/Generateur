@@ -1,5 +1,7 @@
 package Main;
 
+import javax.swing.tree.TreePath;
+
 import Utilitaire.*;
 import IHM.Frame.*;
 import Metier.*;
@@ -45,6 +47,11 @@ public class Generateur
 		new Generateur();
 	}
 
-	
+	public static void previsualisation()
+	{
+		String contenu = metier.getGenerator().previsualisation();
+		
+		fenetre.previsualisation(contenu);
+	}
 
 }

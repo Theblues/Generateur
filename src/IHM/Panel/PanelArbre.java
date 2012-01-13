@@ -127,10 +127,13 @@ public class PanelArbre extends JPanel
 				// on selectionne le dernier noeud selectionnee
 				parentNodeFichier = arbre.getLastSelectedPathComponent();
 				// on selectionne la page pour mettre les paragraphes, ect..
-				pageSelectionnee = projetSelectionne.getPage(path.getLastPathComponent().toString());
+				pageSelectionnee = projetSelectionne.getPage(tabObj[2].toString());
 				
 				Generateur.metier.setProjetSelectionne(projetSelectionne);
 				projetSelectionne.setPageSelectionne(pageSelectionnee);
+				
+				if ( arbre.isExpanded(path)) 
+					Generateur.previsualisation();
 			}
 			else if (location > 3)
 			{
@@ -162,6 +165,10 @@ public class PanelArbre extends JPanel
 		}
 	}
 	
+	public JTree getArbre() {
+		return arbre;
+	}
+
 	public ArrayList<String> getOrdreElement()
 	{
 		ArrayList<String> alS = new ArrayList<String>();

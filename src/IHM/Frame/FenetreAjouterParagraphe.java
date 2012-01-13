@@ -31,7 +31,11 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		
 		editorPane.setText(paragraphe);
 
-		add(editorPane,BorderLayout.CENTER);
+		JScrollPane scroller = new JScrollPane( editorPane,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
+		
+		add(scroller,BorderLayout.CENTER);
 		
 		button = new JButton("Valider");
 		button.addActionListener(this);
@@ -55,6 +59,7 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 			projet.getPage(page).modParagraphe(editorPane.getText(), indiceParagraphe);
 		
 		this.dispose();
+		
 	}
 	
 	

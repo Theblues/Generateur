@@ -10,6 +10,8 @@ public class Fenetre extends JFrame
 	private PanelMenu 			menu;
 	private PanelArbre			arborescence;
 	private JSplitPane 			splitPaneTotal;
+	private JPanel				panelDroite;
+	private JEditorPane			jEditor;
 	
 	public Fenetre()
 	{
@@ -22,7 +24,17 @@ public class Fenetre extends JFrame
 		
 		arborescence = new PanelArbre(this);
 		
-		splitPaneTotal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, arborescence, new Panel());
+		panelDroite = new JPanel();
+		panelDroite.setLayout(new BorderLayout());
+		jEditor = new JEditorPane();
+		jEditor.setEditable(false);
+		jEditor.setSize(800,800);
+		JScrollPane scroller = new JScrollPane( jEditor,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
+		panelDroite.add(scroller);
+		
+		splitPaneTotal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, arborescence, panelDroite);
 		splitPaneTotal.setOneTouchExpandable(true);
 		
 		add(splitPaneTotal);
@@ -40,4 +52,9 @@ public class Fenetre extends JFrame
 
 	public PanelMenu getMenu()					{		return menu;			}
 	public PanelArbre getArborescence()			{		return arborescence;	}
+	
+	public void previsualisation(String contenu)
+	{
+		jEditor.setText(contenu);
+	}
 }
