@@ -46,12 +46,12 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 	{
 		if (statue == 0) 
 		{
-			Generateur.alProjet.get(0).getPage(page).ajouterParagraphe(editorPane.getText());
-			int cpt = Generateur.alProjet.get(0).getPage(page).getAlParagraphe().size();
+			Generateur.metier.getAlProjet().get(0).getPage(page).ajouterParagraphe(editorPane.getText());
+			int cpt = Generateur.metier.getAlProjet().get(0).getPage(page).getAlParagraphe().size();
 			Generateur.fenetre.getArborescence().ajoutFils("element", "Paragraphe " + cpt);
 		}
 		else
-			Generateur.alProjet.get(0).getPage(page).modParagraphe(editorPane.getText(), indiceParagraphe);
+			Generateur.metier.getAlProjet().get(0).getPage(page).modParagraphe(editorPane.getText(), indiceParagraphe);
 		
 		this.dispose();
 	}

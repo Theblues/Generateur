@@ -34,9 +34,9 @@ public class Generator
 	public void generate() 
 	{
 		ArrayList<String> alS = Generateur.fenetre.getArborescence().getOrdreElement();
-		Page page = Generateur.alProjet.get(0).getPageSelectionne();
-		ArrayList<String> alTitre = Generateur.alProjet.get(0).getPage(page).getAlTitre();
-		ArrayList<String> alParagraphe = Generateur.alProjet.get(0).getPage(page).getAlParagraphe();
+		Page page = Generateur.metier.getAlProjet().get(0).getPageSelectionne();
+		ArrayList<String> alTitre = Generateur.metier.getAlProjet().get(0).getPage(page).getAlTitre();
+		ArrayList<String> alParagraphe = Generateur.metier.getAlProjet().get(0).getPage(page).getAlParagraphe();
 		
 		header();
 		for (String s : alS )

@@ -47,7 +47,7 @@ public class PanelArbre extends JPanel
 	{
 		racine = new DefaultMutableTreeNode();
 		File file = new File("site/");
-		Generateur.alProjet.add(new Projet(file.getName()));
+		Generateur.metier.getAlProjet().add(new Projet(file.getName()));
 
 		DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getPath());
 		try 
@@ -56,7 +56,7 @@ public class PanelArbre extends JPanel
 			{
 				if (!nom.getName().equals("content"))
 				{
-					Generateur.alProjet.get(0).ajouterPage(new Page(nom.getName()));
+					Generateur.metier.getAlProjet().get(0).ajouterPage(new Page(nom.getName()));
 					DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName() + "\\");
 					lecteur.add(this.listFile(nom, node));
 				}
@@ -111,15 +111,15 @@ public class PanelArbre extends JPanel
 				// on selectionne le dernier noeud selectionnee
 				parentNodeFichier = arbre.getLastSelectedPathComponent();
 				// on selectionne la page pour mettre les paragraphes, ect..
-				pageSelectionnee = Generateur.alProjet.get(0).getPage(path.getLastPathComponent().toString());
+				pageSelectionnee = Generateur.metier.getAlProjet().get(0).getPage(path.getLastPathComponent().toString());
 				
-				Generateur.alProjet.get(0).setPageSelectionne(pageSelectionnee);
+				Generateur.metier.getAlProjet().get(0).setPageSelectionne(pageSelectionnee);
 			}
 			else if (location > 3)
 			{
 				// on recupere la page et le noeud grace a path
 				parentNodeFichier = tabObj[2];
-				pageSelectionnee = Generateur.alProjet.get(0).getPage(parentNodeFichier.toString());
+				pageSelectionnee = Generateur.metier.getAlProjet().get(0).getPage(parentNodeFichier.toString());
 				
 				Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
 				String str = sc.next();
@@ -127,12 +127,12 @@ public class PanelArbre extends JPanel
 				
 				if (str.equals("Titre")) 
 				{
-					String ancienTitre = Generateur.alProjet.get(0).getPage(pageSelectionnee).getAlTitre().get(indice-1);
+					String ancienTitre = Generateur.metier.getAlProjet().get(0).getPage(pageSelectionnee).getAlTitre().get(indice-1);
 					Generateur.creerFenetreAjouterTitre(pageSelectionnee, 1, ancienTitre, indice);
 				}
 				if (str.equals("Paragraphe"))
 				{
-					String ancienParagraphe = Generateur.alProjet.get(0).getPage(pageSelectionnee).getAlParagraphe().get(indice-1);
+					String ancienParagraphe = Generateur.metier.getAlProjet().get(0).getPage(pageSelectionnee).getAlParagraphe().get(indice-1);
 					Generateur.creerFenetreAjouterParagraphe(pageSelectionnee, 1, ancienParagraphe, indice);
 				}
 			}

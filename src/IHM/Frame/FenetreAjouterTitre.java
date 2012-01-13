@@ -42,12 +42,12 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 	{
 		if (statue == 0)
 		{
-			Generateur.alProjet.get(0).getPage(page).ajouterTitre(tf.getText());
-			int cpt = Generateur.alProjet.get(0).getPage(page).getAlTitre().size();
+			Generateur.metier.getAlProjet().get(0).getPage(page).ajouterTitre(tf.getText());
+			int cpt = Generateur.metier.getAlProjet().get(0).getPage(page).getAlTitre().size();
 			Generateur.fenetre.getArborescence().ajoutFils("element", "Titre " + cpt);
 		}
 		else
-			Generateur.alProjet.get(0).getPage(page).modTitre(tf.getText(), indiceTitre);
+			Generateur.metier.getAlProjet().get(0).getPage(page).modTitre(tf.getText(), indiceTitre);
 
 		this.dispose();
 	}
