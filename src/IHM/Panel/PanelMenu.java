@@ -111,13 +111,13 @@ public class PanelMenu extends JPanel implements ActionListener
         if (mi.equals(itemNewPage))
         	Generateur.creerFenetreCreerPage();
 		if (mi.equals(itemTitre))
-			Generateur.creerFenetreAjouterTitre(page, 0,"",0);
+			Generateur.creerFenetreAjouterTitre(0,"",0);
 		if (mi.equals(itemParagraphe))
-			Generateur.creerFenetreAjouterParagraphe(page, 0,"",0);
+			Generateur.creerFenetreAjouterParagraphe(0,"",0);
 		if (mi.equals(itemGenerer))
 			Generateur.metier.getGenerator().generate();
 		if (mi.equals(itemImage))
-			Generateur.creerFenetreAjouterImage(page, 0, "", 0);
+			Generateur.creerFenetreAjouterImage(0, "", 0);
 	}
 	
 	public void activerAjout()
@@ -133,5 +133,13 @@ public class PanelMenu extends JPanel implements ActionListener
 		// permet de ne pas ouvrir 5 fenetres
 		itemImage.removeActionListener(this);
 		itemImage.addActionListener(this);
+	}
+
+	public void desactiveAjout()
+	{
+		// TODO Auto-generated method stub
+		itemTitre.removeActionListener(this);
+		itemParagraphe.removeActionListener(this);
+		itemImage.removeActionListener(this);
 	}
 }

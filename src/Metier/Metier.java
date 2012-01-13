@@ -8,6 +8,7 @@ public class Metier
 {
 	private Generator generator;
 	private ArrayList<Projet> alProjet;
+	private Projet projetSelectionne;
 	
 	public Metier()
 	{
@@ -15,11 +16,26 @@ public class Metier
 		generator = new Generator();
 	}
 
-	public Generator getGenerator()			{		return generator;	}
-	public ArrayList<Projet> getAlProjet()	{		return alProjet;	}
+	public Generator getGenerator()			{	return generator;			}
+	public Projet getProjetSelectionne()	{	return projetSelectionne;	}
+	public ArrayList<Projet> getAlProjet()	{	return alProjet;			}
 	
 	public void ajouterProjet(Projet p)
 	{
 		alProjet.add(p);
+	}
+
+	public Projet getProjet(String nom)
+	{
+		for (Projet p : alProjet)
+			if (nom.equals(p.getNom()))
+				return p;
+		
+		return null;
+	}
+	
+	public void setProjetSelectionne(Projet p)
+	{
+		projetSelectionne = p;
 	}
 }

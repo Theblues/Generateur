@@ -13,16 +13,9 @@ public class Projet
 		this.nom = nom;
 		alPage = new ArrayList<Page>();
 	}
-	
-	public void setPageSelectionne(Page p)
-	{
-		pageSelectionne = p;
-	}
-	
-	public ArrayList<Page> getAlPage()
-	{
-		return alPage;
-	}
+
+	public String getNom()				{	return nom;		}
+	public ArrayList<Page> getAlPage()	{	return alPage;	}
 	
 	public Page getPageSelectionne()
 	{
@@ -46,9 +39,21 @@ public class Projet
 		
 		return null;
 	}
+	
+	public void setPageSelectionne(Page p)
+	{
+		pageSelectionne = p;
+	}
 
 	public void ajouterPage(Page p)
 	{
 		alPage.add(p);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "Projet [nom=" + nom + ", alPage=" + alPage
+				+ ", pageSelectionne=" + pageSelectionne + "]";
 	}
 }

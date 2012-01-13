@@ -45,8 +45,8 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		String nomProjet = txNom.getText();
 		File file = new File(nomProjet);
 		file.mkdir();
-		Generateur.metier.ajouterProjet(new Projet(txNom.getText()));
-		Generateur.fenetre.getArborescence().ajoutFils("projet", txNom.getText());
+		Generateur.metier.ajouterProjet(new Projet(nomProjet));
+		Generateur.fenetre.getArborescence().ajoutFils("projet", nomProjet);
 		this.dispose();
 	}
 }

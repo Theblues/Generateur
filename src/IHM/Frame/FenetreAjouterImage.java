@@ -22,14 +22,12 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 	private String nom;
 	private String chemin;
 	
-	private Page page;
-	private int statue;
 	private String titre;
+	private int statue;
 	private int indiceImage;
 
-	public FenetreAjouterImage(Page page, int statue, String titre, int indiceImage)
+	public FenetreAjouterImage(int statue, String titre, int indiceImage)
 	{
-		this.page = page;
 		this.statue = statue;
 		this.titre = titre;
 		this.indiceImage = indiceImage;
@@ -63,6 +61,9 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		Projet projet = Generateur.metier.getProjetSelectionne();
+		Page page = projet.getPageSelectionne();
+		
 		if ( statue == 0 )
 		{
 			JButton b = (JButton) e.getSource();
@@ -72,8 +73,8 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 			{
 				enregistrerImage(chemin);
 				
-				Generateur.metier.getAlProjet().get(0).getPage(page).ajouterImage(chemin);
-				int cpt = Generateur.metier.getAlProjet().get(0).getPage(page).getAlImage().size();
+				projet.getPage(page).ajouterImage(chemin);
+				int cpt = projet.getPage(page).getAlImage().size();
 				Generateur.fenetre.getArborescence().ajoutFils("element", "Image " + cpt);
 				
 				dispose();
@@ -96,7 +97,7 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		
 		// s'il a choisit un fichier
 		if (fichier == JFileChooser.FILES_ONLY)
-		{			
+		{
 			nom = chooser.getSelectedFile().getName();
 			// chemin absolu du fichier choisi
 			chemin =  chooser.getSelectedFile().getAbsolutePath();
@@ -105,7 +106,8 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 
 	private void enregistrerImage(String chemin)
 	{
-		String cheminArr = "./site/content/IMG/";
+		Projet projet = Generateur.metier.getProjetSelectionne();
+		String cheminArr = "./" + projet.getNom() +"/content/IMG/";
 
 		InputStream input;
 		OutputStream output;

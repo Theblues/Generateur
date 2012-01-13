@@ -10,13 +10,11 @@ import Utilitaire.*;
 public class FenetreAjouterTitre extends JFrame implements ActionListener
 {
 	private JTextField	tf;
-	private Page 		page;
 	private int			statue;
 	private int			indiceTitre;
 
-	public FenetreAjouterTitre(Page page, int statue, String titre, int indiceTitre)
+	public FenetreAjouterTitre(int statue, String titre, int indiceTitre)
 	{
-		this.page = page;
 		this.statue = statue;
 		this.indiceTitre = indiceTitre;
 
@@ -40,14 +38,17 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
+		Projet projet = Generateur.metier.getProjetSelectionne();
+		Page page = projet.getPageSelectionne();
+		
 		if (statue == 0)
 		{
-			Generateur.metier.getAlProjet().get(0).getPage(page).ajouterTitre(tf.getText());
-			int cpt = Generateur.metier.getAlProjet().get(0).getPage(page).getAlTitre().size();
+			projet.getPage(page).ajouterTitre(tf.getText());
+			int cpt = projet.getPage(page).getAlTitre().size();
 			Generateur.fenetre.getArborescence().ajoutFils("element", "Titre " + cpt);
 		}
 		else
-			Generateur.metier.getAlProjet().get(0).getPage(page).modTitre(tf.getText(), indiceTitre);
+			projet.getPage(page).modTitre(tf.getText(), indiceTitre);
 
 		this.dispose();
 	}

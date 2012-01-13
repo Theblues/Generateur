@@ -29,10 +29,11 @@ public class Generator
 	public void generate() 
 	{
 		ArrayList<String> alS = Generateur.fenetre.getArborescence().getOrdreElement();
-		Page page = Generateur.metier.getAlProjet().get(0).getPageSelectionne();
-		ArrayList<String> alTitre = Generateur.metier.getAlProjet().get(0).getPage(page).getAlTitre();
-		ArrayList<String> alParagraphe = Generateur.metier.getAlProjet().get(0).getPage(page).getAlParagraphe();
-		ArrayList<String> alImage = Generateur.metier.getAlProjet().get(0).getPage(page).getAlImage();
+		Projet projet = Generateur.metier.getProjetSelectionne();
+		Page page = projet.getPageSelectionne();
+		ArrayList<String> alTitre = projet.getPage(page).getAlTitre();
+		ArrayList<String> alParagraphe = projet.getPage(page).getAlParagraphe();
+		ArrayList<String> alImage = projet.getPage(page).getAlImage();
 		
 		header();
 		for (String s : alS )
@@ -65,10 +66,10 @@ public class Generator
 		
 		File file, content,css,img;
 		
-		file = new File("site/" + page.getNom());
-		content = new File ("site/content");
-		css = new File ("site/content/CSS");
-		img = new File ("site/content/IMG");
+		file = new File(projet.getNom() + "/" + page.getNom());
+		content = new File ( projet.getNom() + "/content");
+		css = new File (projet.getNom() + "/content/CSS");
+		img = new File (projet.getNom() + "/content/IMG");
 		
 		if ( !content.exists())
 		{
@@ -93,6 +94,4 @@ public class Generator
 		}
 		System.out.println(code);
 	}
-
-	
 }
