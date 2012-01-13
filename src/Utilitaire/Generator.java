@@ -66,10 +66,10 @@ public class Generator
 		
 		File file, content,css,img;
 		
-		file = new File(projet.getNom() + "/" + page.getNom());
-		content = new File ( projet.getNom() + "/content");
-		css = new File (projet.getNom() + "/content/CSS");
-		img = new File (projet.getNom() + "/content/IMG");
+		file = new File("projet/" + projet.getNom() + "/" + page.getNom());
+		content = new File ("projet/" + projet.getNom() + "/content");
+		css = new File ("projet/" + projet.getNom() + "/content/CSS");
+		img = new File ("projet/" + projet.getNom() + "/content/IMG");
 		
 		if ( !content.exists())
 		{

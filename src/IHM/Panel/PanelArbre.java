@@ -91,13 +91,8 @@ public class PanelArbre extends JPanel
 		
 		if (path != null)
 		{
-			System.out.println("path : " + path + "\n");
 			Object[] tabObj = path.getPath();
-			for (Object o : tabObj)
-				System.out.println("object " + o);
 			int location = path.getPathCount();
-			System.out.println("location :  " + location);
-			
 			/*
 			 * Exemple Location :
 			 * 1	2	3	4
@@ -126,8 +121,8 @@ public class PanelArbre extends JPanel
 				projetSelectionne = Generateur.metier.getProjet(tabObj[1].toString());
 				// on selectionne le dernier noeud selectionnee
 				parentNodeFichier = arbre.getLastSelectedPathComponent();
-				// on selectionne la page pour mettre les paragraphes, ect..
-				pageSelectionnee = projetSelectionne.getPage(path.getLastPathComponent().toString());
+				// on selectionne la page pour mettre les paragraphes, ect...
+				pageSelectionnee = projetSelectionne.getPage(tabObj[2].toString());
 				
 				Generateur.metier.setProjetSelectionne(projetSelectionne);
 				projetSelectionne.setPageSelectionne(pageSelectionnee);
