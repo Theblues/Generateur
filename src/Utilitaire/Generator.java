@@ -25,18 +25,14 @@ public class Generator
 				"</html>\n";
 	}
 	
-/*	public void ajouterImage(String chemin)
-	{
-		// TODO Auto-generated method stub
-		alImage.add("<img src='" + chemin + "' />\n");
-	}
-	*/
+
 	public void generate() 
 	{
 		ArrayList<String> alS = Generateur.fenetre.getArborescence().getOrdreElement();
 		Page page = Generateur.alProjet.get(0).getPageSelectionne();
 		ArrayList<String> alTitre = Generateur.alProjet.get(0).getPage(page).getAlTitre();
 		ArrayList<String> alParagraphe = Generateur.alProjet.get(0).getPage(page).getAlParagraphe();
+		ArrayList<String> alImage = Generateur.alProjet.get(0).getPage(page).getAlImage();
 		
 		header();
 		for (String s : alS )
@@ -60,6 +56,9 @@ public class Generator
 			    
 				code += "\t\t<p>" + str + "\t\t</p>\n";
 			}
+			
+			if (type.equals("Image"))
+				code += "\t\t<img src=\""+alImage.get(ind)+"\">\n";
 				
 		}
 		

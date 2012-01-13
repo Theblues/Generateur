@@ -33,9 +33,9 @@ public class Generateur
 		new FenetreAjouterTitre(page, statue, titre, indiceTitre);
 	}
 	
-	public static void creerFenetreAjouterImage()		
+	public static void creerFenetreAjouterImage(Page page, int statue, String titre, int indiceImage)		
 	{		
-		new FenetreAjouterImage();			
+		new FenetreAjouterImage(page, statue, titre, indiceImage);			
 	}
 	
 	public static void main(String[] argv)

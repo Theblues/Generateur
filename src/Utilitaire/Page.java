@@ -45,6 +45,18 @@ public class Page
 		alParagraphe.add(indice-1, s);
 	}
 	
+	public void ajouterImage(String s)
+	{
+	    alImage.add(s);
+	}
+	
+	
+	public void modImage(String s, int indice)
+	{
+	    alImage.remove(indice-1);
+		alImage.add(indice-1, s);
+	}
+	
 	@Override
 	public String toString()
 	{

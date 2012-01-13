@@ -21,9 +21,19 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 	
 	private String nom;
 	private String chemin;
+	
+	private Page page;
+	private int statue;
+	private String titre;
+	private int indiceImage;
 
-	public FenetreAjouterImage()
+	public FenetreAjouterImage(Page page, int statue, String titre, int indiceImage)
 	{
+		this.page = page;
+		this.statue = statue;
+		this.titre = titre;
+		this.indiceImage = indiceImage;
+		
 		choisirImage();
 		if (chemin == null)
 			return;
@@ -53,16 +63,21 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// TODO Auto-generated method stub
-		JButton b = (JButton) e.getSource();
-		if (b.equals(annuler))
-			dispose();
-		if (b.equals(valider))
+		if ( statue == 0 )
 		{
-			enregistrerImage(chemin);
-		//	Generateur.generator.ajouterImage(chemin);
-			Generateur.fenetre.getArborescence().ajoutFils("element", "Image");
-			dispose();
+			JButton b = (JButton) e.getSource();
+			if (b.equals(annuler))
+				dispose();
+			if (b.equals(valider))
+			{
+				enregistrerImage(chemin);
+				
+				Generateur.alProjet.get(0).getPage(page).ajouterImage(chemin);
+				int cpt = Generateur.alProjet.get(0).getPage(page).getAlImage().size();
+				Generateur.fenetre.getArborescence().ajoutFils("element", "Image " + cpt);
+				
+				dispose();
+			}
 		}
 	}
 	

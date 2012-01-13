@@ -135,6 +135,11 @@ public class PanelArbre extends JPanel
 					String ancienParagraphe = Generateur.alProjet.get(0).getPage(pageSelectionnee).getAlParagraphe().get(indice-1);
 					Generateur.creerFenetreAjouterParagraphe(pageSelectionnee, 1, ancienParagraphe, indice);
 				}
+				if (str.equals("Image"))
+				{
+					String ancienImage = Generateur.alProjet.get(0).getPage(pageSelectionnee).getAlImage().get(indice-1);
+					Generateur.creerFenetreAjouterImage(pageSelectionnee, 1, ancienImage, indice);
+				}
 			}
 		}
 	}
