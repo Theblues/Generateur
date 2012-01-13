@@ -35,26 +35,14 @@ public class Page
 	
 	public void ajouterParagraphe(String s)
 	{
-	    Scanner sc = new Scanner(s).useDelimiter("\n");
-	    String str = "";
-	    
-	    while (sc.hasNext())
-	    	str += "\n\t\t\t" + sc.next()+"<br />\n";
-
-	    alParagraphe.add(str);
+	    alParagraphe.add(s);
 	}
 	
 	
 	public void modParagraphe(String s, int indice)
 	{
-	    Scanner sc = new Scanner(s).useDelimiter("\n");
-	    String str = "";
-	    
-	    while (sc.hasNext())
-	    	str += "\n\t\t\t" + sc.next()+"<br />\n"; 
-	    
 	    alParagraphe.remove(indice-1);
-		alParagraphe.add(indice-1, str);
+		alParagraphe.add(indice-1, s);
 	}
 	
 	@Override

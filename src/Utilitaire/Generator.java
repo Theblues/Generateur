@@ -51,7 +51,16 @@ public class Generator
 				code += "\t\t<div class=\"title\">"+alTitre.get(ind)+"</div>\n";
 			
 			if (type.equals("Paragraphe"))
-				code += "\t\t<p>" + alParagraphe.get(ind) + "\t\t</p>\n";
+			{
+				Scanner scan = new Scanner(alParagraphe.get(ind)).useDelimiter("\n");
+			    String str = "";
+			    
+			    while (scan.hasNext())
+			    	str += "\n\t\t\t" + scan.next()+"<br />\n\t\t\t";
+			    
+				code += "\t\t<p>" + str + "\t\t</p>\n";
+			}
+				
 		}
 		
 		footer();
