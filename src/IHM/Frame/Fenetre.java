@@ -1,6 +1,5 @@
 package IHM.Frame;
 
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.Style;
@@ -15,9 +14,9 @@ public class Fenetre extends JFrame
 	private PanelArbre			arborescence;
 	private JSplitPane 			splitPaneVertical;
 	private JSplitPane 			splitPaneTotal;
-	private JPanel				panelDroite;
-	private JTextPane			jEditor;
-	private PanelListeAction listeAction;
+	private PanelVisu			panelVisu;
+	
+	private PanelListeAction 	listeAction;
 	
 	public Fenetre()
 	{
@@ -31,17 +30,9 @@ public class Fenetre extends JFrame
 		arborescence = new PanelArbre(this);
 		listeAction = new PanelListeAction();
 		
-		panelDroite = new JPanel();
-		panelDroite.setLayout(new BorderLayout());
-		jEditor = new JTextPane();
-		jEditor.setEditable(false);
-		jEditor.setSize(800,800);
-		JScrollPane scroller = new JScrollPane( jEditor,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
-		panelDroite.add(scroller);
+		panelVisu = new PanelVisu();
 		
-		splitPaneVertical = new JSplitPane(JSplitPane.VERTICAL_SPLIT, listeAction ,panelDroite );
+		splitPaneVertical = new JSplitPane(JSplitPane.VERTICAL_SPLIT, listeAction , panelVisu);
 		splitPaneVertical.setOneTouchExpandable(true);
 
 		
@@ -61,14 +52,9 @@ public class Fenetre extends JFrame
 		setVisible(true);
 	}
 
-	public PanelMenu getMenu()					{		return menu;			}
-	public PanelArbre getArborescence()			{		return arborescence;	}
-	public JTextPane getjEditor()			{		return jEditor;	}
-	
-	public void previsualisation(String contenu)
-	{
-		jEditor.setText(contenu);
-	}
+	public PanelMenu getMenu()				{		return menu;			}
+	public PanelArbre getArborescence()		{		return arborescence;	}
+	public PanelVisu getPanelVisu()			{		return panelVisu;		}
 	
 	public void initStylesForTextPane(JTextPane textPanel, String chemin, String style) {
 		// Initialize some styles
@@ -84,4 +70,6 @@ public class Fenetre extends JFrame
 			
 		}
 	}
+
+	
 }

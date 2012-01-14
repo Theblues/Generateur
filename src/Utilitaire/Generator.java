@@ -94,44 +94,4 @@ public class Generator
 		}
 		System.out.println(code);
 	}
-	
-	public String previsualisation()
-	{
-		String contenu = "";
-		
-		ArrayList<String> alS = Controleur.fenetre.getArborescence().getOrdreElement();
-		Projet projet = Controleur.metier.getProjetSelectionne();
-		Page page = projet.getPageSelectionne();
-		ArrayList<String> alTitre = projet.getPage(page).getAlTitre();
-		ArrayList<String> alParagraphe = projet.getPage(page).getAlParagraphe();
-		ArrayList<String> alImage = projet.getPage(page).getAlImage();
-		
-		System.out.println(alS);
-		
-		for (String s : alS )
-		{
-			System.out.println(s);
-			Scanner sc = new Scanner(s);
-			sc.useDelimiter(" ");
-			
-			String type = sc.next();
-			int ind = Integer.parseInt(sc.next())-1;
-			
-			if (type.equals("Titre"))
-				contenu += alTitre.get(ind)+"\n\n";
-			
-			if (type.equals("Paragraphe"))
-			{
-				Scanner scan = new Scanner(alParagraphe.get(ind)).useDelimiter("\n");
-			    
-			    while (scan.hasNext())
-			    contenu += "\t"+scan.next() + "\n";
-			}
-			
-			if (type.equals("Image"))
-				contenu += "<img src=\""+alImage.get(ind)+"\">\n";	
-		}
-		
-		return contenu;
-	}
 }

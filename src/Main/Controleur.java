@@ -1,9 +1,5 @@
 package Main;
 
-import javax.swing.JTextPane;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-
 import IHM.Frame.*;
 import Metier.*;
 
@@ -47,17 +43,10 @@ public class Controleur
 	{
 		initialiser();
 	}
-
-	public static void previsualisation()
-	{
-		String contenu = metier.getGenerator().previsualisation();
-		
-		fenetre.previsualisation(contenu);
-	}
 	
-	public static void ajouterStyleParagraphe() {
+	/*public static void ajouterStyleParagraphe() {
 		
-		JTextPane textPanel = fenetre.getjEditor();
+		//JTextPane textPanel = fenetre.getjEditor();
 		
 		fenetre.initStylesForTextPane(textPanel, null, "paragraphe");
 
@@ -67,6 +56,6 @@ public class Controleur
 		} catch (BadLocationException ble) {
 			System.err.println("Couldn't insert initial text.");
 		}
-	}
+	}*/
 
 }

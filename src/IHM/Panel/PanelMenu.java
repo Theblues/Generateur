@@ -100,9 +100,7 @@ public class PanelMenu extends JPanel implements ActionListener
 	}
 
 	public void actionPerformed(ActionEvent e)
-	{
-		Page page = Controleur.metier.getAlProjet().get(0).getPageSelectionne();
-		
+	{		
 		JMenuItem mi = (JMenuItem) e.getSource();
 		if (mi.equals(itemClose))
 			System.exit(0);

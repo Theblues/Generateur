@@ -128,7 +128,7 @@ public class PanelArbre extends JPanel
 				projetSelectionne.setPageSelectionne(pageSelectionnee);
 				
 				if ( arbre.isExpanded(path)) 
-					Controleur.previsualisation();
+					Controleur.fenetre.getPanelVisu().previsualisation();
 			}
 			else if (location > 3)
 			{
