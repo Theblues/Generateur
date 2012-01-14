@@ -43,7 +43,7 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		// TODO Auto-generated method stub
-		String nomFichier = Generateur.metier.getProjetSelectionne().getNom() + "/"	+ txTitre.getText() + ".html";
+		String nomFichier = Controleur.metier.getProjetSelectionne().getNom() + "/"	+ txTitre.getText() + ".html";
 		File f = new File(nomFichier);
 		try
 		{
@@ -54,8 +54,8 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 			ex.printStackTrace();
 		}
 		
-		Generateur.metier.getProjetSelectionne().ajouterPage(new Page(f.getName()));
-		Generateur.fenetre.getArborescence().ajoutFils("fichier", f.getName());
+		Controleur.metier.getProjetSelectionne().ajouterPage(new Page(f.getName()));
+		Controleur.fenetre.getArborescence().ajoutFils("fichier", f.getName());
 		dispose();
 	}
 }

@@ -3,19 +3,16 @@ package Main;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-import javax.swing.tree.TreePath;
-import javax.swing.*;
 
-import Utilitaire.*;
 import IHM.Frame.*;
 import Metier.*;
 
-public class Generateur
+public class Controleur
 {
 	public static Fenetre fenetre;
 	public static Metier metier;
 
-	public Generateur()
+	public static void initialiser()
 	{
 		metier = new Metier();
 		fenetre = new Fenetre();
@@ -48,7 +45,7 @@ public class Generateur
 	
 	public static void main(String[] argv)
 	{
-		new Generateur();
+		initialiser();
 	}
 
 	public static void previsualisation()

@@ -3,7 +3,7 @@ package Utilitaire;
 import java.io.*;
 import java.util.*;
 
-import Main.Generateur;
+import Main.*;
 
 public class Generator 
 {
@@ -28,8 +28,8 @@ public class Generator
 
 	public void generate() 
 	{
-		ArrayList<String> alS = Generateur.fenetre.getArborescence().getOrdreElement();
-		Projet projet = Generateur.metier.getProjetSelectionne();
+		ArrayList<String> alS = Controleur.fenetre.getArborescence().getOrdreElement();
+		Projet projet = Controleur.metier.getProjetSelectionne();
 		Page page = projet.getPageSelectionne();
 		ArrayList<String> alTitre = projet.getPage(page).getAlTitre();
 		ArrayList<String> alParagraphe = projet.getPage(page).getAlParagraphe();
@@ -99,8 +99,8 @@ public class Generator
 	{
 		String contenu = "";
 		
-		ArrayList<String> alS = Generateur.fenetre.getArborescence().getOrdreElement();
-		Projet projet = Generateur.metier.getProjetSelectionne();
+		ArrayList<String> alS = Controleur.fenetre.getArborescence().getOrdreElement();
+		Projet projet = Controleur.metier.getProjetSelectionne();
 		Page page = projet.getPageSelectionne();
 		ArrayList<String> alTitre = projet.getPage(page).getAlTitre();
 		ArrayList<String> alParagraphe = projet.getPage(page).getAlParagraphe();

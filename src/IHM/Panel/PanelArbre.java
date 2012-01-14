@@ -9,7 +9,7 @@ import javax.swing.tree.*;
 import java.io.*;
 import java.util.*;
 
-import Main.Generateur;
+import Main.*;
 import Utilitaire.*;
 
 public class PanelArbre extends JPanel 
@@ -54,13 +54,13 @@ public class PanelArbre extends JPanel
 			for (File fic :  f1.listFiles())
 			{				
 				DefaultMutableTreeNode noeudFichier = new DefaultMutableTreeNode(fic.getName());
-				Generateur.metier.getAlProjet().add(new Projet(fic.getName()));
+				Controleur.metier.getAlProjet().add(new Projet(fic.getName()));
 				
 				for (File nom : fic.listFiles()) 
 				{
 					if (!nom.getName().equals("content"))
 					{
-						Projet p = Generateur.metier.getProjet(fic.getName());
+						Projet p = Controleur.metier.getProjet(fic.getName());
 						p.ajouterPage(new Page(nom.getName()));
 						DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName() + "\\");
 						noeudFichier.add(this.listFile(nom, node));
@@ -107,33 +107,33 @@ public class PanelArbre extends JPanel
 			 */
 			if (location == 2)
 			{
-				Generateur.fenetre.getMenu().desactiveAjout();
+				Controleur.fenetre.getMenu().desactiveAjout();
 				
 				parentNodeProjet = arbre.getLastSelectedPathComponent();
-				projetSelectionne = Generateur.metier.getProjet(path.getLastPathComponent().toString());
+				projetSelectionne = Controleur.metier.getProjet(path.getLastPathComponent().toString());
 				
-				Generateur.metier.setProjetSelectionne(projetSelectionne);
+				Controleur.metier.setProjetSelectionne(projetSelectionne);
 			}
 			else if (location == 3)
 			{
-				Generateur.fenetre.getMenu().activerAjout();
+				Controleur.fenetre.getMenu().activerAjout();
 				
-				projetSelectionne = Generateur.metier.getProjet(tabObj[1].toString());
+				projetSelectionne = Controleur.metier.getProjet(tabObj[1].toString());
 				// on selectionne le dernier noeud selectionnee
 				parentNodeFichier = arbre.getLastSelectedPathComponent();
 				// on selectionne la page pour mettre les paragraphes, ect..
 				pageSelectionnee = projetSelectionne.getPage(tabObj[2].toString());
 				
-				Generateur.metier.setProjetSelectionne(projetSelectionne);
+				Controleur.metier.setProjetSelectionne(projetSelectionne);
 				projetSelectionne.setPageSelectionne(pageSelectionnee);
 				
 				if ( arbre.isExpanded(path)) 
-					Generateur.previsualisation();
+					Controleur.previsualisation();
 			}
 			else if (location > 3)
 			{
 				// on recupere le projet, la page et le noeud grace a path
-				projetSelectionne = Generateur.metier.getProjet(tabObj[1].toString());
+				projetSelectionne = Controleur.metier.getProjet(tabObj[1].toString());
 				parentNodeFichier = tabObj[2];
 				pageSelectionnee = projetSelectionne.getPage(parentNodeFichier.toString());
 				
@@ -144,17 +144,17 @@ public class PanelArbre extends JPanel
 				if (str.equals("Titre")) 
 				{
 					String ancienTitre = projetSelectionne.getPage(pageSelectionnee).getAlTitre().get(indice-1);
-					Generateur.creerFenetreAjouterTitre(1, ancienTitre, indice);
+					Controleur.creerFenetreAjouterTitre(1, ancienTitre, indice);
 				}
 				if (str.equals("Paragraphe"))
 				{
 					String ancienParagraphe = projetSelectionne.getPage(pageSelectionnee).getAlParagraphe().get(indice-1);
-					Generateur.creerFenetreAjouterParagraphe(1, ancienParagraphe, indice);
+					Controleur.creerFenetreAjouterParagraphe(1, ancienParagraphe, indice);
 				}
 				if (str.equals("Image"))
 				{
 					String ancienImage = projetSelectionne.getPage(pageSelectionnee).getAlImage().get(indice-1);
-					Generateur.creerFenetreAjouterImage(1, ancienImage, indice);
+					Controleur.creerFenetreAjouterImage(1, ancienImage, indice);
 				}
 			}
 		}

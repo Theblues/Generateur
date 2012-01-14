@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-import Main.Generateur;
+import Main.*;
 import Utilitaire.*;
 
 public class FenetreCreerProjet extends JFrame implements ActionListener
@@ -45,8 +45,8 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		String nomProjet = txNom.getText();
 		File file = new File(nomProjet);
 		file.mkdir();
-		Generateur.metier.ajouterProjet(new Projet(nomProjet));
-		Generateur.fenetre.getArborescence().ajoutFils("projet", nomProjet);
+		Controleur.metier.ajouterProjet(new Projet(nomProjet));
+		Controleur.fenetre.getArborescence().ajoutFils("projet", nomProjet);
 		this.dispose();
 	}
 }

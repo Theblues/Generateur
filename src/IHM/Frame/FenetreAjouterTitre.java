@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import Main.Generateur;
+import Main.*;
 import Utilitaire.*;
 
 public class FenetreAjouterTitre extends JFrame implements ActionListener
@@ -38,14 +38,14 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
-		Projet projet = Generateur.metier.getProjetSelectionne();
+		Projet projet = Controleur.metier.getProjetSelectionne();
 		Page page = projet.getPageSelectionne();
 		
 		if (statue == 0)
 		{
 			projet.getPage(page).ajouterTitre(tf.getText());
 			int cpt = projet.getPage(page).getAlTitre().size();
-			Generateur.fenetre.getArborescence().ajoutFils("element", "Titre " + cpt);
+			Controleur.fenetre.getArborescence().ajoutFils("element", "Titre " + cpt);
 		}
 		else
 			projet.getPage(page).modTitre(tf.getText(), indiceTitre);

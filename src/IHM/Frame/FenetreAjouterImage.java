@@ -61,7 +61,7 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		Projet projet = Generateur.metier.getProjetSelectionne();
+		Projet projet = Controleur.metier.getProjetSelectionne();
 		Page page = projet.getPageSelectionne();
 		
 		if ( statue == 0 )
@@ -75,7 +75,7 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 				
 				projet.getPage(page).ajouterImage(chemin);
 				int cpt = projet.getPage(page).getAlImage().size();
-				Generateur.fenetre.getArborescence().ajoutFils("element", "Image " + cpt);
+				Controleur.fenetre.getArborescence().ajoutFils("element", "Image " + cpt);
 				
 				dispose();
 			}
@@ -106,7 +106,7 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 
 	private void enregistrerImage(String chemin)
 	{
-		Projet projet = Generateur.metier.getProjetSelectionne();
+		Projet projet = Controleur.metier.getProjetSelectionne();
 		String cheminArr = "./" + projet.getNom() +"/content/IMG/";
 
 		InputStream input;
