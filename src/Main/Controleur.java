@@ -43,19 +43,4 @@ public class Controleur
 	{
 		initialiser();
 	}
-	
-	/*public static void ajouterStyleParagraphe() {
-		
-		//JTextPane textPanel = fenetre.getjEditor();
-		
-		fenetre.initStylesForTextPane(textPanel, null, "paragraphe");
-
-		Document doc = textPanel.getDocument();
-		try {
-			doc.insertString(textPanel.getSelectionStart(), " ",textPanel.getStyle("paragraphe"));
-		} catch (BadLocationException ble) {
-			System.err.println("Couldn't insert initial text.");
-		}
-	}*/
-
 }

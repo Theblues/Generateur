@@ -72,19 +72,4 @@ public class Fenetre extends JFrame
 	public PanelListeAction getPanelListeAction()	{	return listeAction;		}
 	public PanelArbre getArborescence()				{	return arborescence;	}
 	public PanelVisu getPanelVisu()					{	return panelVisu;		}
-	
-	public void initStylesForTextPane(JTextPane textPanel, String chemin, String style) {
-		// Initialize some styles
-		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
-
-		Style regular = textPanel.addStyle("regular", def);
-
-		Style s;
-
-		if (style.equals("gras")) {
-			s = textPanel.addStyle("gras", regular);
-			StyleConstants.setBold(s, true);
-			
-		}
-	}	
 }

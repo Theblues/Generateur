@@ -5,12 +5,14 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import IHM.Panel.PanelListeModFont;
 import Main.*;
 import Utilitaire.*;
 
 public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 {
-	private JEditorPane editorPane;
+	private PanelListeModFont listeActionFont;
+	private JTextPane textPane;
 	private JButton button;
 	
 	private int statue;
@@ -25,17 +27,20 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		setLayout(new BorderLayout());
 		setTitle("Entrer un paragraphe");
 		
-		editorPane = new JEditorPane();
-		editorPane.setEditable(true);
-		editorPane.setContentType("text/plain");
+		textPane = new JTextPane();
+		textPane.setEditable(true);
+		textPane.setContentType("text/plain");
 		
-		editorPane.setText(paragraphe);
+		textPane.setText(paragraphe);
 
-		JScrollPane scroller = new JScrollPane( editorPane,
+		JScrollPane scroller = new JScrollPane(textPane,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
 		
-		add(scroller,BorderLayout.CENTER);
+		listeActionFont = new PanelListeModFont(textPane);
+		
+		add(listeActionFont, BorderLayout.NORTH);
+		add(scroller);
 		
 		button = new JButton("Valider");
 		button.addActionListener(this);
@@ -51,16 +56,14 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		
 		if (statue == 0) 
 		{
-			projet.getPage(page).ajouterParagraphe(editorPane.getText());
+			projet.getPage(page).ajouterParagraphe(textPane.getText());
 			int cpt = projet.getPage(page).getAlParagraphe().size();
 			Controleur.fenetre.getArborescence().ajoutFils("element", "Paragraphe " + cpt);
 		}
 		else
-			projet.getPage(page).modParagraphe(editorPane.getText(), indiceParagraphe);
+			projet.getPage(page).modParagraphe(textPane.getText(), indiceParagraphe);
 		
 		this.dispose();
 		
 	}
-	
-	
 }

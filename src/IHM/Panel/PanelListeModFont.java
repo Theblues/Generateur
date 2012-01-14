@@ -3,20 +3,14 @@ package IHM.Panel;
 import java.awt.*;
 
 import java.awt.event.*;
-import java.io.*;
 
 import javax.swing.*;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
-
-import org.apache.commons.io.IOUtils;
-
-import Main.*;
-import Utilitaire.*;
+import javax.swing.text.*;
 
 public class PanelListeModFont extends JPanel implements ActionListener {
 
+	private JTextPane textPane;
+	
 	private JPanel taille = new JPanel();
 	private JComboBox combo1 = new JComboBox();
 
@@ -33,8 +27,10 @@ public class PanelListeModFont extends JPanel implements ActionListener {
 
 	// private JLabel titre;
 
-	public PanelListeModFont() 
+	public PanelListeModFont(JTextPane textPane) 
 	{
+		this.textPane = textPane;
+		
 		JPanel p = new JPanel();
 		JPanel tail = new JPanel();
 
@@ -56,6 +52,7 @@ public class PanelListeModFont extends JPanel implements ActionListener {
 		taille.add(tail, BorderLayout.NORTH);
 
 		boutonGras = new JButton();
+		boutonGras.addActionListener(this);
 		boutonGras.setBorder(null);
 		boutonGras.setPreferredSize(new Dimension(35, 35));
 		boutonGras.setIcon(new ImageIcon("images/gras.jpg"));
@@ -119,13 +116,47 @@ public class PanelListeModFont extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		// TODO Tous
-		if ( e.getSource() == boutonGras ){
+		String texte = textPane.getSelectedText();		
+		if (e.getSource() instanceof JButton)
+		{
+			JButton b = (JButton) e.getSource();
 			
-			//Generateur.ajouterStyleParagraphe();
+			if (b.equals(boutonGras))
+			{
+				ajouterGras(texte);
+			}
+			
+			// TODO autre bouton
 		}
+		// TODO comboBox
 		
 	}
-
 	
+	private void ajouterGras(String text) 
+	{
+		initStylesForTextPane(textPane);
+
+		Document doc = textPane.getDocument();
+		try {
+			doc.insertString(textPane.getSelectionStart(), text, textPane.getStyle("gras"));
+			doc.remove(textPane.getSelectionStart(), text.length());
+		} catch (BadLocationException ble) {
+			System.err.println("Couldn't insert initial text.");
+		}
+	}
+	
+	private void initStylesForTextPane(JTextPane textPanel) 
+	{
+		// Initialize some styles
+		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
+
+		Style regular = textPanel.addStyle("regular", def);
+
+		Style s;
+
+		s = textPanel.addStyle("gras", regular);
+		StyleConstants.setBold(s, true);
+		
+		// TODO autre style
+	}	
 }
