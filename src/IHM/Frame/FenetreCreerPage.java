@@ -42,7 +42,6 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// TODO Auto-generated method stub
 		String nomFichier = Controleur.metier.getProjetSelectionne().getNom() + "/"	+ txTitre.getText() + ".html";
 		File f = new File(nomFichier);
 		try

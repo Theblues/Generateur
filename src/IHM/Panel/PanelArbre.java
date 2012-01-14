@@ -107,7 +107,9 @@ public class PanelArbre extends JPanel
 			 */
 			if (location == 2)
 			{
+				// on desactive les ajouts de titre/paragraphe/image
 				Controleur.fenetre.getMenu().desactiveAjout();
+				Controleur.fenetre.getPanelListeAction().desactiveAjout();
 				
 				parentNodeProjet = arbre.getLastSelectedPathComponent();
 				projetSelectionne = Controleur.metier.getProjet(path.getLastPathComponent().toString());
@@ -116,7 +118,9 @@ public class PanelArbre extends JPanel
 			}
 			else if (location == 3)
 			{
+				// on active les boutons/items
 				Controleur.fenetre.getMenu().activerAjout();
+				Controleur.fenetre.getPanelListeAction().activerAjout();
 				
 				projetSelectionne = Controleur.metier.getProjet(tabObj[1].toString());
 				// on selectionne le dernier noeud selectionnee

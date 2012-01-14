@@ -20,7 +20,6 @@ public class Generator
 	
 	private void footer()
 	{
-		// TODO Auto-generated method stub
 		code += "\n\t</body>\n" +
 				"</html>\n";
 	}
@@ -34,6 +33,8 @@ public class Generator
 		ArrayList<String> alTitre = projet.getPage(page).getAlTitre();
 		ArrayList<String> alParagraphe = projet.getPage(page).getAlParagraphe();
 		ArrayList<String> alImage = projet.getPage(page).getAlImage();
+		
+		// TODO Securisation lors de la generation
 		
 		header();
 		for (String s : alS )

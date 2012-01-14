@@ -1,5 +1,6 @@
 package IHM.Frame;
 
+import java.awt.BorderLayout;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.Style;
@@ -10,13 +11,31 @@ import IHM.Panel.*;
 
 public class Fenetre extends JFrame
 {
+	/*
+	 * 		  Composition de la Fenetre
+	 * 	____________________________________
+	 *  |	 menu							|
+	 *  |___________________________________|
+	 *  | 			listeAction				|
+	 *  |___________________________________|
+	 *  |		|							|
+	 *  |		|							|
+	 *  |		|							|
+	 *  |Arbo	|		Visu				|
+	 *  |		|							|
+	 *  |		|							|
+	 *  |		|							|
+	 *  |		|							|
+	 *  |_______|___________________________|
+	 *  
+	 */
+	
 	private PanelMenu 			menu;
+	private PanelListeAction 	listeAction;
 	private PanelArbre			arborescence;
-	private JSplitPane 			splitPaneVertical;
-	private JSplitPane 			splitPaneTotal;
 	private PanelVisu			panelVisu;
 	
-	private PanelListeAction 	listeAction;
+	private JSplitPane 			splitPaneTotal;
 	
 	public Fenetre()
 	{
@@ -31,14 +50,11 @@ public class Fenetre extends JFrame
 		listeAction = new PanelListeAction();
 		
 		panelVisu = new PanelVisu();
-		
-		splitPaneVertical = new JSplitPane(JSplitPane.VERTICAL_SPLIT, listeAction , panelVisu);
-		splitPaneVertical.setOneTouchExpandable(true);
 
-		
-		splitPaneTotal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, arborescence, splitPaneVertical);
+		splitPaneTotal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, arborescence, panelVisu);
 		splitPaneTotal.setOneTouchExpandable(true);
 		
+		add(listeAction, BorderLayout.NORTH);
 		add(splitPaneTotal);
 		// permet l'action de la croix rouge
 		addWindowListener(new WindowAdapter()
@@ -52,9 +68,10 @@ public class Fenetre extends JFrame
 		setVisible(true);
 	}
 
-	public PanelMenu getMenu()				{		return menu;			}
-	public PanelArbre getArborescence()		{		return arborescence;	}
-	public PanelVisu getPanelVisu()			{		return panelVisu;		}
+	public PanelMenu getMenu()						{	return menu;			}
+	public PanelListeAction getPanelListeAction()	{	return listeAction;		}
+	public PanelArbre getArborescence()				{	return arborescence;	}
+	public PanelVisu getPanelVisu()					{	return panelVisu;		}
 	
 	public void initStylesForTextPane(JTextPane textPanel, String chemin, String style) {
 		// Initialize some styles
@@ -69,7 +86,5 @@ public class Fenetre extends JFrame
 			StyleConstants.setBold(s, true);
 			
 		}
-	}
-
-	
+	}	
 }

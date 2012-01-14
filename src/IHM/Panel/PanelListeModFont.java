@@ -15,7 +15,7 @@ import org.apache.commons.io.IOUtils;
 import Main.*;
 import Utilitaire.*;
 
-public class PanelListeAction extends JPanel implements ActionListener {
+public class PanelListeModFont extends JPanel implements ActionListener {
 
 	private JPanel taille = new JPanel();
 	private JComboBox combo1 = new JComboBox();
@@ -33,8 +33,8 @@ public class PanelListeAction extends JPanel implements ActionListener {
 
 	// private JLabel titre;
 
-	public PanelListeAction() {
-
+	public PanelListeModFont() 
+	{
 		JPanel p = new JPanel();
 		JPanel tail = new JPanel();
 
@@ -117,8 +117,9 @@ public class PanelListeAction extends JPanel implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		
+	public void actionPerformed(ActionEvent e) 
+	{
+		// TODO Tous
 		if ( e.getSource() == boutonGras ){
 			
 			//Generateur.ajouterStyleParagraphe();

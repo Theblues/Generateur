@@ -135,7 +135,6 @@ public class PanelMenu extends JPanel implements ActionListener
 
 	public void desactiveAjout()
 	{
-		// TODO Auto-generated method stub
 		itemTitre.removeActionListener(this);
 		itemParagraphe.removeActionListener(this);
 		itemImage.removeActionListener(this);
