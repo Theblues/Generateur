@@ -43,10 +43,19 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{	
 		String nomProjet = txNom.getText();
-		File file = new File(nomProjet);
+		File file = new File("projet" + nomProjet);
 		file.mkdir();
 		Controleur.metier.ajouterProjet(new Projet(nomProjet));
 		Controleur.fenetre.getArborescence().ajoutFils("projet", nomProjet);
+		
+		File content = new File ("projet/" + nomProjet + "/content");
+		File css = new File ("projet/" + nomProjet + "/content/CSS");
+		File img = new File ("projet/" + nomProjet + "/content/IMG");
+		
+		content.mkdir();
+		css.mkdir();
+		img.mkdir();
+		
 		this.dispose();
 	}
 }

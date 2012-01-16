@@ -62,24 +62,9 @@ public class Generator
 			if (type.equals("Image"))
 				code += "\t\t<img src=\""+alImage.get(ind)+"\">\n";	
 		}
-		
 		footer();
-		
-		File file, content,css,img;
-		
-		file = new File("projet/" + projet.getNom() + "/" + page.getNom());
-		content = new File ("projet/" + projet.getNom() + "/content");
-		css = new File ("projet/" + projet.getNom() + "/content/CSS");
-		img = new File ("projet/" + projet.getNom() + "/content/IMG");
-		
-		if ( !content.exists())
-		{
-			content.mkdir();
-			if ( !css.exists())
-				css.mkdir();
-			if ( !img.exists())
-				img.mkdir();
-		}
+			
+		File file = new File("projet/" + projet.getNom() + "/" + page.getNom());
 		
 		try
 		{
