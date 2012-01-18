@@ -54,6 +54,9 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		Projet projet = Controleur.metier.getProjetSelectionne();
 		Page page = projet.getPageSelectionne();
 		
+		if (textPane.getText() == "")
+			return;
+		
 		if (statue == 0) 
 		{
 			projet.getPage(page).ajouterParagraphe(textPane.getText());
@@ -64,6 +67,5 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 			projet.getPage(page).modParagraphe(textPane.getText(), indiceParagraphe);
 		
 		this.dispose();
-		
 	}
 }

@@ -27,14 +27,21 @@ public class Generator
 
 	public void generate() 
 	{
-		ArrayList<String> alS = Controleur.fenetre.getArborescence().getOrdreElement();
 		Projet projet = Controleur.metier.getProjetSelectionne();
+		if (projet == null)
+			return;
+		
 		Page page = projet.getPageSelectionne();
+		if(page == null)
+			return;
+		
+		ArrayList<String> alS = Controleur.fenetre.getArborescence().getOrdreElement();
 		ArrayList<String> alTitre = projet.getPage(page).getAlTitre();
 		ArrayList<String> alParagraphe = projet.getPage(page).getAlParagraphe();
 		ArrayList<String> alImage = projet.getPage(page).getAlImage();
 		
-		// TODO Securisation lors de la generation
+		if (alS.size() == 0)
+			return;
 		
 		header();
 		for (String s : alS )
