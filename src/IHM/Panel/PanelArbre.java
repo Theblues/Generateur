@@ -171,11 +171,11 @@ public class PanelArbre extends JPanel
 	public ArrayList<String> getOrdreElement()
 	{
 		ArrayList<String> alS = new ArrayList<String>();
-		
-		TreeNode tn = (TreeNode) parentNodeFichier;
-		for (int i = 0; i < tn.getChildCount(); i++)
+
+		DefaultMutableTreeNode dtn = (DefaultMutableTreeNode) parentNodeFichier;
+		for (int i = 0; i < dtn.getChildCount(); i++)
 		{
-			TreePath tp = arbre.getPathForRow(i+arbre.getLeadSelectionRow()+1);
+			TreePath tp = arbre.getPathForRow(i+dtn.getLevel()+1);
 			alS.add(tp.getLastPathComponent().toString());
 		}
 		return alS;
