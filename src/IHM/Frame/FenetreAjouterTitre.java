@@ -15,6 +15,7 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 
 	public FenetreAjouterTitre(int statue, String titre, int indiceTitre)
 	{
+		setLocation(250, 250);
 		this.statue = statue;
 		this.indiceTitre = indiceTitre;
 
@@ -32,8 +33,8 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 		tf.addActionListener(this);
 		add(tf);
 
-		setVisible(true);
 		pack();
+		setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -50,8 +51,6 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 		else
 			projet.getPage(page).modTitre(tf.getText(), indiceTitre);
 
-		this.dispose();
-		
+		this.dispose();	
 	}
-
 }

@@ -28,7 +28,7 @@ public class PanelArbre extends JPanel
 	public PanelArbre(JFrame f) 
 	{		
 		setLayout(new BorderLayout());
-		setPreferredSize(new Dimension(150, 100));
+		setPreferredSize(new Dimension(175, 100));
 
 		listRoot(f);
 

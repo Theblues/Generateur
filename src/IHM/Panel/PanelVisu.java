@@ -21,6 +21,11 @@ public class PanelVisu extends JPanel
 		JScrollPane scroller = new JScrollPane( jEditor,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
+		scroller.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createCompoundBorder(
+						BorderFactory.createTitledBorder("Prévisualisation de votre site"),
+						BorderFactory.createEmptyBorder(5, 5, 5, 5)),
+						scroller.getBorder()));
 		add(scroller);
 	}
 	
