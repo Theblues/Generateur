@@ -40,7 +40,7 @@ public class Controleur
 		new FenetreAjouterImage(statue, titre, indiceImage);			
 	}
 	
-	public static void CreerOptionPaneInfo(String type, String texte)
+	public static void CreerOptionPane(String type, String texte)
 	{
 		OptionPane op = new OptionPane();
 		if (type.equals("info"))

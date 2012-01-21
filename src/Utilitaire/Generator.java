@@ -3,8 +3,6 @@ package Utilitaire;
 import java.io.*;
 import java.util.*;
 
-import javax.swing.*;
-
 import Main.*;
 
 public class Generator 
@@ -87,6 +85,6 @@ public class Generator
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Controleur.CreerOptionPaneInfo("info", "Generation accomplie");
+		Controleur.CreerOptionPane("info", "Generation accomplie");
 	}
 }
