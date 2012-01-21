@@ -1,6 +1,7 @@
 package Main;
 
 import IHM.Frame.*;
+import IHM.OptionPane.OptionPane;
 import Metier.*;
 
 public class Controleur
@@ -37,6 +38,17 @@ public class Controleur
 	public static void creerFenetreAjouterImage(int statue, String titre, int indiceImage)		
 	{		
 		new FenetreAjouterImage(statue, titre, indiceImage);			
+	}
+	
+	public static void CreerOptionPaneInfo(String type, String texte)
+	{
+		OptionPane op = new OptionPane();
+		if (type.equals("info"))
+			op.optionPaneInfo(texte);
+		else if (type.equals("warning"))
+			op.optionPaneAlerte(texte);
+		else
+			op.optionPaneErreur(texte);
 	}
 	
 	public static void main(String[] argv)
