@@ -85,6 +85,6 @@ public class Generator
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(code);
+		Controleur.CreerOptionPane("info", "Generation accomplie");
 	}
 }
