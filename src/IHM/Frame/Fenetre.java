@@ -2,10 +2,9 @@ package IHM.Frame;
 
 import java.awt.BorderLayout;
 import java.awt.event.*;
+import java.io.Serializable;
+
 import javax.swing.*;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
 
 import IHM.Panel.*;
 

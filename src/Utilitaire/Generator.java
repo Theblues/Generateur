@@ -5,7 +5,7 @@ import java.util.*;
 
 import Main.*;
 
-public class Generator 
+public class Generator
 {
 	private String code;
 	

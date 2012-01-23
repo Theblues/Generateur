@@ -7,6 +7,7 @@ public class Projet
 	private String nom;
 	private ArrayList<Page> alPage;
 	private Page pageSelectionne;
+	private String cheminDossier;
 	
 	public Projet(String nom)
 	{
@@ -14,9 +15,10 @@ public class Projet
 		alPage = new ArrayList<Page>();
 	}
 
-	public String getNom()				{	return nom;		}
-	public ArrayList<Page> getAlPage()	{	return alPage;	}
-	
+	public String getNom()				{	return nom;					}
+	public ArrayList<Page> getAlPage()	{	return alPage;				}
+	public String getCheminDossier()	{		return cheminDossier;	}
+
 	public Page getPageSelectionne()
 	{
 		return pageSelectionne;
@@ -43,6 +45,11 @@ public class Projet
 	public void setPageSelectionne(Page p)
 	{
 		pageSelectionne = p;
+	}
+	
+	public void setCheminDossier(String cheminDossier)
+	{
+		this.cheminDossier = cheminDossier;
 	}
 
 	public void ajouterPage(Page p)

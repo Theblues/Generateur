@@ -1,10 +1,11 @@
 package Metier;
 
+import java.io.Serializable;
 import java.util.*;
 
 import Utilitaire.*;
 
-public class Metier
+public class Metier implements Serializable
 {
 	private Generator generator;
 	private ArrayList<Projet> alProjet;

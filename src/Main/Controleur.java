@@ -10,7 +10,7 @@ public class Controleur
 
 	public static void initialiser()
 	{
-		metier = new Metier();
+		metier = new Metier();		
 		fenetre = new Fenetre();
 	}
 	
