@@ -6,13 +6,24 @@ import Metier.*;
 
 public class Controleur
 {
+	public static FenetreChoixDossier fenetreChoixDossier;
 	public static Fenetre fenetre;
 	public static Metier metier;
 
 	public static void initialiser()
 	{
+		fenetreChoixDossier = new FenetreChoixDossier();
+		while (!fenetreChoixDossier.getBon())
+		{
+			try
+			{
+				Thread.sleep(3000);
+			}
+			catch (Exception e){}
+		}
 		metier = new Metier();
 		fenetre = new Fenetre();
+
 	}
 	
 	public static void creerFenetreCreerProjet()
