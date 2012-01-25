@@ -1,8 +1,9 @@
 package Utilitaire;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Page
+public class Page implements Serializable
 {
 	private String nom;
 	private ArrayList<String> alTitre;

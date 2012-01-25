@@ -56,7 +56,7 @@ public class PanelArbre extends JPanel implements Serializable
 	private void init() 
 	{
 		try {
-			FileInputStream fichier = new FileInputStream("arbre.dat");
+			FileInputStream fichier = new FileInputStream("temp/arbre.dat");
 			ObjectInputStream ois = new ObjectInputStream(fichier);
 			arbre = (JTree) ois.readObject();
 			racine = (DefaultMutableTreeNode) ois.readObject();
@@ -174,10 +174,7 @@ public class PanelArbre extends JPanel implements Serializable
 					Controleur.creerFenetreAjouterParagraphe(1, ancienParagraphe, indice);
 				}
 				if (str.equals("Image"))
-				{
-					String ancienImage = projetSelectionne.getPage(pageSelectionnee).getAlImage().get(indice-1);
 					Controleur.creerFenetreAjouterImage(1);
-				}
 			}
 		}
 	}
@@ -254,7 +251,7 @@ public class PanelArbre extends JPanel implements Serializable
 	public void enregistrerArbre()
 	{
 		try {
-			FileOutputStream fichier = new FileOutputStream("arbre.dat");
+			FileOutputStream fichier = new FileOutputStream("temp/arbre.dat");
 			ObjectOutputStream oos = new ObjectOutputStream(fichier);
 			oos.writeObject(arbre);
 			oos.writeObject(racine);
