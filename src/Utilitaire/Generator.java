@@ -44,6 +44,16 @@ public class Generator
 			return;
 		
 		header();
+		
+		code += "<header>\n" +
+				"\t<!-- Haut de page -->\n" +
+				"</header>\n" +
+				"<section>\n" +
+				"\t\t<aside>\n" +
+				"\t\t<!-- Menu -->\n" +
+				"\t</aside>\n" +
+				"\t<article>\n";
+		
 		for (String s : alS )
 		{
 			Scanner sc = new Scanner(s);
@@ -69,6 +79,12 @@ public class Generator
 			if (type.equals("Image"))
 				code += "\t\t<img src=\""+alImage.get(ind)+"\">\n";	
 		}
+		
+		code += "</section>\n" +
+				"<footer>\n" +
+				"\t<!-- Bas de page -->\n" +
+				"</footer>\n";
+		
 		footer();
 			
 		File file = new File("projet/" + projet.getNom() + "/" + page.getNom());
