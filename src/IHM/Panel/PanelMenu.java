@@ -102,7 +102,7 @@ public class PanelMenu extends JPanel implements ActionListener
 	{		
 		JMenuItem mi = (JMenuItem) e.getSource();
 		if (mi.equals(itemClose))
-			System.exit(0);
+			Controleur.fermerFenetre();
 		if (mi.equals(itemNewProject))
 			Controleur.creerFenetreCreerProjet();
         if (mi.equals(itemNewPage))

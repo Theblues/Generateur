@@ -11,7 +11,7 @@ public class Controleur
 
 	public static void initialiser()
 	{
-		metier = new Metier();		
+		metier = new Metier();
 		fenetre = new Fenetre();
 	}
 	
@@ -49,6 +49,13 @@ public class Controleur
 			op.optionPaneAlerte(texte);
 		else if (type.equals("error"))
 			op.optionPaneErreur(texte);
+	}
+	
+	public static void fermerFenetre()
+	{
+		fenetre.getArborescence().enregistrerArbre();
+    	metier.enregistrerContenu();
+        System.exit(0);
 	}
 	
 	public static void main(String[] argv)
