@@ -109,8 +109,6 @@ public class PanelArbre extends JPanel implements Serializable
 		 * Exemple path
 		 * [null, site, test.html, titre 1]
 		 */
-		
-		System.out.println(path);
 		if (path != null)
 		{
 			Object[] tabObj = path.getPath();
@@ -194,6 +192,11 @@ public class PanelArbre extends JPanel implements Serializable
 		for (int i = 0; i < dtn.getChildCount(); i++)
 		{
 			TreePath tp = arbre.getPathForRow(i+dtn.getLevel()+1);
+			if (tp == null)
+			{
+				Controleur.CreerOptionPane("error", "Une erreur est survenue");
+				return null;
+			}
 			alS.add(tp.getLastPathComponent().toString());
 		}
 		return alS;

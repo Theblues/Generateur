@@ -35,11 +35,17 @@ public class PanelVisu extends JPanel
 		
 		ArrayList<String> alS = Controleur.fenetre.getArborescence().getOrdreElement();
 		Projet projet = Controleur.metier.getProjetSelectionne();
+		if (projet == null)
+			return;
 		Page page = projet.getPageSelectionne();
+		if(page == null)
+			return;
 		ArrayList<String> alTitre = projet.getPage(page).getAlTitre();
 		ArrayList<String> alParagraphe = projet.getPage(page).getAlParagraphe();
 		ArrayList<String> alImage = projet.getPage(page).getAlImage();
 		
+		if (alS == null || alS.size() == 0)
+			return;
 		
 		for (String s : alS )
 		{
@@ -47,7 +53,17 @@ public class PanelVisu extends JPanel
 			sc.useDelimiter(" ");
 			
 			String type = sc.next();
-			int ind = Integer.parseInt(sc.next())-1;
+
+			String indice = sc.next();
+			for (int i = 0; i < indice.length(); i++)
+			{
+				if (!Character.isDigit(indice.charAt(0)))
+				{
+					Controleur.CreerOptionPane("error", "Previsualisation impossible");
+					return;
+				}
+			}
+			int ind = Integer.parseInt(indice)-1;
 			
 			if (type.equals("Titre"))
 				contenu += alTitre.get(ind)+"\n\n";
@@ -56,7 +72,7 @@ public class PanelVisu extends JPanel
 			{
 				Scanner scan = new Scanner(alParagraphe.get(ind)).useDelimiter("\n");
 			    while (scan.hasNext())
-			    contenu += "\t"+scan.next() + "\n";
+			    	contenu += "\t"+scan.next() + "\n";
 			}
 			
 			if (type.equals("Image"))
