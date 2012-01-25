@@ -22,15 +22,11 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 	private String nom;
 	private String chemin;
 	
-	private String titre;
 	private int statue;
-	private int indiceImage;
 
-	public FenetreAjouterImage(int statue, String titre, int indiceImage)
+	public FenetreAjouterImage(int statue)
 	{
 		this.statue = statue;
-		this.titre = titre;
-		this.indiceImage = indiceImage;
 		
 		choisirImage();
 		if (chemin == null)

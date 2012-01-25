@@ -7,6 +7,7 @@ import java.io.Serializable;
 import javax.swing.*;
 
 import IHM.Panel.*;
+import Main.Controleur;
 
 public class Fenetre extends JFrame
 {
@@ -60,6 +61,7 @@ public class Fenetre extends JFrame
         {
             public void windowClosing(WindowEvent e) 
             {
+            	Controleur.enregistrer();
                 System.exit(0);
             }
         });

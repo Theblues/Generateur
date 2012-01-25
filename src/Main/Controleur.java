@@ -1,5 +1,10 @@
 package Main;
 
+import java.io.*;
+
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+
 import IHM.Frame.*;
 import IHM.OptionPane.OptionPane;
 import Metier.*;
@@ -35,9 +40,9 @@ public class Controleur
 		new FenetreAjouterTitre(statue, titre, indiceTitre);
 	}
 	
-	public static void creerFenetreAjouterImage(int statue, String titre, int indiceImage)		
+	public static void creerFenetreAjouterImage(int statue)		
 	{		
-		new FenetreAjouterImage(statue, titre, indiceImage);			
+		new FenetreAjouterImage(statue);			
 	}
 	
 	public static void CreerOptionPane(String type, String texte)
@@ -51,8 +56,29 @@ public class Controleur
 			op.optionPaneErreur(texte);
 	}
 	
+	public static void enregistrer()
+	{
+		JTree arbre = fenetre.getArborescence().getArbre();
+		DefaultMutableTreeNode racine = fenetre.getArborescence().getRacine();
+		
+		try {
+			FileOutputStream fichier = new FileOutputStream("arbre.dat");
+			ObjectOutputStream oos = new ObjectOutputStream(fichier);
+			oos.writeObject(arbre);
+			oos.writeObject(racine);
+			oos.flush();
+			oos.close();
+		}
+		catch (java.io.IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] argv)
 	{
 		initialiser();
 	}
+
+	
 }

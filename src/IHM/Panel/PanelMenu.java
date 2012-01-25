@@ -115,7 +115,7 @@ public class PanelMenu extends JPanel implements ActionListener
 		if (mi.equals(itemGenerer))
 			Controleur.metier.getGenerator().generate();
 		if (mi.equals(itemImage))
-			Controleur.creerFenetreAjouterImage(0, "", 0);
+			Controleur.creerFenetreAjouterImage(0);
 	}
 	
 	public void activerAjout()

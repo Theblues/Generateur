@@ -12,7 +12,7 @@ import java.util.*;
 import Main.*;
 import Utilitaire.*;
 
-public class PanelArbre extends JPanel 
+public class PanelArbre extends JPanel implements Serializable
 {
 	private JTree arbre;
 	private DefaultMutableTreeNode racine;
@@ -30,7 +30,16 @@ public class PanelArbre extends JPanel
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(175, 100));
 
-		listRoot(f);
+		init();
+		
+		if(arbre == null)
+			listRoot(f);
+		
+		arbre.addMouseListener(new MouseAdapter() {
+		      public void mouseClicked(MouseEvent me) {
+		        doMouseClicked(me);
+		      }
+		    });
 
 		editeurScrollHorizontal = new JScrollPane(arbre);
 		editeurScrollHorizontal.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -42,6 +51,20 @@ public class PanelArbre extends JPanel
 		
 		add(editeurScrollHorizontal);
 		add(editeurScrollVertical);
+	}
+	
+	private void init() 
+	{
+		try {
+			FileInputStream fichier = new FileInputStream("arbre.dat");
+			ObjectInputStream ois = new ObjectInputStream(fichier);
+			arbre = (JTree) ois.readObject();
+			racine = (DefaultMutableTreeNode) ois.readObject();
+		}
+		catch (IOException ignored) {}            // probleme de lecture
+		catch (ClassNotFoundException e)	{}
+		if (arbre != null && racine != null)
+			updateTree(racine);
 	}
 
 	private void listRoot(JFrame f) 
@@ -73,12 +96,6 @@ public class PanelArbre extends JPanel
 		arbre = new JTree(racine);
 		
 		f.getContentPane().add(new JScrollPane(arbre));
-		
-		arbre.addMouseListener(new MouseAdapter() {
-		      public void mouseClicked(MouseEvent me) {
-		        doMouseClicked(me);
-		      }
-		    });
 	}
 	
 	void doMouseClicked(MouseEvent me) 
@@ -89,6 +106,7 @@ public class PanelArbre extends JPanel
 		 * [null, site, test.html, titre 1]
 		 */
 		
+		System.out.println(path);
 		if (path != null)
 		{
 			Object[] tabObj = path.getPath();
@@ -158,15 +176,14 @@ public class PanelArbre extends JPanel
 				if (str.equals("Image"))
 				{
 					String ancienImage = projetSelectionne.getPage(pageSelectionnee).getAlImage().get(indice-1);
-					Controleur.creerFenetreAjouterImage(1, ancienImage, indice);
+					Controleur.creerFenetreAjouterImage(1);
 				}
 			}
 		}
 	}
 	
-	public JTree getArbre() {
-		return arbre;
-	}
+	public JTree getArbre() 					{	return arbre;	}
+	public DefaultMutableTreeNode getRacine()	{	return racine;	}
 
 	public ArrayList<String> getOrdreElement()
 	{
