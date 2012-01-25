@@ -61,7 +61,7 @@ public class Fenetre extends JFrame
         {
             public void windowClosing(WindowEvent e) 
             {
-            	Controleur.enregistrer();
+            	Controleur.fenetre.getArborescence().enregistrerArbre();
                 System.exit(0);
             }
         });

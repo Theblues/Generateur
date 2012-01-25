@@ -56,29 +56,8 @@ public class Controleur
 			op.optionPaneErreur(texte);
 	}
 	
-	public static void enregistrer()
-	{
-		JTree arbre = fenetre.getArborescence().getArbre();
-		DefaultMutableTreeNode racine = fenetre.getArborescence().getRacine();
-		
-		try {
-			FileOutputStream fichier = new FileOutputStream("arbre.dat");
-			ObjectOutputStream oos = new ObjectOutputStream(fichier);
-			oos.writeObject(arbre);
-			oos.writeObject(racine);
-			oos.flush();
-			oos.close();
-		}
-		catch (java.io.IOException e) 
-		{
-			e.printStackTrace();
-		}
-	}
-	
 	public static void main(String[] argv)
 	{
 		initialiser();
 	}
-
-	
 }

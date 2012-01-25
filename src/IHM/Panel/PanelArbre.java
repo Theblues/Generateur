@@ -250,4 +250,20 @@ public class PanelArbre extends JPanel implements Serializable
 			return node;
 		}
 	}
+	
+	public void enregistrerArbre()
+	{
+		try {
+			FileOutputStream fichier = new FileOutputStream("arbre.dat");
+			ObjectOutputStream oos = new ObjectOutputStream(fichier);
+			oos.writeObject(arbre);
+			oos.writeObject(racine);
+			oos.flush();
+			oos.close();
+		}
+		catch (java.io.IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
 }
