@@ -14,6 +14,7 @@ public class Generator
 		code = "<html>\n" +
 					"\t<head>\n" +
 					"\t\t<title>Page 1</title>\n" +
+					"\t\t<link rel=\"stylesheet\" href=\"style.css\" />" +
 					"\t</head>\n" +
 					"\t<body>\n";
 	}

@@ -13,6 +13,7 @@ import Utilitaire.*;
 public class FenetreCreerProjet extends JFrame implements ActionListener
 {
 	private JTextField txNom;
+	private JComboBox combo = new JComboBox();
 	
 	public FenetreCreerProjet()
 	{
@@ -23,13 +24,20 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		JLabel labelDescription = new JLabel("Creer votre projet");
 		add(labelDescription, BorderLayout.NORTH);
 		
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel(new FlowLayout());
 		JLabel label = new JLabel("Nom du projet");
 		
 		panel.add(label);
-		txNom = new JTextField(30);
 		
+		txNom = new JTextField(30);
 		panel.add(txNom);
+		
+		combo.setPreferredSize(new Dimension(75, 30));
+		combo.addItem("Style 1");
+		combo.addItem("Style 2");
+		combo.addItem("Style 3");
+		
+		panel.add(combo);
 		
 		add(panel);
 		
@@ -55,6 +63,15 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		content.mkdir();
 		css.mkdir();
 		img.mkdir();
+		
+		File cssFile;
+		
+		if (combo.getSelectedItem().equals("Style 1"))
+			cssFile = new File ("projet/" + nomProjet + "/content/CSS/style1.css");
+		else if (combo.getSelectedItem().equals("Style 2"))
+			cssFile = new File ("projet/" + nomProjet + "/content/CSS/style2.css");
+		else
+			cssFile = new File ("projet/" + nomProjet + "/content/CSS/style3.css");		
 		
 		this.dispose();
 	}
