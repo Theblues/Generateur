@@ -1,8 +1,9 @@
 package Utilitaire;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Projet
+public class Projet implements Serializable
 {
 	private String nom;
 	private ArrayList<Page> alPage;
