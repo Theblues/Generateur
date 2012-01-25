@@ -40,6 +40,7 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		JPanel pan = new JPanel();
 		pan.setLayout(new GridLayout(1, 3));
 
+		// TODO (pour sarah) modifier les boutons
 		annuler = new JButton("Annuler");
 		annuler.addActionListener(this);
 		pan.add(annuler);

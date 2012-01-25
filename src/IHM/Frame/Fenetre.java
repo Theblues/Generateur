@@ -2,7 +2,6 @@ package IHM.Frame;
 
 import java.awt.BorderLayout;
 import java.awt.event.*;
-import java.io.Serializable;
 
 import javax.swing.*;
 
@@ -13,7 +12,7 @@ public class Fenetre extends JFrame
 {
 	/*
 	 * 		  Composition de la Fenetre
-	 * 	____________________________________
+	 * 	 ___________________________________
 	 *  |	 menu							|
 	 *  |___________________________________|
 	 *  | 			listeAction				|

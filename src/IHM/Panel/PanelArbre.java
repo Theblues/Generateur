@@ -35,6 +35,7 @@ public class PanelArbre extends JPanel implements Serializable
 		if(arbre == null)
 			listRoot(f);
 		
+		// ajoute l'action clic a l'arbre
 		arbre.addMouseListener(new MouseAdapter() {
 		      public void mouseClicked(MouseEvent me) {
 		        doMouseClicked(me);
@@ -61,7 +62,10 @@ public class PanelArbre extends JPanel implements Serializable
 			arbre = (JTree) ois.readObject();
 			racine = (DefaultMutableTreeNode) ois.readObject();
 		}
-		catch (IOException ignored) {}            // probleme de lecture
+		catch (IOException ignored) 		
+		{
+			Controleur.CreerOptionPane("error", "Impossible de lire le fichier");
+		}
 		catch (ClassNotFoundException e)	{}
 		if (arbre != null && racine != null)
 			updateTree(racine);

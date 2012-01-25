@@ -4,7 +4,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import Main.*;
-import Utilitaire.*;
 
 public class PanelMenu extends JPanel implements ActionListener
 {

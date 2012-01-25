@@ -42,6 +42,7 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		add(listeActionFont, BorderLayout.NORTH);
 		add(scroller);
 		
+		// TODO (pour sarah) modifier les boutons
 		button = new JButton("Valider");
 		button.addActionListener(this);
 		add(button,BorderLayout.SOUTH);	

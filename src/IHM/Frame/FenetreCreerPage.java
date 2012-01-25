@@ -30,7 +30,8 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 		panel.add(txTitre);
 
 		add(panel);
-
+		
+		// TODO (pour sarah) modifier les boutons
 		JButton button = new JButton("Valider");
 		button.addActionListener(this);
 		add(button, BorderLayout.SOUTH);

@@ -1,10 +1,5 @@
 package Main;
 
-import java.io.*;
-
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import IHM.Frame.*;
 import IHM.OptionPane.OptionPane;
 import Metier.*;
@@ -52,7 +47,7 @@ public class Controleur
 			op.optionPaneInfo(texte);
 		else if (type.equals("warning"))
 			op.optionPaneAlerte(texte);
-		else
+		else if (type.equals("error"))
 			op.optionPaneErreur(texte);
 	}
 	

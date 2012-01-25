@@ -2,8 +2,7 @@ package IHM.Frame;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 import javax.swing.*;
 
@@ -33,9 +32,11 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		
 		add(panel);
 		
+		// TODO (pour sarah) modifier les boutons
 		JButton button = new JButton("Valider");
 		button.addActionListener(this);
 		add(button, BorderLayout.SOUTH);
+		
 		setVisible(true);
 	}
 
