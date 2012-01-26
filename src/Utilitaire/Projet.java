@@ -10,20 +10,17 @@ public class Projet implements Serializable
 	private Page pageSelectionne;
 	private String cheminDossier;
 	
-	public Projet(String nom)
+	public Projet(String nom, String chemin)
 	{
 		this.nom = nom;
+		this.cheminDossier = chemin;
 		alPage = new ArrayList<Page>();
 	}
 
 	public String getNom()				{	return nom;					}
 	public ArrayList<Page> getAlPage()	{	return alPage;				}
-	public String getCheminDossier()	{		return cheminDossier;	}
-
-	public Page getPageSelectionne()
-	{
-		return pageSelectionne;
-	}
+	public String getCheminDossier()	{	return cheminDossier;		}
+	public Page getPageSelectionne()	{	return pageSelectionne;		}
 	
 	public Page getPage(String nom)
 	{
@@ -46,11 +43,6 @@ public class Projet implements Serializable
 	public void setPageSelectionne(Page p)
 	{
 		pageSelectionne = p;
-	}
-	
-	public void setCheminDossier(String cheminDossier)
-	{
-		this.cheminDossier = cheminDossier;
 	}
 
 	public void ajouterPage(Page p)

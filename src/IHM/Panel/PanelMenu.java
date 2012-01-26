@@ -36,14 +36,13 @@ public class PanelMenu extends JPanel implements ActionListener
 		menuBar = new JMenuBar();
 		// initialisation des Menus
 		menuFile = new JMenu("Fichier");
-		menuEdit = new JMenu("Edition");
+		menuEdit = new JMenu("Editer");
 		menuAjouter = new JMenu("Ajouter");
 
 		// initialisation des items pour le menu Fichier
 		itemNewProject = new JMenuItem("Nouveau Projet");
 		itemNewProject.addActionListener(this);
 		itemNewPage = new JMenuItem("Nouvelle page");
-		itemNewPage.addActionListener(this);
 		itemOpenProject = new JMenuItem("Ouvrir un Projet");
 		itemOpenProject.addActionListener(this);
 		itemSaveAs = new JMenuItem("Enregistrer Sous");
@@ -61,11 +60,8 @@ public class PanelMenu extends JPanel implements ActionListener
 
 		// Initialisation des items pour le menu ajouter
 		itemTitre = new JMenuItem("Ajouter un titre");
-		//itemTitre.addActionListener(this);
 		itemParagraphe = new JMenuItem("Ajouter un paragraphe");
-		//itemParagraphe.addActionListener(this);
 		itemImage = new JMenuItem("Ajouter une image");
-		//itemImage.addActionListener(this);
 		
 		// ajout des items dans le menu Fichier
 		menuFile.add(itemNewProject);
@@ -117,7 +113,18 @@ public class PanelMenu extends JPanel implements ActionListener
 			Controleur.creerFenetreAjouterImage(0);
 	}
 	
-	public void activerAjout()
+	public void activerAjoutProjet()
+	{
+		itemNewPage.removeActionListener(this);
+		itemNewPage.addActionListener(this);
+	}
+	
+	public void desactiveAjoutProjet()
+	{
+		itemNewPage.removeActionListener(this);
+	}
+	
+	public void activerAjoutPage()
 	{
 		// permet de ne pas ouvrir 5 fenetres
 		itemTitre.removeActionListener(this);
@@ -132,7 +139,7 @@ public class PanelMenu extends JPanel implements ActionListener
 		itemImage.addActionListener(this);
 	}
 
-	public void desactiveAjout()
+	public void desactiveAjoutPage()
 	{
 		itemTitre.removeActionListener(this);
 		itemParagraphe.removeActionListener(this);

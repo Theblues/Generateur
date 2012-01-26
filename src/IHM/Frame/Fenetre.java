@@ -40,7 +40,6 @@ public class Fenetre extends JFrame
 	{
 		setTitle("Generateur de site");
 		setSize(1024, 700);
-		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		menu = new PanelMenu();
 		menu.addMenuInFrame(this);

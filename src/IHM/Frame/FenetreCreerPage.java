@@ -43,8 +43,10 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		String nomFichier = Controleur.metier.getProjetSelectionne().getNom() + "/"	+ txTitre.getText() + ".html";
-		File f = new File(nomFichier);
+		Projet p = Controleur.metier.getProjetSelectionne();
+		System.out.println(p);
+		String nomFichier = p.getNom() + "/"	+ txTitre.getText() + ".html";
+		File f = new File(p.getCheminDossier() + "/" + nomFichier);
 		try
 		{
 			// on recree le fichier lorsqu'on genere

@@ -33,7 +33,11 @@ public class PanelArbre extends JPanel implements Serializable
 		init();
 		
 		if(arbre == null)
-			listRoot(f);
+		{
+			racine = new DefaultMutableTreeNode(new File("projet"));
+			arbre = new JTree(racine);
+			f.getContentPane().add(new JScrollPane(arbre));
+		}
 		
 		// ajoute l'action clic a l'arbre
 		arbre.addMouseListener(new MouseAdapter() {
@@ -62,44 +66,10 @@ public class PanelArbre extends JPanel implements Serializable
 			arbre = (JTree) ois.readObject();
 			racine = (DefaultMutableTreeNode) ois.readObject();
 		}
-		catch (IOException ignored) 		
-		{
-			Controleur.CreerOptionPane("error", "Impossible de lire le fichier");
-		}
+		catch (IOException ignored) 		{}
 		catch (ClassNotFoundException e)	{}
 		if (arbre != null && racine != null)
 			updateTree(racine);
-	}
-
-	private void listRoot(JFrame f) 
-	{
-		racine = new DefaultMutableTreeNode(new File("projet/"));		
-		
-		File f1 = new File("projet/");
-		try 
-		{
-			for (File fic :  f1.listFiles())
-			{				
-				DefaultMutableTreeNode noeudFichier = new DefaultMutableTreeNode(fic.getName());
-				Controleur.metier.getAlProjet().add(new Projet(fic.getName()));
-				
-				for (File nom : fic.listFiles()) 
-				{
-					if (!nom.getName().equals("content"))
-					{
-						Projet p = Controleur.metier.getProjet(fic.getName());
-						p.ajouterPage(new Page(nom.getName()));
-						DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName() + "\\");
-						noeudFichier.add(this.listFile(nom, node));
-					}
-				}
-				racine.add(noeudFichier);
-			}
-		} catch (NullPointerException e) {}
-
-		arbre = new JTree(racine);
-		
-		f.getContentPane().add(new JScrollPane(arbre));
 	}
 	
 	void doMouseClicked(MouseEvent me) 
@@ -127,8 +97,9 @@ public class PanelArbre extends JPanel implements Serializable
 			 */
 			if (location == 2)
 			{
+				Controleur.fenetre.getMenu().activerAjoutProjet();
 				// on desactive les ajouts de titre/paragraphe/image
-				Controleur.fenetre.getMenu().desactiveAjout();
+				Controleur.fenetre.getMenu().desactiveAjoutPage();	
 				Controleur.fenetre.getPanelListeAction().desactiveAjout();
 				
 				parentNodeProjet = arbre.getLastSelectedPathComponent();
@@ -139,7 +110,7 @@ public class PanelArbre extends JPanel implements Serializable
 			else if (location == 3)
 			{
 				// on active les boutons/items
-				Controleur.fenetre.getMenu().activerAjout();
+				Controleur.fenetre.getMenu().activerAjoutPage();
 				Controleur.fenetre.getPanelListeAction().activerAjout();
 				
 				projetSelectionne = Controleur.metier.getProjet(tabObj[1].toString());
@@ -188,9 +159,12 @@ public class PanelArbre extends JPanel implements Serializable
 		ArrayList<String> alS = new ArrayList<String>();
 
 		DefaultMutableTreeNode dtn = (DefaultMutableTreeNode) parentNodeFichier;
+		System.out.println(dtn);
 		for (int i = 0; i < dtn.getChildCount(); i++)
 		{
+			// TODO erreur ici :s
 			TreePath tp = arbre.getPathForRow(i+dtn.getLevel()+1);
+			System.out.println(tp);
 			if (tp == null)
 			{
 				Controleur.CreerOptionPane("error", "Une erreur est survenue");
@@ -201,57 +175,38 @@ public class PanelArbre extends JPanel implements Serializable
 		return alS;
 	}
 	
-	public void ajoutFils(String type, String s) 
+	public boolean ajoutFils(String type, String s) 
 	{
 		DefaultTreeModel dtm = new DefaultTreeModel(racine);
-		MutableTreeNode parent  = (MutableTreeNode) ((parentNodeProjet == null) ? dtm.getChild(racine, 0) : parentNodeProjet);
-		MutableTreeNode parent2 = (MutableTreeNode) ((parentNodeFichier == null) ? dtm.getChild(parent, 0) : parentNodeFichier);
-
-		
 		DefaultMutableTreeNode mtn = new DefaultMutableTreeNode(new File(s));
+		if (type.equals("projet"))
+		{
+			dtm.insertNodeInto(mtn, racine, racine.getChildCount());
+			updateTree(racine);
+			return true;
+		}
+		
+		MutableTreeNode parent  = (MutableTreeNode) ((parentNodeProjet == null) ?  dtm.getChild(racine, 0) : parentNodeProjet);
+		if (type.equals("fichier"))
+		{
+			dtm.insertNodeInto(mtn, parent, parent.getChildCount());
+			updateTree(parent);
+			return true;
+		}
+		MutableTreeNode parent2 = (MutableTreeNode) ((parentNodeFichier == null) ?  dtm.getChild(parent, 0) : parentNodeFichier);
+
 		if (type.equals("element"))
 		{
 			dtm.insertNodeInto(mtn, parent2, parent2.getChildCount());
 			updateTree(parent2);
+			return true;
 		}
-		else if (type.equals("fichier"))
-		{
-			dtm.insertNodeInto(mtn, parent, parent.getChildCount());
-			updateTree(parent);
-		}
-		else if (type.equals("projet"))
-		{
-			dtm.insertNodeInto(mtn, racine, racine.getChildCount());
-			updateTree(racine);
-		}
+		return false;
 	}
 	
 	private void updateTree(Object o)
 	{
 		((DefaultTreeModel) arbre.getModel()).reload((TreeNode) o);
-	}
-
-	private DefaultMutableTreeNode listFile(File file,DefaultMutableTreeNode node) 
-	{
-		if (file.isFile())
-			return new DefaultMutableTreeNode(file.getName());
-		else 
-		{
-			for (File nom : file.listFiles()) 
-			{
-				DefaultMutableTreeNode subNode;
-				if (nom.isDirectory()) 
-				{
-					subNode = new DefaultMutableTreeNode(nom.getName() + "\\");
-					node.add(this.listFile(nom, subNode));
-				} 
-				else
-					subNode = new DefaultMutableTreeNode(nom.getName());
-
-				node.add(subNode);
-			}
-			return node;
-		}
 	}
 	
 	public void enregistrerArbre()

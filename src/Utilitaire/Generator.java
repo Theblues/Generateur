@@ -103,7 +103,7 @@ public class Generator
 		
 		footer();
 			
-		File file = new File("projet/" + projet.getNom() + "/" + page.getNom());
+		File file = new File(projet.getCheminDossier() + "/" + projet.getNom() + "/" + page.getNom());
 		
 		try
 		{
