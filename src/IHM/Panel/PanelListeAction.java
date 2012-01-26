@@ -63,15 +63,15 @@ public class PanelListeAction extends JPanel implements ActionListener
 	
 	public void activerAjout()
 	{
-		// permet de ne pas ouvrir 5 fenetres
+		// permet de ne pas ouvrir n fenetres
 		boutonAjouterTitre.removeActionListener(this);
 		boutonAjouterTitre.addActionListener(this);
 		
-		// permet de ne pas ouvrir 5 fenetres
+		// permet de ne pas ouvrir n fenetres
 		boutonAjouterParagraphe.removeActionListener(this);
 		boutonAjouterParagraphe.addActionListener(this);
 		
-		// permet de ne pas ouvrir 5 fenetres
+		// permet de ne pas ouvrir n fenetres
 		boutonAjouterImage.removeActionListener(this);
 		boutonAjouterImage.addActionListener(this);
 	}

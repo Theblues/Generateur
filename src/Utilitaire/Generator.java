@@ -41,7 +41,7 @@ public class Generator
 		ArrayList<String> alParagraphe = projet.getPage(page).getAlParagraphe();
 		ArrayList<String> alImage = projet.getPage(page).getAlImage();
 		
-		if (alS.size() == 0)
+		if (alS == null || alS.size() == 0)
 			return;
 		
 		header();
@@ -61,7 +61,17 @@ public class Generator
 			sc.useDelimiter(" ");
 			
 			String type = sc.next();
-			int ind = Integer.parseInt(sc.next())-1;
+			
+			String indice = sc.next();
+			for (int i = 0; i < indice.length(); i++)
+			{
+				if (!Character.isDigit(indice.charAt(0)))
+				{
+					Controleur.CreerOptionPane("error", "Generation impossible");
+					return;
+				}
+			}
+			int ind = Integer.parseInt(indice)-1;
 			
 			if (type.equals("Titre"))
 				code += "\t\t<div class=\"title\">"+alTitre.get(ind)+"</div>\n";
