@@ -151,8 +151,7 @@ public class PanelArbre extends JPanel implements Serializable
 				Controleur.metier.setProjetSelectionne(projetSelectionne);
 				projetSelectionne.setPageSelectionne(pageSelectionnee);
 				
-				if ( arbre.isExpanded(path)) 
-					Controleur.fenetre.getPanelVisu().previsualisation();
+				Controleur.fenetre.getPanelVisu().previsualisation();
 			}
 			else if (location > 3)
 			{

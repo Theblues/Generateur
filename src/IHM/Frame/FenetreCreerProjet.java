@@ -12,7 +12,13 @@ import Utilitaire.*;
 public class FenetreCreerProjet extends JFrame implements ActionListener
 {
 	private JTextField txNom;
-	private JComboBox combo = new JComboBox();
+	private JTextField txChemin;
+	private JComboBox combo;
+	
+	private JButton choixDossier;
+	
+	private JButton annuler;
+	private JButton valider;
 	
 	public FenetreCreerProjet()
 	{
@@ -23,34 +29,55 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		JLabel labelDescription = new JLabel("Creer votre projet");
 		add(labelDescription, BorderLayout.NORTH);
 		
-		JPanel panel = new JPanel(new FlowLayout());
+		JPanel panel = new JPanel();
 		JLabel label = new JLabel("Nom du projet");
 		
 		panel.add(label);
 		
-		txNom = new JTextField(30);
+		txNom = new JTextField(20);
 		panel.add(txNom);
 		
-		combo.setPreferredSize(new Dimension(75, 30));
-		combo.addItem("Style 1");
-		combo.addItem("Style 2");
-		combo.addItem("Style 3");
+		label = new JLabel("Choisissez un theme");
+		panel.add(label);
 		
+		combo = new JComboBox();
+		combo.setPreferredSize(new Dimension(100, 30));
+		combo.addItem("Theme 1");
+		combo.addItem("Theme 2");
+		combo.addItem("Theme 3");
 		panel.add(combo);
+		
+		label = new JLabel("Choisissez un dossier");
+		panel.add(label);
+		txChemin = new JTextField(20);
+		panel.add(txChemin);
+		
+		
 		
 		add(panel);
 		
-		// TODO (pour sarah) modifier les boutons
-		JButton button = new JButton("Valider");
-		button.addActionListener(this);
-		add(button, BorderLayout.SOUTH);
+		// TODO (pour sarah) Faire comme ca
+		JPanel panSud = new JPanel();
+		panSud.setLayout(new BorderLayout());
+		
+		JPanel panBouton = new JPanel();
+		annuler = new JButton("Annuler");
+		annuler.addActionListener(this);
+		panBouton.add(annuler);
+		
+		valider = new JButton("Valider");
+		valider.addActionListener(this);
+		panBouton.add(valider);
+		
+		panSud.add(panBouton, BorderLayout.EAST);
+		add(panSud, BorderLayout.SOUTH);
 		
 		setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
-	{	
+	{
 		String nomProjet = txNom.getText();
 		File file = new File("projet" + nomProjet);
 		file.mkdir();

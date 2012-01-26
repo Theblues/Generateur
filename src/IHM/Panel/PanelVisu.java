@@ -21,6 +21,7 @@ public class PanelVisu extends JPanel
 		JScrollPane scroller = new JScrollPane( jEditor,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
+		// on ajoute une bordure
 		scroller.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createCompoundBorder(
 						BorderFactory.createTitledBorder("Previsualisation de votre site"),
@@ -32,6 +33,7 @@ public class PanelVisu extends JPanel
 	public void previsualisation()
 	{
 		String contenu = "";
+		jEditor.setText(contenu);
 		
 		ArrayList<String> alS = Controleur.fenetre.getArborescence().getOrdreElement();
 		Projet projet = Controleur.metier.getProjetSelectionne();
@@ -53,8 +55,16 @@ public class PanelVisu extends JPanel
 			sc.useDelimiter(" ");
 			
 			String type = sc.next();
-
+			
+			//S'il n'y a pas de suivant, il y a une erreur
+			if (!sc.hasNext())
+			{
+				Controleur.CreerOptionPane("error", "Une erreur est survenue");
+				return;
+			}
+			
 			String indice = sc.next();
+			// on vérifie que le deuxieme argument est un nombre
 			for (int i = 0; i < indice.length(); i++)
 			{
 				if (!Character.isDigit(indice.charAt(0)))

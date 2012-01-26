@@ -62,12 +62,17 @@ public class Generator
 			
 			String type = sc.next();
 			
+			if (!sc.hasNext())
+			{
+				Controleur.CreerOptionPane("error", "Une erreur est survenue");
+				return;
+			}
 			String indice = sc.next();
 			for (int i = 0; i < indice.length(); i++)
 			{
 				if (!Character.isDigit(indice.charAt(0)))
 				{
-					Controleur.CreerOptionPane("error", "Generation impossible");
+					Controleur.CreerOptionPane("error", "Une erreur est survenue");
 					return;
 				}
 			}
