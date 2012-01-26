@@ -25,6 +25,8 @@ public class PanelArbre extends JPanel implements Serializable
 	private Page pageSelectionnee;
 	private Projet projetSelectionne;
 	
+	int locationRow;
+	
 	public PanelArbre(JFrame f) 
 	{		
 		setLayout(new BorderLayout());
@@ -75,6 +77,7 @@ public class PanelArbre extends JPanel implements Serializable
 	void doMouseClicked(MouseEvent me) 
 	{
 		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
+		locationRow = arbre.getClosestRowForLocation(me.getX(), me.getY());
 		/*
 		 * Exemple path
 		 * [null, site, test.html, titre 1]
@@ -159,12 +162,9 @@ public class PanelArbre extends JPanel implements Serializable
 		ArrayList<String> alS = new ArrayList<String>();
 
 		DefaultMutableTreeNode dtn = (DefaultMutableTreeNode) parentNodeFichier;
-		System.out.println(dtn);
 		for (int i = 0; i < dtn.getChildCount(); i++)
 		{
-			// TODO erreur ici :s
-			TreePath tp = arbre.getPathForRow(i+dtn.getLevel()+1);
-			System.out.println(tp);
+			TreePath tp = arbre.getPathForRow(i+locationRow+1);
 			if (tp == null)
 			{
 				Controleur.CreerOptionPane("error", "Une erreur est survenue");
