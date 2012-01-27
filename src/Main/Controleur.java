@@ -1,6 +1,8 @@
 package Main;
 
 import IHM.Frame.*;
+import IHM.Frame.creation.*;
+import IHM.Frame.ajout.*;
 import IHM.OptionPane.OptionPane;
 import Metier.*;
 

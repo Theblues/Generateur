@@ -1,4 +1,4 @@
-package IHM.Frame;
+package IHM.Frame.ajout;
 
 import java.awt.*;
 import java.awt.event.*;
