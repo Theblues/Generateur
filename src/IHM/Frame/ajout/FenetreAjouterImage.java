@@ -61,17 +61,18 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		Projet projet = Controleur.metier.getProjetSelectionne();
 		Page page = projet.getPageSelectionne();
 		
+		JButton b = (JButton) e.getSource();
+		if (b.equals(annuler))
+			dispose();
+		
 		if ( statue == 0 )
 		{
-			JButton b = (JButton) e.getSource();
-			if (b.equals(annuler))
-				dispose();
 			if (b.equals(valider))
 			{
 				enregistrerImage(chemin);
-				
-				projet.getPage(page).ajouterImage(chemin);
-				int cpt = projet.getPage(page).getAlImage().size();
+				page.ajouterImage(chemin);
+				int cpt = page.getAlImage().size();
+				page.ajouterOrdre("Image " + cpt);
 				Controleur.fenetre.getArborescence().ajoutFils("element", "Image " + cpt);
 				
 				dispose();

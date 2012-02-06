@@ -60,12 +60,13 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		
 		if (statue == 0) 
 		{
-			projet.getPage(page).ajouterParagraphe(textPane.getText());
-			int cpt = projet.getPage(page).getAlParagraphe().size();
+			page.ajouterParagraphe(textPane.getText());
+			int cpt = page.getAlParagraphe().size();
+			page.ajouterOrdre("Paragraphe " + cpt);
 			Controleur.fenetre.getArborescence().ajoutFils("element", "Paragraphe " + cpt);
 		}
 		else
-			projet.getPage(page).modParagraphe(textPane.getText(), indiceParagraphe);
+			page.modParagraphe(textPane.getText(), indiceParagraphe);
 		
 		this.dispose();
 	}

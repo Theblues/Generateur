@@ -44,12 +44,13 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 		
 		if (statue == 0)
 		{
-			projet.getPage(page).ajouterTitre(tf.getText());
-			int cpt = projet.getPage(page).getAlTitre().size();
+			page.ajouterTitre(tf.getText());
+			int cpt = page.getAlTitre().size();
+			page.ajouterOrdre("Titre " + cpt);
 			Controleur.fenetre.getArborescence().ajoutFils("element", "Titre " + cpt);
 		}
 		else
-			projet.getPage(page).modTitre(tf.getText(), indiceTitre);
+			page.modTitre(tf.getText(), indiceTitre);
 
 		this.dispose();	
 	}

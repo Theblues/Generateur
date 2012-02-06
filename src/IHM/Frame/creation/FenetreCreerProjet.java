@@ -128,7 +128,7 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 	{
 		String nomProjet = txNom.getText();
 		String chemin = txChemin.getText();
-		if (nomProjet == null || chemin == null)
+		if (nomProjet.length() == 0  || chemin.length() == 0)
 		{
 			Controleur.CreerOptionPane("warning", "Veuillez saisir toutes les informations");
 			return false;

@@ -44,7 +44,6 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		Projet p = Controleur.metier.getProjetSelectionne();
-		System.out.println(p);
 		String nomFichier = p.getNom() + "/"	+ txTitre.getText() + ".html";
 		File f = new File(p.getCheminDossier() + "/" + nomFichier);
 		try
@@ -56,8 +55,9 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 			ex.printStackTrace();
 		}
 		
-		Controleur.metier.getProjetSelectionne().ajouterPage(new Page(f.getName()));
 		Controleur.fenetre.getArborescence().ajoutFils("fichier", f.getName());
+		Controleur.metier.getProjetSelectionne().ajouterPage(new Page(f.getName()));
+		
 		dispose();
 	}
 }
