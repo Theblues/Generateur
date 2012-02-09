@@ -62,6 +62,15 @@ public class Fenetre extends JFrame
             	Controleur.fermerFenetre();
             }
         });
+		
+		//Ajout d'un theme a notre fenetre
+		try {
+			   UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+			   SwingUtilities.updateComponentTreeUI(this);
+		} catch (InstantiationException e) {
+		} catch (ClassNotFoundException e) {
+		} catch (UnsupportedLookAndFeelException e) {
+		} catch (IllegalAccessException e) {}
 
 		setVisible(true);
 	}

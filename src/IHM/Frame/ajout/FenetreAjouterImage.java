@@ -36,10 +36,7 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		image = new PanelImage(chemin);
 
 		add(image);
-
-		JPanel pan = new JPanel();
-		pan.setLayout(new GridLayout(1, 3));
-
+		
 		JPanel panSud = new JPanel();
 		panSud.setLayout(new BorderLayout());
 		
@@ -54,8 +51,6 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		
 		panSud.add(panBouton, BorderLayout.EAST);
 		add(panSud, BorderLayout.SOUTH);
-
-		add(pan, BorderLayout.SOUTH);
 		
 		pack();
 		setVisible(true);
