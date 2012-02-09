@@ -143,6 +143,8 @@ public class PanelArbre extends JPanel implements Serializable
 				
 				// on recupere le projet grace a path
 				parentNodeProjet = tabObj[1];
+				parentNodeFichier = null;
+				parentNodeElement = null;
 				
 				// on recupere le projet selectionne
 				projetSelectionne = Controleur.metier.getProjet(parentNodeProjet.toString());
@@ -150,30 +152,19 @@ public class PanelArbre extends JPanel implements Serializable
 				// on modifie le projet selectionne
 				Controleur.metier.setProjetSelectionne(projetSelectionne);
 			}
-			else if (location == 3)
+			else if (location >= 3)
 			{
 				// on recupere le projet et la page grace a path
 				parentNodeProjet = tabObj[1];
 				parentNodeFichier = tabObj[2];
+				if (location > 3)
+					parentNodeElement = tabObj[3];
+				else
+					parentNodeElement = null;
 				
 				// on active les boutons/items
 				Controleur.fenetre.getMenu().activerAjout();
 				Controleur.fenetre.getPanelListeAction().activerAjout();
-				
-				// on recupere le projet et la page selectionnee
-				projetSelectionne = Controleur.metier.getProjet(parentNodeProjet.toString());
-				pageSelectionnee = projetSelectionne.getPage(parentNodeFichier.toString());
-				
-				// on modifie le projet et la page selectionnee
-				Controleur.metier.setProjetSelectionne(projetSelectionne);
-				projetSelectionne.setPageSelectionne(pageSelectionnee);
-			}
-			else if (location > 3)
-			{
-				// on recupere le projet, la page et l'element grace a path
-				parentNodeProjet = tabObj[1];
-				parentNodeFichier = tabObj[2];
-				parentNodeElement = tabObj[3];
 				
 				// on recupere le projet et la page selectionnee
 				projetSelectionne = Controleur.metier.getProjet(parentNodeProjet.toString());
@@ -220,39 +211,54 @@ public class PanelArbre extends JPanel implements Serializable
 		return false;
 	}
 	
-	public void modifierNoeudSuivant(String nouveauTitre)
+	public void modifierNoeudPrecedent()
 	{
-		// on recupere path du noeud suivant
-		TreePath path = arbre.getPathForRow(locationRow+1);
+		// on recupere path du noeud precedent
+		TreePath path = arbre.getPathForRow(locationRow + 1);
 		if (path != null)
-		{
-			Object[] tabObj = path.getPath();
-			// on selectionne le nom du noeud
-			String nouveauDuSuivant = tabObj[3].toString();
-			//on recupere le nom du noeud que l'on veut bouger
-			String monNom = parentNodeElement.toString();
-			
-			// si le type des nom est le meme on arrete sinon on modifie
-			if(verificationDesNom(monNom, nouveauDuSuivant))
-				return;
-			
-			DefaultMutableTreeNode noeud = (DefaultMutableTreeNode) parentNodeElement;
-			// on modifie notre nom
-			noeud.setUserObject(nouveauDuSuivant);
-			
-			noeud = (DefaultMutableTreeNode) tabObj[3];
-			// on modifie l'autre nom
-			noeud.setUserObject(monNom);
-			
-			// on rafraichis l'arbre
-			updateTree(parentNodeFichier);
-		}
+			modifierNoeud(path);
 	}
 	
-	private boolean verificationDesNom(String monNom, String nouveauDuSuivant)
+	public void modifierNoeudSuivant()
 	{
-		Scanner sc1 = new Scanner(monNom);
-		Scanner sc2 = new Scanner(nouveauDuSuivant);
+		// on recupere path du noeud suivant
+		TreePath path = arbre.getPathForRow(locationRow - 1);
+		if (path != null)
+			modifierNoeud(path);
+	}
+	
+	private void modifierNoeud(TreePath path)
+	{
+		Object[] tabObj = path.getPath();
+		if (tabObj.length < 4)
+			return;
+		for (int i =0; i < tabObj.length; i++)
+			System.out.println(tabObj[i]);
+		// on selectionne le nom du noeud
+		String nom1 = tabObj[3].toString();
+		//on recupere le nom du noeud que l'on veut bouger
+		String nom2 = parentNodeElement.toString();
+		
+		// si le type des nom est le meme on arrete sinon on modifie
+		if(verificationDesNom(nom1, nom2))
+			return;
+		
+		DefaultMutableTreeNode noeud = (DefaultMutableTreeNode) parentNodeElement;
+		// on modifie notre nom
+		noeud.setUserObject(nom1);
+		
+		noeud = (DefaultMutableTreeNode) tabObj[3];
+		// on modifie l'autre nom
+		noeud.setUserObject(nom2);
+		
+		// on rafraichis l'arbre
+		updateTree(parentNodeFichier);
+	}
+
+	private boolean verificationDesNom(String nom1, String nom2)
+	{
+		Scanner sc1 = new Scanner(nom1);
+		Scanner sc2 = new Scanner(nom2);
 		
 		sc1.useDelimiter(" ");
 		sc2.useDelimiter(" ");
