@@ -110,11 +110,31 @@ public class PanelListeAction extends JPanel implements ActionListener
 			Controleur.creerFenetreAjouterImage(0);
 		if (b.equals(boutonDiminuerNiveau))
 		{
-			Controleur.fenetre.getArborescence().modifierNoeudPrecedent();
+			if (Controleur.fenetre.getArborescence().diminuerNiveau())
+			{
+				String type = Controleur.fenetre.getArborescence().getNomElement();
+				Projet projet = Controleur.metier.getProjetSelectionne();
+				if (projet == null)
+					return;
+				Page page = projet.getPageSelectionne();
+				if (page == null)
+					return;
+				page.modOrdreElement(type, "diminuer");
+			}
 		}
 		if (b.equals(boutonAugmenterNiveau))
 		{
-			Controleur.fenetre.getArborescence().modifierNoeudSuivant();
+			if (Controleur.fenetre.getArborescence().augmenterNiveau())
+			{
+				String type = Controleur.fenetre.getArborescence().getNomElement();
+				Projet projet = Controleur.metier.getProjetSelectionne();
+				if (projet == null)
+					return;
+				Page page = projet.getPageSelectionne();
+				if (page == null)
+					return;
+				page.modOrdreElement(type, "monter");
+			}
 		}
 	}
 	

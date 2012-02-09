@@ -22,6 +22,7 @@ public class PanelArbre extends JPanel implements Serializable
 	private Object parentNodeFichier = null;
 	private Object parentNodeProjet = null;
 	private Object parentNodeElement = null;
+	private String nomElement = null;
 	
 	private Page pageSelectionnee;
 	private Projet projetSelectionne;
@@ -177,8 +178,9 @@ public class PanelArbre extends JPanel implements Serializable
 		}
 	}
 	
-	public JTree getArbre() 					{	return arbre;	}
-	public DefaultMutableTreeNode getRacine()	{	return racine;	}
+	public JTree getArbre() 					{	return arbre;		}
+	public DefaultMutableTreeNode getRacine()	{	return racine;		}
+	public String getNomElement()				{	return nomElement;	}
 	
 	public boolean ajoutFils(String type, String s) 
 	{
@@ -211,37 +213,45 @@ public class PanelArbre extends JPanel implements Serializable
 		return false;
 	}
 	
-	public void modifierNoeudPrecedent()
+	public boolean diminuerNiveau()
 	{
 		// on recupere path du noeud precedent
 		TreePath path = arbre.getPathForRow(locationRow + 1);
 		if (path != null)
-			modifierNoeud(path);
+			if (modifierNoeud(path))
+				return true;
+				
+		Controleur.CreerOptionPane("error", "Impossible de diminuer le niveau");
+		return false;
 	}
 	
-	public void modifierNoeudSuivant()
+	public boolean augmenterNiveau()
 	{
 		// on recupere path du noeud suivant
 		TreePath path = arbre.getPathForRow(locationRow - 1);
 		if (path != null)
-			modifierNoeud(path);
+		{
+			if (modifierNoeud(path))
+				return true;
+		}
+		Controleur.CreerOptionPane("error", "Impossible d'augmenter le niveau");
+		return false;
 	}
 	
-	private void modifierNoeud(TreePath path)
+	private boolean modifierNoeud(TreePath path)
 	{
 		Object[] tabObj = path.getPath();
 		if (tabObj.length < 4)
-			return;
-		for (int i =0; i < tabObj.length; i++)
-			System.out.println(tabObj[i]);
+			return false;
+		
 		// on selectionne le nom du noeud
 		String nom1 = tabObj[3].toString();
 		//on recupere le nom du noeud que l'on veut bouger
-		String nom2 = parentNodeElement.toString();
+		String nom2 = nomElement = parentNodeElement.toString();
 		
 		// si le type des nom est le meme on arrete sinon on modifie
-		if(verificationDesNom(nom1, nom2))
-			return;
+		if(Controleur.verificationDesNom(nom1, nom2))
+			return true;
 		
 		DefaultMutableTreeNode noeud = (DefaultMutableTreeNode) parentNodeElement;
 		// on modifie notre nom
@@ -253,23 +263,7 @@ public class PanelArbre extends JPanel implements Serializable
 		
 		// on rafraichis l'arbre
 		updateTree(parentNodeFichier);
-	}
-
-	private boolean verificationDesNom(String nom1, String nom2)
-	{
-		Scanner sc1 = new Scanner(nom1);
-		Scanner sc2 = new Scanner(nom2);
-		
-		sc1.useDelimiter(" ");
-		sc2.useDelimiter(" ");
-		
-		String type1 = sc1.next();
-		String type2 = sc2.next();
-		
-		if (type1.equals(type2))
-			return true;
-		
-		return false;
+		return true;
 	}
 
 	private void updateTree(Object o)

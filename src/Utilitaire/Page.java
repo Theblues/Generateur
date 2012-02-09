@@ -3,6 +3,8 @@ package Utilitaire;
 import java.io.*;
 import java.util.*;
 
+import Main.Controleur;
+
 public class Page implements Serializable
 {
 	private String nom;
@@ -85,11 +87,66 @@ public class Page implements Serializable
 	 * Modification de l'ordre des elements
 	 */
 	
-	public void modOredreElement(int indexNouvelle, int indexAncienne)
+	public void modOrdreElement(String type1, String niveau)
 	{
-		String type = alOrdre.get(indexAncienne);
-		alOrdre.remove(indexAncienne);
-		alOrdre.add(indexNouvelle, type);
+		String type2 = "";
+		// on parcours la liste pour savoir l'indice de l'element que l'on recherche
+		int i = 0;
+		for (String s : alOrdre)
+		{
+			if (s.equals(type1))
+				break;
+			i++;
+		}
+		if (niveau.equals("monter"))
+			type2 = alOrdre.get(i-1);
+		if (niveau.equals("diminuer"))
+			type2 = alOrdre.get(i+1);
+		
+		// on verifie qu'on a le meme nom
+		if(Controleur.verificationDesNom(type1, type2))
+		{
+			// on recupere le type et l'indice de l'element
+			Scanner sc = new Scanner(type1);
+			sc.useDelimiter(" ");
+			String type = sc.next();
+			
+			String indice = sc.next();
+			int ind = Integer.parseInt(indice)-1;
+			
+			/*
+			 * On modifie les listes de titres/paragraphes et images
+			 */
+			if (type.equals("Titre"))
+			{
+				if (niveau.equals("monter"))
+					modIndexTitre(ind-1, ind);	
+				if (niveau.equals("diminuer"))
+					modIndexTitre(ind+1, ind);	
+			}
+			if (type.equals("Paragraphe"))
+			{
+				if (niveau.equals("monter"))
+					modIndexParagraphe(ind-1, ind);
+				if (niveau.equals("diminuer"))
+					modIndexParagraphe(ind+1, ind);
+			}
+			if (type.equals("Image"))
+			{
+				if (niveau.equals("monter"))
+					modIndexImage(ind-1, ind);
+				if (niveau.equals("diminuer"))
+					modIndexImage(ind+1, ind);
+			}
+		}
+		/*
+		 * On modifie l'ordre des elements dans la liste
+		 */
+		alOrdre.remove(i);
+		if (niveau.equals("monter"))
+			alOrdre.add(i-1, type1);
+		if (niveau.equals("diminuer"))
+			alOrdre.add(i+1, type1);		
 	}
 	
 	// On enleve le titre de l'ancienne position pour la remettre a la nouvelle
