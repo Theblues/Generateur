@@ -19,9 +19,17 @@ public class PanelListeAction extends JPanel implements ActionListener
 	private JButton boutonAjouterParagraphe;
 	private JButton boutonAjouterImage;
 	
+	// bouton temporaire !!
+	private JButton boutonAugmenterNiveau;
+	private JButton boutonDiminuerNiveau;
+	
 	public PanelListeAction()
 	{
-		setLayout(new GridLayout(1, 6));
+		// setLayout(new GridLayout(1, 6));
+		setLayout(new GridLayout(2, 1));
+		
+		JPanel panelNord = new JPanel();
+		panelNord.setLayout(new GridLayout(1, 6));
 		
 		boutonGenererProjet = new JButton("Generer le projet");
 		boutonGenererProjet.addActionListener(this);
@@ -40,13 +48,28 @@ public class PanelListeAction extends JPanel implements ActionListener
 		
 		boutonAjouterImage = new JButton("Ajouter une image");
 		
-		add(boutonGenererProjet);
-		add(boutonGenerer);
-		add(boutonAjouterProjet);
-		add(boutonAjouterPage);
-		add(boutonAjouterTitre);
-		add(boutonAjouterParagraphe);
-		add(boutonAjouterImage);
+		panelNord.add(boutonGenererProjet);
+		panelNord.add(boutonGenerer);
+		panelNord.add(boutonAjouterProjet);
+		panelNord.add(boutonAjouterPage);
+		panelNord.add(boutonAjouterTitre);
+		panelNord.add(boutonAjouterParagraphe);
+		panelNord.add(boutonAjouterImage);
+		
+		JPanel panelSud = new JPanel();
+		panelSud.setLayout(new GridLayout(1, 2));
+		
+		boutonAugmenterNiveau = new JButton("Monter la selection");
+		boutonAugmenterNiveau.addActionListener(this);
+		
+		boutonDiminuerNiveau = new JButton("Descendre la selection");
+		boutonDiminuerNiveau.addActionListener(this);
+		
+		panelSud.add(boutonDiminuerNiveau);
+		panelSud.add(boutonAugmenterNiveau);
+		
+		add(panelNord);
+		add(panelSud);
 	}
 	
 	@Override
@@ -56,13 +79,23 @@ public class PanelListeAction extends JPanel implements ActionListener
 		if (b.equals(boutonGenererProjet))
 		{
 			Projet projet = Controleur.metier.getProjetSelectionne();
+			if (projet == null)
+				return;
 			for (Page page : projet.getAlPage())
+			{
+				if (page == null)
+					continue;
 				Controleur.metier.getGenerator().generate(projet, page);
+			}
 		}
 		if (b.equals(boutonGenerer))
 		{
 			Projet projet = Controleur.metier.getProjetSelectionne();
+			if (projet == null)
+				return;
 			Page page = projet.getPageSelectionne();
+			if (page == null)
+				return;
 			Controleur.metier.getGenerator().generate(projet, page);
 		}
 		if (b.equals(boutonAjouterProjet))
@@ -75,6 +108,14 @@ public class PanelListeAction extends JPanel implements ActionListener
 			Controleur.creerFenetreAjouterParagraphe(0,"",0);
 		if (b.equals(boutonAjouterImage))
 			Controleur.creerFenetreAjouterImage(0);
+		if (b.equals(boutonDiminuerNiveau))
+		{
+			
+		}
+		if (b.equals(boutonAugmenterNiveau))
+		{
+			
+		}
 	}
 	
 	public void activerCreationPage()

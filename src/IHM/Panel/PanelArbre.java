@@ -42,7 +42,10 @@ public class PanelArbre extends JPanel implements Serializable
 		// ajoute l'action clic a l'arbre
 		arbre.addMouseListener(new MouseAdapter() {
 		      public void mouseClicked(MouseEvent me) {
-		        doMouseClicked(me);
+		    	  if (me.getClickCount() == 2)
+		    		  doMouseDoubleClicked(me);
+		    	  else
+		    		  doMouseSimpleClicked(me);
 		      }
 		    });
 
@@ -72,7 +75,38 @@ public class PanelArbre extends JPanel implements Serializable
 			updateTree(racine);
 	}
 	
-	void doMouseClicked(MouseEvent me) 
+	private void doMouseDoubleClicked(MouseEvent me) 
+	{
+		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
+		if (path != null)
+		{
+			int location = path.getPathCount();
+			
+			if (location == 3)
+				Controleur.fenetre.getPanelVisu().previsualisation();
+			else if (location > 3)
+			{
+				Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
+				String str = sc.next();
+				int indice = Integer.parseInt(sc.next());
+				
+				if (str.equals("Titre"))
+				{
+					String ancienTitre = projetSelectionne.getPage(pageSelectionnee).getAlTitre().get(indice-1);
+					Controleur.creerFenetreAjouterTitre(1, ancienTitre, indice);
+				}
+				if (str.equals("Paragraphe"))
+				{
+					String ancienParagraphe = projetSelectionne.getPage(pageSelectionnee).getAlParagraphe().get(indice-1);
+					Controleur.creerFenetreAjouterParagraphe(1, ancienParagraphe, indice);
+				}
+				if (str.equals("Image"))
+					Controleur.creerFenetreAjouterImage(1);
+			}			
+		}
+	}
+	
+	private void doMouseSimpleClicked(MouseEvent me) 
 	{
 		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
 		/*
@@ -122,8 +156,6 @@ public class PanelArbre extends JPanel implements Serializable
 				
 				Controleur.metier.setProjetSelectionne(projetSelectionne);
 				projetSelectionne.setPageSelectionne(pageSelectionnee);
-				
-				Controleur.fenetre.getPanelVisu().previsualisation();
 			}
 			else if (location > 3)
 			{
@@ -131,23 +163,6 @@ public class PanelArbre extends JPanel implements Serializable
 				projetSelectionne = Controleur.metier.getProjet(tabObj[1].toString());
 				parentNodeFichier = tabObj[2];
 				pageSelectionnee = projetSelectionne.getPage(parentNodeFichier.toString());
-				
-				Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
-				String str = sc.next();
-				int indice = Integer.parseInt(sc.next());
-				
-				if (str.equals("Titre"))
-				{
-					String ancienTitre = projetSelectionne.getPage(pageSelectionnee).getAlTitre().get(indice-1);
-					Controleur.creerFenetreAjouterTitre(1, ancienTitre, indice);
-				}
-				if (str.equals("Paragraphe"))
-				{
-					String ancienParagraphe = projetSelectionne.getPage(pageSelectionnee).getAlParagraphe().get(indice-1);
-					Controleur.creerFenetreAjouterParagraphe(1, ancienParagraphe, indice);
-				}
-				if (str.equals("Image"))
-					Controleur.creerFenetreAjouterImage(1);
 			}
 		}
 	}
