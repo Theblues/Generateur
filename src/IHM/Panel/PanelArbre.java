@@ -21,9 +21,12 @@ public class PanelArbre extends JPanel implements Serializable
 
 	private Object parentNodeFichier = null;
 	private Object parentNodeProjet = null;
+	private Object parentNodeElement = null;
 	
 	private Page pageSelectionnee;
 	private Projet projetSelectionne;
+	
+	private int locationRow;
 	
 	public PanelArbre(JFrame f) 
 	{		
@@ -109,6 +112,7 @@ public class PanelArbre extends JPanel implements Serializable
 	private void doMouseSimpleClicked(MouseEvent me) 
 	{
 		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
+		locationRow = arbre.getClosestRowForLocation(me.getX(), me.getY());
 		/*
 		 * Exemple path
 		 * [null, site, test.html, titre 1]
@@ -137,32 +141,47 @@ public class PanelArbre extends JPanel implements Serializable
 				Controleur.fenetre.getMenu().desactiveAjout();
 				Controleur.fenetre.getPanelListeAction().desactiveAjout();
 				
-				parentNodeProjet = arbre.getLastSelectedPathComponent();
-				projetSelectionne = Controleur.metier.getProjet(path.getLastPathComponent().toString());
+				// on recupere le projet grace a path
+				parentNodeProjet = tabObj[1];
 				
+				// on recupere le projet selectionne
+				projetSelectionne = Controleur.metier.getProjet(parentNodeProjet.toString());
+				
+				// on modifie le projet selectionne
 				Controleur.metier.setProjetSelectionne(projetSelectionne);
 			}
 			else if (location == 3)
 			{
+				// on recupere le projet et la page grace a path
+				parentNodeProjet = tabObj[1];
+				parentNodeFichier = tabObj[2];
+				
 				// on active les boutons/items
 				Controleur.fenetre.getMenu().activerAjout();
 				Controleur.fenetre.getPanelListeAction().activerAjout();
 				
-				projetSelectionne = Controleur.metier.getProjet(tabObj[1].toString());
-				// on selectionne le dernier noeud selectionnee
-				parentNodeFichier = arbre.getLastSelectedPathComponent();
-				// on selectionne la page pour mettre les paragraphes, ect..
-				pageSelectionnee = projetSelectionne.getPage(tabObj[2].toString());
+				// on recupere le projet et la page selectionnee
+				projetSelectionne = Controleur.metier.getProjet(parentNodeProjet.toString());
+				pageSelectionnee = projetSelectionne.getPage(parentNodeFichier.toString());
 				
+				// on modifie le projet et la page selectionnee
 				Controleur.metier.setProjetSelectionne(projetSelectionne);
 				projetSelectionne.setPageSelectionne(pageSelectionnee);
 			}
 			else if (location > 3)
 			{
-				// on recupere le projet, la page et le noeud grace a path
-				projetSelectionne = Controleur.metier.getProjet(tabObj[1].toString());
+				// on recupere le projet, la page et l'element grace a path
+				parentNodeProjet = tabObj[1];
 				parentNodeFichier = tabObj[2];
+				parentNodeElement = tabObj[3];
+				
+				// on recupere le projet et la page selectionnee
+				projetSelectionne = Controleur.metier.getProjet(parentNodeProjet.toString());
 				pageSelectionnee = projetSelectionne.getPage(parentNodeFichier.toString());
+				
+				// on modifie le projet et la page selectionnee
+				Controleur.metier.setProjetSelectionne(projetSelectionne);
+				projetSelectionne.setPageSelectionne(pageSelectionnee);
 			}
 		}
 	}
@@ -176,7 +195,9 @@ public class PanelArbre extends JPanel implements Serializable
 		DefaultMutableTreeNode mtn = new DefaultMutableTreeNode(new File(s));
 		if (type.equals("projet"))
 		{
+			// on insert un noeud a la racine
 			dtm.insertNodeInto(mtn, racine, racine.getChildCount());
+			// on rafraichis l'arbre
 			updateTree(racine);
 			return true;
 		}
@@ -188,8 +209,8 @@ public class PanelArbre extends JPanel implements Serializable
 			updateTree(parent);
 			return true;
 		}
+		
 		MutableTreeNode parent2 = (MutableTreeNode) ((parentNodeFichier == null) ?  dtm.getChild(parent, 0) : parentNodeFichier);
-
 		if (type.equals("element"))
 		{
 			dtm.insertNodeInto(mtn, parent2, parent2.getChildCount());
@@ -199,6 +220,52 @@ public class PanelArbre extends JPanel implements Serializable
 		return false;
 	}
 	
+	public void modifierNoeudSuivant(String nouveauTitre)
+	{
+		// on recupere path du noeud suivant
+		TreePath path = arbre.getPathForRow(locationRow+1);
+		if (path != null)
+		{
+			Object[] tabObj = path.getPath();
+			// on selectionne le nom du noeud
+			String nouveauDuSuivant = tabObj[3].toString();
+			//on recupere le nom du noeud que l'on veut bouger
+			String monNom = parentNodeElement.toString();
+			
+			// si le type des nom est le meme on arrete sinon on modifie
+			if(verificationDesNom(monNom, nouveauDuSuivant))
+				return;
+			
+			DefaultMutableTreeNode noeud = (DefaultMutableTreeNode) parentNodeElement;
+			// on modifie notre nom
+			noeud.setUserObject(nouveauDuSuivant);
+			
+			noeud = (DefaultMutableTreeNode) tabObj[3];
+			// on modifie l'autre nom
+			noeud.setUserObject(monNom);
+			
+			// on rafraichis l'arbre
+			updateTree(parentNodeFichier);
+		}
+	}
+	
+	private boolean verificationDesNom(String monNom, String nouveauDuSuivant)
+	{
+		Scanner sc1 = new Scanner(monNom);
+		Scanner sc2 = new Scanner(nouveauDuSuivant);
+		
+		sc1.useDelimiter(" ");
+		sc2.useDelimiter(" ");
+		
+		String type1 = sc1.next();
+		String type2 = sc2.next();
+		
+		if (type1.equals(type2))
+			return true;
+		
+		return false;
+	}
+
 	private void updateTree(Object o)
 	{
 		((DefaultTreeModel) arbre.getModel()).reload((TreeNode) o);

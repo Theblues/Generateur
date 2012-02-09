@@ -50,10 +50,10 @@ public class Fenetre extends JFrame
 		panelVisu = new PanelVisu();
 
 		splitPaneTotal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, arborescence, panelVisu);
-		splitPaneTotal.setOneTouchExpandable(true);
-		
+
 		add(listeAction, BorderLayout.NORTH);
 		add(splitPaneTotal);
+		
 		// permet l'action de la croix rouge
 		addWindowListener(new WindowAdapter()
         {
