@@ -40,14 +40,20 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		JPanel pan = new JPanel();
 		pan.setLayout(new GridLayout(1, 3));
 
-		// TODO (pour sarah) modifier les boutons
+		JPanel panSud = new JPanel();
+		panSud.setLayout(new BorderLayout());
+		
+		JPanel panBouton = new JPanel();
 		annuler = new JButton("Annuler");
 		annuler.addActionListener(this);
-		pan.add(annuler);
+		panBouton.add(annuler);
 		
 		valider = new JButton("Valider");
 		valider.addActionListener(this);
-		pan.add(valider);
+		panBouton.add(valider);
+		
+		panSud.add(panBouton, BorderLayout.EAST);
+		add(panSud, BorderLayout.SOUTH);
 
 		add(pan, BorderLayout.SOUTH);
 		
@@ -61,17 +67,18 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		Projet projet = Controleur.metier.getProjetSelectionne();
 		Page page = projet.getPageSelectionne();
 		
+		JButton b = (JButton) e.getSource();
+		if (b.equals(annuler))
+			dispose();
+		
 		if ( statue == 0 )
 		{
-			JButton b = (JButton) e.getSource();
-			if (b.equals(annuler))
-				dispose();
 			if (b.equals(valider))
 			{
 				enregistrerImage(chemin);
-				
-				projet.getPage(page).ajouterImage(chemin);
-				int cpt = projet.getPage(page).getAlImage().size();
+				page.ajouterImage(chemin);
+				int cpt = page.getAlImage().size();
+				page.ajouterOrdre("Image " + cpt);
 				Controleur.fenetre.getArborescence().ajoutFils("element", "Image " + cpt);
 				
 				dispose();

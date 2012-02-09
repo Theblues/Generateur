@@ -4,6 +4,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import Main.*;
+import Utilitaire.Page;
+import Utilitaire.Projet;
 
 public class PanelMenu extends JPanel implements ActionListener
 {
@@ -108,23 +110,22 @@ public class PanelMenu extends JPanel implements ActionListener
 		if (mi.equals(itemParagraphe))
 			Controleur.creerFenetreAjouterParagraphe(0,"",0);
 		if (mi.equals(itemGenerer))
-			Controleur.metier.getGenerator().generate();
+		{
+			Projet projet = Controleur.metier.getProjetSelectionne();
+			Page page = projet.getPageSelectionne();
+			Controleur.metier.getGenerator().generate(projet, page);
+		}
 		if (mi.equals(itemImage))
 			Controleur.creerFenetreAjouterImage(0);
 	}
 	
-	public void activerAjoutProjet()
+	public void activerCreationPage()
 	{
 		itemNewPage.removeActionListener(this);
 		itemNewPage.addActionListener(this);
 	}
 	
-	public void desactiveAjoutProjet()
-	{
-		itemNewPage.removeActionListener(this);
-	}
-	
-	public void activerAjoutPage()
+	public void activerAjout()
 	{
 		// permet de ne pas ouvrir 5 fenetres
 		itemTitre.removeActionListener(this);
@@ -139,7 +140,7 @@ public class PanelMenu extends JPanel implements ActionListener
 		itemImage.addActionListener(this);
 	}
 
-	public void desactiveAjoutPage()
+	public void desactiveAjout()
 	{
 		itemTitre.removeActionListener(this);
 		itemParagraphe.removeActionListener(this);

@@ -26,20 +26,15 @@ public class Generator
 	}
 	
 
-	public void generate() 
+	public void generate(Projet projet, Page page)
 	{
-		Projet projet = Controleur.metier.getProjetSelectionne();
-		if (projet == null)
-			return;
-		
-		Page page = projet.getPageSelectionne();
 		if(page == null)
 			return;
-		
-		ArrayList<String> alS = Controleur.fenetre.getArborescence().getOrdreElement();
-		ArrayList<String> alTitre = projet.getPage(page).getAlTitre();
-		ArrayList<String> alParagraphe = projet.getPage(page).getAlParagraphe();
-		ArrayList<String> alImage = projet.getPage(page).getAlImage();
+
+		ArrayList<String> alS = page.getAlOrdre();
+		ArrayList<String> alTitre = page.getAlTitre();
+		ArrayList<String> alParagraphe = page.getAlParagraphe();
+		ArrayList<String> alImage = page.getAlImage();
 		
 		if (alS == null || alS.size() == 0)
 			return;
@@ -55,6 +50,7 @@ public class Generator
 				"\t</aside>\n" +
 				"\t<article>\n";
 		
+		// on parcours l'ArrayList pour avoir l'ordre des elements
 		for (String s : alS )
 		{
 			Scanner sc = new Scanner(s);

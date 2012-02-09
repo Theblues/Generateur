@@ -12,6 +12,9 @@ import Utilitaire.*;
 public class FenetreCreerPage extends JFrame implements ActionListener
 {
 	private JTextField	txTitre;
+	
+	private JButton annuler;
+	private JButton valider; 
 
 	public FenetreCreerPage()
 	{
@@ -31,10 +34,20 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 
 		add(panel);
 		
-		// TODO (pour sarah) modifier les boutons
-		JButton button = new JButton("Valider");
-		button.addActionListener(this);
-		add(button, BorderLayout.SOUTH);
+		JPanel panSud = new JPanel();
+		panSud.setLayout(new BorderLayout());
+		
+		JPanel panBouton = new JPanel();
+		annuler = new JButton("Annuler");
+		annuler.addActionListener(this);
+		panBouton.add(annuler);
+		
+		valider = new JButton("Valider");
+		valider.addActionListener(this);
+		panBouton.add(valider);
+		
+		panSud.add(panBouton, BorderLayout.EAST);
+		add(panSud, BorderLayout.SOUTH);
 
 		pack();
 		setVisible(true);
@@ -43,21 +56,28 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		Projet p = Controleur.metier.getProjetSelectionne();
-		System.out.println(p);
-		String nomFichier = p.getNom() + "/"	+ txTitre.getText() + ".html";
-		File f = new File(p.getCheminDossier() + "/" + nomFichier);
-		try
+		if (e.getSource() instanceof JButton)
 		{
-			// on recree le fichier lorsqu'on genere
-			f.createNewFile();
-		} catch (IOException ex)
-		{
-			ex.printStackTrace();
+			JButton b = (JButton) e.getSource();
+			if (valider.equals(b))
+			{
+				Projet p = Controleur.metier.getProjetSelectionne();
+				String nomFichier = p.getNom() + "/"	+ txTitre.getText() + ".html";
+				File f = new File(p.getCheminDossier() + "/" + nomFichier);
+				try
+				{
+					// on recree le fichier lorsqu'on genere
+					f.createNewFile();
+				} catch (IOException ex)
+				{
+					ex.printStackTrace();
+				}
+				
+				Controleur.fenetre.getArborescence().ajoutFils("fichier", f.getName());
+				Controleur.metier.getProjetSelectionne().ajouterPage(new Page(f.getName()));
+			}
 		}
 		
-		Controleur.metier.getProjetSelectionne().ajouterPage(new Page(f.getName()));
-		Controleur.fenetre.getArborescence().ajoutFils("fichier", f.getName());
 		dispose();
 	}
 }

@@ -13,7 +13,9 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 {
 	private PanelListeModFont listeActionFont;
 	private JTextPane textPane;
-	private JButton button;
+	
+	private JButton annuler;
+	private JButton valider;
 	
 	private int statue;
 	private int indiceParagraphe;
@@ -42,30 +44,45 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		add(listeActionFont, BorderLayout.NORTH);
 		add(scroller);
 		
-		// TODO (pour sarah) modifier les boutons
-		button = new JButton("Valider");
-		button.addActionListener(this);
-		add(button,BorderLayout.SOUTH);	
+		JPanel panSud = new JPanel();
+		panSud.setLayout(new BorderLayout());
+		
+		JPanel panBouton = new JPanel();
+		annuler = new JButton("Annuler");
+		annuler.addActionListener(this);
+		panBouton.add(annuler);
+		
+		valider = new JButton("Valider");
+		valider.addActionListener(this);
+		panBouton.add(valider);
+		
+		panSud.add(panBouton, BorderLayout.EAST);
+		add(panSud, BorderLayout.SOUTH);
 		
 		setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) 
 	{
-		Projet projet = Controleur.metier.getProjetSelectionne();
-		Page page = projet.getPageSelectionne();
-		
-		if (textPane.getText() == "")
-			return;
-		
-		if (statue == 0) 
+		JButton b = (JButton) e.getSource();
+		if (valider.equals(b))
 		{
-			projet.getPage(page).ajouterParagraphe(textPane.getText());
-			int cpt = projet.getPage(page).getAlParagraphe().size();
-			Controleur.fenetre.getArborescence().ajoutFils("element", "Paragraphe " + cpt);
+			Projet projet = Controleur.metier.getProjetSelectionne();
+			Page page = projet.getPageSelectionne();
+			
+			if (textPane.getText().length() == 0)
+				return;
+			
+			if (statue == 0) 
+			{
+				page.ajouterParagraphe(textPane.getText());
+				int cpt = page.getAlParagraphe().size();
+				page.ajouterOrdre("Paragraphe " + cpt);
+				Controleur.fenetre.getArborescence().ajoutFils("element", "Paragraphe " + cpt);
+			}
+			else
+				page.modParagraphe(textPane.getText(), indiceParagraphe);
 		}
-		else
-			projet.getPage(page).modParagraphe(textPane.getText(), indiceParagraphe);
 		
 		this.dispose();
 	}

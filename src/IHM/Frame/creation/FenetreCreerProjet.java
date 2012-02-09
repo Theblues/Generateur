@@ -73,7 +73,6 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		
 		add(panelCentre);
 		
-		// TODO (pour sarah) Faire comme ca
 		JPanel panSud = new JPanel();
 		panSud.setLayout(new BorderLayout());
 		
@@ -111,7 +110,6 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 
 	private void choisirDossier()
 	{
-		// TODO Auto-generated method stub
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new File("Users"));
 		chooser.changeToParentDirectory();
@@ -128,7 +126,7 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 	{
 		String nomProjet = txNom.getText();
 		String chemin = txChemin.getText();
-		if (nomProjet == null || chemin == null)
+		if (nomProjet.length() == 0  || chemin.length() == 0)
 		{
 			Controleur.CreerOptionPane("warning", "Veuillez saisir toutes les informations");
 			return false;
@@ -138,7 +136,7 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		file.mkdir();
 		Controleur.metier.ajouterProjet(new Projet(nomProjet, chemin));
 		Controleur.fenetre.getArborescence().ajoutFils("projet", nomProjet);
-		Controleur.fenetre.getMenu().desactiveAjoutProjet();
+		Controleur.fenetre.getMenu().activerCreationPage();
 		
 		File content = new File (chemin + "/" + nomProjet + "/content");
 		File css = new File (chemin + "/" + nomProjet + "/content/CSS");

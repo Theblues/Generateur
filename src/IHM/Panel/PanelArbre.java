@@ -25,8 +25,6 @@ public class PanelArbre extends JPanel implements Serializable
 	private Page pageSelectionnee;
 	private Projet projetSelectionne;
 	
-	int locationRow;
-	
 	public PanelArbre(JFrame f) 
 	{		
 		setLayout(new BorderLayout());
@@ -77,7 +75,6 @@ public class PanelArbre extends JPanel implements Serializable
 	void doMouseClicked(MouseEvent me) 
 	{
 		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
-		locationRow = arbre.getClosestRowForLocation(me.getX(), me.getY());
 		/*
 		 * Exemple path
 		 * [null, site, test.html, titre 1]
@@ -100,9 +97,10 @@ public class PanelArbre extends JPanel implements Serializable
 			 */
 			if (location == 2)
 			{
-				Controleur.fenetre.getMenu().activerAjoutProjet();
+				Controleur.fenetre.getMenu().activerCreationPage();
+				Controleur.fenetre.getPanelListeAction().activerCreationPage();
 				// on desactive les ajouts de titre/paragraphe/image
-				Controleur.fenetre.getMenu().desactiveAjoutPage();	
+				Controleur.fenetre.getMenu().desactiveAjout();
 				Controleur.fenetre.getPanelListeAction().desactiveAjout();
 				
 				parentNodeProjet = arbre.getLastSelectedPathComponent();
@@ -113,7 +111,7 @@ public class PanelArbre extends JPanel implements Serializable
 			else if (location == 3)
 			{
 				// on active les boutons/items
-				Controleur.fenetre.getMenu().activerAjoutPage();
+				Controleur.fenetre.getMenu().activerAjout();
 				Controleur.fenetre.getPanelListeAction().activerAjout();
 				
 				projetSelectionne = Controleur.metier.getProjet(tabObj[1].toString());
@@ -138,7 +136,7 @@ public class PanelArbre extends JPanel implements Serializable
 				String str = sc.next();
 				int indice = Integer.parseInt(sc.next());
 				
-				if (str.equals("Titre")) 
+				if (str.equals("Titre"))
 				{
 					String ancienTitre = projetSelectionne.getPage(pageSelectionnee).getAlTitre().get(indice-1);
 					Controleur.creerFenetreAjouterTitre(1, ancienTitre, indice);
@@ -156,24 +154,6 @@ public class PanelArbre extends JPanel implements Serializable
 	
 	public JTree getArbre() 					{	return arbre;	}
 	public DefaultMutableTreeNode getRacine()	{	return racine;	}
-
-	public ArrayList<String> getOrdreElement()
-	{
-		ArrayList<String> alS = new ArrayList<String>();
-
-		DefaultMutableTreeNode dtn = (DefaultMutableTreeNode) parentNodeFichier;
-		for (int i = 0; i < dtn.getChildCount(); i++)
-		{
-			TreePath tp = arbre.getPathForRow(i+locationRow+1);
-			if (tp == null)
-			{
-				Controleur.CreerOptionPane("error", "Une erreur est survenue");
-				return null;
-			}
-			alS.add(tp.getLastPathComponent().toString());
-		}
-		return alS;
-	}
 	
 	public boolean ajoutFils(String type, String s) 
 	{
