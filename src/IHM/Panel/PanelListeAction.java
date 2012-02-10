@@ -32,6 +32,8 @@ public class PanelListeAction extends JPanel implements ActionListener
 		panelNord.setLayout(new GridLayout(1, 6));
 		
 		boutonGenererProjet = new JButton("Generer le projet");
+		// creer un info bulle
+		boutonGenererProjet.setToolTipText("Generer le projet");
 		boutonGenererProjet.addActionListener(this);
 		
 		boutonGenerer = new JButton("Generer");
