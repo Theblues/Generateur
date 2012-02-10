@@ -46,8 +46,10 @@ public class PanelArbre extends JPanel implements Serializable
 		// ajoute l'action clic a l'arbre
 		arbre.addMouseListener(new MouseAdapter() {
 		      public void mouseClicked(MouseEvent me) {
+		    	  // double clic
 		    	  if (me.getClickCount() == 2)
 		    		  doMouseDoubleClicked(me);
+		    	  // simple clic
 		    	  else
 		    		  doMouseSimpleClicked(me);
 		      }
@@ -182,6 +184,7 @@ public class PanelArbre extends JPanel implements Serializable
 	public DefaultMutableTreeNode getRacine()	{	return racine;		}
 	public String getNomElement()				{	return nomElement;	}
 	
+	// TODO a commenter
 	public boolean ajoutFils(String type, String s) 
 	{
 		DefaultTreeModel dtm = new DefaultTreeModel(racine);
@@ -248,10 +251,6 @@ public class PanelArbre extends JPanel implements Serializable
 		String nom1 = tabObj[3].toString();
 		//on recupere le nom du noeud que l'on veut bouger
 		String nom2 = nomElement = parentNodeElement.toString();
-		
-		// si le type des nom est le meme on arrete sinon on modifie
-		if(Controleur.verificationDesNom(nom1, nom2))
-			return true;
 		
 		DefaultMutableTreeNode noeud = (DefaultMutableTreeNode) parentNodeElement;
 		// on modifie notre nom

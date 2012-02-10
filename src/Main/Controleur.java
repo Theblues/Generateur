@@ -62,23 +62,6 @@ public class Controleur
         System.exit(0);
 	}
 	
-	public static boolean verificationDesNom(String nom1, String nom2)
-	{
-		Scanner sc1 = new Scanner(nom1);
-		Scanner sc2 = new Scanner(nom2);
-		
-		sc1.useDelimiter(" ");
-		sc2.useDelimiter(" ");
-		
-		String type1 = sc1.next();
-		String type2 = sc2.next();
-		
-		if (type1.equals(type2))
-			return true;
-		
-		return false;
-	}
-	
 	public static void main(String[] argv)
 	{
 		initialiser();
