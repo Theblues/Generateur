@@ -6,6 +6,8 @@ import java.io.*;
 
 import javax.swing.*;
 
+import org.apache.commons.io.IOUtils;
+
 import Main.*;
 import Utilitaire.*;
 
@@ -146,14 +148,30 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		css.mkdir();
 		img.mkdir();
 		
-		File cssFile;
+		InputStream input;
+		OutputStream output;
 		
-		if (combo.getSelectedItem().equals("Style 1"))
-			cssFile = new File (chemin + "/" + nomProjet + "/content/CSS/style1.css");
-		else if (combo.getSelectedItem().equals("Style 2"))
-			cssFile = new File (chemin + "/" + nomProjet + "/content/CSS/style2.css");
-		else
-			cssFile = new File (chemin + "/" + nomProjet + "/content/CSS/style3.css");	
+		try
+		{
+			if (combo.getSelectedItem().equals("Theme 1"))
+			{
+				input = new FileInputStream("styles/style1.css");
+				output = new FileOutputStream(chemin + "/" + nomProjet + "/content/CSS/style1.css");
+			}
+			else if (combo.getSelectedItem().equals("Theme 2"))
+			{
+				input = new FileInputStream("styles/style2.css");
+				output = new FileOutputStream(chemin + "/" + nomProjet + "/content/CSS/style2.css");
+			}
+			else
+			{
+				input = new FileInputStream("styles/style3.css");
+				output = new FileOutputStream(chemin + "/" + nomProjet + "/content/CSS/style3.css");
+			}
+			IOUtils.copy(input, output);	
+		}
+		catch (FileNotFoundException e1){	e1.printStackTrace();	}
+		catch (IOException e)			{	e.printStackTrace();	}
 		
 		return true;
 	}
