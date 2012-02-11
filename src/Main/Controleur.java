@@ -29,6 +29,11 @@ public class Controleur
 		new FenetreCreerPage();				
 	}
 	
+	public static void FenetrePropriete( Object type)
+	{		
+		new FenetrePropriete(type);		
+	}
+	
 	public static void creerFenetreAjouterParagraphe(int statue, String titre, int indiceParagraphe)
 	{		
 		new FenetreAjouterParagraphe(statue, titre, indiceParagraphe);		
