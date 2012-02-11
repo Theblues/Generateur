@@ -1,4 +1,4 @@
-package IHM.Panel;
+package IHM.Menu;
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -13,8 +13,8 @@ public class MenuContextuel implements ActionListener
 	private int location;
 	
 	private JMenuItem nouveau;
-	private JMenuItem projet;
-	private JMenuItem page;
+	private JMenuItem nouveauProjet;
+	private JMenuItem nouvellePage;
 	private JMenuItem propriete;
 	private JMenuItem supprimer;
 	
@@ -24,8 +24,7 @@ public class MenuContextuel implements ActionListener
 		this.location = location;
 		noeud = obj;
 		
-		JPopupMenu jpm = new JPopupMenu();		
-		
+		JPopupMenu jpm = new JPopupMenu();
 		
 		nouveau = new JMenuItem("Nouveau");
 		nouveau.addActionListener(this);
@@ -37,8 +36,8 @@ public class MenuContextuel implements ActionListener
 		jpm.add(nouveau);
 		jpm.add(supprimer);
 		jpm.add(propriete);
+		// on affiche le menuContextuel a la l'arbre
 		jpm.show(arbre, me.getX(), me.getY());
-
 	}
 	
 	
@@ -52,29 +51,22 @@ public class MenuContextuel implements ActionListener
 		{
 			Projet projet = Controleur.metier.getProjet(noeud[1].toString());
 			
-			// propriétés
+			// proprietes
 			if (mi.equals(propriete))
-			{
 				Controleur.FenetrePropriete(projet);
-			}
+
 			// Ajout d'un projet
-			if (mi.equals(nouveau)){
+			if (mi.equals(nouveau))
 				Controleur.creerFenetreCreerProjet();
-			}
+
 			if (mi.equals(supprimer))
 			{
 				int option = Controleur.CreerOptionPaneConfirm("Supprimez le projet", "Voulez-vous supprimez le projet ?");
 				if (option != JOptionPane.NO_OPTION && option != JOptionPane.CANCEL_OPTION && option != JOptionPane.CLOSED_OPTION)
 				{
-					option = Controleur.CreerOptionPaneConfirm("Supprimez le projet", "Vous etes sur de vouloir supprimez le projet ?");
-					if (option != JOptionPane.NO_OPTION && option != JOptionPane.CANCEL_OPTION && option != JOptionPane.CLOSED_OPTION)
-					{
-						Controleur.CreerOptionPane("info", "ba va te faire enculer bien profond ! ENFLURE");
-					}
+					// TODO code pour supprimer l'element
 				}
 			}
-			// TODO le reste
-			//if (mi.equals("autrebouton"))
 		}
 		// si c'est un page
 		else if (location == 3)
@@ -82,16 +74,13 @@ public class MenuContextuel implements ActionListener
 			Projet projet = Controleur.metier.getProjet(noeud[1].toString());
 			Page page = projet.getPage(noeud[2].toString());
 			
-			// Propriétés
+			// Proprietes
 			if (mi.equals(propriete))
-			{
 				Controleur.FenetrePropriete(page);
-			}
 			
-			// TODO ajout d'une page
-			if (mi.equals(nouveau)){
+			// ajout d'une page
+			if (mi.equals(nouveau))
 				Controleur.creerFenetreCreerPage();
-			}
 		}
 		// si c'est un element
 		else if (location >= 3)

@@ -1,4 +1,4 @@
-package IHM.Panel;
+package IHM.Menu;
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -7,7 +7,7 @@ import Main.*;
 import Utilitaire.Page;
 import Utilitaire.Projet;
 
-public class PanelMenu extends JPanel implements ActionListener
+public class MenuBar implements ActionListener
 {
 	private JMenuBar menuBar;
 
@@ -32,7 +32,7 @@ public class PanelMenu extends JPanel implements ActionListener
 	private JMenuItem itemParagraphe;
 	private JMenuItem itemImage;
 
-	public PanelMenu()
+	public MenuBar()
 	{
 		// initialisation de la bar de Menu
 		menuBar = new JMenuBar();

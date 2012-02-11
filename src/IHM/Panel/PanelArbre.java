@@ -9,6 +9,7 @@ import javax.swing.tree.*;
 import java.io.*;
 import java.util.*;
 
+import IHM.Menu.MenuContextuel;
 import Main.*;
 import Utilitaire.*;
 

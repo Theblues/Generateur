@@ -5,6 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import IHM.Menu.MenuBar;
 import IHM.Panel.*;
 import Main.Controleur;
 
@@ -29,7 +30,7 @@ public class Fenetre extends JFrame
 	 *  
 	 */
 	
-	private PanelMenu 			menu;
+	private MenuBar 			menu;
 	private PanelListeAction 	listeAction;
 	private PanelArbre			arborescence;
 	private PanelVisu			panelVisu;
@@ -39,9 +40,12 @@ public class Fenetre extends JFrame
 	public Fenetre()
 	{
 		setTitle("Generateur de site");
-		setSize(1024, 400);
+		// cette taille va servir lorsque l'on veut reduire la taille
+		setSize(1024, 700);
+		// ouverture de la fenetre en plein ecran
+		setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
 		
-		menu = new PanelMenu();
+		menu = new MenuBar();
 		menu.addMenuInFrame(this);
 		
 		arborescence = new PanelArbre(this);
@@ -75,7 +79,7 @@ public class Fenetre extends JFrame
 		setVisible(true);
 	}
 
-	public PanelMenu getMenu()						{	return menu;			}
+	public MenuBar getMenu()						{	return menu;			}
 	public PanelListeAction getPanelListeAction()	{	return listeAction;		}
 	public PanelArbre getArborescence()				{	return arborescence;	}
 	public PanelVisu getPanelVisu()					{	return panelVisu;		}
