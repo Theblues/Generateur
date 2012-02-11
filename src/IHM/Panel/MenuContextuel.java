@@ -38,20 +38,32 @@ public class MenuContextuel implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		JMenuItem mi = (JMenuItem) e.getSource();
-		if (mi.equals(propriete))
+		// si c'est un projet
+		if (location == 2)
 		{
-			if (location == 2)
+			if (mi.equals(propriete))
 			{
+				
 				Projet projet = Controleur.metier.getProjet(noeud[1].toString());
 				// TODO Faire une fenetre propriete
 				System.out.println(projet);
 			}
-			else if (location == 3)
+			//if (mi.equals("autrebouton"))
+		}
+		// si c'est un page
+		else if (location == 3)
+		{
+			if (mi.equals(propriete))
 			{
 				Page page = Controleur.metier.getProjet(noeud[1].toString()).getPage(noeud[2].toString());
 				// TODO Faire une fenetre propriete
 				System.out.println(page);
 			}
+		}
+		// si c'est un element
+		else if (location >= 3)
+		{
+			
 		}
 
 	}
