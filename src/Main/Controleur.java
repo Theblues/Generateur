@@ -55,6 +55,12 @@ public class Controleur
 			op.optionPaneErreur(texte);
 	}
 	
+	public static int CreerOptionPaneConfirm(String titre, String texte)
+	{
+		OptionPane op = new OptionPane();
+		return op.optionPaneConfirmation(titre, texte);
+	}
+	
 	public static void fermerFenetre()
 	{
 		fenetre.getArborescence().enregistrerArbre();

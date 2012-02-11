@@ -26,7 +26,7 @@ public class MenuContextuel implements ActionListener
 		
 		nouveau = new JMenuItem("Nouveau");
 		nouveau.addActionListener(this);
-		supprimer = new JMenuItem("Effacer");
+		supprimer = new JMenuItem("Supprimer");
 		supprimer.addActionListener(this);
 		propriete = new JMenuItem("Proprietes");
 		propriete.addActionListener(this);
@@ -49,6 +49,18 @@ public class MenuContextuel implements ActionListener
 			{
 				// TODO Faire une fenetre propriete
 				System.out.println(projet);
+			}
+			if (mi.equals(supprimer))
+			{
+				int option = Controleur.CreerOptionPaneConfirm("Supprimez le projet", "Voulez-vous supprimez le projet ?");
+				if (option != JOptionPane.NO_OPTION && option != JOptionPane.CANCEL_OPTION && option != JOptionPane.CLOSED_OPTION)
+				{
+					option = Controleur.CreerOptionPaneConfirm("Supprimez le projet", "Vous etes sur de vouloir supprimez le projet ?");
+					if (option != JOptionPane.NO_OPTION && option != JOptionPane.CANCEL_OPTION && option != JOptionPane.CLOSED_OPTION)
+					{
+						Controleur.CreerOptionPane("info", "ba va te faire enculer bien profond ! ENFLURE");
+					}
+				}
 			}
 			// TODO le reste
 			//if (mi.equals("autrebouton"))
@@ -73,6 +85,5 @@ public class MenuContextuel implements ActionListener
 			
 			// TODO le reste
 		}
-
 	}
 }

@@ -4,25 +4,30 @@ import javax.swing.JOptionPane;
 
 public class OptionPane
 {
-	JOptionPane jop1;
+	JOptionPane jop;
 	
 	public OptionPane()
 	{
-		jop1 = new JOptionPane();
+		jop = new JOptionPane();
 	}
 	
 	public void optionPaneInfo(String texte)
 	{
-		jop1.showMessageDialog(null, texte, "Information", JOptionPane.INFORMATION_MESSAGE);
+		jop.showMessageDialog(null, texte, "Information", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public void optionPaneErreur(String texte)
 	{
-		jop1.showMessageDialog(null, texte, "Erreur", JOptionPane.ERROR_MESSAGE);
+		jop.showMessageDialog(null, texte, "Erreur", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void optionPaneAlerte(String texte)
 	{
-		jop1.showMessageDialog(null, texte, "Attention", JOptionPane.WARNING_MESSAGE);
+		jop.showMessageDialog(null, texte, "Attention", JOptionPane.WARNING_MESSAGE);
+	}
+	
+	public int optionPaneConfirmation(String titreFenetre, String texte)
+	{
+		return jop.showConfirmDialog(null, texte, titreFenetre, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 	}
 }
