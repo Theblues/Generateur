@@ -42,12 +42,17 @@ public class PanelArbre extends JPanel implements Serializable
 			arbre = new JTree(racine);
 			f.getContentPane().add(new JScrollPane(arbre));
 		}
+		// on cache la racine
+		arbre.setRootVisible(false);
 		
 		// ajoute l'action clic a l'arbre
 		arbre.addMouseListener(new MouseAdapter() {
 		      public void mouseClicked(MouseEvent me) {
+		    	  // clic droit
+		    	  if(me.getButton() == MouseEvent.BUTTON3)
+		    		  doMouseRightClick(me);
 		    	  // double clic
-		    	  if (me.getClickCount() == 2)
+		    	  else if (me.getClickCount() == 2)
 		    		  doMouseDoubleClicked(me);
 		    	  // simple clic
 		    	  else
@@ -79,6 +84,18 @@ public class PanelArbre extends JPanel implements Serializable
 		catch (ClassNotFoundException e)	{}
 		if (arbre != null && racine != null)
 			updateTree(racine);
+	}
+	
+	private void doMouseRightClick(MouseEvent me)
+	{
+		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
+		if (path != null)
+		{
+			int location = path.getPathCount();
+			Object[] tabObj = path.getPath();
+			
+			MenuContextuel mc = new MenuContextuel(me, location, tabObj);
+		}
 	}
 	
 	private void doMouseDoubleClicked(MouseEvent me) 
