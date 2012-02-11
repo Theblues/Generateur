@@ -12,8 +12,9 @@ public class MenuContextuel implements ActionListener
 	private Object[] noeud;
 	private int location;
 	
+	private JMenuItem nouveau;
 	private JMenuItem propriete;
-	private JMenuItem eraseMenu;
+	private JMenuItem supprimer;
 	
 	public MenuContextuel(MouseEvent me, int location, Object[] obj)
 	{
@@ -23,12 +24,14 @@ public class MenuContextuel implements ActionListener
 		
 		JPopupMenu jpm = new JPopupMenu();		
 		
+		nouveau = new JMenuItem("Nouveau");
+		nouveau.addActionListener(this);
+		supprimer = new JMenuItem("Effacer");
+		supprimer.addActionListener(this);
 		propriete = new JMenuItem("Proprietes");
 		propriete.addActionListener(this);
 		
-		eraseMenu = new JMenuItem("Effacer ce noeud");
-		eraseMenu.addActionListener(this);
-		jpm.add(eraseMenu);
+		jpm.add(supprimer);
 		jpm.add(propriete);
 		jpm.show(arbre, me.getX(), me.getY());
 	}
@@ -41,29 +44,34 @@ public class MenuContextuel implements ActionListener
 		// si c'est un projet
 		if (location == 2)
 		{
+			Projet projet = Controleur.metier.getProjet(noeud[1].toString());
 			if (mi.equals(propriete))
 			{
-				
-				Projet projet = Controleur.metier.getProjet(noeud[1].toString());
 				// TODO Faire une fenetre propriete
 				System.out.println(projet);
 			}
+			// TODO le reste
 			//if (mi.equals("autrebouton"))
 		}
 		// si c'est un page
 		else if (location == 3)
 		{
+			Projet projet = Controleur.metier.getProjet(noeud[1].toString());
+			Page page = projet.getPage(noeud[2].toString());
 			if (mi.equals(propriete))
 			{
-				Page page = Controleur.metier.getProjet(noeud[1].toString()).getPage(noeud[2].toString());
 				// TODO Faire une fenetre propriete
 				System.out.println(page);
 			}
+			// TODO le reste
 		}
 		// si c'est un element
 		else if (location >= 3)
 		{
+			Projet projet = Controleur.metier.getProjet(noeud[1].toString());
+			Page page = projet.getPage(noeud[2].toString());
 			
+			// TODO le reste
 		}
 
 	}
