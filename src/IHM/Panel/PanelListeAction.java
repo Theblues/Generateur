@@ -39,10 +39,10 @@ public class PanelListeAction extends JPanel implements ActionListener
 		boutonGenerer = new JButton("Generer");
 		boutonGenerer.addActionListener(this);
 		
-		boutonAjouterProjet = new JButton("Ajouter un projet");
+		boutonAjouterProjet = new JButton("Nouveau projet");
 		boutonAjouterProjet.addActionListener(this);
 		
-		boutonAjouterPage = new JButton("Ajouter une page");
+		boutonAjouterPage = new JButton("Nouvelle page");
 		
 		boutonAjouterTitre = new JButton("Ajouter un titre");
 		

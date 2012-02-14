@@ -31,15 +31,6 @@ public class Projet implements Serializable
 		return null;
 	}
 	
-	public Page getPage(Page page)
-	{
-		for (Page p : alPage)
-			if (page.equals(p))
-				return p;
-		
-		return null;
-	}
-	
 	public void setPageSelectionne(Page p)
 	{
 		pageSelectionne = p;

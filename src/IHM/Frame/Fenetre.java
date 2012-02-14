@@ -35,8 +35,6 @@ public class Fenetre extends JFrame
 	private PanelArbre			arborescence;
 	private PanelVisu			panelVisu;
 	
-	private JSplitPane 			splitPaneTotal;
-	
 	public Fenetre()
 	{
 		setTitle("Generateur de site");
@@ -53,7 +51,7 @@ public class Fenetre extends JFrame
 		
 		panelVisu = new PanelVisu();
 
-		splitPaneTotal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, arborescence, panelVisu);
+		JSplitPane splitPaneTotal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, arborescence, panelVisu);
 
 		add(listeAction, BorderLayout.NORTH);
 		add(splitPaneTotal);

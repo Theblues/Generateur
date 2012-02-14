@@ -12,7 +12,7 @@ public class MenuContextuel implements ActionListener
 	private Object[] noeud;
 	private int location;
 	
-	private JMenuItem nouveau;
+	private JMenu nouveau;
 	private JMenuItem nouveauProjet;
 	private JMenuItem nouvellePage;
 	private JMenuItem propriete;
@@ -20,14 +20,23 @@ public class MenuContextuel implements ActionListener
 	
 	public MenuContextuel(MouseEvent me, int location, Object[] obj)
 	{
-		arbre = (JTree) me.getSource();
+		arbre = (me != null) ? (JTree) me.getSource(): null;
 		this.location = location;
-		noeud = obj;
+		noeud = (obj != null) ? obj : null;
 		
 		JPopupMenu jpm = new JPopupMenu();
 		
-		nouveau = new JMenuItem("Nouveau");
-		nouveau.addActionListener(this);
+		nouveau = new JMenu("Nouveau");
+		
+		// creation des item du menu Nouveau
+		nouveauProjet = new JMenuItem("Nouveau Projet");
+		nouveauProjet.addActionListener(this);
+		nouvellePage = new JMenuItem("Nouvelle Page");
+		nouvellePage.addActionListener(this);
+		
+		nouveau.add(nouveauProjet);
+		nouveau.add(nouvellePage);
+		
 		supprimer = new JMenuItem("Supprimer");
 		supprimer.addActionListener(this);
 		propriete = new JMenuItem("Proprietes");
@@ -55,10 +64,6 @@ public class MenuContextuel implements ActionListener
 			if (mi.equals(propriete))
 				Controleur.FenetrePropriete(projet);
 
-			// Ajout d'un projet
-			if (mi.equals(nouveau))
-				Controleur.creerFenetreCreerProjet();
-
 			if (mi.equals(supprimer))
 			{
 				int option = Controleur.CreerOptionPaneConfirm("Supprimez le projet", "Voulez-vous supprimez le projet ?");
@@ -77,10 +82,6 @@ public class MenuContextuel implements ActionListener
 			// Proprietes
 			if (mi.equals(propriete))
 				Controleur.FenetrePropriete(page);
-			
-			// ajout d'une page
-			if (mi.equals(nouveau))
-				Controleur.creerFenetreCreerPage();
 		}
 		// si c'est un element
 		else if (location >= 3)
@@ -90,5 +91,10 @@ public class MenuContextuel implements ActionListener
 			
 			// TODO le reste
 		}
+		
+		if (mi.equals(nouveauProjet))
+			Controleur.creerFenetreCreerProjet();
+		else if (mi.equals(nouvellePage))
+			Controleur.creerFenetreCreerPage();
 	}
 }

@@ -12,9 +12,7 @@ import Main.*;
 import Utilitaire.*;
 
 public class FenetreCreerProjet extends JFrame implements ActionListener
-{
-	private JLabel label;
-	
+{	
 	private JTextField txNom;
 	private JTextField txChemin;
 	private JComboBox combo;
@@ -36,7 +34,7 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		// Panel Nom
 		JPanel panelNom = new JPanel();
 		panelNom.setLayout(new FlowLayout(2, 100, 0));
-		label = new JLabel("Nom du projet");
+		JLabel label = new JLabel("Nom du projet");
 		txNom = new JTextField(20);
 		
 		panelNom.add(label);	

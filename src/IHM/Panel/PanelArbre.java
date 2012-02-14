@@ -17,8 +17,6 @@ public class PanelArbre extends JPanel implements Serializable
 {
 	private JTree arbre;
 	private DefaultMutableTreeNode racine;
-	private JScrollPane editeurScrollHorizontal;
-	private JScrollPane editeurScrollVertical;
 
 	private Object parentNodeFichier = null;
 	private Object parentNodeProjet = null;
@@ -61,11 +59,11 @@ public class PanelArbre extends JPanel implements Serializable
 		      }
 		    });
 
-		editeurScrollHorizontal = new JScrollPane(arbre);
+		JScrollPane editeurScrollHorizontal = new JScrollPane(arbre);
 		editeurScrollHorizontal.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		editeurScrollHorizontal.setPreferredSize(new Dimension(250, 145));
 		
-		editeurScrollVertical = new JScrollPane(arbre);
+		JScrollPane editeurScrollVertical = new JScrollPane(arbre);
 		editeurScrollVertical.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		editeurScrollVertical.setPreferredSize(new Dimension(250, 145));
 		
@@ -95,7 +93,7 @@ public class PanelArbre extends JPanel implements Serializable
 			int location = path.getPathCount();
 			Object[] tabObj = path.getPath();
 			
-			MenuContextuel mc = new MenuContextuel(me, location, tabObj);
+			new MenuContextuel(me, location, tabObj);
 		}
 	}
 	
@@ -116,12 +114,12 @@ public class PanelArbre extends JPanel implements Serializable
 				
 				if (str.equals("Titre"))
 				{
-					String ancienTitre = projetSelectionne.getPage(pageSelectionnee).getAlTitre().get(indice-1);
+					String ancienTitre = pageSelectionnee.getAlTitre().get(indice-1);
 					Controleur.creerFenetreAjouterTitre(1, ancienTitre, indice);
 				}
 				if (str.equals("Paragraphe"))
 				{
-					String ancienParagraphe = projetSelectionne.getPage(pageSelectionnee).getAlParagraphe().get(indice-1);
+					String ancienParagraphe = pageSelectionnee.getAlParagraphe().get(indice-1);
 					Controleur.creerFenetreAjouterParagraphe(1, ancienParagraphe, indice);
 				}
 				if (str.equals("Image"))
