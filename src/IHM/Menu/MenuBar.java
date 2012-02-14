@@ -14,6 +14,7 @@ public class MenuBar implements ActionListener
 	private JMenu menuFile;
 	private JMenu menuEdit;
 	private JMenu menuAjouter;
+	private JMenu menuAide;
 
 	// item pour le menu Fichiers
 	private JMenuItem itemNewProject;
@@ -31,6 +32,8 @@ public class MenuBar implements ActionListener
 	private JMenuItem itemTitre;
 	private JMenuItem itemParagraphe;
 	private JMenuItem itemImage;
+	
+	private JMenuItem itemAide;
 
 	public MenuBar()
 	{
@@ -40,6 +43,7 @@ public class MenuBar implements ActionListener
 		menuFile = new JMenu("Fichier");
 		menuEdit = new JMenu("Editer");
 		menuAjouter = new JMenu("Ajouter");
+		menuAide = new JMenu("Aide");
 
 		// initialisation des items pour le menu Fichier
 		itemNewProject = new JMenuItem("Nouveau Projet");
@@ -65,6 +69,8 @@ public class MenuBar implements ActionListener
 		itemParagraphe = new JMenuItem("Ajouter un paragraphe");
 		itemImage = new JMenuItem("Ajouter une image");
 		
+		itemAide = new JMenuItem("?");
+		
 		// ajout des items dans le menu Fichier
 		menuFile.add(itemNewProject);
 		menuFile.add(itemNewPage);
@@ -84,10 +90,13 @@ public class MenuBar implements ActionListener
 		menuAjouter.add(itemParagraphe);
 		menuAjouter.add(itemImage);
 		
+		menuAide.add(itemAide);
+		
 		// Ajout des menus dans la bar de Menu
 		menuBar.add(menuFile);
 		menuBar.add(menuEdit);
 		menuBar.add(menuAjouter);
+		menuBar.add(menuAide);
 	}
 
 	// permet d'ajouter la bar de menu dans la frame

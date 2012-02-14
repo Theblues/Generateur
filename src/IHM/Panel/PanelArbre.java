@@ -87,6 +87,7 @@ public class PanelArbre extends JPanel implements Serializable
 	
 	private void doMouseRightClick(MouseEvent me)
 	{
+		doMouseSimpleClicked(me);
 		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
 		if (path != null)
 		{
