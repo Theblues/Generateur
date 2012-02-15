@@ -41,10 +41,32 @@ public class Projet implements Serializable
 		alPage.add(p);
 	}
 	
+	public void modOrdrePage(String type, String niveau)
+	{
+		int i = 0;
+		Page page = null;
+		for (Page p : alPage)
+		{
+			if (p.getNom().equals(type))
+			{
+				page = p;
+				break;
+			}
+			i++;
+		}
+		alPage.remove(i);
+		if (niveau.equals("monter"))
+			alPage.add(i-1, page);
+		if (niveau.equals("descendre"))
+			alPage.add(i+1, page);	
+	}
+	
 	@Override
 	public String toString()
 	{
 		return "Projet [nom=" + nom + ", alPage=" + alPage
 				+ ", pageSelectionne=" + pageSelectionne + "]";
 	}
+
+	
 }

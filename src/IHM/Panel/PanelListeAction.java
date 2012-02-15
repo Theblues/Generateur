@@ -20,8 +20,11 @@ public class PanelListeAction extends JPanel implements ActionListener
 	private JButton boutonAjouterImage;
 	
 	// bouton temporaire !!
-	private JButton boutonAugmenterNiveau;
-	private JButton boutonDiminuerNiveau;
+	private JButton boutonMonterElement;
+	private JButton boutonDescendreElement;
+	
+	private JButton boutonMonterPage;
+	private JButton boutonDescendrePage;
 	
 	public PanelListeAction()
 	{
@@ -59,16 +62,24 @@ public class PanelListeAction extends JPanel implements ActionListener
 		panelNord.add(boutonAjouterImage);
 		
 		JPanel panelSud = new JPanel();
-		panelSud.setLayout(new GridLayout(1, 2));
+		panelSud.setLayout(new GridLayout(1, 4));
 		
-		boutonAugmenterNiveau = new JButton("Monter la selection");
-		boutonAugmenterNiveau.addActionListener(this);
+		boutonMonterElement = new JButton("Monter l'element");
+		boutonMonterElement.addActionListener(this);
 		
-		boutonDiminuerNiveau = new JButton("Descendre la selection");
-		boutonDiminuerNiveau.addActionListener(this);
+		boutonDescendreElement = new JButton("Descendre l'element");
+		boutonDescendreElement.addActionListener(this);
 		
-		panelSud.add(boutonDiminuerNiveau);
-		panelSud.add(boutonAugmenterNiveau);
+		boutonMonterPage = new JButton("Monter la page");
+		boutonMonterPage.addActionListener(this);
+		
+		boutonDescendrePage = new JButton("Descendre la page");
+		boutonDescendrePage.addActionListener(this);
+		
+		panelSud.add(boutonDescendreElement);
+		panelSud.add(boutonMonterElement);
+		panelSud.add(boutonDescendrePage);
+		panelSud.add(boutonMonterPage);
 		
 		add(panelNord);
 		add(panelSud);
@@ -110,34 +121,14 @@ public class PanelListeAction extends JPanel implements ActionListener
 			Controleur.creerFenetreAjouterParagraphe(0,"",0);
 		if (b.equals(boutonAjouterImage))
 			Controleur.creerFenetreAjouterImage(0);
-		if (b.equals(boutonDiminuerNiveau))
-		{
-			if (Controleur.fenetre.getArborescence().diminuerNiveau())
-			{
-				String type = Controleur.fenetre.getArborescence().getNomElement();
-				Projet projet = Controleur.metier.getProjetSelectionne();
-				if (projet == null)
-					return;
-				Page page = projet.getPageSelectionne();
-				if (page == null)
-					return;
-				page.modOrdreElement(type, "diminuer");
-			}
-		}
-		if (b.equals(boutonAugmenterNiveau))
-		{
-			if (Controleur.fenetre.getArborescence().augmenterNiveau())
-			{
-				String type = Controleur.fenetre.getArborescence().getNomElement();
-				Projet projet = Controleur.metier.getProjetSelectionne();
-				if (projet == null)
-					return;
-				Page page = projet.getPageSelectionne();
-				if (page == null)
-					return;
-				page.modOrdreElement(type, "monter");
-			}
-		}
+		if (b.equals(boutonDescendreElement))
+			Controleur.descendreElement();
+		if (b.equals(boutonMonterElement))
+			Controleur.monterElement();
+		if(b.equals(boutonDescendrePage))
+			Controleur.descendrePage();
+		if(b.equals(boutonMonterPage))
+			Controleur.monterPage();
 	}
 	
 	public void activerCreationPage()

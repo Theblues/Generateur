@@ -52,8 +52,10 @@ public class FenetrePropriete extends JFrame implements ActionListener
 			Page p = ( Page ) type;
 			info = new JPanel(new GridLayout(3,1));		
 			
-			JLabel nom = new JLabel("Nom  :   " + p.getNom());
+			JLabel nom = new JLabel("Nom  :   " + p.getNom());			
 			info.add (nom);
+			JLabel test = new JLabel("nombre delement : " + p.getAlOrdre().size());
+			info.add(test);
 			JLabel nbTitre = new JLabel("Nombre de Titres : " + p.getAlTitre().size());
 			info.add (nbTitre);
 			JLabel nbPara = new JLabel("Nombre de Paragraphes  :   " + p.getAlParagraphe().size());

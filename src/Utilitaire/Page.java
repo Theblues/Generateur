@@ -85,23 +85,23 @@ public class Page implements Serializable
 	 * Modification de l'ordre des elements
 	 */
 	
-	public void modOrdreElement(String type1, String niveau)
+	public void modOrdreElement(String type, String niveau)
 	{
 		// on parcours la liste pour savoir l'indice de l'element que l'on recherche
 		int i = 0;
 		for (String s : alOrdre)
 		{
-			if (s.equals(type1))
+			if (s.equals(type))
 				break;
 			i++;
 		}
 		
-		//On modifie l'ordre des elements dans la liste
+		// On modifie l'ordre des elements dans la liste
 		alOrdre.remove(i);
 		if (niveau.equals("monter"))
-			alOrdre.add(i-1, type1);
-		if (niveau.equals("diminuer"))
-			alOrdre.add(i+1, type1);		
+			alOrdre.add(i-1, type);
+		if (niveau.equals("descendre"))
+			alOrdre.add(i+1, type);
 	}
 	
 	@Override

@@ -49,7 +49,7 @@ public class PanelVisu extends JPanel
 		if (alS == null || alS.size() == 0)
 			return;
 		
-		for (String s : alS )
+		for (String s : alS)
 		{
 			Scanner sc = new Scanner(s);
 			sc.useDelimiter(" ");

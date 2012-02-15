@@ -5,6 +5,8 @@ import IHM.Frame.creation.*;
 import IHM.Frame.ajout.*;
 import IHM.OptionPane.*;
 import Metier.*;
+import Utilitaire.Page;
+import Utilitaire.Projet;
 
 public class Controleur
 {
@@ -74,5 +76,59 @@ public class Controleur
 	public static void main(String[] argv)
 	{
 		initialiser();
+	}
+
+	public static void monterElement()
+	{
+		if (fenetre.getArborescence().monterNode("element"))
+		{
+			String type = fenetre.getArborescence().getNomNode();
+			Projet projet = metier.getProjetSelectionne();
+			if (projet == null)
+				return;
+			Page page = projet.getPageSelectionne();
+			if (page == null)
+				return;
+			page.modOrdreElement(type, "monter");
+		}
+	}
+
+	public static void descendreElement()
+	{
+		if (fenetre.getArborescence().descendreNode("element"))
+		{
+			String type = fenetre.getArborescence().getNomNode();
+			Projet projet = metier.getProjetSelectionne();
+			if (projet == null)
+				return;
+			Page page = projet.getPageSelectionne();
+			if (page == null)
+				return;
+			page.modOrdreElement(type, "descendre");
+		}
+	}
+	
+	public static void monterPage()
+	{
+		if (fenetre.getArborescence().monterNode("page"))
+		{
+			String type = fenetre.getArborescence().getNomNode();
+			Projet projet = metier.getProjetSelectionne();
+			if (projet == null)
+				return;
+			projet.modOrdrePage(type, "monter");
+		}
+	}
+	
+	public static void descendrePage()
+	{
+		if (fenetre.getArborescence().descendreNode("page"))
+		{
+			String type = fenetre.getArborescence().getNomNode();
+			Projet projet = metier.getProjetSelectionne();
+			if (projet == null)
+				return;
+			projet.modOrdrePage(type, "descendre");
+		}
 	}
 }
