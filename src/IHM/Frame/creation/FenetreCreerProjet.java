@@ -135,7 +135,7 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		File file = new File(chemin + "/" + nomProjet);
 		file.mkdir();
 		Controleur.metier.ajouterProjet(new Projet(nomProjet, chemin));
-		Controleur.fenetre.getArborescence().ajoutFils("projet", nomProjet);
+		Controleur.fenetre.getArborescence().ajoutFils(null, "projet", nomProjet);
 		Controleur.fenetre.getMenu().activerCreationPage();
 		
 		File content = new File (chemin + "/" + nomProjet + "/content");

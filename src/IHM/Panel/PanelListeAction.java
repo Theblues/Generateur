@@ -121,18 +121,25 @@ public class PanelListeAction extends JPanel implements ActionListener
 			Controleur.monterPage();
 	}
 	
-	public void activerBoutonPage()
+	public void activerBoutonAjoutPage()
 	{
 		boutonAjouterPage.removeActionListener(this);
 		boutonAjouterPage.addActionListener(this);
-		
-		boutonMonterPage.removeActionListener(this);
-		boutonMonterPage.addActionListener(this);
 	}
 	
-	public void desactiverBoutonPage()
+	public void activerBoutonModPage()
 	{
 		boutonMonterPage.removeActionListener(this);
+		boutonMonterPage.addActionListener(this);
+		
+		boutonDescendrePage.removeActionListener(this);
+		boutonDescendrePage.addActionListener(this);
+	}
+	
+	public void desactiverBoutonModPage()
+	{
+		boutonMonterPage.removeActionListener(this);
+		boutonDescendrePage.removeActionListener(this);
 	}
 	
 	public void activerBoutonAjoutElement()

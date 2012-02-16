@@ -74,7 +74,7 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 				page.ajouterImage(chemin);
 				int cpt = page.getAlImage().size();
 				page.ajouterOrdre("Image " + cpt);
-				Controleur.fenetre.getArborescence().ajoutFils("element", "Image " + cpt);
+				Controleur.fenetre.getArborescence().ajoutFils(null, "element", "Image " + cpt);
 				
 				dispose();
 			}

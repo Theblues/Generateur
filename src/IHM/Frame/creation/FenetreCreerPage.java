@@ -73,7 +73,7 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 					ex.printStackTrace();
 				}
 				
-				Controleur.fenetre.getArborescence().ajoutFils("fichier", f.getName());
+				Controleur.fenetre.getArborescence().ajoutFils(null, "fichier", f.getName());
 				Controleur.metier.getProjetSelectionne().ajouterPage(new Page(f.getName()));
 			}
 		}

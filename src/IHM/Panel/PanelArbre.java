@@ -157,7 +157,8 @@ public class PanelArbre extends JPanel implements Serializable
 			if (location == 2)
 			{
 				Controleur.fenetre.getMenu().activerCreationPage();
-				Controleur.fenetre.getPanelListeAction().activerBoutonPage();
+				Controleur.fenetre.getPanelListeAction().activerBoutonAjoutPage();
+				Controleur.fenetre.getPanelListeAction().activerBoutonModPage();
 				// on desactive les ajouts de titre/paragraphe/image
 				Controleur.fenetre.getMenu().desactiveAjout();
 				Controleur.fenetre.getPanelListeAction().desactiverBoutonAjoutElement();
@@ -180,12 +181,13 @@ public class PanelArbre extends JPanel implements Serializable
 				parentNodePage = tabObj[2];
 				if (location > 3)
 				{
-					Controleur.fenetre.getPanelListeAction().desactiverBoutonPage();
+					Controleur.fenetre.getPanelListeAction().desactiverBoutonModPage();
 					Controleur.fenetre.getPanelListeAction().activerBoutonModElement();
 					parentNodeElement = tabObj[3];
 				}
 				else
 				{
+					Controleur.fenetre.getPanelListeAction().activerBoutonModPage();
 					Controleur.fenetre.getPanelListeAction().desactiverBoutonModElement();
 					parentNodeElement = null;
 				}
@@ -210,10 +212,10 @@ public class PanelArbre extends JPanel implements Serializable
 	public String getNomNode()				{	return nomNode;	}
 	
 	// TODO a commenter
-	public boolean ajoutFils(String type, String s) 
+	public boolean ajoutFils(Object node,String type, String nom)
 	{
 		DefaultTreeModel dtm = new DefaultTreeModel(racine);
-		DefaultMutableTreeNode mtn = new DefaultMutableTreeNode(new File(s));
+		DefaultMutableTreeNode mtn = new DefaultMutableTreeNode(nom);
 		if (type.equals("projet"))
 		{
 			// on insert un noeud a la racine
@@ -223,19 +225,26 @@ public class PanelArbre extends JPanel implements Serializable
 			return true;
 		}
 		
-		MutableTreeNode parent  = (MutableTreeNode) ((parentNodeProjet == null) ?  dtm.getChild(racine, 0) : parentNodeProjet);
 		if (type.equals("fichier"))
 		{
+			if (node == null)
+				node = parentNodeProjet;
+			
+			MutableTreeNode parent  = (MutableTreeNode) node;
 			dtm.insertNodeInto(mtn, parent, parent.getChildCount());
 			updateTree(parent);
 			return true;
 		}
 		
-		MutableTreeNode parent2 = (MutableTreeNode) ((parentNodePage == null) ?  dtm.getChild(parent, 0) : parentNodePage);
+		
 		if (type.equals("element"))
 		{
-			dtm.insertNodeInto(mtn, parent2, parent2.getChildCount());
-			updateTree(parent2);
+			if (node == null)
+				node = parentNodePage;
+			
+			MutableTreeNode parent = (MutableTreeNode) node;
+			dtm.insertNodeInto(mtn, parent, parent.getChildCount());
+			updateTree(parent);
 			return true;
 		}
 		return false;
@@ -314,25 +323,43 @@ public class PanelArbre extends JPanel implements Serializable
 		if (tabObj.length < 3)
 			return false;
 		
-		// on selectionne le nom du noeud
-		String nom1 = tabObj[2].toString();
 		//on recupere le nom du noeud que l'on veut bouger
-		String nom2 = parentNodePage.toString();
+		String nom1 = parentNodePage.toString();
+		// on selectionne le nom du noeud
+		String nom2 = tabObj[2].toString();
+		
+		modifElementPage(parentNodePage, tabObj[2]);
 		
 		// permet a la liste de savoir quel element on bouge
-		nomNode = nom2;
+		nomNode = nom1;
 				
 		DefaultMutableTreeNode noeud = (DefaultMutableTreeNode) parentNodePage;
 		// on modifie notre nom
-		noeud.setUserObject(nom1);
+		noeud.setUserObject(nom2);
 		
 		noeud = (DefaultMutableTreeNode) tabObj[2];
 		// on modifie l'autre nom
-		noeud.setUserObject(nom2);
+		noeud.setUserObject(nom1);
 		
 		// on rafraichis l'arbre
 		updateTree(parentNodeProjet);
 		return true;
+	}
+
+	private void modifElementPage(Object oPage1, Object oPage2)
+	{
+		// on supprime tous les enfants des noeuds pour ensuite les ajouter
+		((DefaultMutableTreeNode) oPage1).removeAllChildren();
+		((DefaultMutableTreeNode) oPage2).removeAllChildren();
+		
+		Page page1 = Controleur.metier.getProjetSelectionne().getPage(oPage1.toString());
+		Page page2 = Controleur.metier.getProjetSelectionne().getPage(oPage2.toString());
+		
+		for (String s : page1.getAlOrdre())
+			ajoutFils(oPage2, "element", s);
+		for (String s : page2.getAlOrdre())
+			ajoutFils(oPage1, "element", s);
+		
 	}
 
 	private void updateTree(Object o)

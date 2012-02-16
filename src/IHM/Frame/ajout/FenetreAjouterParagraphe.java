@@ -78,7 +78,7 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 				page.ajouterParagraphe(textPane.getText());
 				int cpt = page.getAlParagraphe().size();
 				page.ajouterOrdre("Paragraphe " + cpt);
-				Controleur.fenetre.getArborescence().ajoutFils("element", "Paragraphe " + cpt);
+				Controleur.fenetre.getArborescence().ajoutFils(null, "element", "Paragraphe " + cpt);
 			}
 			else
 				page.modParagraphe(textPane.getText(), indiceParagraphe);
