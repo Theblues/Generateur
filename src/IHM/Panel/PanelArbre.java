@@ -157,10 +157,10 @@ public class PanelArbre extends JPanel implements Serializable
 			if (location == 2)
 			{
 				Controleur.fenetre.getMenu().activerCreationPage();
-				Controleur.fenetre.getPanelListeAction().activerCreationPage();
+				Controleur.fenetre.getPanelListeAction().activerBoutonPage();
 				// on desactive les ajouts de titre/paragraphe/image
 				Controleur.fenetre.getMenu().desactiveAjout();
-				Controleur.fenetre.getPanelListeAction().desactiveAjout();
+				Controleur.fenetre.getPanelListeAction().desactiverBoutonAjoutElement();
 				
 				// on recupere le projet grace a path
 				parentNodeProjet = tabObj[1];
@@ -175,18 +175,24 @@ public class PanelArbre extends JPanel implements Serializable
 			}
 			else if (location >= 3)
 			{
-				System.out.println(tabObj[1] + " " + tabObj[2]);
 				// on recupere le projet et la page grace a path
 				parentNodeProjet = tabObj[1];
 				parentNodePage = tabObj[2];
 				if (location > 3)
+				{
+					Controleur.fenetre.getPanelListeAction().desactiverBoutonPage();
+					Controleur.fenetre.getPanelListeAction().activerBoutonModElement();
 					parentNodeElement = tabObj[3];
+				}
 				else
+				{
+					Controleur.fenetre.getPanelListeAction().desactiverBoutonModElement();
 					parentNodeElement = null;
+				}
 				
 				// on active les boutons/items
 				Controleur.fenetre.getMenu().activerAjout();
-				Controleur.fenetre.getPanelListeAction().activerAjout();
+				Controleur.fenetre.getPanelListeAction().activerBoutonAjoutElement();
 				
 				// on recupere le projet et la page selectionnee
 				projetSelectionne = Controleur.metier.getProjet(parentNodeProjet.toString());
@@ -277,6 +283,7 @@ public class PanelArbre extends JPanel implements Serializable
 	private boolean modifierNoeudElement(TreePath path)
 	{
 		Object[] tabObj = path.getPath();
+		System.out.println(path);
 		if (tabObj.length < 4)
 			return false;
 		

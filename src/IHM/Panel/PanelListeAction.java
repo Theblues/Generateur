@@ -46,11 +46,8 @@ public class PanelListeAction extends JPanel implements ActionListener
 		boutonAjouterProjet.addActionListener(this);
 		
 		boutonAjouterPage = new JButton("Nouvelle page");
-		
 		boutonAjouterTitre = new JButton("Ajouter un titre");
-		
 		boutonAjouterParagraphe = new JButton("Ajouter un paragraphe");
-		
 		boutonAjouterImage = new JButton("Ajouter une image");
 		
 		panelNord.add(boutonGenererProjet);
@@ -65,16 +62,9 @@ public class PanelListeAction extends JPanel implements ActionListener
 		panelSud.setLayout(new GridLayout(1, 4));
 		
 		boutonMonterElement = new JButton("Monter l'element");
-		boutonMonterElement.addActionListener(this);
-		
 		boutonDescendreElement = new JButton("Descendre l'element");
-		boutonDescendreElement.addActionListener(this);
-		
 		boutonMonterPage = new JButton("Monter la page");
-		boutonMonterPage.addActionListener(this);
-		
 		boutonDescendrePage = new JButton("Descendre la page");
-		boutonDescendrePage.addActionListener(this);
 		
 		panelSud.add(boutonDescendreElement);
 		panelSud.add(boutonMonterElement);
@@ -131,13 +121,21 @@ public class PanelListeAction extends JPanel implements ActionListener
 			Controleur.monterPage();
 	}
 	
-	public void activerCreationPage()
+	public void activerBoutonPage()
 	{
 		boutonAjouterPage.removeActionListener(this);
 		boutonAjouterPage.addActionListener(this);
+		
+		boutonMonterPage.removeActionListener(this);
+		boutonMonterPage.addActionListener(this);
 	}
 	
-	public void activerAjout()
+	public void desactiverBoutonPage()
+	{
+		boutonMonterPage.removeActionListener(this);
+	}
+	
+	public void activerBoutonAjoutElement()
 	{
 		// permet de ne pas ouvrir n fenetres
 		boutonAjouterTitre.removeActionListener(this);
@@ -151,11 +149,26 @@ public class PanelListeAction extends JPanel implements ActionListener
 		boutonAjouterImage.removeActionListener(this);
 		boutonAjouterImage.addActionListener(this);
 	}
-
-	public void desactiveAjout()
+	
+	public void desactiverBoutonAjoutElement()
 	{
 		boutonAjouterTitre.removeActionListener(this);
 		boutonAjouterParagraphe.removeActionListener(this);
 		boutonAjouterImage.removeActionListener(this);
+	}
+	
+	public void activerBoutonModElement()
+	{
+		boutonMonterElement.removeActionListener(this);
+		boutonMonterElement.addActionListener(this);
+		
+		boutonDescendreElement.removeActionListener(this);
+		boutonDescendreElement.addActionListener(this);
+	}
+	
+	public void desactiverBoutonModElement()
+	{
+		boutonMonterElement.removeActionListener(this);
+		boutonDescendreElement.removeActionListener(this);
 	}
 }
