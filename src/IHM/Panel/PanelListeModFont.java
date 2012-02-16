@@ -9,7 +9,7 @@ import javax.swing.text.*;
 
 public class PanelListeModFont extends JPanel implements ActionListener {
 
-	private JTextPane textPane;
+	private JEditorPane editorPane;
 	
 	private JPanel taille = new JPanel();
 	private JComboBox combo1 = new JComboBox();
@@ -27,9 +27,9 @@ public class PanelListeModFont extends JPanel implements ActionListener {
 
 	// private JLabel titre;
 
-	public PanelListeModFont(JTextPane textPane) 
+	public PanelListeModFont(JEditorPane editorPane) 
 	{
-		this.textPane = textPane;
+		this.editorPane = editorPane;
 		
 		JPanel p = new JPanel();
 		JPanel tail = new JPanel();
@@ -116,6 +116,7 @@ public class PanelListeModFont extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+		/*
 		String texte = textPane.getSelectedText();		
 		if (e.getSource() instanceof JButton)
 		{
@@ -129,9 +130,9 @@ public class PanelListeModFont extends JPanel implements ActionListener {
 			// TODO autre bouton
 		}
 		// TODO comboBox
-		
+		*/
 	}
-	
+	/*
 	private void ajouterGras(String text) 
 	{
 		initStylesForTextPane(textPane);
@@ -158,5 +159,5 @@ public class PanelListeModFont extends JPanel implements ActionListener {
 		StyleConstants.setBold(s, true);
 		
 		// TODO autre style
-	}	
+	}	*/
 }

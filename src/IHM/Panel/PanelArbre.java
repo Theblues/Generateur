@@ -226,11 +226,8 @@ public class PanelArbre extends JPanel implements Serializable
 		}
 		
 		if (type.equals("fichier"))
-		{
-			if (node == null)
-				node = parentNodeProjet;
-			
-			MutableTreeNode parent  = (MutableTreeNode) node;
+		{	
+			MutableTreeNode parent  = (MutableTreeNode) ((node == null) ? parentNodeProjet : node);
 			dtm.insertNodeInto(mtn, parent, parent.getChildCount());
 			updateTree(parent);
 			return true;
@@ -238,11 +235,8 @@ public class PanelArbre extends JPanel implements Serializable
 		
 		
 		if (type.equals("element"))
-		{
-			if (node == null)
-				node = parentNodePage;
-			
-			MutableTreeNode parent = (MutableTreeNode) node;
+		{			
+			MutableTreeNode parent = (MutableTreeNode) ((node == null) ? parentNodePage : node);
 			dtm.insertNodeInto(mtn, parent, parent.getChildCount());
 			updateTree(parent);
 			return true;
@@ -377,7 +371,7 @@ public class PanelArbre extends JPanel implements Serializable
 			oos.flush();
 			oos.close();
 		}
-		catch (java.io.IOException e) 
+		catch (IOException e) 
 		{
 			e.printStackTrace();
 		}

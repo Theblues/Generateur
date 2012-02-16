@@ -2,8 +2,11 @@ package IHM.Frame.ajout;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 
 import javax.swing.*;
+import javax.swing.text.*;
+import javax.swing.text.rtf.*;
 
 import IHM.Panel.PanelListeModFont;
 import Main.*;
@@ -12,7 +15,8 @@ import Utilitaire.*;
 public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 {
 	private PanelListeModFont listeActionFont;
-	private JTextPane textPane;
+	private JEditorPane editorPane;
+	private RTFEditorKit rtf;
 	
 	private JButton annuler;
 	private JButton valider;
@@ -29,17 +33,20 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		setLayout(new BorderLayout());
 		setTitle("Entrer un paragraphe");
 		
-		textPane = new JTextPane();
-		textPane.setEditable(true);
-		textPane.setContentType("text/plain");
+		editorPane = new JTextPane();
+		editorPane.setEditable(true);
+		editorPane.setContentType("text/rtf");
 		
-		textPane.setText(paragraphe);
+		rtf = new RTFEditorKit();
+		editorPane.setEditorKit(rtf);
+		
+		editorPane.setText(paragraphe);
 
-		JScrollPane scroller = new JScrollPane(textPane,
+		JScrollPane scroller = new JScrollPane(editorPane,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
 		
-		listeActionFont = new PanelListeModFont(textPane);
+		listeActionFont = new PanelListeModFont(editorPane);
 		
 		add(listeActionFont, BorderLayout.NORTH);
 		add(scroller);
@@ -70,18 +77,32 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 			Projet projet = Controleur.metier.getProjetSelectionne();
 			Page page = projet.getPageSelectionne();
 			
-			if (textPane.getText().length() == 0)
+			Document doc = editorPane.getDocument();
+			if (doc.getLength() == 0)
+				return;
+			
+			try
+			{
+				FileOutputStream fichier = new FileOutputStream("temp/doc.txt");
+				
+				rtf.write(fichier, doc, 0, doc.getLength());
+			}
+			catch (IOException ioe){}
+			catch (BadLocationException ble) {}
+			/*
+			if (editorPane.getText().length() == 0)
 				return;
 			
 			if (statue == 0) 
 			{
-				page.ajouterParagraphe(textPane.getText());
+				page.ajouterParagraphe(editorPane.getText());
 				int cpt = page.getAlParagraphe().size();
 				page.ajouterOrdre("Paragraphe " + cpt);
 				Controleur.fenetre.getArborescence().ajoutFils(null, "element", "Paragraphe " + cpt);
 			}
 			else
-				page.modParagraphe(textPane.getText(), indiceParagraphe);
+				page.modParagraphe(editorPane.getText(), indiceParagraphe);
+				*/
 		}
 		
 		this.dispose();
