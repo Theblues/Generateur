@@ -1,24 +1,25 @@
 package IHM.Panel;
 
 import java.awt.*;
-import java.util.*;
 
 import javax.swing.*;
+import javax.swing.text.html.*;
 
 import Main.Controleur;
 import Utilitaire.*;
 
 public class PanelVisu extends JPanel
 {
-	private JTextPane jEditor;
+	private JEditorPane editor;
 
 	public PanelVisu()
 	{
 		setLayout(new BorderLayout());
-		jEditor = new JTextPane();
-		jEditor.setEditable(false);
-		jEditor.setSize(800,800);
-		JScrollPane scroller = new JScrollPane( jEditor,
+		editor = new JEditorPane();
+		editor.setEditable(false);
+		editor.setEditorKit(new HTMLEditorKit());
+		
+		JScrollPane scroller = new JScrollPane( editor,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
 		// on ajoute une bordure
@@ -30,64 +31,9 @@ public class PanelVisu extends JPanel
 		add(scroller);
 	}
 	
-	public void previsualisation()
+	public void previsualisation(Projet projet, Page page)
 	{
-		String contenu = "";
-		jEditor.setText(contenu);
-		
-		Projet projet = Controleur.metier.getProjetSelectionne();
-		if (projet == null)
-			return;
-		Page page = projet.getPageSelectionne();
-		if(page == null)
-			return;
-		ArrayList<String> alS = page.getAlOrdre();
-		ArrayList<String> alTitre = page.getAlTitre();
-		ArrayList<String> alParagraphe = page.getAlParagraphe();
-		ArrayList<String> alImage = page.getAlImage();
-		
-		if (alS == null || alS.size() == 0)
-			return;
-		
-		for (String s : alS)
-		{
-			Scanner sc = new Scanner(s);
-			sc.useDelimiter(" ");
-			
-			String type = sc.next();
-			
-			//S'il n'y a pas de suivant, il y a une erreur
-			if (!sc.hasNext())
-			{
-				Controleur.CreerOptionPane("error", "Une erreur est survenue");
-				return;
-			}
-			
-			String indice = sc.next();
-			// on vérifie que le deuxieme argument est un nombre
-			for (int i = 0; i < indice.length(); i++)
-			{
-				if (!Character.isDigit(indice.charAt(0)))
-				{
-					Controleur.CreerOptionPane("error", "Previsualisation impossible");
-					return;
-				}
-			}
-			int ind = Integer.parseInt(indice)-1;
-			
-			if (type.equals("Titre"))
-				contenu += alTitre.get(ind)+"\n\n";
-			
-			if (type.equals("Paragraphe"))
-			{
-				Scanner scan = new Scanner(alParagraphe.get(ind)).useDelimiter("\n");
-			    while (scan.hasNext())
-			    	contenu += "\t"+scan.next() + "\n";
-			}
-			
-			if (type.equals("Image"))
-				contenu += "<img src=\"" + alImage.get(ind) + "\">\n";	
-		}
-		jEditor.setText(contenu);
+		String contenu = Controleur.metier.getGenerator().generateCode(projet, page);
+		editor.setText(contenu);
 	}
 }

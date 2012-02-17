@@ -83,8 +83,6 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 			if (doc.getLength() == 0)
 				return;
 			
-			String text = "";
-			
 			try
 			{
 				// mise en place du rtf dans un fichier temporaire
@@ -94,19 +92,21 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 			catch (IOException e){}
 			catch (BadLocationException e) {}
 			
+			// permet de traiter le rtf
+			ArrayList<String> alS = new ArrayList<String>();
+			
 			try
 			{
 				// lecture du fichier rtf
 				FileReader fr = new FileReader("temp/doc.txt");
-				Scanner sc = new Scanner ( fr );
+				Scanner sc = new Scanner (fr);
 				while (sc.hasNext())
-					text += sc.next() + "\n";
+					alS.add(sc.next());
 				
 				fr.close();
 			}catch(IOException e){}
 			
-			System.out.println(text);
-			
+			alS = traitementRTF(alS);
 			
 			/*
 			if (editorPane.getText().length() == 0)
@@ -125,5 +125,15 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		}
 		
 		this.dispose();
+	}
+
+	private ArrayList<String> traitementRTF(ArrayList<String> alS)
+	{
+		// les trois premieres lignes sont inutiles
+		alS.remove(0);
+		alS.remove(2);
+		alS.remove(3);
+		
+		return alS;
 	}
 }

@@ -7,11 +7,9 @@ import Main.*;
 
 public class Generator
 {
-	private String code;
-	
-	private void header() 
+	private String headerHTML() 
 	{
-		code = "<html>\n" +
+		return "<html>\n" +
 					"\t<head>\n" +
 					"\t\t<title>Page 1</title>\n" +
 					"\t\t<link rel=\"stylesheet\" href=\"style.css\" />" +
@@ -19,93 +17,99 @@ public class Generator
 					"\t<body>\n";
 	}
 	
-	private void footer()
+	private String header()
 	{
-		code += "\n\t</body>\n" +
+		return "<header>\n" +
+				"\t<!-- Haut de page -->\n" +
+				"</header>\n" +
+				"<section>\n";
+	}
+	
+	private String menu(Projet projet)
+	{
+		 String code = "\t\t<aside>\n" +
+				"\t\t<ul>\n";
+		
+		// On parcours l'arraylist de projet
+		ArrayList<Page> alP= projet.getAlPage();
+				
+		for (Page p : alP)
+			code += "\t\t\t\t<li>" + p.getNom() + "</li>\n";
+				
+		code += "\t\t</ul>\n" +
+				"\t</aside>\n";
+		
+		return code;
+	}
+	
+	private String footer()
+	{
+		return "</section>\n" +
+				"<footer>\n" +
+				"\t<!-- Bas de page -->\n" +
+				"</footer>\n";
+	}
+	
+	private String footerHTML()
+	{
+		return "\n\t</body>\n" +
 				"</html>\n";
 	}
 	
 
-	public void generate(Projet projet, Page page)
+	public String generateCode(Projet projet, Page page)
 	{
 		if(page == null)
-			return;
+			return "";
 		
+		String code = headerHTML();
+		code += header();
+		code += menu(projet);
+				
 		ArrayList<String> alS = page.getAlOrdre();
 		ArrayList<String> alTitre = page.getAlTitre();
 		ArrayList<String> alParagraphe = page.getAlParagraphe();
 		ArrayList<String> alImage = page.getAlImage();
 		
-		header();
-		
-		code += "<header>\n" +
-				"\t<!-- Haut de page -->\n" +
-				"</header>\n" +
-				"<section>\n" +
-				"\t\t<aside>\n" +
-				"\t\t<ul>\n";
-		
-		// On parcours l'arraylist de projet
-		ArrayList<Page> alP= projet.getAlPage();
-		
-		for (Page p : alP)
-			code += "\t\t\t\t<li>" + p.getNom() + "</li>\n";
-		
-		code += "\t\t</ul>\n" +
-				"\t</aside>\n" +
-				"\t<article>\n";
-		
-		if (alS == null || alS.size() == 0)
-			return;
-		// on parcours l'ArrayList pour avoir l'ordre des elements
-		for (String s : alS )
+		if (alS != null && alS.size() != 0)
 		{
-			Scanner sc = new Scanner(s);
-			sc.useDelimiter(" ");
-			
-			String type = sc.next();
-			
-			if (!sc.hasNext())
+			// on parcours l'ArrayList pour avoir l'ordre des elements
+			for (String s : alS )
 			{
-				Controleur.CreerOptionPane("error", "Une erreur est survenue");
-				return;
-			}
-			String indice = sc.next();
-			for (int i = 0; i < indice.length(); i++)
-			{
-				if (!Character.isDigit(indice.charAt(0)))
+				Scanner sc = new Scanner(s);
+				sc.useDelimiter(" ");
+				
+				String type = sc.next();
+				int ind = Integer.parseInt(sc.next())-1;
+				
+				if (type.equals("Titre"))
+					code += "\t\t<div class=\"title\">"+alTitre.get(ind)+"</div>\n";
+				
+				if (type.equals("Paragraphe"))
 				{
-					Controleur.CreerOptionPane("error", "Une erreur est survenue");
-					return;
+					Scanner scan = new Scanner(alParagraphe.get(ind)).useDelimiter("\n");
+				    String str = "";
+				    
+				    while (scan.hasNext())
+				    	str += "\n\t\t\t" + scan.next()+"<br />\n\t\t\t";
+				    
+					code += "\t\t<p>" + str + "</p>\n";
 				}
+			
+				if (type.equals("Image"))
+					code += "\t\t<img src=\""+alImage.get(ind)+"\">\n";	
 			}
-			int ind = Integer.parseInt(indice)-1;
-			
-			if (type.equals("Titre"))
-				code += "\t\t<div class=\"title\">"+alTitre.get(ind)+"</div>\n";
-			
-			if (type.equals("Paragraphe"))
-			{
-				Scanner scan = new Scanner(alParagraphe.get(ind)).useDelimiter("\n");
-			    String str = "";
-			    
-			    while (scan.hasNext())
-			    	str += "\n\t\t\t" + scan.next()+"<br />\n\t\t\t";
-			    
-				code += "\t\t<p>" + str + "</p>\n";
-			}
-			
-			if (type.equals("Image"))
-				code += "\t\t<img src=\""+alImage.get(ind)+"\">\n";	
 		}
 		
-		code += "</section>\n" +
-				"<footer>\n" +
-				"\t<!-- Bas de page -->\n" +
-				"</footer>\n";
+		code += footer();
+		code += footerHTML();
+		return code;
+	}
+	
+	public void generateFile(Projet projet, Page page)
+	{
+		String code = generateCode(projet, page);
 		
-		footer();
-			
 		File file = new File(projet.getCheminDossier() + "/" + projet.getNom() + "/" + page.getNom());
 		
 		try

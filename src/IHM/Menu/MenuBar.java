@@ -122,7 +122,7 @@ public class MenuBar implements ActionListener
 		{
 			Projet projet = Controleur.metier.getProjetSelectionne();
 			Page page = projet.getPageSelectionne();
-			Controleur.metier.getGenerator().generate(projet, page);
+			Controleur.metier.getGenerator().generateFile(projet, page);
 		}
 		if (mi.equals(itemImage))
 			Controleur.creerFenetreAjouterImage(0);

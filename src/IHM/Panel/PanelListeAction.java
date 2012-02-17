@@ -88,7 +88,7 @@ public class PanelListeAction extends JPanel implements ActionListener
 			{
 				if (page == null)
 					continue;
-				Controleur.metier.getGenerator().generate(projet, page);
+				Controleur.metier.getGenerator().generateFile(projet, page);
 			}
 		}
 		if (b.equals(boutonGenerer))
@@ -99,7 +99,7 @@ public class PanelListeAction extends JPanel implements ActionListener
 			Page page = projet.getPageSelectionne();
 			if (page == null)
 				return;
-			Controleur.metier.getGenerator().generate(projet, page);
+			Controleur.metier.getGenerator().generateFile(projet, page);
 		}
 		if (b.equals(boutonAjouterProjet))
 			Controleur.creerFenetreCreerProjet();
