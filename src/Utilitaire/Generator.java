@@ -30,14 +30,11 @@ public class Generator
 	{
 		if(page == null)
 			return;
-
+		
 		ArrayList<String> alS = page.getAlOrdre();
 		ArrayList<String> alTitre = page.getAlTitre();
 		ArrayList<String> alParagraphe = page.getAlParagraphe();
 		ArrayList<String> alImage = page.getAlImage();
-		
-		if (alS == null || alS.size() == 0)
-			return;
 		
 		header();
 		
@@ -46,10 +43,20 @@ public class Generator
 				"</header>\n" +
 				"<section>\n" +
 				"\t\t<aside>\n" +
-				"\t\t<!-- Menu -->\n" +
+				"\t\t<ul>\n";
+		
+		// On parcours l'arraylist de projet
+		ArrayList<Page> alP= projet.getAlPage();
+		
+		for (Page p : alP)
+			code += "\t\t\t\t<li>" + p.getNom() + "</li>\n";
+		
+		code += "\t\t</ul>\n" +
 				"\t</aside>\n" +
 				"\t<article>\n";
 		
+		if (alS == null || alS.size() == 0)
+			return;
 		// on parcours l'ArrayList pour avoir l'ordre des elements
 		for (String s : alS )
 		{
