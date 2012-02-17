@@ -134,9 +134,6 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		
 		File file = new File(chemin + "/" + nomProjet);
 		file.mkdir();
-		Controleur.metier.ajouterProjet(new Projet(nomProjet, chemin));
-		Controleur.fenetre.getArborescence().ajoutFils(null, "projet", nomProjet);
-		Controleur.fenetre.getMenu().activerCreationPage();
 		
 		File content = new File (chemin + "/" + nomProjet + "/content");
 		File css = new File (chemin + "/" + nomProjet + "/content/CSS");
@@ -146,23 +143,27 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		css.mkdir();
 		img.mkdir();
 		
-		InputStream input;
-		OutputStream output;
+		InputStream input = null;
+		OutputStream output = null;
 		
+		String style = "";
 		try
 		{
 			if (combo.getSelectedItem().equals("Theme 1"))
 			{
+				style = "style1";
 				input = new FileInputStream("styles/style1.css");
 				output = new FileOutputStream(chemin + "/" + nomProjet + "/content/CSS/style1.css");
 			}
 			else if (combo.getSelectedItem().equals("Theme 2"))
 			{
+				style = "style2";
 				input = new FileInputStream("styles/style2.css");
 				output = new FileOutputStream(chemin + "/" + nomProjet + "/content/CSS/style2.css");
 			}
-			else
+			else if (combo.getSelectedItem().equals("Theme 3"))
 			{
+				style = "style3";
 				input = new FileInputStream("styles/style3.css");
 				output = new FileOutputStream(chemin + "/" + nomProjet + "/content/CSS/style3.css");
 			}
@@ -170,6 +171,12 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		}
 		catch (FileNotFoundException e1){	e1.printStackTrace();	}
 		catch (IOException e)			{	e.printStackTrace();	}
+		
+		Projet projet = new Projet(nomProjet, style, chemin);
+		Controleur.metier.ajouterProjet(projet);
+		Controleur.metier.setProjetSelectionne(projet);
+		Controleur.fenetre.getArborescence().ajoutFils(null, "projet", nomProjet);
+		Controleur.fenetre.getMenu().activerCreationPage();
 		
 		return true;
 	}

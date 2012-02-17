@@ -2,9 +2,10 @@ package IHM.Frame.creation;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-
 import javax.swing.*;
+
+import java.io.*;
+import java.util.*;
 
 import Main.*;
 import Utilitaire.*;
@@ -61,9 +62,20 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 			JButton b = (JButton) e.getSource();
 			if (valider.equals(b))
 			{
+				String nomPage = txTitre.getText();
 				Projet p = Controleur.metier.getProjetSelectionne();
-				String nomFichier = p.getNom() + "/"	+ txTitre.getText() + ".html";
-				File f = new File(p.getCheminDossier() + "/" + nomFichier);
+				String nomFichier = p.getNom() + "/" + nomPage;
+				
+				// on coupe s'il y a des espaces
+				Scanner sc = new Scanner(nomFichier);
+				sc.useDelimiter(" ");
+				
+				nomFichier = sc.next();
+				while (sc.hasNext())
+					nomFichier += "_" + sc.next();
+
+
+				File f = new File(p.getCheminDossier() + "/" + nomFichier + ".html");
 				try
 				{
 					// on recree le fichier lorsqu'on genere
@@ -73,8 +85,8 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 					ex.printStackTrace();
 				}
 				
-				Controleur.fenetre.getArborescence().ajoutFils(null, "fichier", f.getName());
-				Controleur.metier.getProjetSelectionne().ajouterPage(new Page(f.getName()));
+				Controleur.fenetre.getArborescence().ajoutFils(null, "fichier", nomPage);
+				Controleur.metier.getProjetSelectionne().ajouterPage(new Page(f, nomPage));
 			}
 		}
 		

@@ -9,15 +9,18 @@ public class Projet implements Serializable
 	private ArrayList<Page> alPage;
 	private Page pageSelectionne;
 	private String cheminDossier;
+	private String style;
 	
-	public Projet(String nom, String chemin)
+	public Projet(String nom, String style, String chemin)
 	{
 		this.nom = nom;
+		this.style = style;
 		this.cheminDossier = chemin;
 		alPage = new ArrayList<Page>();
 	}
 
 	public String getNom()				{	return nom;					}
+	public String getStyle()			{	return style;				}
 	public ArrayList<Page> getAlPage()	{	return alPage;				}
 	public String getCheminDossier()	{	return cheminDossier;		}
 	public Page getPageSelectionne()	{	return pageSelectionne;		}

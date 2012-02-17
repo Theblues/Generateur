@@ -39,7 +39,7 @@ public class Fenetre extends JFrame
 	{
 		setTitle("Generateur de site");
 		// cette taille va servir lorsque l'on veut reduire la taille
-		setSize(1024, 700);
+		setSize(1024, 768);
 		// ouverture de la fenetre en plein ecran
 		setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
 		

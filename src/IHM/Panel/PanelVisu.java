@@ -19,7 +19,7 @@ public class PanelVisu extends JPanel
 		editor.setEditable(false);
 		editor.setEditorKit(new HTMLEditorKit());
 		
-		JScrollPane scroller = new JScrollPane( editor,
+		JScrollPane scroller = new JScrollPane(editor,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
 		// on ajoute une bordure
@@ -34,7 +34,6 @@ public class PanelVisu extends JPanel
 	public void previsualisation(Projet projet, Page page)
 	{
 		String contenu = Controleur.metier.getGenerator().generateCode("previsu", projet, page);
-		System.out.println(contenu);
 		editor.setText(contenu);
 	}
 }

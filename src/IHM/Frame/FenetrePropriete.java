@@ -7,12 +7,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import Main.*;
 import Utilitaire.*;
 
 public class FenetrePropriete extends JFrame implements ActionListener
 {
-	
 	private Object type;
 	private JButton quitter;
 	private JPanel info;
@@ -32,13 +30,15 @@ public class FenetrePropriete extends JFrame implements ActionListener
 		
 		if (type instanceof Projet ) {
 			
-			setTitle("Propriétés Projet");
+			setTitle("Proprietes Projet");
 			
-			Projet p = ( Projet ) type;
-			info = new JPanel(new GridLayout(3,1));		
+			Projet p = (Projet) type;
+			info = new JPanel(new GridLayout(4,1));		
 			
 			JLabel nom = new JLabel("Nom du Projet :   " + p.getNom());
 			info.add (nom);
+			JLabel style = new JLabel("Nom du Style :   " + p.getStyle());
+			info.add (style);
 			JLabel nbPages = new JLabel("Nombre de Pages contenu : " + p.getAlPage().size());
 			info.add (nbPages);
 			JLabel chemin = new JLabel("Chemin du Projet  :   " + p.getCheminDossier());
@@ -47,14 +47,14 @@ public class FenetrePropriete extends JFrame implements ActionListener
 	
 		}else if ( type instanceof Page){
 			
-			setTitle("Propriétés Page");
+			setTitle("Proprietes Page");
 			
 			Page p = ( Page ) type;
-			info = new JPanel(new GridLayout(3,1));		
+			info = new JPanel(new GridLayout(4,1));		
 			
 			JLabel nom = new JLabel("Nom  :   " + p.getNom());			
 			info.add (nom);
-			JLabel test = new JLabel("nombre delement : " + p.getAlOrdre().size());
+			JLabel test = new JLabel("Nombre d'element : " + p.getAlOrdre().size());
 			info.add(test);
 			JLabel nbTitre = new JLabel("Nombre de Titres : " + p.getAlTitre().size());
 			info.add (nbTitre);
@@ -72,12 +72,10 @@ public class FenetrePropriete extends JFrame implements ActionListener
 		setVisible(true);
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-		if ( e.getSource() == quitter){
+	public void actionPerformed(ActionEvent e) 
+	{
+		JButton b = (JButton) e.getSource();
+		if (b.equals(quitter))
 			this.dispose();
-		}
-		
 	}
 }

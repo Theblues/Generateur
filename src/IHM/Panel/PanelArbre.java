@@ -132,6 +132,7 @@ public class PanelArbre extends JPanel implements Serializable
 				parentNodeElement = null;
 				
 				// on recupere le projet selectionne
+				
 				projetSelectionne = Controleur.metier.getProjet(parentNodeProjet.toString());
 				
 				// on modifie le projet selectionne

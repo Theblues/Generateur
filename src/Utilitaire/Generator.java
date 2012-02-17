@@ -1,7 +1,5 @@
 package Utilitaire;
 
-import org.mycode.MyNamespaceHandler;
-
 import java.io.*;
 import java.util.*;
 
@@ -9,16 +7,16 @@ import Main.*;
 
 public class Generator
 {
-	private String headerHTML(String mode) 
+	private String headerHTML(String mode, String style) 
 	{
 		String code;
 		code = "<html>\n" +
 					"\t<head>\n" +
 					"\t\t<title>Page 1</title>\n";
 		if (mode.equals("previsu"))
-			code += "\t\t<link rel=\"stylesheet\" href=\"styles/style1.css\" />";
+			code += "\t\t<link rel=\"stylesheet\" href=\"./styles/" + style + ".css\" />";
 		else if (mode.equals("genere"))
-			code += "\t\t<link rel=\"stylesheet\" href=\"./content/css/style1.css\" />";
+			code += "\t\t<link rel=\"stylesheet\" href=\"./content/css/" + style + ".css\" />";
 		code += "\t</head>\n" +
 					"\t<body>\n";
 		return code;
@@ -32,14 +30,12 @@ public class Generator
 				"<section>\n";
 	}
 	
-	private String menu(Projet projet)
+	private String menu(ArrayList<Page> alP)
 	{
 		 String code = "\t\t<aside>\n" +
 				"\t\t<ul>\n";
 		
-		// On parcours l'arraylist de projet
-		ArrayList<Page> alP= projet.getAlPage();
-				
+		// On parcours l'arraylist de projet				
 		for (Page p : alP)
 			code += "\t\t\t\t<li>" + p.getNom() + "</li>\n";
 				
@@ -69,9 +65,9 @@ public class Generator
 		if(page == null)
 			return "";
 		
-		String code = headerHTML(mode);
+		String code = headerHTML(mode, projet.getStyle());
 		code += header();
-		code += menu(projet);
+		code += menu(projet.getAlPage());
 				
 		ArrayList<String> alS = page.getAlOrdre();
 		ArrayList<String> alTitre = page.getAlTitre();
@@ -81,7 +77,7 @@ public class Generator
 		if (alS != null && alS.size() != 0)
 		{
 			// on parcours l'ArrayList pour avoir l'ordre des elements
-			for (String s : alS )
+			for (String s : alS)
 			{
 				Scanner sc = new Scanner(s);
 				sc.useDelimiter(" ");
@@ -117,7 +113,7 @@ public class Generator
 	{
 		String code = generateCode("genere",projet, page);
 		
-		File file = new File(projet.getCheminDossier() + "/" + projet.getNom() + "/" + page.getNom());
+		File file = page.getFile();
 		
 		try
 		{

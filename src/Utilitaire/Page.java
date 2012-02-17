@@ -5,6 +5,9 @@ import java.util.*;
 
 public class Page implements Serializable
 {
+	// fichier de la page
+	private File file;
+	// nom de la page
 	private String nom;
 	// ArrayList qui permet d'avoir les titres/paragraphes dans l'ordre
 	private ArrayList<String> alOrdre;
@@ -15,8 +18,9 @@ public class Page implements Serializable
 	// ArrayList ou il y a les "images"
 	private ArrayList<String> alImage;
 	
-	public Page(String nom)
+	public Page(File file, String nom)
 	{
+		this.file = file;
 		this.nom = nom;
 		alOrdre = new ArrayList<String>();
 		alTitre = new ArrayList<String>();
@@ -27,6 +31,7 @@ public class Page implements Serializable
 	/*
 	 * Accesseurs
 	 */
+	public File getFile()						{	return file;			}
 	public String getNom()						{	return nom;				}
 	public ArrayList<String> getAlOrdre()		{	return alOrdre;			}
 	public ArrayList<String> getAlTitre()		{	return alTitre;			}
