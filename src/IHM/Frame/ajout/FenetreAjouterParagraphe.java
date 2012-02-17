@@ -129,11 +129,12 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 
 	private ArrayList<String> traitementRTF(ArrayList<String> alS)
 	{
-		// les trois premieres lignes sont inutiles
-		alS.remove(0);
-		alS.remove(2);
-		alS.remove(3);
+		// les six premieres lignes sont inutiles
+		for (int i = 0; i < 6; i++)
+			alS.remove(0);
 		
+		for (String s: alS)
+			System.out.println(s);
 		return alS;
 	}
 }

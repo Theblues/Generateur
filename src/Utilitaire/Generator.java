@@ -1,5 +1,7 @@
 package Utilitaire;
 
+import org.mycode.MyNamespaceHandler;
+
 import java.io.*;
 import java.util.*;
 
@@ -7,14 +9,19 @@ import Main.*;
 
 public class Generator
 {
-	private String headerHTML() 
+	private String headerHTML(String mode) 
 	{
-		return "<html>\n" +
+		String code;
+		code = "<html>\n" +
 					"\t<head>\n" +
-					"\t\t<title>Page 1</title>\n" +
-					"\t\t<link rel=\"stylesheet\" href=\"style.css\" />" +
-					"\t</head>\n" +
+					"\t\t<title>Page 1</title>\n";
+		if (mode.equals("previsu"))
+			code += "\t\t<link rel=\"stylesheet\" href=\"styles/style1.css\" />";
+		else if (mode.equals("genere"))
+			code += "\t\t<link rel=\"stylesheet\" href=\"./content/css/style1.css\" />";
+		code += "\t</head>\n" +
 					"\t<body>\n";
+		return code;
 	}
 	
 	private String header()
@@ -57,12 +64,12 @@ public class Generator
 	}
 	
 
-	public String generateCode(Projet projet, Page page)
+	public String generateCode(String mode, Projet projet, Page page)
 	{
 		if(page == null)
 			return "";
 		
-		String code = headerHTML();
+		String code = headerHTML(mode);
 		code += header();
 		code += menu(projet);
 				
@@ -108,7 +115,7 @@ public class Generator
 	
 	public void generateFile(Projet projet, Page page)
 	{
-		String code = generateCode(projet, page);
+		String code = generateCode("genere",projet, page);
 		
 		File file = new File(projet.getCheminDossier() + "/" + projet.getNom() + "/" + page.getNom());
 		

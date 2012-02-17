@@ -33,7 +33,8 @@ public class PanelVisu extends JPanel
 	
 	public void previsualisation(Projet projet, Page page)
 	{
-		String contenu = Controleur.metier.getGenerator().generateCode(projet, page);
+		String contenu = Controleur.metier.getGenerator().generateCode("previsu", projet, page);
+		System.out.println(contenu);
 		editor.setText(contenu);
 	}
 }
