@@ -132,32 +132,4 @@ public class PanelListeModFont extends JPanel implements ActionListener {
 		// TODO comboBox
 		*/
 	}
-	/*
-	private void ajouterGras(String text) 
-	{
-		initStylesForTextPane(textPane);
-
-		Document doc = textPane.getDocument();
-		try {
-			doc.insertString(textPane.getSelectionStart(), text, textPane.getStyle("gras"));
-			doc.remove(textPane.getSelectionStart(), text.length());
-		} catch (BadLocationException ble) {
-			System.err.println("Couldn't insert initial text.");
-		}
-	}
-	
-	private void initStylesForTextPane(JTextPane textPanel) 
-	{
-		// Initialize some styles
-		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
-
-		Style regular = textPanel.addStyle("regular", def);
-
-		Style s;
-
-		s = textPanel.addStyle("gras", regular);
-		StyleConstants.setBold(s, true);
-		
-		// TODO autre style
-	}	*/
 }

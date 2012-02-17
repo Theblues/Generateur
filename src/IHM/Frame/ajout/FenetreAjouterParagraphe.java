@@ -2,13 +2,15 @@ package IHM.Frame.ajout;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.text.rtf.*;
 
-import IHM.Panel.PanelListeModFont;
+import java.io.*;
+import java.util.*;
+
+import IHM.Panel.*;
 import Main.*;
 import Utilitaire.*;
 
@@ -69,9 +71,9 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		setVisible(true);
 	}
 
-	public void actionPerformed(ActionEvent e) 
+	public void actionPerformed(ActionEvent ae) 
 	{
-		JButton b = (JButton) e.getSource();
+		JButton b = (JButton) ae.getSource();
 		if (valider.equals(b))
 		{
 			Projet projet = Controleur.metier.getProjetSelectionne();
@@ -81,14 +83,31 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 			if (doc.getLength() == 0)
 				return;
 			
+			String text = "";
+			
 			try
 			{
+				// mise en place du rtf dans un fichier temporaire
 				FileOutputStream fichier = new FileOutputStream("temp/doc.txt");
-				
 				rtf.write(fichier, doc, 0, doc.getLength());
 			}
-			catch (IOException ioe){}
-			catch (BadLocationException ble) {}
+			catch (IOException e){}
+			catch (BadLocationException e) {}
+			
+			try
+			{
+				// lecture du fichier rtf
+				FileReader fr = new FileReader("temp/doc.txt");
+				Scanner sc = new Scanner ( fr );
+				while (sc.hasNext())
+					text += sc.next() + "\n";
+				
+				fr.close();
+			}catch(IOException e){}
+			
+			System.out.println(text);
+			
+			
 			/*
 			if (editorPane.getText().length() == 0)
 				return;

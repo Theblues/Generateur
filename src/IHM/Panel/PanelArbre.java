@@ -86,49 +86,12 @@ public class PanelArbre extends JPanel implements Serializable
 			updateTree(racine);
 	}
 	
-	private void doMouseRightClick(MouseEvent me)
-	{
-		doMouseSimpleClicked(me);
-		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
-		if (path != null)
-		{
-			int location = path.getPathCount();
-			Object[] tabObj = path.getPath();
-			
-			new MenuContextuel(me, location, tabObj);
-		}
-	}
-	
-	private void doMouseDoubleClicked(MouseEvent me) 
-	{
-		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
-		if (path != null)
-		{
-			int location = path.getPathCount();
-			
-			if (location == 3)
-				Controleur.fenetre.getPanelVisu().previsualisation();
-			else if (location > 3)
-			{
-				Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
-				String str = sc.next();
-				int indice = Integer.parseInt(sc.next());
-				
-				if (str.equals("Titre"))
-				{
-					String ancienTitre = pageSelectionnee.getAlTitre().get(indice-1);
-					Controleur.creerFenetreAjouterTitre(1, ancienTitre, indice);
-				}
-				if (str.equals("Paragraphe"))
-				{
-					String ancienParagraphe = pageSelectionnee.getAlParagraphe().get(indice-1);
-					Controleur.creerFenetreAjouterParagraphe(1, ancienParagraphe, indice);
-				}
-				if (str.equals("Image"))
-					Controleur.creerFenetreAjouterImage(1);
-			}			
-		}
-	}
+	/*
+	 * Accesseur
+	 */
+	public JTree getArbre() 					{	return arbre;		}
+	public DefaultMutableTreeNode getRacine()	{	return racine;		}
+	public String getNomNode()					{	return nomNode;		}
 	
 	private void doMouseSimpleClicked(MouseEvent me) 
 	{
@@ -207,9 +170,49 @@ public class PanelArbre extends JPanel implements Serializable
 		}
 	}
 	
-	public JTree getArbre() 					{	return arbre;		}
-	public DefaultMutableTreeNode getRacine()	{	return racine;		}
-	public String getNomNode()				{	return nomNode;	}
+	private void doMouseDoubleClicked(MouseEvent me) 
+	{
+		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
+		if (path != null)
+		{
+			int location = path.getPathCount();
+			
+			if (location == 3)
+				Controleur.fenetre.getPanelVisu().previsualisation();
+			else if (location > 3)
+			{
+				Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
+				String str = sc.next();
+				int indice = Integer.parseInt(sc.next());
+				
+				if (str.equals("Titre"))
+				{
+					String ancienTitre = pageSelectionnee.getAlTitre().get(indice-1);
+					Controleur.creerFenetreAjouterTitre(1, ancienTitre, indice);
+				}
+				if (str.equals("Paragraphe"))
+				{
+					String ancienParagraphe = pageSelectionnee.getAlParagraphe().get(indice-1);
+					Controleur.creerFenetreAjouterParagraphe(1, ancienParagraphe, indice);
+				}
+				if (str.equals("Image"))
+					Controleur.creerFenetreAjouterImage(1);
+			}			
+		}
+	}
+	
+	private void doMouseRightClick(MouseEvent me)
+	{
+		doMouseSimpleClicked(me);
+		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
+		if (path != null)
+		{
+			int location = path.getPathCount();
+			Object[] tabObj = path.getPath();
+			
+			new MenuContextuel(me, location, tabObj);
+		}
+	}
 	
 	// TODO a commenter
 	public boolean ajoutFils(Object node,String type, String nom)
@@ -232,7 +235,6 @@ public class PanelArbre extends JPanel implements Serializable
 			updateTree(parent);
 			return true;
 		}
-		
 		
 		if (type.equals("element"))
 		{			
