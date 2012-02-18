@@ -178,9 +178,7 @@ public class PanelArbre extends JPanel implements Serializable
 		{
 			int location = path.getPathCount();
 			
-			if (location == 3)
-				Controleur.fenetre.getPanelVisu().previsualisation(projetSelectionne, pageSelectionnee);
-			else if (location > 3)
+			if (location > 3)
 			{
 				Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
 				String str = sc.next();

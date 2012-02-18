@@ -8,7 +8,7 @@ import javax.swing.*;
 import Main.*;
 import Utilitaire.*;
 
-public class FenetreAjouterTitre extends JFrame implements ActionListener
+public class FenetreAjouterTitre extends JPanel implements ActionListener
 {
 	private JTextField	tf;
 	private int			statue;
@@ -26,12 +26,12 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 		// 0 = ajout, 1 = modif
 		if (statue == 0)
 		{
-			setTitle("Entrer un titre");
+	//		setTitle("Entrer un titre");
 			tf = new JTextField("", 20);
 		}
 		else
 		{
-			setTitle("Modifier un titre");
+	//		setTitle("Modifier un titre");
 			tf = new JTextField(titre, 20);
 		}
 		tf.addActionListener(this);
@@ -52,7 +52,6 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 		panSud.add(panBouton, BorderLayout.EAST);
 		add(panSud, BorderLayout.SOUTH);
 
-		pack();
 		setVisible(true);
 	}
 
@@ -63,7 +62,7 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 			JButton b = (JButton) e.getSource();
 			if (annuler.equals(b))
 			{
-				dispose();
+				Controleur.fenetre.getPanelVisu().supprimerPanel();
 				return;
 			}
 		}
@@ -83,6 +82,6 @@ public class FenetreAjouterTitre extends JFrame implements ActionListener
 		else
 			page.modTitre(tf.getText(), indiceTitre);
 
-		this.dispose();
+		Controleur.fenetre.getPanelVisu().supprimerPanel();
 	}
 }

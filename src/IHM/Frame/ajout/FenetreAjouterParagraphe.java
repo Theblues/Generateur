@@ -14,7 +14,7 @@ import IHM.Panel.*;
 import Main.*;
 import Utilitaire.*;
 
-public class FenetreAjouterParagraphe extends JFrame implements ActionListener
+public class FenetreAjouterParagraphe extends JPanel implements ActionListener
 {
 	private PanelListeModFont listeActionFont;
 	private JEditorPane editorPane;
@@ -33,7 +33,6 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 		
 		setSize(500,500);
 		setLayout(new BorderLayout());
-		setTitle("Entrer un paragraphe");
 		
 		editorPane = new JTextPane();
 		editorPane.setEditable(true);
@@ -122,9 +121,9 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 			else
 				page.modParagraphe(editorPane.getText(), indiceParagraphe);
 				*/
+
 		}
-		
-		this.dispose();
+		Controleur.fenetre.getPanelVisu().supprimerPanel();
 	}
 
 	private ArrayList<String> traitementRTF(ArrayList<String> alS)

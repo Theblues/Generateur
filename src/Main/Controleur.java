@@ -35,18 +35,21 @@ public class Controleur
 	}
 	
 	public static void creerFenetreAjouterParagraphe(int statue, String titre, int indiceParagraphe)
-	{		
-		new FenetreAjouterParagraphe(statue, titre, indiceParagraphe);		
+	{
+		fenetre.getPanelVisu().supprimerPanel();
+		fenetre.getPanelVisu().ajouterPanel(new FenetreAjouterParagraphe(statue, titre, indiceParagraphe));		
 	}
 	
 	public static void creerFenetreAjouterTitre(int statue, String titre, int indiceTitre)		
-	{		
-		new FenetreAjouterTitre(statue, titre, indiceTitre);
+	{
+		fenetre.getPanelVisu().supprimerPanel();
+		fenetre.getPanelVisu().ajouterPanel(new FenetreAjouterTitre(statue, titre, indiceTitre));
 	}
 	
 	public static void creerFenetreAjouterImage(int statue)		
-	{		
-		new FenetreAjouterImage(statue);			
+	{
+		fenetre.getPanelVisu().supprimerPanel();
+		fenetre.getPanelVisu().ajouterPanel(new FenetreAjouterImage(statue));			
 	}
 	
 	public static void CreerOptionPane(String type, String texte)

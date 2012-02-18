@@ -12,7 +12,7 @@ import Main.*;
 import Utilitaire.*;
 import IHM.Panel.*;
 
-public class FenetreAjouterImage extends JFrame implements ActionListener
+public class FenetreAjouterImage extends JPanel implements ActionListener
 {
 	private PanelImage image;
 	
@@ -32,7 +32,6 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		if (chemin == null)
 			return;
 		
-		setTitle("Ajouter Image");
 		image = new PanelImage(chemin);
 
 		add(image);
@@ -52,7 +51,6 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		panSud.add(panBouton, BorderLayout.EAST);
 		add(panSud, BorderLayout.SOUTH);
 		
-		pack();
 		setVisible(true);
 	}
 	
@@ -63,8 +61,6 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 		Page page = projet.getPageSelectionne();
 		
 		JButton b = (JButton) e.getSource();
-		if (b.equals(annuler))
-			dispose();
 		
 		if ( statue == 0 )
 		{
@@ -75,10 +71,10 @@ public class FenetreAjouterImage extends JFrame implements ActionListener
 				int cpt = page.getAlImage().size();
 				page.ajouterOrdre("Image " + cpt);
 				Controleur.fenetre.getArborescence().ajoutFils(null, "element", "Image " + cpt);
-				
-				dispose();
+
 			}
 		}
+		Controleur.fenetre.getPanelVisu().ajouterPanel(new JPanel());
 	}
 	
 	private void choisirImage()
