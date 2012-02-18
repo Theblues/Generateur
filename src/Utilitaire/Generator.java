@@ -24,42 +24,43 @@ public class Generator
 	
 	private String header()
 	{
-		return "<header>\n" +
-				"\t<!-- Haut de page -->\n" +
-				"</header>\n" +
-				"<section>\n";
+		return "\t\t<header>\n" +
+				"\t\t\t<!-- Haut de page -->\n" +
+				"\t\t</header>\n" +
+				"\t\t<section>\n";
 	}
 	
 	private String menu(ArrayList<Page> alP)
 	{
-		 String code = "\t\t<aside>\n" +
-				"\t\t<ul>\n";
+		 String code = "\t\t\t<aside>\n" +
+				"\t\t\t\t<ul>\n";
 		
 		// On parcours l'arraylist de projet				
 		for (Page p : alP)
-			code += "\t\t\t\t<li>" + p.getNom() + "</li>\n";
+			code += "\t\t\t\t\t<li>" + p.getNom() + "</li>\n";
 				
-		code += "\t\t</ul>\n" +
-				"\t</aside>\n";
+		code += "\t\t\t\t</ul>\n" +
+				"\t\t\t</aside>\n" +
+				"\t\t\t<article>\n";
 		
 		return code;
 	}
 	
 	private String footer()
 	{
-		return "</section>\n" +
-				"<footer>\n" +
-				"\t<!-- Bas de page -->\n" +
-				"</footer>\n";
+		return "\t\t\t</article>\n" +
+				"\t\t</section>\n" +
+				"\t\t<footer>\n" +
+				"\t\t\t<!-- Bas de page -->\n" +
+				"\t\t</footer>\n";
 	}
 	
 	private String footerHTML()
 	{
-		return "\n\t</body>\n" +
+		return "\t</body>\n" +
 				"</html>\n";
 	}
 	
-
 	public String generateCode(String mode, Projet projet, Page page)
 	{
 		if(page == null)
@@ -86,7 +87,7 @@ public class Generator
 				int ind = Integer.parseInt(sc.next())-1;
 				
 				if (type.equals("Titre"))
-					code += "\t\t<div class=\"title\">"+alTitre.get(ind)+"</div>\n";
+					code += "\t\t\t\t<div class=\"title\">"+alTitre.get(ind)+"</div>\n";
 				
 				if (type.equals("Paragraphe"))
 				{
@@ -94,13 +95,13 @@ public class Generator
 				    String str = "";
 				    
 				    while (scan.hasNext())
-				    	str += "\n\t\t\t" + scan.next()+"<br />\n\t\t\t";
+				    	str += "\t\t\t\t\t" + scan.next()+"<br />\n";
 				    
-					code += "\t\t<p>" + str + "</p>\n";
+					code += "\t\t\t\t<p>" + str + "</p>\n";
 				}
 			
 				if (type.equals("Image"))
-					code += "\t\t<img src=\""+alImage.get(ind)+"\">\n";	
+					code += "\t\t\t\t<img src=\""+alImage.get(ind)+"\">\n";	
 			}
 		}
 		

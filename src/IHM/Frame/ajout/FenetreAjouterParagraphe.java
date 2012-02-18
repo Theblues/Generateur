@@ -130,8 +130,8 @@ public class FenetreAjouterParagraphe extends JFrame implements ActionListener
 	private ArrayList<String> traitementRTF(ArrayList<String> alS)
 	{
 		// les six premieres lignes sont inutiles
-		for (int i = 0; i < 6; i++)
-			alS.remove(0);
+		/*for (int i = 0; i < 6; i++)
+			alS.remove(0);*/
 		
 		for (String s: alS)
 			System.out.println(s);
