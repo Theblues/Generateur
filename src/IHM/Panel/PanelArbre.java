@@ -187,15 +187,15 @@ public class PanelArbre extends JPanel implements Serializable
 				if (str.equals("Titre"))
 				{
 					String ancienTitre = pageSelectionnee.getAlTitre().get(indice-1);
-					Controleur.creerFenetreAjouterTitre(1, ancienTitre, indice);
+					Controleur.creerPanelAjouterTitre(1, ancienTitre, indice);
 				}
 				if (str.equals("Paragraphe"))
 				{
 					String ancienParagraphe = pageSelectionnee.getAlParagraphe().get(indice-1);
-					Controleur.creerFenetreAjouterParagraphe(1, ancienParagraphe, indice);
+					Controleur.creerPanelAjouterParagraphe(1, ancienParagraphe, indice);
 				}
 				if (str.equals("Image"))
-					Controleur.creerFenetreAjouterImage(1);
+					Controleur.creerPanelAjouterImage(1);
 			}			
 		}
 	}

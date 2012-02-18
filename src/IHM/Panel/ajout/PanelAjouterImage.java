@@ -1,4 +1,4 @@
-package IHM.Frame.ajout;
+package IHM.Panel.ajout;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,7 +12,7 @@ import Main.*;
 import Utilitaire.*;
 import IHM.Panel.*;
 
-public class FenetreAjouterImage extends JPanel implements ActionListener
+public class PanelAjouterImage extends JPanel implements ActionListener
 {
 	private PanelImage image;
 	
@@ -24,7 +24,7 @@ public class FenetreAjouterImage extends JPanel implements ActionListener
 	
 	private int statue;
 
-	public FenetreAjouterImage(int statue)
+	public PanelAjouterImage(int statue)
 	{
 		this.statue = statue;
 		
@@ -74,7 +74,7 @@ public class FenetreAjouterImage extends JPanel implements ActionListener
 
 			}
 		}
-		Controleur.fenetre.getPanelVisu().ajouterPanel(new JPanel());
+		Controleur.fenetre.getPanelAjout().supprimerPanel();
 	}
 	
 	private void choisirImage()

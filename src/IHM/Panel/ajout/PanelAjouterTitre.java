@@ -1,4 +1,4 @@
-package IHM.Frame.ajout;
+package IHM.Panel.ajout;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -8,7 +8,7 @@ import javax.swing.*;
 import Main.*;
 import Utilitaire.*;
 
-public class FenetreAjouterTitre extends JPanel implements ActionListener
+public class PanelAjouterTitre extends JPanel implements ActionListener
 {
 	private JTextField	tf;
 	private int			statue;
@@ -17,7 +17,7 @@ public class FenetreAjouterTitre extends JPanel implements ActionListener
 	private JButton		annuler;
 	private JButton		valider;
 
-	public FenetreAjouterTitre(int statue, String titre, int indiceTitre)
+	public PanelAjouterTitre(int statue, String titre, int indiceTitre)
 	{
 		setLocation(250, 250);
 		this.statue = statue;
@@ -62,7 +62,7 @@ public class FenetreAjouterTitre extends JPanel implements ActionListener
 			JButton b = (JButton) e.getSource();
 			if (annuler.equals(b))
 			{
-				Controleur.fenetre.getPanelVisu().supprimerPanel();
+				Controleur.fenetre.getPanelAjout().supprimerPanel();
 				return;
 			}
 		}
@@ -82,6 +82,6 @@ public class FenetreAjouterTitre extends JPanel implements ActionListener
 		else
 			page.modTitre(tf.getText(), indiceTitre);
 
-		Controleur.fenetre.getPanelVisu().supprimerPanel();
+		Controleur.fenetre.getPanelAjout().supprimerPanel();
 	}
 }

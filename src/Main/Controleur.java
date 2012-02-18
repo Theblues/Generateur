@@ -2,7 +2,7 @@ package Main;
 
 import IHM.Frame.*;
 import IHM.Frame.creation.*;
-import IHM.Frame.ajout.*;
+import IHM.Panel.ajout.*;
 import IHM.OptionPane.*;
 import Metier.*;
 import Utilitaire.Page;
@@ -34,22 +34,22 @@ public class Controleur
 		new FenetrePropriete(type);		
 	}
 	
-	public static void creerFenetreAjouterParagraphe(int statue, String titre, int indiceParagraphe)
+	public static void creerPanelAjouterParagraphe(int statue, String titre, int indiceParagraphe)
 	{
-		fenetre.getPanelVisu().supprimerPanel();
-		fenetre.getPanelVisu().ajouterPanel(new FenetreAjouterParagraphe(statue, titre, indiceParagraphe));		
+		fenetre.getPanelAjout().supprimerPanel();
+		fenetre.getPanelAjout().ajouterPanel(new PanelAjouterParagraphe(statue, titre, indiceParagraphe));		
 	}
 	
-	public static void creerFenetreAjouterTitre(int statue, String titre, int indiceTitre)		
+	public static void creerPanelAjouterTitre(int statue, String titre, int indiceTitre)		
 	{
-		fenetre.getPanelVisu().supprimerPanel();
-		fenetre.getPanelVisu().ajouterPanel(new FenetreAjouterTitre(statue, titre, indiceTitre));
+		fenetre.getPanelAjout().supprimerPanel();
+		fenetre.getPanelAjout().ajouterPanel(new PanelAjouterTitre(statue, titre, indiceTitre));
 	}
 	
-	public static void creerFenetreAjouterImage(int statue)		
+	public static void creerPanelAjouterImage(int statue)		
 	{
-		fenetre.getPanelVisu().supprimerPanel();
-		fenetre.getPanelVisu().ajouterPanel(new FenetreAjouterImage(statue));			
+		fenetre.getPanelAjout().supprimerPanel();
+		fenetre.getPanelAjout().ajouterPanel(new PanelAjouterImage(statue));			
 	}
 	
 	public static void CreerOptionPane(String type, String texte)

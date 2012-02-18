@@ -1,4 +1,4 @@
-package IHM.Frame.ajout;
+package IHM.Panel.ajout;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +14,7 @@ import IHM.Panel.*;
 import Main.*;
 import Utilitaire.*;
 
-public class FenetreAjouterParagraphe extends JPanel implements ActionListener
+public class PanelAjouterParagraphe extends JPanel implements ActionListener
 {
 	private PanelListeModFont listeActionFont;
 	private JEditorPane editorPane;
@@ -26,7 +26,7 @@ public class FenetreAjouterParagraphe extends JPanel implements ActionListener
 	private int statue;
 	private int indiceParagraphe;
 	
-	public FenetreAjouterParagraphe(int statue, String paragraphe, int indiceParagraphe)
+	public PanelAjouterParagraphe(int statue, String paragraphe, int indiceParagraphe)
 	{
 		this.statue = statue;
 		this.indiceParagraphe = indiceParagraphe;
@@ -123,7 +123,7 @@ public class FenetreAjouterParagraphe extends JPanel implements ActionListener
 				*/
 
 		}
-		Controleur.fenetre.getPanelVisu().supprimerPanel();
+		Controleur.fenetre.getPanelAjout().supprimerPanel();
 	}
 
 	private ArrayList<String> traitementRTF(ArrayList<String> alS)

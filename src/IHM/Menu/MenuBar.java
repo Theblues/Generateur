@@ -115,17 +115,17 @@ public class MenuBar implements ActionListener
         if (mi.equals(itemNewPage))
         	Controleur.creerFenetreCreerPage();
 		if (mi.equals(itemTitre))
-			Controleur.creerFenetreAjouterTitre(0,"",0);
+			Controleur.creerPanelAjouterTitre(0,"",0);
 		if (mi.equals(itemParagraphe))
-			Controleur.creerFenetreAjouterParagraphe(0,"",0);
+			Controleur.creerPanelAjouterParagraphe(0,"",0);
+		if (mi.equals(itemImage))
+			Controleur.creerPanelAjouterImage(0);
 		if (mi.equals(itemGenerer))
 		{
 			Projet projet = Controleur.metier.getProjetSelectionne();
 			Page page = projet.getPageSelectionne();
 			Controleur.metier.getGenerator().generateFile(projet, page);
 		}
-		if (mi.equals(itemImage))
-			Controleur.creerFenetreAjouterImage(0);
 	}
 	
 	public void activerCreationPage()

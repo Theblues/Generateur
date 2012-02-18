@@ -3,16 +3,10 @@ package IHM.Panel;
 import java.awt.*;
 
 import javax.swing.*;
-import javax.swing.text.html.*;
 
-import IHM.Frame.ajout.FenetreAjouterParagraphe;
-import IHM.Frame.ajout.FenetreAjouterTitre;
-import Main.Controleur;
-import Utilitaire.*;
-
-public class PanelVisu<T extends JPanel> extends JPanel
+public class PanelAjout<T extends JPanel> extends JPanel
 {
-	public PanelVisu()
+	public PanelAjout()
 	{
 		setLayout(new BorderLayout());
 		setVisible(true);
