@@ -9,7 +9,7 @@ import javax.swing.*;
 import org.apache.commons.io.IOUtils;
 
 import Main.*;
-import Utilitaire.*;
+import util.*;
 
 public class FenetreCreerProjet extends JFrame implements ActionListener
 {	

@@ -4,7 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import Main.*;
-import Utilitaire.*;
+import util.*;
 
 public class MenuContextuel implements ActionListener
 {

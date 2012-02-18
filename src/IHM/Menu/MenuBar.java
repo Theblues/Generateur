@@ -4,8 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import Main.*;
-import Utilitaire.Page;
-import Utilitaire.Projet;
+import util.*;
 
 public class MenuBar implements ActionListener
 {

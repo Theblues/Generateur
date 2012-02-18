@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.*;
 
 import Main.*;
-import Utilitaire.*;
+import util.*;
 
 public class FenetreCreerPage extends JFrame implements ActionListener
 {

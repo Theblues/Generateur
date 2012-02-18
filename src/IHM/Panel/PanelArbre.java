@@ -11,7 +11,7 @@ import java.util.*;
 
 import IHM.Menu.MenuContextuel;
 import Main.*;
-import Utilitaire.*;
+import util.*;
 
 public class PanelArbre extends JPanel implements Serializable
 {

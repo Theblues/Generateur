@@ -9,7 +9,7 @@ import javax.swing.*;
 import org.apache.commons.io.IOUtils;
 
 import Main.*;
-import Utilitaire.*;
+import util.*;
 import IHM.Panel.*;
 
 public class PanelAjouterImage extends JPanel implements ActionListener
@@ -26,6 +26,8 @@ public class PanelAjouterImage extends JPanel implements ActionListener
 
 	public PanelAjouterImage(int statue)
 	{
+		setLayout(new BorderLayout());
+		
 		this.statue = statue;
 		
 		choisirImage();
@@ -33,23 +35,25 @@ public class PanelAjouterImage extends JPanel implements ActionListener
 			return;
 		
 		image = new PanelImage(chemin);
-
 		add(image);
 		
-		JPanel panSud = new JPanel();
-		panSud.setLayout(new BorderLayout());
+		JPanel pan = new JPanel();
 		
-		JPanel panBouton = new JPanel();
 		annuler = new JButton("Annuler");
 		annuler.addActionListener(this);
-		panBouton.add(annuler);
+		pan.add(annuler);
 		
 		valider = new JButton("Valider");
 		valider.addActionListener(this);
-		panBouton.add(valider);
+		pan.add(valider);
 		
-		panSud.add(panBouton, BorderLayout.EAST);
-		add(panSud, BorderLayout.SOUTH);
+		add(pan, BorderLayout.SOUTH);
+		
+		this.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createCompoundBorder(
+						BorderFactory.createTitledBorder("Votre image"),
+						BorderFactory.createEmptyBorder(5, 5, 5, 5)),
+						this.getBorder()));
 		
 		setVisible(true);
 	}

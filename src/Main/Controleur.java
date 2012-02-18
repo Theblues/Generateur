@@ -5,8 +5,7 @@ import IHM.Frame.creation.*;
 import IHM.Panel.ajout.*;
 import IHM.OptionPane.*;
 import Metier.*;
-import Utilitaire.Page;
-import Utilitaire.Projet;
+import util.*;
 
 public class Controleur
 {

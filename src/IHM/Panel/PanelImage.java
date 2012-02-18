@@ -23,10 +23,7 @@ public class PanelImage extends Canvas
 	public boolean imageUpdate(Image image, int info, int x, int y, int l, int h)
 	{
 		if ((info & (WIDTH | HEIGHT)) != 0)
-		{
 			setSize(l, h);
-			getParent().getParent().getParent().getParent().setBounds((largeurEcran - l) / 2, (hauteurEcran - h) / 2, l + 20, h + 60);
-		}
 
 		if ((info & (ALLBITS)) != 0)
 		{
@@ -34,8 +31,6 @@ public class PanelImage extends Canvas
 			return false;
 		}
 		else
-		{
 			return true;
-		}
 	}
 }

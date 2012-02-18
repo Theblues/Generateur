@@ -1,4 +1,4 @@
-package Utilitaire;
+package util;
 
 import java.io.*;
 import java.util.*;
@@ -7,19 +7,14 @@ import Main.*;
 
 public class Generator
 {
-	private String headerHTML(String mode, String style) 
+	private String headerHTML(String style) 
 	{
-		String code;
-		code = "<html>\n" +
+		return "<html>\n" +
 					"\t<head>\n" +
-					"\t\t<title>Page 1</title>\n";
-		if (mode.equals("previsu"))
-			code += "\t\t<link rel=\"stylesheet\" href=\"./styles/" + style + ".css\" />";
-		else if (mode.equals("genere"))
-			code += "\t\t<link rel=\"stylesheet\" href=\"./content/css/" + style + ".css\" />";
-		code += "\t</head>\n" +
+					"\t\t<title>Page 1</title>\n" +
+					"\t\t<link rel=\"stylesheet\" href=\"./content/css/" + style + ".css\" />" + 
+					"\t</head>\n" +
 					"\t<body>\n";
-		return code;
 	}
 	
 	private String header()
@@ -61,12 +56,12 @@ public class Generator
 				"</html>\n";
 	}
 	
-	public String generateCode(String mode, Projet projet, Page page)
+	private String generateCode(Projet projet, Page page)
 	{
 		if(page == null)
 			return "";
 		
-		String code = headerHTML(mode, projet.getStyle());
+		String code = headerHTML(projet.getStyle());
 		code += header();
 		code += menu(projet.getAlPage());
 				
@@ -112,7 +107,7 @@ public class Generator
 	
 	public void generateFile(Projet projet, Page page)
 	{
-		String code = generateCode("genere",projet, page);
+		String code = generateCode(projet, page);
 		
 		File file = page.getFile();
 		

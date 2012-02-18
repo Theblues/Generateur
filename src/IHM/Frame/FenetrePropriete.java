@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import Utilitaire.*;
+import util.*;
 
 public class FenetrePropriete extends JFrame implements ActionListener
 {

@@ -1,4 +1,4 @@
-package Utilitaire;
+package util;
 
 import java.io.*;
 

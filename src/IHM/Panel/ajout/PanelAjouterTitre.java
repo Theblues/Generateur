@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import Main.*;
-import Utilitaire.*;
+import util.*;
 
 public class PanelAjouterTitre extends JPanel implements ActionListener
 {
@@ -18,40 +18,37 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 	private JButton		valider;
 
 	public PanelAjouterTitre(int statue, String titre, int indiceTitre)
-	{
-		setLocation(250, 250);
+	{		
 		this.statue = statue;
 		this.indiceTitre = indiceTitre;
-
+		
+		JLabel l = new JLabel("Entrer un titre :");
+		add(l);
+		
 		// 0 = ajout, 1 = modif
 		if (statue == 0)
-		{
-	//		setTitle("Entrer un titre");
 			tf = new JTextField("", 20);
-		}
 		else
-		{
-	//		setTitle("Modifier un titre");
 			tf = new JTextField(titre, 20);
-		}
-		tf.addActionListener(this);
+		
 		add(tf);
 
-		JPanel panSud = new JPanel();
-		panSud.setLayout(new BorderLayout());
-
-		JPanel panBouton = new JPanel();
 		annuler = new JButton("Annuler");
 		annuler.addActionListener(this);
-		panBouton.add(annuler);
+		add(annuler);
 
 		valider = new JButton("Valider");
 		valider.addActionListener(this);
-		panBouton.add(valider);
+		add(valider);
 
-		panSud.add(panBouton, BorderLayout.EAST);
-		add(panSud, BorderLayout.SOUTH);
+		this.setBorder(BorderFactory.createCompoundBorder(
+						BorderFactory.createCompoundBorder(
+								BorderFactory.createTitledBorder("Votre titre"),
+								BorderFactory.createEmptyBorder(5, 5, 5, 5)),
+								this.getBorder()));
 
+
+		
 		setVisible(true);
 	}
 

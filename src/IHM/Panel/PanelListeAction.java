@@ -3,8 +3,7 @@ package IHM.Panel;
 import javax.swing.*;
 
 import Main.Controleur;
-import Utilitaire.Page;
-import Utilitaire.Projet;
+import util.*;
 
 import java.awt.GridLayout;
 import java.awt.event.*;

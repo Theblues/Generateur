@@ -3,7 +3,7 @@ package Metier;
 import java.io.*;
 import java.util.*;
 
-import Utilitaire.*;
+import util.*;
 
 public class Metier
 {

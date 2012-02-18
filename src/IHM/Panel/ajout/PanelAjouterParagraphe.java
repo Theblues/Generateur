@@ -12,7 +12,7 @@ import java.util.*;
 
 import IHM.Panel.*;
 import Main.*;
-import Utilitaire.*;
+import util.*;
 
 public class PanelAjouterParagraphe extends JPanel implements ActionListener
 {
@@ -31,7 +31,6 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 		this.statue = statue;
 		this.indiceParagraphe = indiceParagraphe;
 		
-		setSize(500,500);
 		setLayout(new BorderLayout());
 		
 		editorPane = new JTextPane();
@@ -66,6 +65,12 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 		
 		panSud.add(panBouton, BorderLayout.EAST);
 		add(panSud, BorderLayout.SOUTH);
+		
+		this.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createCompoundBorder(
+						BorderFactory.createTitledBorder("Votre paragraphe"),
+						BorderFactory.createEmptyBorder(5, 5, 5, 5)),
+						this.getBorder()));
 		
 		setVisible(true);
 	}
