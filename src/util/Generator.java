@@ -12,42 +12,44 @@ public class Generator
 		return "<html>\n" +
 					"\t<head>\n" +
 					"\t\t<title>Page 1</title>\n" +
-					"\t\t<link rel=\"stylesheet\" href=\"./content/css/" + style + ".css\" />" + 
+					"\t\t<link rel=\"stylesheet\" href=\"./content/CSS/" + style + ".css\" />\n" + 
 					"\t</head>\n" +
 					"\t<body>\n";
 	}
 	
 	private String header()
 	{
-		return "\t\t<header>\n" +
-				"\t\t\t<!-- Haut de page -->\n" +
-				"\t\t</header>\n" +
-				"\t\t<section>\n";
+		return "\t\t<div id=\"Wrapper\">" +
+				"\t\t\t<header>\n" +
+				"\t\t\t\t<!-- Haut de page -->\n" +
+				"\t\t\t</header>\n" +
+				"\t\t\t<section>\n";
 	}
 	
 	private String menu(ArrayList<Page> alP)
 	{
-		 String code = "\t\t\t<aside>\n" +
-				"\t\t\t\t<ul>\n";
+		 String code = "\t\t\t\t<aside>\n" +
+				"\t\t\t\t\t<ul>\n";
 		
 		// On parcours l'arraylist de projet				
 		for (Page p : alP)
-			code += "\t\t\t\t\t<li>" + p.getNom() + "</li>\n";
+			code += "\t\t\t\t\t\t<li>" + p.getNom() + "</li>\n";
 				
-		code += "\t\t\t\t</ul>\n" +
-				"\t\t\t</aside>\n" +
-				"\t\t\t<article>\n";
+		code += "\t\t\t\t\t</ul>\n" +
+				"\t\t\t\t</aside>\n" +
+				"\t\t\t\t<article>\n";
 		
 		return code;
 	}
 	
 	private String footer()
 	{
-		return "\t\t\t</article>\n" +
-				"\t\t</section>\n" +
-				"\t\t<footer>\n" +
-				"\t\t\t<!-- Bas de page -->\n" +
-				"\t\t</footer>\n";
+		return "\t\t\t\t</article>\n" +
+				"\t\t\t</section>\n" +
+				"\t\t\t<footer>\n" +
+				"\t\t\t\t<!-- Bas de page -->\n" +
+				"\t\t\t</footer>\n" +
+				"\t\t</div>/n";
 	}
 	
 	private String footerHTML()
@@ -82,7 +84,7 @@ public class Generator
 				int ind = Integer.parseInt(sc.next())-1;
 				
 				if (type.equals("Titre"))
-					code += "\t\t\t\t<div class=\"title\">"+alTitre.get(ind)+"</div>\n";
+					code += "\t\t\t\t\t<div class=\"title\">"+alTitre.get(ind)+"</div>\n";
 				
 				if (type.equals("Paragraphe"))
 				{
@@ -90,13 +92,13 @@ public class Generator
 				    String str = "";
 				    
 				    while (scan.hasNext())
-				    	str += "\t\t\t\t\t" + scan.next()+"<br />\n";
+				    	str += "\t\t\t\t\t\t" + scan.next()+"<br />\n";
 				    
 					code += "\t\t\t\t<p>" + str + "</p>\n";
 				}
 			
 				if (type.equals("Image"))
-					code += "\t\t\t\t<img src=\""+alImage.get(ind)+"\">\n";	
+					code += "\t\t\t\t\t<img src=\""+alImage.get(ind)+"\">\n";	
 			}
 		}
 		

@@ -33,7 +33,7 @@ public class Fenetre extends JFrame
 	private MenuBar 			menu;
 	private PanelListeAction 	listeAction;
 	private PanelArbre			arborescence;
-	private PanelAjout			panelAjout;
+	private PanelAjout<JPanel>			panelAjout;
 	
 	public Fenetre()
 	{
@@ -49,7 +49,7 @@ public class Fenetre extends JFrame
 		arborescence = new PanelArbre(this);
 		listeAction = new PanelListeAction();
 		
-		panelAjout = new PanelAjout();
+		panelAjout = new PanelAjout<JPanel>();
 
 		JSplitPane splitPaneTotal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, arborescence, panelAjout);
 

@@ -106,7 +106,7 @@ public class PanelAjouterImage extends JPanel implements ActionListener
 	private void enregistrerImage(String chemin)
 	{
 		Projet projet = Controleur.metier.getProjetSelectionne();
-		String cheminArr = "./" + projet.getNom() +"/content/IMG/";
+		String cheminArr = projet.getCheminDossier() +  "/" + projet.getNom() + "/content/IMG/";
 
 		InputStream input;
 		OutputStream output;
@@ -115,7 +115,7 @@ public class PanelAjouterImage extends JPanel implements ActionListener
 		{
 			input = new FileInputStream(chemin);
 			output = new FileOutputStream(cheminArr + nom);
-			IOUtils.copy(input, output);	
+			IOUtils.copy(input, output);
 		}
 		catch (FileNotFoundException e1){	e1.printStackTrace();	}
 		catch (IOException e)			{	e.printStackTrace();	}

@@ -23,7 +23,13 @@ public class PanelImage extends Canvas
 	public boolean imageUpdate(Image image, int info, int x, int y, int l, int h)
 	{
 		if ((info & (WIDTH | HEIGHT)) != 0)
-			setSize(l, h);
+		{
+			if (l < largeurEcran && h < hauteurEcran)
+				setSize(l, h);
+			else
+				setSize(l/2, h/2);
+		}
+			
 
 		if ((info & (ALLBITS)) != 0)
 		{
