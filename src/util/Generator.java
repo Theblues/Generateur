@@ -19,7 +19,7 @@ public class Generator
 	
 	private String header(String titre)
 	{
-		String code = "\t\t<div id=\"Wrapper\">" +
+		String code = "\t\t<div id=\"Wrapper\">\n" +
 				"\t\t\t<header>\n" +
 				"\t\t\t\t<!-- Haut de page -->\n";
 		
@@ -55,7 +55,7 @@ public class Generator
 				"\t\t\t<footer>\n" +
 				"\t\t\t\t<!-- Bas de page -->\n";
 		
-		code += "\t\t\t\t&copy" + projet.getAuteur() + " - " + projet.getAnnee() + " - Tous Droits Reserves.";
+		code += "\t\t\t\t&copy" + projet.getAuteur() + " - " + projet.getAnnee() + " - Tous Droits Reserves.\n";
 		code +=	"\t\t\t</footer>\n" +
 				"\t\t</div>\n";
 		
@@ -134,6 +134,6 @@ public class Generator
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Controleur.CreerOptionPane("info", "Generation accomplie");
+		Controleur.CreerOptionPane("info", "Generation de la page \"" + page.getNom() + "\" accomplie");
 	}
 }

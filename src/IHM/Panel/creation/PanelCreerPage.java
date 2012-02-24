@@ -19,6 +19,7 @@ public class PanelCreerPage extends JPanel implements ActionListener
 
 	public PanelCreerPage()
 	{
+		setLayout(new BorderLayout());
 		JPanel panel = new JPanel();
 		
 		JLabel label = new JLabel("Nom de la page");

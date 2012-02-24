@@ -19,7 +19,7 @@ public class MenuBar implements ActionListener
 	private JMenuItem itemNewProject;
 	private JMenuItem itemNewPage;
 	private JMenuItem itemOpenProject;
-	private JMenuItem itemSaveAs;
+	private JMenuItem itemSave;
 	private JMenuItem itemGenerer;
 
 	// item pour le menu Edition
@@ -50,8 +50,8 @@ public class MenuBar implements ActionListener
 		itemNewPage = new JMenuItem("Nouvelle page");
 		itemOpenProject = new JMenuItem("Ouvrir un Projet");
 		itemOpenProject.addActionListener(this);
-		itemSaveAs = new JMenuItem("Enregistrer Sous");
-		itemSaveAs.addActionListener(this);
+		itemSave = new JMenuItem("Enregistrer");
+		itemSave.addActionListener(this);
 		itemGenerer = new JMenuItem("Generer");
 		itemGenerer.addActionListener(this);
 		itemClose = new JMenuItem("Quitter");
@@ -75,7 +75,7 @@ public class MenuBar implements ActionListener
 		menuFile.add(itemNewPage);
 		menuFile.add(itemOpenProject);
 		menuFile.addSeparator();
-		menuFile.add(itemSaveAs);
+		menuFile.add(itemSave);
 		menuFile.add(itemGenerer);
 		menuFile.addSeparator();
 		menuFile.add(itemClose);
@@ -108,7 +108,13 @@ public class MenuBar implements ActionListener
 	{		
 		JMenuItem mi = (JMenuItem) e.getSource();
 		if (mi.equals(itemClose))
-			Controleur.fermerFenetre();
+		{
+			int option = Controleur.CreerOptionPaneConfirm("Sauvegarder", "Voulez-vous sauvegarder avant de quitter ?");
+			if (option == JOptionPane.OK_OPTION)
+				Controleur.enregistrer();
+			else if (option != JOptionPane.CANCEL_OPTION)
+				System.exit(0);
+		}
 		if (mi.equals(itemNewProject))
 			Controleur.creerPanelCreerProjet();
         if (mi.equals(itemNewPage))
@@ -124,6 +130,10 @@ public class MenuBar implements ActionListener
 			Projet projet = Controleur.metier.getProjetSelectionne();
 			Page page = projet.getPageSelectionne();
 			Controleur.metier.getGenerator().generateFile(projet, page);
+		}
+		if (mi.equals(itemSave))
+		{
+			Controleur.enregistrer();
 		}
 	}
 	

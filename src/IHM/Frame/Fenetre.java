@@ -56,12 +56,18 @@ public class Fenetre extends JFrame
 		add(listeAction, BorderLayout.NORTH);
 		add(splitPaneTotal);
 		
+		// permet de ne pas fermer la fenetre si on clic sur la croix rouge
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		// permet l'action de la croix rouge
 		addWindowListener(new WindowAdapter()
         {
             public void windowClosing(WindowEvent e) 
             {
-            	Controleur.fermerFenetre();
+            	int option = Controleur.CreerOptionPaneConfirm("Sauvegarder", "Voulez-vous sauvegarder avant de quitter ?");
+            	if (option == JOptionPane.OK_OPTION)
+    				Controleur.enregistrer();
+            	if (option != JOptionPane.CANCEL_OPTION)
+            		System.exit(0);
             }
         });
 		

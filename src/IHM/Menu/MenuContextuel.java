@@ -67,7 +67,7 @@ public class MenuContextuel implements ActionListener
 			if (mi.equals(supprimer))
 			{
 				int option = Controleur.CreerOptionPaneConfirm("Supprimez le projet", "Voulez-vous supprimez le projet ?");
-				if (option != JOptionPane.NO_OPTION && option != JOptionPane.CANCEL_OPTION && option != JOptionPane.CLOSED_OPTION)
+				if (option == JOptionPane.OK_OPTION)
 				{
 					// TODO code pour supprimer l'element
 				}

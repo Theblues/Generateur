@@ -70,11 +70,10 @@ public class Controleur
 		return op.optionPaneConfirmation(titre, texte);
 	}
 	
-	public static void fermerFenetre()
+	public static void enregistrer()
 	{
 		fenetre.getArborescence().enregistrerArbre();
     	metier.enregistrerContenu();
-        System.exit(0);
 	}
 	
 	public static void main(String[] argv)
