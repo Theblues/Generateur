@@ -93,8 +93,8 @@ public class MenuContextuel implements ActionListener
 		}
 		
 		if (mi.equals(nouveauProjet))
-			Controleur.creerFenetreCreerProjet();
+			Controleur.creerPanelCreerProjet();
 		else if (mi.equals(nouvellePage) && noeud[1] != null)
-			Controleur.creerFenetreCreerPage();
+			Controleur.creerPanelCreerPage();
 	}
 }

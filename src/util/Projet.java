@@ -1,25 +1,37 @@
 package util;
 
-import java.io.Serializable;
+import java.io.*;
+import java.text.*;
 import java.util.*;
 
 public class Projet implements Serializable
 {
 	private String nom;
+	private String auteur;
+	private String annee;
 	private ArrayList<Page> alPage;
 	private Page pageSelectionne;
 	private String cheminDossier;
 	private String style;
 	
-	public Projet(String nom, String style, String chemin)
+	public Projet(String nom, String auteur, String style, String chemin)
 	{
 		this.nom = nom;
+		this.auteur = auteur;
+		
 		this.style = style;
 		this.cheminDossier = chemin;
 		alPage = new ArrayList<Page>();
+		
+		String format = "yyyy";
+		SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
+		Date date = new java.util.Date();
+		annee = formater.format(date);
 	}
 
 	public String getNom()				{	return nom;					}
+	public String getAuteur()			{	return auteur;				}
+	public String getAnnee()			{	return annee;				}
 	public String getStyle()			{	return style;				}
 	public ArrayList<Page> getAlPage()	{	return alPage;				}
 	public String getCheminDossier()	{	return cheminDossier;		}

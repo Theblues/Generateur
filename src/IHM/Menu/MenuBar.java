@@ -110,9 +110,9 @@ public class MenuBar implements ActionListener
 		if (mi.equals(itemClose))
 			Controleur.fermerFenetre();
 		if (mi.equals(itemNewProject))
-			Controleur.creerFenetreCreerProjet();
+			Controleur.creerPanelCreerProjet();
         if (mi.equals(itemNewPage))
-        	Controleur.creerFenetreCreerPage();
+        	Controleur.creerPanelCreerPage();
 		if (mi.equals(itemTitre))
 			Controleur.creerPanelAjouterTitre(0,"",0);
 		if (mi.equals(itemParagraphe))

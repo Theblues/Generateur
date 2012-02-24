@@ -101,9 +101,9 @@ public class PanelListeAction extends JPanel implements ActionListener
 			Controleur.metier.getGenerator().generateFile(projet, page);
 		}
 		if (b.equals(boutonAjouterProjet))
-			Controleur.creerFenetreCreerProjet();
+			Controleur.creerPanelCreerProjet();
         if (b.equals(boutonAjouterPage))
-        	Controleur.creerFenetreCreerPage();
+        	Controleur.creerPanelCreerPage();
 		if (b.equals(boutonAjouterTitre))
 			Controleur.creerPanelAjouterTitre(0,"",0);
 		if (b.equals(boutonAjouterParagraphe))

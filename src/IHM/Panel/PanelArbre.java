@@ -236,7 +236,7 @@ public class PanelArbre extends JPanel implements Serializable
 		}
 		
 		if (type.equals("element"))
-		{			
+		{
 			MutableTreeNode parent = (MutableTreeNode) ((node == null) ? parentNodePage : node);
 			dtm.insertNodeInto(mtn, parent, parent.getChildCount());
 			updateTree(parent);

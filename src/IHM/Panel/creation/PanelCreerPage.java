@@ -1,4 +1,4 @@
-package IHM.Frame.creation;
+package IHM.Panel.creation;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,21 +10,15 @@ import java.util.*;
 import Main.*;
 import util.*;
 
-public class FenetreCreerPage extends JFrame implements ActionListener
+public class PanelCreerPage extends JPanel implements ActionListener
 {
 	private JTextField	txNom;
 	
 	private JButton annuler;
 	private JButton valider; 
 
-	public FenetreCreerPage()
+	public PanelCreerPage()
 	{
-		setTitle("Creation d'une nouvelle page");
-		setLocation(200, 200);
-
-		JLabel labelDescription = new JLabel("Creer une nouvelle page !");
-		add(labelDescription, BorderLayout.NORTH);
-
 		JPanel panel = new JPanel();
 		
 		JLabel label = new JLabel("Nom de la page");
@@ -50,7 +44,11 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 		panSud.add(panBouton, BorderLayout.EAST);
 		add(panSud, BorderLayout.SOUTH);
 
-		pack();
+		this.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createCompoundBorder(
+						BorderFactory.createTitledBorder("Creation d'une nouvelle page"),
+						BorderFactory.createEmptyBorder(5, 5, 5, 5)),
+						this.getBorder()));
 		setVisible(true);
 	}
 
@@ -91,6 +89,6 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 			}
 		}
 		
-		dispose();
+		Controleur.fenetre.getPanelAjout().supprimerPanel();
 	}
 }

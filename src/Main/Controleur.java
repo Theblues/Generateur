@@ -1,7 +1,7 @@
 package Main;
 
 import IHM.Frame.*;
-import IHM.Frame.creation.*;
+import IHM.Panel.creation.*;
 import IHM.Panel.ajout.*;
 import IHM.OptionPane.*;
 import Metier.*;
@@ -18,14 +18,16 @@ public class Controleur
 		fenetre = new Fenetre();
 	}
 	
-	public static void creerFenetreCreerProjet()
+	public static void creerPanelCreerProjet()
 	{
-		new FenetreCreerProjet();
+		fenetre.getPanelAjout().supprimerPanel();
+		fenetre.getPanelAjout().ajouterPanel(new PanelCreerProjet());
 	}
 
-	public static void creerFenetreCreerPage()			
-	{		
-		new FenetreCreerPage();				
+	public static void creerPanelCreerPage()			
+	{
+		fenetre.getPanelAjout().supprimerPanel();
+		fenetre.getPanelAjout().ajouterPanel(new PanelCreerPage());
 	}
 	
 	public static void FenetrePropriete( Object type)

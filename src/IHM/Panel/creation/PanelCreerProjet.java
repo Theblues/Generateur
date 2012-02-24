@@ -1,4 +1,4 @@
-package IHM.Frame.creation;
+package IHM.Panel.creation;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,38 +12,43 @@ import org.apache.commons.io.IOUtils;
 import Main.*;
 import util.*;
 
-public class FenetreCreerProjet extends JFrame implements ActionListener
+public class PanelCreerProjet extends JPanel implements ActionListener
 {	
-	private JTextField txNom;
-	private JTextField txChemin;
-	private JComboBox combo;
+	private JTextField 	txNom;
+	private JTextField 	txAuteur;
+	private JTextField 	txChemin;
+	private JComboBox 	combo;
 	
 	private JButton parcourir;
 	
 	private JButton annuler;
 	private JButton valider;
 	
-	public FenetreCreerProjet()
+	public PanelCreerProjet()
 	{
-		setTitle("Nouveau Projet");
-		setLocation(100, 100);
-		setSize(500, 400);
-		
-		JLabel labelDescription = new JLabel("Creer votre projet");
-		add(labelDescription, BorderLayout.NORTH);
+		setLayout(new BorderLayout());
 		
 		// Panel Nom
 		JPanel panelNom = new JPanel();
-		panelNom.setLayout(new FlowLayout(2, 100, 0));
-		JLabel label = new JLabel("Nom du projet");
+		panelNom.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 10));
+		JLabel label = new JLabel("Nom du projet :");
 		txNom = new JTextField(20);
 		
-		panelNom.add(label);	
+		panelNom.add(label);
 		panelNom.add(txNom);
+		
+		// Panel auteur
+		JPanel panelAuteur = new JPanel();
+		panelAuteur.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 10));
+		label = new JLabel("Nom de l'auteur :");
+		txAuteur = new JTextField(20);
+		
+		panelAuteur.add(label);
+		panelAuteur.add(txAuteur);
 		
 		// Panel Theme
 		JPanel panelTheme = new JPanel();
-		panelTheme.setLayout(new FlowLayout(2, 175, 0));
+		panelTheme.setLayout(new FlowLayout(FlowLayout.LEFT, 50 ,10));
 		label = new JLabel("Choisissez un theme");
 		combo = new JComboBox();
 		combo.setPreferredSize(new Dimension(100, 30));
@@ -51,24 +56,38 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		combo.addItem("Theme 2");
 		combo.addItem("Theme 3");
 		
-		panelTheme.add(label, BorderLayout.WEST);
+		panelTheme.add(label);
 		panelTheme.add(combo);
 		
 		// Panel Dossier
 		JPanel panelDossier = new JPanel();
-		panelDossier.setLayout(new BorderLayout());
-		label = new JLabel("Dossier");
+		panelDossier.setLayout(new FlowLayout(FlowLayout.LEFT, 65, 10));
+		
+		label = new JLabel("Dossier :");
 		txChemin = new JTextField(20);
+		txChemin.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent me) {
+				if(me.getButton() == MouseEvent.BUTTON1)
+					choisirDossier();
+			}
+		});;
 		txChemin.setEditable(false);
+		
+		// bouton pour recuperer le dossier
 		parcourir = new JButton("Parcourir");
 		parcourir.addActionListener(this);
+		
 		panelDossier.add(label, BorderLayout.WEST);
 		panelDossier.add(txChemin);
 		panelDossier.add(parcourir, BorderLayout.EAST);
 		
 		// Panel englobant le tout
 		JPanel panelCentre = new JPanel();
+		panelCentre.setSize(800, 500);
+		panelCentre.setLayout(new GridLayout(4, 1));
+		//panelCentre.setLayout(new BorderLayout(3,1));
 		panelCentre.add(panelNom);
+		panelCentre.add(panelAuteur);
 		panelCentre.add(panelTheme);
 		panelCentre.add(panelDossier);
 		
@@ -79,7 +98,6 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		
 		JPanel panBouton = new JPanel();
 		annuler = new JButton("Annuler");
-		annuler.addActionListener(this);
 		panBouton.add(annuler);
 		
 		valider = new JButton("Valider");
@@ -88,6 +106,12 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		
 		panSud.add(panBouton, BorderLayout.EAST);
 		add(panSud, BorderLayout.SOUTH);
+		
+		this.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createCompoundBorder(
+						BorderFactory.createTitledBorder("Creation d'un nouveau projet"),
+						BorderFactory.createEmptyBorder(5, 5, 5, 5)),
+						this.getBorder()));
 		
 		setVisible(true);
 	}
@@ -99,14 +123,18 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		if (b.equals(valider))
 		{
 			if (creerProjet())
-				this.dispose();
+			{
+				Controleur.fenetre.getPanelAjout().supprimerPanel();
+				return;
+			}
 		}
 		else if (b.equals(annuler))
-			this.dispose();
-		else if (b.equals(parcourir))
 		{
-			choisirDossier();
+			Controleur.fenetre.getPanelAjout().supprimerPanel();
+			return;
 		}
+		else if (b.equals(parcourir))
+			choisirDossier();			
 	}
 
 	private void choisirDossier()
@@ -126,8 +154,10 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 	private boolean creerProjet()
 	{
 		String nomProjet = txNom.getText();
+		String auteur = txAuteur.getText();
 		String chemin = txChemin.getText();
-		if (nomProjet.length() == 0  || chemin.length() == 0)
+		
+		if (nomProjet.length() == 0  || chemin.length() == 0 || auteur.length() == 0)
 		{
 			Controleur.CreerOptionPane("warning", "Veuillez saisir toutes les informations");
 			return false;
@@ -180,7 +210,7 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		catch (FileNotFoundException e1){	e1.printStackTrace();	}
 		catch (IOException e)			{	e.printStackTrace();	}
 		
-		Projet projet = new Projet(nomProjet, style, chemin);
+		Projet projet = new Projet(nomProjet, auteur,style, chemin);
 		Controleur.metier.ajouterProjet(projet);
 		Controleur.metier.setProjetSelectionne(projet);
 		Controleur.fenetre.getArborescence().ajoutFils(null, "projet", nomProjet);

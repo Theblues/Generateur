@@ -46,8 +46,6 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 								BorderFactory.createTitledBorder("Votre titre"),
 								BorderFactory.createEmptyBorder(5, 5, 5, 5)),
 								this.getBorder()));
-
-
 		
 		setVisible(true);
 	}

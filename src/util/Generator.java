@@ -48,14 +48,18 @@ public class Generator
 		return code;
 	}
 	
-	private String footer()
+	private String footer(Projet projet)
 	{
-		return "\t\t\t\t</article>\n" +
+		String code = "\t\t\t\t</article>\n" +
 				"\t\t\t</section>\n" +
 				"\t\t\t<footer>\n" +
-				"\t\t\t\t<!-- Bas de page -->\n" +
-				"\t\t\t</footer>\n" +
+				"\t\t\t\t<!-- Bas de page -->\n";
+		
+		code += "\t\t\t\t&copy" + projet.getAuteur() + " - " + projet.getAnnee() + " - Tous Droits Reserves.";
+		code +=	"\t\t\t</footer>\n" +
 				"\t\t</div>\n";
+		
+		return code;
 	}
 	
 	private String footerHTML()
@@ -108,7 +112,7 @@ public class Generator
 			}
 		}
 		
-		code += footer();
+		code += footer(projet);
 		code += footerHTML();
 		return code;
 	}
