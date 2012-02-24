@@ -35,12 +35,24 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 		
 		editorPane = new JTextPane();
 		editorPane.setEditable(true);
-		editorPane.setContentType("text/rtf");
+		editorPane.setContentType("text/html");
 		
-		rtf = new RTFEditorKit();
-		editorPane.setEditorKit(rtf);
-		
-		editorPane.setText(paragraphe);
+		/*
+		 * Test html
+		 */
+		String s = "";
+		try
+		{
+			// lecture du fichier rtf
+			FileReader fr = new FileReader("temp/doc.txt");
+			Scanner sc = new Scanner (fr);
+			sc.useDelimiter("\n");
+			while (sc.hasNext())
+				s += sc.next() + "\n";
+			
+			fr.close();
+		}catch(IOException e){}
+		editorPane.setText(s);
 
 		JScrollPane scroller = new JScrollPane(editorPane,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -83,34 +95,21 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 			Projet projet = Controleur.metier.getProjetSelectionne();
 			Page page = projet.getPageSelectionne();
 			
-			Document doc = editorPane.getDocument();
-			if (doc.getLength() == 0)
+			String paragrapheHTML = editorPane.getText();
+			if (paragrapheHTML.length() == 0)
 				return;
 			
-			try
-			{
-				// mise en place du rtf dans un fichier temporaire
-				FileOutputStream fichier = new FileOutputStream("temp/doc.txt");
-				rtf.write(fichier, doc, 0, doc.getLength());
-			}
-			catch (IOException e){}
-			catch (BadLocationException e) {}
 			
-			// permet de traiter le rtf
+			// permet de traiter le html
 			ArrayList<String> alS = new ArrayList<String>();
 			
-			try
-			{
-				// lecture du fichier rtf
-				FileReader fr = new FileReader("temp/doc.txt");
-				Scanner sc = new Scanner (fr);
-				while (sc.hasNext())
-					alS.add(sc.next());
+			Scanner sc = new Scanner (paragrapheHTML);
+			sc.useDelimiter("\n");
+			while (sc.hasNext())
+				alS.add(sc.next());
 				
-				fr.close();
-			}catch(IOException e){}
 			
-			alS = traitementRTF(alS);
+			String paragraphe = traitementHTML(alS);
 			
 			/*
 			if (editorPane.getText().length() == 0)
@@ -131,14 +130,32 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 		Controleur.fenetre.getPanelAjout().supprimerPanel();
 	}
 
-	private ArrayList<String> traitementRTF(ArrayList<String> alS)
+	private String traitementHTML(ArrayList<String> alS)
 	{
+		String s = "";
 		// les six premieres lignes sont inutiles
-		/*for (int i = 0; i < 6; i++)
-			alS.remove(0);*/
+		for (int i = 0; i < 5; i++)
+			alS.remove(0);
 		
-		for (String s: alS)
-			System.out.println(s);
-		return alS;
+		for (String ligne: alS)
+		{
+			if (ligne.contains("<p "))
+				continue;
+			if(ligne.contains("</p>"))
+			{
+				s += "\n";
+				continue;
+			}
+			if (ligne.contains("<u>"))
+			{
+				s = ligne.replace("<u>", "<a href=\"");
+			}
+			if (ligne.contains("</body>"))
+				break;
+			
+			s += ligne;
+		}
+		System.out.println(s);
+		return s;
 	}
 }

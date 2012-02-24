@@ -3,6 +3,7 @@ package IHM.Frame.creation;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.Scanner;
 
 import javax.swing.*;
 
@@ -56,7 +57,7 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 		// Panel Dossier
 		JPanel panelDossier = new JPanel();
 		panelDossier.setLayout(new BorderLayout());
-		label = new JLabel("Choisissez un dossier");
+		label = new JLabel("Dossier");
 		txChemin = new JTextField(20);
 		txChemin.setEditable(false);
 		parcourir = new JButton("Parcourir");
@@ -132,12 +133,19 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 			return false;
 		}
 		
-		File file = new File(chemin + "/" + nomProjet);
+		Scanner sc = new Scanner(nomProjet);
+		sc.useDelimiter(" ");
+		
+		String nameProjet = sc.next();
+		while (sc.hasNext())
+			nameProjet += "_" + sc.next();
+		
+		File file = new File(chemin + "/" + nameProjet);
 		file.mkdir();
 		
-		File content = new File (chemin + "/" + nomProjet + "/content");
-		File css = new File (chemin + "/" + nomProjet + "/content/CSS");
-		File img = new File (chemin + "/" + nomProjet + "/content/IMG");
+		File content = new File (chemin + "/" + nameProjet + "/content");
+		File css = new File (chemin + "/" + nameProjet + "/content/CSS");
+		File img = new File (chemin + "/" + nameProjet + "/content/IMG");
 		
 		content.mkdir();
 		css.mkdir();
@@ -153,19 +161,19 @@ public class FenetreCreerProjet extends JFrame implements ActionListener
 			{
 				style = "style1";
 				input = new FileInputStream("styles/style1.css");
-				output = new FileOutputStream(chemin + "/" + nomProjet + "/content/CSS/style1.css");
+				output = new FileOutputStream(chemin + "/" + nameProjet + "/content/CSS/style1.css");
 			}
 			else if (combo.getSelectedItem().equals("Theme 2"))
 			{
 				style = "style2";
 				input = new FileInputStream("styles/style2.css");
-				output = new FileOutputStream(chemin + "/" + nomProjet + "/content/CSS/style2.css");
+				output = new FileOutputStream(chemin + "/" + nameProjet + "/content/CSS/style2.css");
 			}
 			else if (combo.getSelectedItem().equals("Theme 3"))
 			{
 				style = "style3";
 				input = new FileInputStream("styles/style3.css");
-				output = new FileOutputStream(chemin + "/" + nomProjet + "/content/CSS/style3.css");
+				output = new FileOutputStream(chemin + "/" + nameProjet + "/content/CSS/style3.css");
 			}
 			IOUtils.copy(input, output);	
 		}

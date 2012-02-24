@@ -1,7 +1,14 @@
-{\rtf1\ansi
-{\fonttbl\f0\fnil Monospaced;\f1\fnil sansserif;}
-{\colortbl\red0\green0\blue0;\red0\green0\blue0;}
+<html>
+  <head>
 
-\f1\fs24\i0\b0\cf1 test\par
-coco\par
-}
+  </head>
+  <body>
+    <p style="margin-top: 0">
+      test
+      <b>gras</b>
+    </p>
+    <p style="margin-top: 0">
+      salut les baisos <i>italique</i>
+    </p>
+  </body>
+</html>

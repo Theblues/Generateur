@@ -12,7 +12,7 @@ import util.*;
 
 public class FenetreCreerPage extends JFrame implements ActionListener
 {
-	private JTextField	txTitre;
+	private JTextField	txNom;
 	
 	private JButton annuler;
 	private JButton valider; 
@@ -26,13 +26,13 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 		add(labelDescription, BorderLayout.NORTH);
 
 		JPanel panel = new JPanel();
+		
 		JLabel label = new JLabel("Nom de la page");
-
 		panel.add(label);
-		txTitre = new JTextField(30);
-
-		panel.add(txTitre);
-
+		
+		txNom = new JTextField(30);
+		panel.add(txNom);
+		
 		add(panel);
 		
 		JPanel panSud = new JPanel();
@@ -62,7 +62,7 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 			JButton b = (JButton) e.getSource();
 			if (valider.equals(b))
 			{
-				String nomPage = txTitre.getText();
+				String nomPage = txNom.getText();
 				Projet p = Controleur.metier.getProjetSelectionne();
 				String nomFichier = p.getNom() + "/" + nomPage;
 				
@@ -76,6 +76,7 @@ public class FenetreCreerPage extends JFrame implements ActionListener
 
 
 				File f = new File(p.getCheminDossier() + "/" + nomFichier + ".html");
+				System.out.println(f);
 				try
 				{
 					// on recree le fichier lorsqu'on genere

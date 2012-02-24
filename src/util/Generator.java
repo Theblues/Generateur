@@ -17,13 +17,19 @@ public class Generator
 					"\t<body>\n";
 	}
 	
-	private String header()
+	private String header(String titre)
 	{
-		return "\t\t<div id=\"Wrapper\">" +
+		String code = "\t\t<div id=\"Wrapper\">" +
 				"\t\t\t<header>\n" +
-				"\t\t\t\t<!-- Haut de page -->\n" +
+				"\t\t\t\t<!-- Haut de page -->\n";
+		
+		code += "\t\t\t\t" + titre + "\n";
+		
+		code +=
 				"\t\t\t</header>\n" +
 				"\t\t\t<section>\n";
+		
+		return code;
 	}
 	
 	private String menu(ArrayList<Page> alP)
@@ -33,7 +39,7 @@ public class Generator
 		
 		// On parcours l'arraylist de projet				
 		for (Page p : alP)
-			code += "\t\t\t\t\t\t<li>" + p.getNom() + "</li>\n";
+			code += "\t\t\t\t\t\t<li><a href=\" ./" + p.getFile().getName() + "\">" + p.getNom() + "</a></li>\n";
 				
 		code += "\t\t\t\t\t</ul>\n" +
 				"\t\t\t\t</aside>\n" +
@@ -49,7 +55,7 @@ public class Generator
 				"\t\t\t<footer>\n" +
 				"\t\t\t\t<!-- Bas de page -->\n" +
 				"\t\t\t</footer>\n" +
-				"\t\t</div>/n";
+				"\t\t</div>\n";
 	}
 	
 	private String footerHTML()
@@ -64,7 +70,7 @@ public class Generator
 			return "";
 		
 		String code = headerHTML(projet.getStyle());
-		code += header();
+		code += header(page.getNom());
 		code += menu(projet.getAlPage());
 				
 		ArrayList<String> alS = page.getAlOrdre();
@@ -110,7 +116,6 @@ public class Generator
 	public void generateFile(Projet projet, Page page)
 	{
 		String code = generateCode(projet, page);
-		
 		File file = page.getFile();
 		
 		try
