@@ -1,7 +1,10 @@
 package IHM.Menu;
 
+import java.awt.Event;
 import java.awt.event.*;
+
 import javax.swing.*;
+import javax.swing.text.DefaultEditorKit;
 
 import Main.*;
 import util.*;
@@ -26,6 +29,10 @@ public class MenuBar implements ActionListener
 	private JMenuItem itemClose;
 	private JMenuItem itemUndo;
 	private JMenuItem itemRedo;
+	private JMenuItem copier;
+	private JMenuItem coller;
+	private JMenuItem couper;
+
 	
 	// item pour le menu Ajouter
 	private JMenuItem itemTitre;
@@ -46,33 +53,83 @@ public class MenuBar implements ActionListener
 
 		// initialisation des items pour le menu Fichier
 		itemNewProject = new JMenuItem("Nouveau Projet");
+		itemNewProject.setIcon(new ImageIcon("images/filenew.png"));
+		itemNewProject.setToolTipText("Permet de créer un nouveau projet");
 		itemNewProject.addActionListener(this);
+		
 		itemNewPage = new JMenuItem("Nouvelle page");
+		itemNewPage.setIcon(new ImageIcon("images/filenew.png"));
+		itemNewPage.setToolTipText("Permet de créer une nouvelle page");
+		itemNewPage.addActionListener(this);
+		
 		itemOpenProject = new JMenuItem("Ouvrir un Projet");
+		itemOpenProject.setIcon(new ImageIcon("images/folder-open.png"));
+		itemOpenProject.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,Event.CTRL_MASK));
+		itemOpenProject.setToolTipText("Permet d'ouvrir un projet");
 		itemOpenProject.addActionListener(this);
-		itemSave = new JMenuItem("Enregistrer");
+		
+		itemSave= new JMenuItem("Enregistrer Sous");
+		itemSave.setIcon(new ImageIcon("images/filesaveas.png"));
+		itemSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,Event.CTRL_MASK));
+		itemSave.setToolTipText("Permet de sauvegarder un projet");
 		itemSave.addActionListener(this);
+		
 		itemGenerer = new JMenuItem("Generer");
+		itemGenerer.setIcon(new ImageIcon("images/edit-find-replace.png"));
+		itemGenerer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G,Event.CTRL_MASK));
+		itemGenerer.setToolTipText("Permet de générer le projet");
 		itemGenerer.addActionListener(this);
+	
+		
 		itemClose = new JMenuItem("Quitter");
+		itemClose.setIcon(new ImageIcon("images/application-exit.png"));
+		itemClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,Event.CTRL_MASK));
+		itemClose.setToolTipText("Permet de quitter l'application");
 		itemClose.addActionListener(this);
 
 		// initialisation des items pour le menu Edition
 		itemUndo = new JMenuItem("Annuler");
+		itemUndo.setIcon(new ImageIcon("images/edit-undo.png"));
+		itemUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,Event.CTRL_MASK));
 		itemUndo.addActionListener(this);
+		
 		itemRedo = new JMenuItem("Retablir");
+		itemRedo.setIcon(new ImageIcon("images/edit-redo.png"));
+		itemRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y,Event.CTRL_MASK));
 		itemRedo.addActionListener(this);
+		
+		couper = new JMenuItem(new DefaultEditorKit.CutAction());
+		couper.setText("Couper");
+		couper.setIcon(new ImageIcon("images/edit-cut.png"));
+		couper.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,Event.CTRL_MASK));
+		couper.setToolTipText("Permet l'action de Couper");
+
+		coller = new JMenuItem(new DefaultEditorKit.PasteAction());
+		coller.setText("Coller");
+		coller.setIcon(new ImageIcon("images/edit-paste.png"));
+		coller.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,Event.CTRL_MASK));
+		coller.setToolTipText("Permet l'action de Coller");
+
+		copier = new JMenuItem(new DefaultEditorKit.CopyAction());
+		copier.setText("Copier");
+		copier.setIcon(new ImageIcon("images/edit-copy.png"));
+		copier.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,Event.CTRL_MASK));
+		copier.setToolTipText("Permet l'action de Copier");
 
 		// Initialisation des items pour le menu ajouter
 		itemTitre = new JMenuItem("Ajouter un titre");
 		itemParagraphe = new JMenuItem("Ajouter un paragraphe");
 		itemImage = new JMenuItem("Ajouter une image");
 		
-		itemAide = new JMenuItem("?");
+		itemAide = new JMenuItem("Aide");
+		itemAide.setIcon(new ImageIcon("images/info.gif"));
+		itemAide.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1,0));
+		itemAide.setToolTipText("Aide");
 		
 		// ajout des items dans le menu Fichier
 		menuFile.add(itemNewProject);
 		menuFile.add(itemNewPage);
+		menuFile.addSeparator();
 		menuFile.add(itemOpenProject);
 		menuFile.addSeparator();
 		menuFile.add(itemSave);
@@ -83,10 +140,16 @@ public class MenuBar implements ActionListener
 		// ajout des items dans le menu Edition
 		menuEdit.add(itemUndo);
 		menuEdit.add(itemRedo);
+		menuEdit.addSeparator();
+		menuEdit.add(copier);
+		menuEdit.add(couper);
+		menuEdit.add(coller);
 		
 		// ajout des items dans le menu Ajouter
 		menuAjouter.add(itemTitre);
+		menuAjouter.addSeparator();
 		menuAjouter.add(itemParagraphe);
+		menuAjouter.addSeparator();
 		menuAjouter.add(itemImage);
 		
 		menuAide.add(itemAide);
