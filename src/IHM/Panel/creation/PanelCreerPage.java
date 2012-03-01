@@ -13,7 +13,7 @@ import util.*;
 public class PanelCreerPage extends JPanel implements ActionListener
 {
 	private JTextField	txNom;
-	private JComboBox 	combo;
+
 	private JButton annuler;
 	private JButton valider; 
 
@@ -22,23 +22,12 @@ public class PanelCreerPage extends JPanel implements ActionListener
 		setLayout(new BorderLayout());
 		JPanel panel = new JPanel();
 		
-		JLabel label = new JLabel("Projet :");
-		combo = new JComboBox();
-		combo.setPreferredSize(new Dimension(100, 30));
-		
-		Projet projetSelectionne = Controleur.metier.getProjetSelectionne();
-		combo.addItem(projetSelectionne.getNom());
-		
-		for (Projet projet : Controleur.metier.getAlProjet())
-		{
-			if (projet.equals(projetSelectionne))
-				continue;
-			
-			combo.addItem(projet.getNom());
-		}
-		
+		// Choix du projet
+		JLabel label = new JLabel("Projet selectionne :");		
 		panel.add(label);
-		panel.add(combo);
+		
+		label = new JLabel(Controleur.metier.getProjetSelectionne().getNom());		
+		panel.add(label);
 		
 		label = new JLabel("Nom de la page");
 		panel.add(label);
@@ -83,7 +72,7 @@ public class PanelCreerPage extends JPanel implements ActionListener
 				Projet p = Controleur.metier.getProjetSelectionne();
 				String nomFichier = p.getNom() + "/" + nomPage;
 				
-				// on coupe s'il y a des espaces
+				// on remplace les espaces par "_"
 				Scanner sc = new Scanner(nomFichier);
 				sc.useDelimiter(" ");
 				
@@ -93,10 +82,10 @@ public class PanelCreerPage extends JPanel implements ActionListener
 
 
 				File f = new File(p.getCheminDossier() + "/" + nomFichier + ".html");
-				System.out.println(f);
+				
 				try
 				{
-					// on recree le fichier lorsqu'on genere
+					// on cree le fichier
 					f.createNewFile();
 				} catch (IOException ex)
 				{
@@ -104,7 +93,7 @@ public class PanelCreerPage extends JPanel implements ActionListener
 				}
 				
 				Controleur.fenetre.getArborescence().ajoutFils(null, "fichier", nomPage);
-				Controleur.metier.getProjetSelectionne().ajouterPage(new Page(f, nomPage));
+				p.ajouterPage(new Page(f, nomPage));
 			}
 		}
 		

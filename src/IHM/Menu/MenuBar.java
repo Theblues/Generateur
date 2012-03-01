@@ -54,12 +54,12 @@ public class MenuBar implements ActionListener
 		// initialisation des items pour le menu Fichier
 		itemNewProject = new JMenuItem("Nouveau Projet");
 		itemNewProject.setIcon(new ImageIcon("images/filenew.png"));
-		itemNewProject.setToolTipText("Permet de cr�er un nouveau projet");
+		itemNewProject.setToolTipText("Permet de creer un nouveau projet");
 		itemNewProject.addActionListener(this);
 		
 		itemNewPage = new JMenuItem("Nouvelle page");
 		itemNewPage.setIcon(new ImageIcon("images/filenew.png"));
-		itemNewPage.setToolTipText("Permet de cr�er une nouvelle page");
+		itemNewPage.setToolTipText("Permet de creer une nouvelle page");
 		itemNewPage.addActionListener(this);
 		
 		itemOpenProject = new JMenuItem("Ouvrir un Projet");
@@ -77,7 +77,7 @@ public class MenuBar implements ActionListener
 		itemGenerer = new JMenuItem("Generer");
 		itemGenerer.setIcon(new ImageIcon("images/edit-find-replace.png"));
 		itemGenerer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G,Event.CTRL_MASK));
-		itemGenerer.setToolTipText("Permet de g�n�rer le projet");
+		itemGenerer.setToolTipText("Permet de generer le projet");
 		itemGenerer.addActionListener(this);
 	
 		
