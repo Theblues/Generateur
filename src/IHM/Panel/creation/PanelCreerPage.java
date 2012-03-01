@@ -13,7 +13,7 @@ import util.*;
 public class PanelCreerPage extends JPanel implements ActionListener
 {
 	private JTextField	txNom;
-	
+	private JComboBox 	combo;
 	private JButton annuler;
 	private JButton valider; 
 
@@ -22,7 +22,25 @@ public class PanelCreerPage extends JPanel implements ActionListener
 		setLayout(new BorderLayout());
 		JPanel panel = new JPanel();
 		
-		JLabel label = new JLabel("Nom de la page");
+		JLabel label = new JLabel("Projet :");
+		combo = new JComboBox();
+		combo.setPreferredSize(new Dimension(100, 30));
+		
+		Projet projetSelectionne = Controleur.metier.getProjetSelectionne();
+		combo.addItem(projetSelectionne.getNom());
+		
+		for (Projet projet : Controleur.metier.getAlProjet())
+		{
+			if (projet.equals(projetSelectionne))
+				continue;
+			
+			combo.addItem(projet.getNom());
+		}
+		
+		panel.add(label);
+		panel.add(combo);
+		
+		label = new JLabel("Nom de la page");
 		panel.add(label);
 		
 		txNom = new JTextField(30);

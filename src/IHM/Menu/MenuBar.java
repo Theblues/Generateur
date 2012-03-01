@@ -54,12 +54,12 @@ public class MenuBar implements ActionListener
 		// initialisation des items pour le menu Fichier
 		itemNewProject = new JMenuItem("Nouveau Projet");
 		itemNewProject.setIcon(new ImageIcon("images/filenew.png"));
-		itemNewProject.setToolTipText("Permet de créer un nouveau projet");
+		itemNewProject.setToolTipText("Permet de crï¿½er un nouveau projet");
 		itemNewProject.addActionListener(this);
 		
 		itemNewPage = new JMenuItem("Nouvelle page");
 		itemNewPage.setIcon(new ImageIcon("images/filenew.png"));
-		itemNewPage.setToolTipText("Permet de créer une nouvelle page");
+		itemNewPage.setToolTipText("Permet de crï¿½er une nouvelle page");
 		itemNewPage.addActionListener(this);
 		
 		itemOpenProject = new JMenuItem("Ouvrir un Projet");
@@ -77,7 +77,7 @@ public class MenuBar implements ActionListener
 		itemGenerer = new JMenuItem("Generer");
 		itemGenerer.setIcon(new ImageIcon("images/edit-find-replace.png"));
 		itemGenerer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G,Event.CTRL_MASK));
-		itemGenerer.setToolTipText("Permet de générer le projet");
+		itemGenerer.setToolTipText("Permet de gï¿½nï¿½rer le projet");
 		itemGenerer.addActionListener(this);
 	
 		
@@ -175,7 +175,7 @@ public class MenuBar implements ActionListener
 			int option = Controleur.CreerOptionPaneConfirm("Sauvegarder", "Voulez-vous sauvegarder avant de quitter ?");
 			if (option == JOptionPane.OK_OPTION)
 				Controleur.enregistrer();
-			else if (option != JOptionPane.CANCEL_OPTION)
+			if (option != JOptionPane.CANCEL_OPTION)
 				System.exit(0);
 		}
 		if (mi.equals(itemNewProject))
