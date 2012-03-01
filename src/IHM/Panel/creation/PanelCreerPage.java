@@ -69,6 +69,9 @@ public class PanelCreerPage extends JPanel implements ActionListener
 			if (valider.equals(b))
 			{
 				String nomPage = txNom.getText();
+				if (nomPage.length() == 0)
+					return;
+				
 				Projet p = Controleur.metier.getProjetSelectionne();
 				String nomFichier = p.getNom() + "/" + nomPage;
 				
