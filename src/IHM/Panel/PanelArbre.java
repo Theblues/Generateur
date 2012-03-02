@@ -191,7 +191,7 @@ public class PanelArbre extends JPanel implements Serializable
 				}
 				if (str.equals("Paragraphe"))
 				{
-					String ancienParagraphe = pageSelectionnee.getAlParagraphe().get(indice-1);
+					String ancienParagraphe = pageSelectionnee.getAlParagrapheHTML().get(indice-1);
 					Controleur.creerPanelAjouterParagraphe(1, ancienParagraphe, indice);
 				}
 				if (str.equals("Image"))
@@ -229,7 +229,6 @@ public class PanelArbre extends JPanel implements Serializable
 		
 		if (type.equals("fichier"))
 		{
-			System.out.println(node + "\t" + parentNodeProjet);
 			MutableTreeNode parent  = (MutableTreeNode) ((node == null) ? parentNodeProjet : node);
 			dtm.insertNodeInto(mtn, parent, parent.getChildCount());
 			updateTree(parent);

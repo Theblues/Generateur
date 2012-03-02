@@ -2,10 +2,7 @@ package IHM.Panel.ajout;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
-import javax.swing.text.*;
-import javax.swing.text.rtf.*;
 
 import java.io.*;
 import java.util.*;
@@ -18,7 +15,6 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 {
 	private PanelListeModFont listeActionFont;
 	private JEditorPane editorPane;
-	private RTFEditorKit rtf;
 	
 	private JButton annuler;
 	private JButton valider;
@@ -40,7 +36,7 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 		/*
 		 * Test html
 		 */
-		String s = "";
+		paragraphe = "";
 		try
 		{
 			// lecture du fichier rtf
@@ -48,11 +44,16 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 			Scanner sc = new Scanner (fr);
 			sc.useDelimiter("\n");
 			while (sc.hasNext())
-				s += sc.next() + "\n";
+				paragraphe += sc.next() + "\n";
 			
 			fr.close();
 		}catch(IOException e){}
-		editorPane.setText(s);
+		
+		/*
+		 * Fin du test
+		 */
+		
+		editorPane.setText(paragraphe);
 
 		JScrollPane scroller = new JScrollPane(editorPane,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -99,7 +100,6 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 			if (paragrapheHTML.length() == 0)
 				return;
 			
-			
 			// permet de traiter le html
 			ArrayList<String> alS = new ArrayList<String>();
 			
@@ -111,20 +111,23 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 			
 			String paragraphe = traitementHTML(alS);
 			
-			/*
-			if (editorPane.getText().length() == 0)
-				return;
-			
+			/*		
+			 En Attendant le traitement de l'HTML
+			 	
 			if (statue == 0) 
 			{
-				page.ajouterParagraphe(editorPane.getText());
+				page.ajouterParagraphe(paragraphe);
+				page.ajouterParagrapheHTML(paragrapheHTML);
 				int cpt = page.getAlParagraphe().size();
 				page.ajouterOrdre("Paragraphe " + cpt);
 				Controleur.fenetre.getArborescence().ajoutFils(null, "element", "Paragraphe " + cpt);
 			}
 			else
-				page.modParagraphe(editorPane.getText(), indiceParagraphe);
-				*/
+			{
+				page.modParagraphe(paragraphe, indiceParagraphe);
+				page.modParagrapheHTML(paragrapheHTML, indiceParagraphe);
+			}
+			*/
 
 		}
 		Controleur.fenetre.getPanelAjout().supprimerPanel();
@@ -133,7 +136,7 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 	private String traitementHTML(ArrayList<String> alS)
 	{
 		String s = "";
-		// les six premieres lignes sont inutiles
+		// les 5 premieres lignes sont inutiles
 		for (int i = 0; i < 5; i++)
 			alS.remove(0);
 		

@@ -15,6 +15,8 @@ public class Page implements Serializable
 	private ArrayList<String> alTitre;
 	// ArrayList ou il y a les paragraphes
 	private ArrayList<String> alParagraphe;
+	// ArrayList ou il y a les paragraphes generes en HTML
+	private ArrayList<String> alParagrapheHTML;
 	// ArrayList ou il y a les "images"
 	private ArrayList<String> alImage;
 	
@@ -25,18 +27,20 @@ public class Page implements Serializable
 		alOrdre = new ArrayList<String>();
 		alTitre = new ArrayList<String>();
 		alParagraphe = new ArrayList<String>();
+		alParagrapheHTML = new ArrayList<String>();
 		alImage = new ArrayList<String>();
 	}
 	
 	/*
 	 * Accesseurs
 	 */
-	public File getFile()						{	return file;			}
-	public String getNom()						{	return nom;				}
-	public ArrayList<String> getAlOrdre()		{	return alOrdre;			}
-	public ArrayList<String> getAlTitre()		{	return alTitre;			}
-	public ArrayList<String> getAlParagraphe()	{	return alParagraphe;	}
-	public ArrayList<String> getAlImage()		{	return alImage;			}
+	public File getFile()							{	return file;				}
+	public String getNom()							{	return nom;					}
+	public ArrayList<String> getAlOrdre()			{	return alOrdre;				}
+	public ArrayList<String> getAlTitre()			{	return alTitre;				}
+	public ArrayList<String> getAlParagraphe()		{	return alParagraphe;		}
+	public ArrayList<String> getAlParagrapheHTML()	{	return alParagrapheHTML;	}
+	public ArrayList<String> getAlImage()			{	return alImage;				}
 
 	
 	/*
@@ -63,6 +67,11 @@ public class Page implements Serializable
 	    alParagraphe.add(s);
 	}
 	
+	public void ajouterParagrapheHTML(String s)
+	{
+	    alParagrapheHTML.add(s);
+	}
+	
 	
 	/*
 	 * Modification des elements
@@ -73,10 +82,16 @@ public class Page implements Serializable
 		alTitre.add(indice-1, titre);
 	}
 	
-	public void modParagraphe(String s, int indice)
+	public void modParagraphe(String paragraphe, int indice)
 	{
 	    alParagraphe.remove(indice-1);
-		alParagraphe.add(indice-1, s);
+		alParagraphe.add(indice-1, paragraphe);
+	}
+	
+	public void modParagrapheHTML(String paragrapheHTML, int indice)
+	{
+		alParagrapheHTML.remove(indice-1);
+		alParagrapheHTML.add(indice-1, paragrapheHTML);
 	}
 	
 	public void modImage(String s, int indice)

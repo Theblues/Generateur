@@ -1,6 +1,5 @@
 package IHM.Panel.ajout;
 
-import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -25,11 +24,7 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 		JLabel l = new JLabel("Entrer un titre :");
 		add(l);
 		
-		// 0 = ajout, 1 = modif
-		if (statue == 0)
-			tf = new JTextField("", 20);
-		else
-			tf = new JTextField(titre, 20);
+		tf = new JTextField(titre, 20);
 		
 		add(tf);
 

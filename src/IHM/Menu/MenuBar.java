@@ -4,7 +4,7 @@ import java.awt.Event;
 import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.text.DefaultEditorKit;
+import javax.swing.text.*;
 
 import Main.*;
 import util.*;
@@ -23,7 +23,9 @@ public class MenuBar implements ActionListener
 	private JMenuItem itemNewPage;
 	private JMenuItem itemOpenProject;
 	private JMenuItem itemSave;
-	private JMenuItem itemGenerer;
+	private JMenu menuGenerer;
+	private JMenuItem itemGenererProjet;
+	private JMenuItem itemGenererPage;
 
 	// item pour le menu Edition
 	private JMenuItem itemClose;
@@ -54,37 +56,44 @@ public class MenuBar implements ActionListener
 		// initialisation des items pour le menu Fichier
 		itemNewProject = new JMenuItem("Nouveau Projet");
 		itemNewProject.setIcon(new ImageIcon("images/project-new.png"));
-		itemNewProject.setToolTipText("Permet de creer un nouveau projet");
+		itemNewProject.setToolTipText("Cree un nouveau projet");
 		itemNewProject.addActionListener(this);
 		
 		itemNewPage = new JMenuItem("Nouvelle Page");
 		itemNewPage.setIcon(new ImageIcon("images/page-new.png"));
-		itemNewPage.setToolTipText("Permet de creer une nouvelle page");
+		itemNewPage.setToolTipText("Cree une nouvelle page");
 		itemNewPage.addActionListener(this);
 		
 		itemOpenProject = new JMenuItem("Ouvrir un Projet");
 		itemOpenProject.setIcon(new ImageIcon("images/folder-open.png"));
 		itemOpenProject.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,Event.CTRL_MASK));
-		itemOpenProject.setToolTipText("Permet d'ouvrir un projet");
+		itemOpenProject.setToolTipText("Ouvre un projet");
 		itemOpenProject.addActionListener(this);
 		
 		itemSave= new JMenuItem("Enregistrer Sous");
 		itemSave.setIcon(new ImageIcon("images/filesaveas.png"));
 		itemSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,Event.CTRL_MASK));
-		itemSave.setToolTipText("Permet de sauvegarder un projet");
+		itemSave.setToolTipText("Sauvegarde les ressources");
 		itemSave.addActionListener(this);
 		
-		itemGenerer = new JMenuItem("Generer");
-		itemGenerer.setIcon(new ImageIcon("images/generate.png"));
-		itemGenerer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G,Event.CTRL_MASK));
-		itemGenerer.setToolTipText("Permet de generer le projet");
-		itemGenerer.addActionListener(this);
+		menuGenerer = new JMenu("Generer");
+		menuGenerer.setIcon(new ImageIcon("images/generate.png"));
+		
+		itemGenererProjet = new JMenuItem("Generer le projet");
+		itemGenererProjet.setToolTipText("Genere un projet");
+		itemGenererProjet.addActionListener(this);
 	
+		itemGenererPage = new JMenuItem("Generer la page");
+		itemGenererPage.setToolTipText("Genere une page");
+		itemGenererPage.addActionListener(this);
+		
+		menuGenerer.add(itemGenererProjet);
+		menuGenerer.add(itemGenererPage);
 		
 		itemClose = new JMenuItem("Quitter");
 		itemClose.setIcon(new ImageIcon("images/application-exit.png"));
 		itemClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,Event.CTRL_MASK));
-		itemClose.setToolTipText("Permet de quitter l'application");
+		itemClose.setToolTipText("Quitte l'application");
 		itemClose.addActionListener(this);
 
 		// initialisation des items pour le menu Edition
@@ -133,7 +142,7 @@ public class MenuBar implements ActionListener
 		menuFile.add(itemOpenProject);
 		menuFile.addSeparator();
 		menuFile.add(itemSave);
-		menuFile.add(itemGenerer);
+		menuFile.add(menuGenerer);
 		menuFile.addSeparator();
 		menuFile.add(itemClose);
 
@@ -188,16 +197,26 @@ public class MenuBar implements ActionListener
 			Controleur.creerPanelAjouterParagraphe(0,"",0);
 		if (mi.equals(itemImage))
 			Controleur.creerPanelAjouterImage(0);
-		if (mi.equals(itemGenerer))
+		if (mi.equals(itemGenererPage))
 		{
 			Projet projet = Controleur.metier.getProjetSelectionne();
 			Page page = projet.getPageSelectionne();
 			Controleur.metier.getGenerator().generateFile(projet, page);
 		}
-		if (mi.equals(itemSave))
+		if (mi.equals(itemGenererProjet))
 		{
-			Controleur.enregistrer();
+			Projet projet = Controleur.metier.getProjetSelectionne();
+			if (projet == null)
+				return;
+			for (Page page : projet.getAlPage())
+			{
+				if (page == null)
+					continue;
+				Controleur.metier.getGenerator().generateFile(projet, page);
+			}
 		}
+		if (mi.equals(itemSave))
+			Controleur.enregistrer();
 	}
 	
 	public void activerCreationPage()
