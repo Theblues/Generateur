@@ -34,61 +34,55 @@ public class PanelListeModFont extends JPanel implements ActionListener {
 		JPanel p = new JPanel();
 		JPanel tail = new JPanel();
 
-		taille.setBackground(Color.white);
-		taille.setLayout(new BorderLayout());
-
 		/*
 		 * titre = new JLabel("Outils"); Font font = new
 		 * Font("Arial",Font.BOLD,16); titre.setFont(font); p.add(titre,
 		 * "West");
 		 */
 
-		tail.add(combo1);
-		combo1.setPreferredSize(new Dimension(75, 30));
-		combo1.addItem("12 px");
-		combo1.addItem("14 px");
-		combo1.addItem("16 px");
-		combo1.addItem("20 px");
-		taille.add(tail, BorderLayout.NORTH);
 
 		boutonGras = new JButton();
 		boutonGras.addActionListener(this);
 		boutonGras.setBorder(null);
 		boutonGras.setPreferredSize(new Dimension(35, 35));
 		boutonGras.setIcon(new ImageIcon("images/gras.jpg"));
+		boutonGras.setToolTipText("Gras");
 
 		boutonItalique = new JButton();
+		boutonItalique.addActionListener(this);
 		boutonItalique.setBorder(null);
 		boutonItalique.setPreferredSize(new Dimension(35, 35));
 		boutonItalique.setIcon(new ImageIcon("images/italique.jpg"));
-
-		boutonSouligne = new JButton();
-		boutonSouligne.setBorder(null);
-		boutonSouligne.setPreferredSize(new Dimension(35, 35));
-		boutonSouligne.setIcon(new ImageIcon("images/souligne.jpg"));
+		boutonItalique.setToolTipText("Italique");
 
 		boutonGauche = new JButton();
-
+		boutonGauche.addActionListener(this);
 		boutonGauche.setBorder(null);
 		boutonGauche.setPreferredSize(new Dimension(35, 35));
 		boutonGauche.setIcon(new ImageIcon("images/gauche.jpg"));
+		boutonGauche.setToolTipText("Aligné à gauche");
 
 		boutonCentre = new JButton();
+		boutonCentre.addActionListener(this);
 		boutonCentre.setBorder(null);
 		boutonCentre.setPreferredSize(new Dimension(35, 35));
 		boutonCentre.setIcon(new ImageIcon("images/centre.jpg"));
+		boutonCentre.setToolTipText("Centré");
 
 		boutonDroite = new JButton();
+		boutonDroite.addActionListener(this);
 		boutonDroite.setBorder(null);
 		boutonDroite.setPreferredSize(new Dimension(35, 35));
 		boutonDroite.setIcon(new ImageIcon("images/droite.jpg"));
+		boutonDroite.setToolTipText("Aligné à droite");
 
 		boutonLien = new JButton();
 		boutonLien.setBorder(null);
 		boutonLien.setPreferredSize(new Dimension(35, 35));
 		boutonLien.setIcon(new ImageIcon("images/lien.jpg"));
+		boutonLien.setToolTipText("Hyperlien");
 
-		couleur.setBackground(Color.white);
+		/*couleur.setBackground(Color.white);
 		couleur.setLayout(new BorderLayout());
 		JPanel coul = new JPanel();
 		coul.add(combo2);
@@ -98,12 +92,10 @@ public class PanelListeModFont extends JPanel implements ActionListener {
 		combo2.addItem("vert");
 		combo2.addItem("bleu");
 		combo2.addItem("rouge");
-		couleur.add(coul, BorderLayout.NORTH);
+		couleur.add(coul, BorderLayout.NORTH);*/
 
-		p.add(taille);
-		p.add(couleur);
+		//p.add(couleur);
 		p.add(boutonGras);
-		p.add(boutonSouligne);
 		p.add(boutonItalique);
 		p.add(boutonGauche);
 		p.add(boutonCentre);
@@ -111,6 +103,7 @@ public class PanelListeModFont extends JPanel implements ActionListener {
 		p.add(boutonLien);
 
 		add(p);
+
 	}
 
 	@Override

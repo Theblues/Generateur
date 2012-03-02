@@ -34,20 +34,28 @@ public class PanelListeAction extends JPanel implements ActionListener
 		panelNord.setLayout(new GridLayout(1, 6));
 		
 		boutonGenererProjet = new JButton("Generer le projet");
-		// creer un info bulle
-		boutonGenererProjet.setToolTipText("Generer le projet");
+		boutonGenererProjet.setToolTipText("Générer le projet");
 		boutonGenererProjet.addActionListener(this);
 		
 		boutonGenerer = new JButton("Generer");
+		boutonGenerer.setToolTipText("Générer");
 		boutonGenerer.addActionListener(this);
 		
 		boutonAjouterProjet = new JButton("Nouveau projet");
+		boutonAjouterProjet.setToolTipText("Création d'un nouveau projet");
 		boutonAjouterProjet.addActionListener(this);
 		
 		boutonAjouterPage = new JButton("Nouvelle page");
+		boutonAjouterPage.setToolTipText("Création d'une nouvelle page");
+		
 		boutonAjouterTitre = new JButton("Ajouter un titre");
+		boutonAjouterTitre.setToolTipText("Ajout d'un titre à la page");
+	
 		boutonAjouterParagraphe = new JButton("Ajouter un paragraphe");
+		boutonAjouterParagraphe.setToolTipText("Ajout d'un paragraphe à la page");
+		
 		boutonAjouterImage = new JButton("Ajouter une image");
+		boutonAjouterImage.setToolTipText("Ajout d'une image à la page");
 		
 		panelNord.add(boutonGenererProjet);
 		panelNord.add(boutonGenerer);
