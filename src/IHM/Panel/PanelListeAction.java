@@ -34,27 +34,33 @@ public class PanelListeAction extends JPanel implements ActionListener
 		panelNord.setLayout(new GridLayout(1, 6));
 		
 		boutonGenererProjet = new JButton("Generer le projet");
-		boutonGenererProjet.setToolTipText("Generer le projet");
+		boutonGenererProjet.setToolTipText("Generer un projet");
 		boutonGenererProjet.addActionListener(this);
 		
-		boutonGenerer = new JButton("Generer");
-		boutonGenerer.setToolTipText("Generer la page");
+		boutonGenerer = new JButton();
+		boutonGenerer.setIcon(new ImageIcon("images/generate.png"));
+		boutonGenerer.setToolTipText("Generer une page");
 		boutonGenerer.addActionListener(this);
 		
-		boutonAjouterProjet = new JButton("Nouveau projet");
+		boutonAjouterProjet = new JButton();
+		boutonAjouterProjet.setIcon(new ImageIcon("images/project-new.png"));
 		boutonAjouterProjet.setToolTipText("Creer un nouveau projet");
 		boutonAjouterProjet.addActionListener(this);
 		
-		boutonAjouterPage = new JButton("Nouvelle page");
+		boutonAjouterPage = new JButton();
+		boutonAjouterPage.setIcon(new ImageIcon("images/page-new.png"));
 		boutonAjouterPage.setToolTipText("Creer une nouvelle page");
 		
-		boutonAjouterTitre = new JButton("Ajouter un titre");
+		boutonAjouterTitre = new JButton();
+		boutonAjouterTitre.setIcon(new ImageIcon("images/add-title.png"));
 		boutonAjouterTitre.setToolTipText("Ajouter un titre a la page");
 	
-		boutonAjouterParagraphe = new JButton("Ajouter un paragraphe");
+		boutonAjouterParagraphe = new JButton();
+		boutonAjouterParagraphe.setIcon(new ImageIcon("images/Text-Editor.png"));
 		boutonAjouterParagraphe.setToolTipText("Ajouter un paragraphe a la page");
 		
-		boutonAjouterImage = new JButton("Ajouter une image");
+		boutonAjouterImage = new JButton();
+		boutonAjouterImage.setIcon(new ImageIcon("images/picture_add.jpg"));
 		boutonAjouterImage.setToolTipText("Ajouter une image a la page");
 		
 		panelNord.add(boutonGenererProjet);

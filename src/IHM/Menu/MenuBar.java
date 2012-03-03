@@ -127,8 +127,13 @@ public class MenuBar implements ActionListener
 
 		// Initialisation des items pour le menu ajouter
 		itemTitre = new JMenuItem("Ajouter un titre");
+		itemTitre.setIcon(new ImageIcon("images/add-title.png"));
+		
 		itemParagraphe = new JMenuItem("Ajouter un paragraphe");
+		itemParagraphe.setIcon(new ImageIcon("images/Text-Editor.png"));
+		
 		itemImage = new JMenuItem("Ajouter une image");
+		itemImage.setIcon(new ImageIcon("images/picture_add.jpg"));
 		
 		itemAide = new JMenuItem("Aide");
 		itemAide.setIcon(new ImageIcon("images/info.gif"));
