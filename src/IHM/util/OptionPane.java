@@ -1,4 +1,4 @@
-package IHM.OptionPane;
+package IHM.util;
 
 import javax.swing.JOptionPane;
 

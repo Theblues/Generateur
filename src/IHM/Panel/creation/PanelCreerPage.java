@@ -55,7 +55,7 @@ public class PanelCreerPage extends JPanel implements ActionListener
 		this.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createCompoundBorder(
 						BorderFactory.createTitledBorder("Creation d'une nouvelle page"),
-						BorderFactory.createEmptyBorder(5, 5, 5, 5)),
+						BorderFactory.createEmptyBorder(2, 2, 2, 2)),
 						this.getBorder()));
 		setVisible(true);
 	}

@@ -3,7 +3,7 @@ package Main;
 import IHM.Frame.*;
 import IHM.Panel.creation.*;
 import IHM.Panel.ajout.*;
-import IHM.OptionPane.*;
+import IHM.util.*;
 import Metier.*;
 import util.*;
 
