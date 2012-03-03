@@ -30,9 +30,9 @@ public class Controleur
 		fenetre.getPanelAjout().ajouterPanel(new PanelCreerPage());
 	}
 	
-	public static void FenetrePropriete( Object type)
+	public static void FenetrePropriete(Object type)
 	{		
-		new FenetrePropriete(type);		
+		new FenetrePropriete(type);
 	}
 	
 	public static void creerPanelAjouterParagraphe(int statue, String titre, int indiceParagraphe)

@@ -1,10 +1,41 @@
 package IHM.Menu;
 
+import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.event.*;
 import javax.swing.*;
 
 import Main.*;
 import util.*;
+
+/*
+ * Composition du Menu Contextuel
+ * 
+ * Projet						Page					Element
+ *  ________________		 _______________		 _______________
+ * | Nouveau ->		|		| Nouveau ->	|		| Nouveau ->	|
+ * | Generer Projet	|		| Generer Page	|		| Generer ->	|
+ * | Renommer		|		| Ajouter ->	|		| Ajouter ->	|
+ * | Supprimer		|		| TODO nom		|		| TODO nom		|
+ * | Propriete		|		| Renommer		|		| Modifier		|
+ * |________________|		| Supprimer		|		| Supprimer		|
+ * 							| Propriete		|		|_______________|
+ * 							|_______________|		
+ * 
+ * 
+ * Nouveau -> Projet
+ * 			  Page
+ * 
+ * Generer -> Projet
+ * 			  Page
+ * 
+ * Ajouter -> Titre
+ * 			  Paragraphe
+ * 			  Image
+ * 
+ * Changer Niveau  -> Monter
+ * 			  		  Diminuer
+ */
 
 public class MenuContextuel implements ActionListener
 {
@@ -12,11 +43,20 @@ public class MenuContextuel implements ActionListener
 	private Object[] noeud;
 	private int location;
 	
-	private JMenu nouveau;
-	private JMenuItem nouveauProjet;
-	private JMenuItem nouvellePage;
-	private JMenuItem propriete;
-	private JMenuItem supprimer;
+	private JMenuItem itemNouveauProjet;
+	private JMenuItem itemNouvellePage;
+	
+	private JMenuItem itemGenererProjet;
+	private JMenuItem itemGenererPage;
+	
+	private JMenuItem itemAjoutTitre;
+	private JMenuItem itemAjoutParagraphe;
+	private JMenuItem itemAjoutImage;
+	
+	private JMenuItem itemRenommer;
+	private JMenuItem itemModifier;
+	private JMenuItem itemPropriete;
+	private JMenuItem itemSupprimer;
 	
 	public MenuContextuel(MouseEvent me, int location, Object[] obj)
 	{
@@ -26,25 +66,105 @@ public class MenuContextuel implements ActionListener
 		
 		JPopupMenu jpm = new JPopupMenu();
 		
-		nouveau = new JMenu("Nouveau");
+		//Menu nouveau
+		JMenu menuNouveau = new JMenu("Nouveau");
+		menuNouveau.setIcon(new ImageIcon("images/filenew.png"));
 		
-		// creation des item du menu Nouveau
-		nouveauProjet = new JMenuItem("Nouveau Projet");
-		nouveauProjet.addActionListener(this);
-		nouvellePage = new JMenuItem("Nouvelle Page");
-		nouvellePage.addActionListener(this);
+		itemNouveauProjet = new JMenuItem("Nouveau Projet");
+		itemNouveauProjet.setIcon(new ImageIcon("images/project-new.png"));
+		itemNouveauProjet.addActionListener(this);
+		itemNouvellePage = new JMenuItem("Nouvelle Page");
+		itemNouvellePage.setIcon(new ImageIcon("images/page-new.png"));
+		itemNouvellePage.addActionListener(this);
 		
-		nouveau.add(nouveauProjet);
-		nouveau.add(nouvellePage);
+		menuNouveau.add(itemNouveauProjet);
+		menuNouveau.add(itemNouvellePage);
 		
-		supprimer = new JMenuItem("Supprimer");
-		supprimer.addActionListener(this);
-		propriete = new JMenuItem("Proprietes");
-		propriete.addActionListener(this);
+		// item Generer
+		itemGenererProjet = new JMenuItem("Generer le projet");
+		itemGenererProjet.setIcon(new ImageIcon("images/generate.png"));
+		itemGenererProjet.addActionListener(this);
+		itemGenererPage = new JMenuItem("Generer la page");
+		itemGenererPage.setIcon(new ImageIcon("images/generate.png"));
+		itemGenererPage.addActionListener(this);
 		
-		jpm.add(nouveau);
-		jpm.add(supprimer);
-		jpm.add(propriete);
+		// item ajouts
+		JMenu menuAjout = new JMenu("Ajouter");
+		menuAjout.setIcon(new ImageIcon("images/add.png"));
+		
+		itemAjoutTitre = new JMenuItem("Ajouter un titre");
+		itemAjoutTitre.addActionListener(this);
+		itemAjoutParagraphe = new JMenuItem("Ajouter un paragraphe");
+		itemAjoutParagraphe.addActionListener(this);
+		itemAjoutImage = new JMenuItem("Ajouter une image");
+		itemAjoutTitre.addActionListener(this);
+		
+		menuAjout.add(itemAjoutTitre);
+		menuAjout.add(itemAjoutParagraphe);
+		menuAjout.add(itemAjoutImage);
+		
+		// item Renommer
+		itemRenommer = new JMenuItem("Renommer");
+		itemRenommer.setIcon(new ImageIcon("images/rename.jpeg"));
+		itemRenommer.addActionListener(this);
+		
+		// item Modifier
+		itemModifier = new JMenuItem("Modifier");
+		itemModifier.setIcon(new ImageIcon("images/edit.png"));
+		itemModifier.addActionListener(this);
+		
+		// item Supprimer
+		itemSupprimer = new JMenuItem("Supprimer");
+		itemSupprimer.setIcon(new ImageIcon("images/delete.png"));
+		itemSupprimer.addActionListener(this);
+		
+		// item Propriete
+		itemPropriete = new JMenuItem("Proprietes");
+		itemPropriete.setIcon(new ImageIcon("images/properties.png"));
+		itemPropriete.addActionListener(this);
+		
+		/*
+		 * Menu pour un projet
+		 */
+		if (location == 2)
+		{
+			jpm.add(menuNouveau);
+			jpm.add(itemGenererProjet);
+			jpm.add(itemRenommer);
+			jpm.add(itemSupprimer);
+			jpm.add(itemPropriete);
+		}
+		/*
+		 * Menu pour une page
+		 */
+		else if (location == 3)
+		{
+			jpm.add(menuNouveau);
+			jpm.add(itemGenererPage);
+			jpm.add(menuAjout);
+			jpm.add(itemRenommer);
+			jpm.add(itemSupprimer);
+			jpm.add(itemPropriete);
+		}
+		/*
+		 * Menu pour un element
+		 */
+		else if (location >= 3)
+		{
+			JMenu menuGenerer = new JMenu("Generer");
+			menuGenerer.setIcon(new ImageIcon("images/generate.png"));
+			itemGenererProjet.setIcon(null);
+			itemGenererPage.setIcon(null);
+			menuGenerer.add(itemGenererProjet);
+			menuGenerer.add(itemGenererPage);
+			
+			jpm.add(menuNouveau);
+			jpm.add(menuGenerer);
+			jpm.add(menuAjout);
+			jpm.add(itemModifier);
+			jpm.add(itemSupprimer);
+		}
+		
 		// on affiche le menuContextuel a la l'arbre
 		jpm.show(arbre, me.getX(), me.getY());
 	}
@@ -61,10 +181,10 @@ public class MenuContextuel implements ActionListener
 			Projet projet = Controleur.metier.getProjet(noeud[1].toString());
 			
 			// proprietes
-			if (mi.equals(propriete))
+			if (mi.equals(itemPropriete))
 				Controleur.FenetrePropriete(projet);
 
-			if (mi.equals(supprimer))
+			if (mi.equals(itemSupprimer))
 			{
 				int option = Controleur.CreerOptionPaneConfirm("Supprimez le projet", "Voulez-vous supprimez le projet ?");
 				if (option == JOptionPane.OK_OPTION)
@@ -80,7 +200,7 @@ public class MenuContextuel implements ActionListener
 			Page page = projet.getPage(noeud[2].toString());
 			
 			// Proprietes
-			if (mi.equals(propriete))
+			if (mi.equals(itemPropriete))
 				Controleur.FenetrePropriete(page);
 		}
 		// si c'est un element
@@ -92,9 +212,9 @@ public class MenuContextuel implements ActionListener
 			// TODO le reste
 		}
 		
-		if (mi.equals(nouveauProjet))
+		if (mi.equals(itemNouveauProjet))
 			Controleur.creerPanelCreerProjet();
-		else if (mi.equals(nouvellePage) && noeud[1] != null)
+		else if (mi.equals(itemNouvellePage) && noeud[1] != null)
 			Controleur.creerPanelCreerPage();
 	}
 }

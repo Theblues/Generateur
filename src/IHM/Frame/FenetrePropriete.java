@@ -28,12 +28,12 @@ public class FenetrePropriete extends JFrame implements ActionListener
 		this.type = type;
 		
 		
-		if (type instanceof Projet ) {
-			
+		if (type instanceof Projet ) 
+		{	
 			setTitle("Proprietes Projet");
 			
 			Projet p = (Projet) type;
-			info = new JPanel(new GridLayout(4,1));		
+			info = new JPanel(new GridLayout(4,1));
 			
 			JLabel nom = new JLabel("Nom du Projet :   " + p.getNom());
 			info.add (nom);
@@ -45,8 +45,9 @@ public class FenetrePropriete extends JFrame implements ActionListener
 			info.add (chemin);
 			
 	
-		}else if ( type instanceof Page){
-			
+		}
+		else if ( type instanceof Page)
+		{	
 			setTitle("Proprietes Page");
 			
 			Page p = ( Page ) type;
@@ -60,7 +61,6 @@ public class FenetrePropriete extends JFrame implements ActionListener
 			info.add (nbTitre);
 			JLabel nbPara = new JLabel("Nombre de Paragraphes  :   " + p.getAlParagraphe().size());
 			info.add (nbPara);
-			
 		}
 
 		add(info);
