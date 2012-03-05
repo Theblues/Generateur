@@ -21,6 +21,7 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 	
 	private int statue;
 	private int indiceParagraphe;
+	private String oldText;
 	
 	public PanelAjouterParagraphe(int statue, String paragraphe, int indiceParagraphe)
 	{
@@ -77,6 +78,7 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 		}
 		else
 		{
+			oldText = editorPane.getText();
 			modifier = new JButton("Modifier");
 			modifier.addActionListener(this);
 			panBouton.add(modifier);
@@ -130,11 +132,11 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 		{
 			for (cpt=0; cpt < page.getAlParagraphe().size(); cpt++)
 			{
-				if (page.getAlParagraphe().get(cpt).equals())
+				if (page.getAlParagraphe().get(cpt).equals(traitementHTML(oldText)))
 					break;
 			}
-			page.modParagraphe(paragraphe, indiceParagraphe);
-			page.modParagrapheHTML(paragrapheHTML, indiceParagraphe);
+			page.modParagraphe(paragraphe, cpt);
+			page.modParagrapheHTML(paragrapheHTML, cpt);
 		}
 		
 		Controleur.creerPanelAjouterTitre(1, paragraphe, cpt);
