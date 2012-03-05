@@ -30,11 +30,6 @@ public class Controleur
 		fenetre.getPanelAjout().ajouterPanel(new PanelCreerPage());
 	}
 	
-	public static void FenetrePropriete(Object type)
-	{		
-		new FenetrePropriete(type);
-	}
-	
 	public static void creerPanelAjouterParagraphe(int statue, String titre)
 	{
 		fenetre.getPanelAjout().supprimerPanel();
@@ -53,7 +48,17 @@ public class Controleur
 		fenetre.getPanelAjout().ajouterPanel(new PanelAjouterImage(statue));			
 	}
 	
-	public static void CreerOptionPane(String type, String texte)
+	public static void creerFenetrePropriete(Object type)
+	{		
+		new FenetrePropriete(type);
+	}
+	
+	public static void creerFenetreAide()
+	{
+		new FenetreAide();
+	}
+	
+	public static void creerOptionPane(String type, String texte)
 	{
 		OptionPane op = new OptionPane();
 		if (type.equals("info"))
@@ -64,7 +69,7 @@ public class Controleur
 			op.optionPaneErreur(texte);
 	}
 	
-	public static int CreerOptionPaneConfirm(String titre, String texte)
+	public static int creerOptionPaneConfirm(String titre, String texte)
 	{
 		OptionPane op = new OptionPane();
 		return op.optionPaneConfirmation(titre, texte);
@@ -74,11 +79,6 @@ public class Controleur
 	{
 		fenetre.getArborescence().enregistrerArbre();
     	metier.enregistrerContenu();
-	}
-	
-	public static void main(String[] argv)
-	{
-		initialiser();
 	}
 
 	public static void monterElement()
@@ -133,5 +133,10 @@ public class Controleur
 				return;
 			projet.modOrdrePage(type, "descendre");
 		}
+	}
+	
+	public static void main(String[] argv)
+	{
+		initialiser();
 	}
 }

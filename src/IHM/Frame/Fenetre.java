@@ -21,7 +21,7 @@ public class Fenetre extends JFrame
 	 *  |		|							|
 	 *  |		|							|
 	 *  |		|							|
-	 *  |Arbo	|		Visu				|
+	 *  |Arbo	|		Ajout				|
 	 *  |		|							|
 	 *  |		|							|
 	 *  |		|							|
@@ -30,10 +30,10 @@ public class Fenetre extends JFrame
 	 *  
 	 */
 	
-	private MenuBar 			menu;
-	private PanelListeAction 	listeAction;
-	private PanelArbre			arborescence;
-	private PanelAjout<JPanel>			panelAjout;
+	private MenuBar 				menu;
+	private PanelListeAction 		listeAction;
+	private PanelArbre				arborescence;
+	private PanelAjout<JPanel>		panelAjout;
 	
 	public Fenetre()
 	{
@@ -63,7 +63,7 @@ public class Fenetre extends JFrame
         {
             public void windowClosing(WindowEvent e) 
             {
-            	int option = Controleur.CreerOptionPaneConfirm("Sauvegarder", "Voulez-vous sauvegarder avant de quitter ?");
+            	int option = Controleur.creerOptionPaneConfirm("Sauvegarder", "Voulez-vous sauvegarder avant de quitter ?");
             	if (option == JOptionPane.OK_OPTION)
     				Controleur.enregistrer();
             	if (option != JOptionPane.CANCEL_OPTION)

@@ -241,7 +241,7 @@ public class PanelArbre extends JPanel implements Serializable
 				if (modifierNoeudPage(path))
 					return true;	
 		}
-		Controleur.CreerOptionPane("error", "Impossible de monter la selection");
+		Controleur.creerOptionPane("error", "Impossible de monter la selection");
 		return false;
 	}
 	
@@ -261,7 +261,7 @@ public class PanelArbre extends JPanel implements Serializable
 					return true;	
 		}
 				
-		Controleur.CreerOptionPane("error", "Impossible de descendre la selection");
+		Controleur.creerOptionPane("error", "Impossible de descendre la selection");
 		return false;
 	}
 	

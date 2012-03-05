@@ -134,6 +134,6 @@ public class Generator
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Controleur.CreerOptionPane("info", "Generation de la page \"" + page.getNom() + "\" accomplie");
+		Controleur.creerOptionPane("info", "Generation de la page \"" + page.getNom() + "\" accomplie");
 	}
 }

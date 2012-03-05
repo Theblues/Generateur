@@ -14,7 +14,7 @@ import util.*;
  * Projet						Page					Element
  *  ________________		 _______________		 _______________
  * | Nouveau ->		|		| Nouveau ->	|		| Nouveau ->	|
- * | Generer Projet	|		| Generer Page	|		| Generer ->	|
+ * | Generer Projet	|		| Generer ->	|		| Generer ->	|
  * | Renommer		|		| Ajouter ->	|		| Ajouter ->	|
  * | Supprimer		|		| TODO nom		|		| TODO nom		|
  * | Propriete		|		| Renommer		|		| Modifier		|
@@ -34,7 +34,7 @@ import util.*;
  * 			  Image
  * 
  * Changer Niveau  -> Monter
- * 			  		  Diminuer
+ * 			  		  Descendre
  */
 
 public class MenuContextuel implements ActionListener
@@ -139,8 +139,15 @@ public class MenuContextuel implements ActionListener
 		 */
 		else if (location == 3)
 		{
+			JMenu menuGenerer = new JMenu("Generer");
+			menuGenerer.setIcon(new ImageIcon("images/generate.png"));
+			itemGenererProjet.setIcon(null);
+			itemGenererPage.setIcon(null);
+			menuGenerer.add(itemGenererProjet);
+			menuGenerer.add(itemGenererPage);
+			
 			jpm.add(menuNouveau);
-			jpm.add(itemGenererPage);
+			jpm.add(menuGenerer);
 			jpm.add(menuAjout);
 			jpm.add(itemRenommer);
 			jpm.add(itemSupprimer);
@@ -182,11 +189,11 @@ public class MenuContextuel implements ActionListener
 			
 			// proprietes
 			if (mi.equals(itemPropriete))
-				Controleur.FenetrePropriete(projet);
+				Controleur.creerFenetrePropriete(projet);
 
 			if (mi.equals(itemSupprimer))
 			{
-				int option = Controleur.CreerOptionPaneConfirm("Supprimez le projet", "Voulez-vous supprimez le projet ?");
+				int option = Controleur.creerOptionPaneConfirm("Supprimez le projet", "Voulez-vous supprimez le projet ?");
 				if (option == JOptionPane.OK_OPTION)
 				{
 					// TODO code pour supprimer l'element
@@ -201,7 +208,7 @@ public class MenuContextuel implements ActionListener
 			
 			// Proprietes
 			if (mi.equals(itemPropriete))
-				Controleur.FenetrePropriete(page);
+				Controleur.creerFenetrePropriete(page);
 		}
 		// si c'est un element
 		else if (location >= 3)

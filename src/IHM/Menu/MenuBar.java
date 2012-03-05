@@ -24,6 +24,7 @@ public class MenuBar implements ActionListener
 	private JMenuItem itemNewPage;
 	private JMenuItem itemOpenProject;
 	private JMenuItem itemSave;
+	
 	private JMenu menuGenerer;
 	private JMenuItem itemGenererProjet;
 	private JMenuItem itemGenererPage;
@@ -143,6 +144,7 @@ public class MenuBar implements ActionListener
 		itemAide.setIcon(new ImageIcon("images/info.gif"));
 		itemAide.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1,0));
 		itemAide.setToolTipText("Aide");
+		itemAide.addActionListener(this);
 		
 		// ajout des items dans le menu Fichier
 		menuFile.add(itemNewProject);
@@ -193,7 +195,7 @@ public class MenuBar implements ActionListener
 		
 		if (mi.equals(itemClose))
 		{
-			int option = Controleur.CreerOptionPaneConfirm("Sauvegarder", "Voulez-vous sauvegarder avant de quitter ?");
+			int option = Controleur.creerOptionPaneConfirm("Sauvegarder", "Voulez-vous sauvegarder avant de quitter ?");
 			if (option == JOptionPane.OK_OPTION)
 				Controleur.enregistrer();
 			if (option != JOptionPane.CANCEL_OPTION)
@@ -240,5 +242,7 @@ public class MenuBar implements ActionListener
 		// action pour sauvegarder l'arbre et les listes
 		if (mi.equals(itemSave))
 			Controleur.enregistrer();
+		if (mi.equals(itemAide))
+			Controleur.creerFenetreAide();
 	}
 }

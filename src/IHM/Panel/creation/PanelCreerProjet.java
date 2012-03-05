@@ -159,7 +159,7 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 		
 		if (nomProjet.length() == 0  || chemin.length() == 0 || auteur.length() == 0)
 		{
-			Controleur.CreerOptionPane("warning", "Veuillez saisir toutes les informations");
+			Controleur.creerOptionPane("warning", "Veuillez saisir toutes les informations");
 			return false;
 		}
 		
