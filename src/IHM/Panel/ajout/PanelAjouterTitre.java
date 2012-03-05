@@ -17,7 +17,7 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 	private JButton		modifier;
 	private JButton		valider;
 
-	public PanelAjouterTitre(int statue, String titre, int indiceTitre)
+	public PanelAjouterTitre(int statue, String titre)
 	{		
 		this.statue = statue;
 		this.indiceTitre = indiceTitre;
@@ -78,6 +78,6 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 			}
 			page.modTitre(tf.getText(), cpt);
 		}
-		Controleur.creerPanelAjouterTitre(1, tf.getText(), cpt);
+		Controleur.creerPanelAjouterTitre(1, tf.getText());
 	}
 }

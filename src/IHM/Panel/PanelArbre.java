@@ -187,7 +187,7 @@ public class PanelArbre extends JPanel implements Serializable
 				if (str.equals("Titre"))
 				{
 					String ancienTitre = pageSelectionnee.getAlTitre().get(indice-1);
-					Controleur.creerPanelAjouterTitre(1, ancienTitre, indice);
+					Controleur.creerPanelAjouterTitre(1, ancienTitre);
 				}
 				if (str.equals("Paragraphe"))
 				{
