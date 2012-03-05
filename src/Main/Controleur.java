@@ -35,16 +35,16 @@ public class Controleur
 		new FenetrePropriete(type);
 	}
 	
-	public static void creerPanelAjouterParagraphe(int statue, String titre, int indiceParagraphe)
+	public static void creerPanelAjouterParagraphe(int statue, String titre)
 	{
 		fenetre.getPanelAjout().supprimerPanel();
-		fenetre.getPanelAjout().ajouterPanel(new PanelAjouterParagraphe(statue, titre, indiceParagraphe));		
+		fenetre.getPanelAjout().ajouterPanel(new PanelAjouterParagraphe(statue, titre));		
 	}
 	
-	public static void creerPanelAjouterTitre(int statue, String titre, int indiceTitre)		
+	public static void creerPanelAjouterTitre(int statue, String titre)		
 	{
 		fenetre.getPanelAjout().supprimerPanel();
-		fenetre.getPanelAjout().ajouterPanel(new PanelAjouterTitre(statue, titre, indiceTitre));
+		fenetre.getPanelAjout().ajouterPanel(new PanelAjouterTitre(statue, titre));
 	}
 	
 	public static void creerPanelAjouterImage(int statue)		

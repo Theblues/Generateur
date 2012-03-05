@@ -16,16 +16,15 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 	private PanelListeModFont listeActionFont;
 	private JEditorPane editorPane;
 	
-	private JButton annuler;
+	private JButton modifier;
 	private JButton valider;
 	
 	private int statue;
-	private int indiceParagraphe;
+	private String oldText;
 	
-	public PanelAjouterParagraphe(int statue, String paragraphe, int indiceParagraphe)
+	public PanelAjouterParagraphe(int statue, String paragraphe)
 	{
 		this.statue = statue;
-		this.indiceParagraphe = indiceParagraphe;
 		
 		setLayout(new BorderLayout());
 		
@@ -68,14 +67,21 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 		panSud.setLayout(new BorderLayout());
 		
 		JPanel panBouton = new JPanel();
-		annuler = new JButton("Annuler");
-		annuler.addActionListener(this);
-		panBouton.add(annuler);
 		
-		valider = new JButton("Valider");
-		valider.addActionListener(this);
-		panBouton.add(valider);
-		
+		if (statue == 0)
+		{
+			valider = new JButton("Valider");
+			valider.addActionListener(this);
+			panBouton.add(valider);
+		}
+		else
+		{
+			oldText = editorPane.getText();
+			modifier = new JButton("Modifier");
+			modifier.addActionListener(this);
+			panBouton.add(modifier);
+		}
+
 		panSud.add(panBouton, BorderLayout.EAST);
 		add(panSud, BorderLayout.SOUTH);
 		
@@ -90,47 +96,49 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 
 	public void actionPerformed(ActionEvent ae) 
 	{
-		JButton b = (JButton) ae.getSource();
-		if (valider.equals(b))
+		Projet projet = Controleur.metier.getProjetSelectionne();
+		Page page = projet.getPageSelectionne();
+			
+		String paragrapheHTML = editorPane.getText();
+		if (paragrapheHTML.length() == 0)
+			return;
+			
+		// permet de traiter le html
+		ArrayList<String> alS = new ArrayList<String>();
+			
+		Scanner sc = new Scanner (paragrapheHTML);
+		sc.useDelimiter("\n");
+		while (sc.hasNext())
+			alS.add(sc.next());
+			
+		String paragraphe = traitementHTML(alS);
+			
+		/*		
+		 En Attendant le traitement de l'HTML
+		 	
+		int cpt;
+		
+		if (statue == 0) 
 		{
-			Projet projet = Controleur.metier.getProjetSelectionne();
-			Page page = projet.getPageSelectionne();
-			
-			String paragrapheHTML = editorPane.getText();
-			if (paragrapheHTML.length() == 0)
-				return;
-			
-			// permet de traiter le html
-			ArrayList<String> alS = new ArrayList<String>();
-			
-			Scanner sc = new Scanner (paragrapheHTML);
-			sc.useDelimiter("\n");
-			while (sc.hasNext())
-				alS.add(sc.next());
-				
-			
-			String paragraphe = traitementHTML(alS);
-			
-			/*		
-			 En Attendant le traitement de l'HTML
-			 	
-			if (statue == 0) 
-			{
-				page.ajouterParagraphe(paragraphe);
-				page.ajouterParagrapheHTML(paragrapheHTML);
-				int cpt = page.getAlParagraphe().size();
-				page.ajouterOrdre("Paragraphe " + cpt);
-				Controleur.fenetre.getArborescence().ajoutFils(null, "element", "Paragraphe " + cpt);
-			}
-			else
-			{
-				page.modParagraphe(paragraphe, indiceParagraphe);
-				page.modParagrapheHTML(paragrapheHTML, indiceParagraphe);
-			}
-			*/
-
+			page.ajouterParagraphe(paragraphe);
+			page.ajouterParagrapheHTML(paragrapheHTML);
+			cpt = page.getAlParagraphe().size();
+			page.ajouterOrdre("Paragraphe " + cpt);
+			Controleur.fenetre.getArborescence().ajoutFils(null, "element", "Paragraphe " + cpt);
 		}
-		Controleur.fenetre.getPanelAjout().supprimerPanel();
+		else
+		{
+			for (cpt=0; cpt < page.getAlParagraphe().size(); cpt++)
+			{
+				if (page.getAlParagraphe().get(cpt).equals(traitementHTML(oldText)))
+					break;
+			}
+			page.modParagraphe(paragraphe, cpt);
+			page.modParagrapheHTML(paragrapheHTML, cpt);
+		}
+		
+		Controleur.creerPanelAjouterParagraphe(1, paragraphe);
+		*/
 	}
 
 	private String traitementHTML(ArrayList<String> alS)
