@@ -22,6 +22,7 @@ public class PanelArbre extends JPanel implements Serializable
 	private Object parentNodeProjet = null;
 	private Object parentNodePage = null;
 	private Object parentNodeElement = null;
+	private TreePath path = null;
 	private String nomNode = null;
 	
 	private Page pageSelectionnee;
@@ -91,11 +92,12 @@ public class PanelArbre extends JPanel implements Serializable
 	 */
 	public JTree getArbre() 					{	return arbre;		}
 	public DefaultMutableTreeNode getRacine()	{	return racine;		}
+	public TreePath getPath()					{	return path;		}
 	public String getNomNode()					{	return nomNode;		}
 	
 	private void doMouseSimpleClicked(MouseEvent me) 
 	{
-		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
+		path = arbre.getPathForLocation(me.getX(), me.getY());
 		locationRow = arbre.getClosestRowForLocation(me.getX(), me.getY());
 		/*
 		 * Exemple path
@@ -121,7 +123,6 @@ public class PanelArbre extends JPanel implements Serializable
 			{
 				Controleur.fenetre.getMenu().activerCreationPage();
 				Controleur.fenetre.getPanelListeAction().activerBoutonAjoutPage();
-				Controleur.fenetre.getPanelListeAction().activerBoutonModPage();
 				// on desactive les ajouts de titre/paragraphe/image
 				Controleur.fenetre.getMenu().desactiveAjout();
 				Controleur.fenetre.getPanelListeAction().desactiverBoutonAjoutElement();
@@ -145,14 +146,10 @@ public class PanelArbre extends JPanel implements Serializable
 				parentNodePage = tabObj[2];
 				if (location > 3)
 				{
-					Controleur.fenetre.getPanelListeAction().desactiverBoutonModPage();
-					Controleur.fenetre.getPanelListeAction().activerBoutonModElement();
 					parentNodeElement = tabObj[3];
 				}
 				else
 				{
-					Controleur.fenetre.getPanelListeAction().activerBoutonModPage();
-					Controleur.fenetre.getPanelListeAction().desactiverBoutonModElement();
 					parentNodeElement = null;
 				}
 				
@@ -173,7 +170,6 @@ public class PanelArbre extends JPanel implements Serializable
 	
 	private void doMouseDoubleClicked(MouseEvent me) 
 	{
-		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
 		if (path != null)
 		{
 			int location = path.getPathCount();
@@ -203,7 +199,6 @@ public class PanelArbre extends JPanel implements Serializable
 	private void doMouseRightClick(MouseEvent me)
 	{
 		doMouseSimpleClicked(me);
-		TreePath path = arbre.getPathForLocation(me.getX(), me.getY());
 		if (path != null)
 		{
 			int location = path.getPathCount();
@@ -260,7 +255,7 @@ public class PanelArbre extends JPanel implements Serializable
 				if (modifierNoeudPage(path))
 					return true;	
 		}
-		Controleur.CreerOptionPane("error", "Impossible d'augmenter le niveau");
+		Controleur.CreerOptionPane("error", "Impossible de monter la selection");
 		return false;
 	}
 	
@@ -280,7 +275,7 @@ public class PanelArbre extends JPanel implements Serializable
 					return true;	
 		}
 				
-		Controleur.CreerOptionPane("error", "Impossible de diminuer le niveau");
+		Controleur.CreerOptionPane("error", "Impossible de descendre la selection");
 		return false;
 	}
 	

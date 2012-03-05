@@ -9,11 +9,6 @@ public abstract class PopupButton extends JButton implements ActionListener
 {
 	private JPopupMenu popup;
 
-	protected PopupButton(String[] items, Container parent)
-	{
-		this("", items, parent);
-	}
-
 	protected PopupButton(String label, String[] items, Container parent)
 	{
 		super(label);

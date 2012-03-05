@@ -1,6 +1,7 @@
 package IHM.Panel;
 
 import javax.swing.*;
+import javax.swing.tree.TreePath;
 
 import IHM.util.PopupButton;
 import Main.Controleur;
@@ -22,41 +23,55 @@ public class PanelListeAction extends JPanel implements ActionListener
 	private JButton boutonAjouterImage;
 
 	// bouton temporaire !!
-	private JButton boutonMonterElement;
-	private JButton boutonDescendreElement;
-
-	private JButton boutonMonterPage;
-	private JButton boutonDescendrePage;
+	private JButton boutonMonter;
+	private JButton boutonDescendre;
 
 	public PanelListeAction()
 	{
 		// tous mettre a gauche
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 
-		MyPopupButton popupGenerer = new MyPopupButton("", new String[] {"Generer un projet", "Generer une page" }, this);
+		MyPopupButton popupGenerer = new MyPopupButton("", new String[] {"Generer le projet", "Generer la page" }, this);
 		popupGenerer.setIcon(new ImageIcon("images/generate.png"));
 		popupGenerer.setToolTipText("Generer");
 		
+		// bouton Creation Projet
 		boutonCreerProjet = new JButton();
 		boutonCreerProjet.setIcon(new ImageIcon("images/project-new.png"));
 		boutonCreerProjet.setToolTipText("Creer un nouveau projet");
 		boutonCreerProjet.addActionListener(this);
-
+		
+		// bouton Creation Page
 		boutonCreerPage = new JButton();
 		boutonCreerPage.setIcon(new ImageIcon("images/page-new.png"));
 		boutonCreerPage.setToolTipText("Creer une nouvelle page");
 
+		// bouton Ajout Titre
 		boutonAjouterTitre = new JButton();
 		boutonAjouterTitre.setIcon(new ImageIcon("images/add-title.png"));
 		boutonAjouterTitre.setToolTipText("Ajouter un titre a la page");
 
+		// bouton Ajout Paragraphe
 		boutonAjouterParagraphe = new JButton();
 		boutonAjouterParagraphe.setIcon(new ImageIcon("images/Text-Editor.png"));
 		boutonAjouterParagraphe.setToolTipText("Ajouter un paragraphe a la page");
 
+		// bouton Ajout Image
 		boutonAjouterImage = new JButton();
 		boutonAjouterImage.setIcon(new ImageIcon("images/picture_add.jpg"));
 		boutonAjouterImage.setToolTipText("Ajouter une image a la page");
+		
+		// bouton Monter Selection
+		boutonMonter = new JButton();
+		boutonMonter.setIcon(new ImageIcon("images/select-up.png"));
+		boutonMonter.setToolTipText("Monter la selection");
+		boutonMonter.addActionListener(this);
+		
+		// bouton Descendre Selection
+		boutonDescendre = new JButton();
+		boutonDescendre.setIcon(new ImageIcon("images/select-down.png"));
+		boutonDescendre.setToolTipText("Descendre la selection");
+		boutonDescendre.addActionListener(this);
 
 		add(popupGenerer);
 		add(boutonCreerProjet);
@@ -64,16 +79,8 @@ public class PanelListeAction extends JPanel implements ActionListener
 		add(boutonAjouterTitre);
 		add(boutonAjouterParagraphe);
 		add(boutonAjouterImage);
-
-		boutonMonterElement = new JButton("Monter l'element");
-		boutonDescendreElement = new JButton("Descendre l'element");
-		boutonMonterPage = new JButton("Monter la page");
-		boutonDescendrePage = new JButton("Descendre la page");
-
-		add(boutonDescendreElement);
-		add(boutonMonterElement);
-		add(boutonDescendrePage);
-		add(boutonMonterPage);
+		add(boutonMonter);
+		add(boutonDescendre);
 	}
 
 	@Override
@@ -90,35 +97,34 @@ public class PanelListeAction extends JPanel implements ActionListener
 			Controleur.creerPanelAjouterParagraphe(0, "", 0);
 		if (b.equals(boutonAjouterImage))
 			Controleur.creerPanelAjouterImage(0);
-		if (b.equals(boutonDescendreElement))
-			Controleur.descendreElement();
-		if (b.equals(boutonMonterElement))
-			Controleur.monterElement();
-		if (b.equals(boutonDescendrePage))
-			Controleur.descendrePage();
-		if (b.equals(boutonMonterPage))
-			Controleur.monterPage();
+		if (b.equals(boutonDescendre))
+		{
+			// on recupere le path de l'arborescence
+			TreePath path = Controleur.fenetre.getArborescence().getPath();
+			// si la taille de path est de 3 c'est une page
+			if (path != null && path.getPathCount()  == 3)
+				Controleur.descendrePage();
+			// si la taille de path est de 4 c'est un element
+			if (path != null && path.getPathCount()  == 4)
+				Controleur.descendreElement();
+		}
+		if (b.equals(boutonMonter))
+		{
+			// on recupere le path de l'arborescence
+			TreePath path = Controleur.fenetre.getArborescence().getPath();
+			// si la taille de path est de 3 c'est une page
+			if (path != null && path.getPathCount()  == 3)
+				Controleur.monterPage();
+			// si la taille de path est de 4 c'est un element
+			if (path != null && path.getPathCount()  == 4)
+				Controleur.monterElement();
+		}			
 	}
 
 	public void activerBoutonAjoutPage()
 	{
 		boutonCreerPage.removeActionListener(this);
 		boutonCreerPage.addActionListener(this);
-	}
-
-	public void activerBoutonModPage()
-	{
-		boutonMonterPage.removeActionListener(this);
-		boutonMonterPage.addActionListener(this);
-
-		boutonDescendrePage.removeActionListener(this);
-		boutonDescendrePage.addActionListener(this);
-	}
-
-	public void desactiverBoutonModPage()
-	{
-		boutonMonterPage.removeActionListener(this);
-		boutonDescendrePage.removeActionListener(this);
 	}
 
 	public void activerBoutonAjoutElement()
@@ -143,21 +149,6 @@ public class PanelListeAction extends JPanel implements ActionListener
 		boutonAjouterImage.removeActionListener(this);
 	}
 
-	public void activerBoutonModElement()
-	{
-		boutonMonterElement.removeActionListener(this);
-		boutonMonterElement.addActionListener(this);
-
-		boutonDescendreElement.removeActionListener(this);
-		boutonDescendreElement.addActionListener(this);
-	}
-
-	public void desactiverBoutonModElement()
-	{
-		boutonMonterElement.removeActionListener(this);
-		boutonDescendreElement.removeActionListener(this);
-	}
-
 	class MyPopupButton extends PopupButton
 	{
 		public MyPopupButton(String label, String[] items, Container parent)
@@ -167,10 +158,9 @@ public class PanelListeAction extends JPanel implements ActionListener
 
 		public void actionPerformed(ActionEvent evt)
 		{
-			System.out.println(evt.getSource().toString());
 			JMenuItem item = (JMenuItem) evt.getSource();
 			
-			if (item.getText().equals("Generer un projet"))
+			if (item.getText().equals("Generer le projet"))
 			{
 				Projet projet = Controleur.metier.getProjetSelectionne();
 				if (projet == null)
@@ -182,7 +172,7 @@ public class PanelListeAction extends JPanel implements ActionListener
 					Controleur.metier.getGenerator().generateFile(projet, page);
 				}
 			}
-			else if (item.getText().equals("Generer une page"))
+			else if (item.getText().equals("Generer la page"))
 			{
 				Projet projet = Controleur.metier.getProjetSelectionne();
 				if (projet == null)
