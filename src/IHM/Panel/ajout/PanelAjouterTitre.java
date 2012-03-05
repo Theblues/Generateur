@@ -13,7 +13,7 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 	private int			statue;
 	private int			indiceTitre;
 
-	private JButton		annuler;
+	private JButton		modifier;
 	private JButton		valider;
 
 	public PanelAjouterTitre(int statue, String titre, int indiceTitre)
@@ -28,14 +28,19 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 		
 		add(tf);
 
-		annuler = new JButton("Annuler");
-		annuler.addActionListener(this);
-		add(annuler);
-
-		valider = new JButton("Valider");
-		valider.addActionListener(this);
-		add(valider);
-
+		if (statue == 0)
+		{
+			valider = new JButton("Valider");
+			valider.addActionListener(this);
+			add(valider);
+		}
+		else
+		{
+			modifier = new JButton("Modifier");
+			modifier.addActionListener(this);
+			add(modifier);
+		}
+		
 		this.setBorder(BorderFactory.createCompoundBorder(
 						BorderFactory.createCompoundBorder(
 								BorderFactory.createTitledBorder("Votre titre"),
@@ -47,31 +52,30 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
-		if (e.getSource() instanceof JButton)
-		{
-			JButton b = (JButton) e.getSource();
-			if (annuler.equals(b))
-			{
-				Controleur.fenetre.getPanelAjout().supprimerPanel();
-				return;
-			}
-		}
+		int cpt=0;
+		
 		Projet projet = Controleur.metier.getProjetSelectionne();
 		Page page = projet.getPageSelectionne();
 
 		if (tf.getText().length() == 0)
 			return;
-
-		if (statue == 0)
+		
+		if (statue == 0) // Si on ajoute un titre
 		{
 			page.ajouterTitre(tf.getText());
-			int cpt = page.getAlTitre().size();
+			cpt = page.getAlTitre().size();
 			page.ajouterOrdre("Titre " + cpt);
 			Controleur.fenetre.getArborescence().ajoutFils(null, "element", "Titre " + cpt);
 		}
-		else
-			page.modTitre(tf.getText(), indiceTitre);
-
-		Controleur.fenetre.getPanelAjout().supprimerPanel();
+		else // Si on modifie un titre
+		{
+			for (cpt=0; cpt < page.getAlTitre().size(); cpt++)
+			{
+				if (page.getAlTitre().get(cpt).equals(tf.getText()))
+					break;
+			}
+			page.modTitre(tf.getText(), cpt);
+		}
+		Controleur.creerPanelAjouterTitre(1, tf.getText(), cpt);
 	}
 }
