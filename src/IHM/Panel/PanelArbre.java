@@ -121,12 +121,6 @@ public class PanelArbre extends JPanel implements Serializable
 			 */
 			if (location == 2)
 			{
-				Controleur.fenetre.getMenu().activerCreationPage();
-				Controleur.fenetre.getPanelListeAction().activerBoutonAjoutPage();
-				// on desactive les ajouts de titre/paragraphe/image
-				Controleur.fenetre.getMenu().desactiveAjout();
-				Controleur.fenetre.getPanelListeAction().desactiverBoutonAjoutElement();
-				
 				// on recupere le projet grace a path
 				parentNodeProjet = tabObj[1];
 				parentNodePage = null;
@@ -145,17 +139,9 @@ public class PanelArbre extends JPanel implements Serializable
 				parentNodeProjet = tabObj[1];
 				parentNodePage = tabObj[2];
 				if (location > 3)
-				{
 					parentNodeElement = tabObj[3];
-				}
 				else
-				{
 					parentNodeElement = null;
-				}
-				
-				// on active les boutons/items
-				Controleur.fenetre.getMenu().activerAjout();
-				Controleur.fenetre.getPanelListeAction().activerBoutonAjoutElement();
 				
 				// on recupere le projet et la page selectionnee
 				projetSelectionne = Controleur.metier.getProjet(parentNodeProjet.toString());

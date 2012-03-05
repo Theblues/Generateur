@@ -45,21 +45,25 @@ public class PanelListeAction extends JPanel implements ActionListener
 		boutonCreerPage = new JButton();
 		boutonCreerPage.setIcon(new ImageIcon("images/page-new.png"));
 		boutonCreerPage.setToolTipText("Creer une nouvelle page");
+		boutonCreerPage.addActionListener(this);
 
 		// bouton Ajout Titre
 		boutonAjouterTitre = new JButton();
 		boutonAjouterTitre.setIcon(new ImageIcon("images/add-title.png"));
 		boutonAjouterTitre.setToolTipText("Ajouter un titre a la page");
+		boutonAjouterTitre.addActionListener(this);
 
 		// bouton Ajout Paragraphe
 		boutonAjouterParagraphe = new JButton();
 		boutonAjouterParagraphe.setIcon(new ImageIcon("images/Text-Editor.png"));
 		boutonAjouterParagraphe.setToolTipText("Ajouter un paragraphe a la page");
+		boutonAjouterParagraphe.addActionListener(this);
 
 		// bouton Ajout Image
 		boutonAjouterImage = new JButton();
 		boutonAjouterImage.setIcon(new ImageIcon("images/picture_add.jpg"));
 		boutonAjouterImage.setToolTipText("Ajouter une image a la page");
+		boutonAjouterImage.addActionListener(this);
 		
 		// bouton Monter Selection
 		boutonMonter = new JButton();
@@ -87,66 +91,41 @@ public class PanelListeAction extends JPanel implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		JButton b = (JButton) e.getSource();
+		// on recupere le treepath pour savoir quel noeud on utilise
+		TreePath path = Controleur.fenetre.getArborescence().getPath();
+		
 		if (b.equals(boutonCreerProjet))
 			Controleur.creerPanelCreerProjet();
 		if (b.equals(boutonCreerPage))
-			Controleur.creerPanelCreerPage();
+			if (path != null && path.getPathCount() > 1)
+				Controleur.creerPanelCreerPage();
 		if (b.equals(boutonAjouterTitre))
-			Controleur.creerPanelAjouterTitre(0, "");
+			if (path != null && path.getPathCount() == 3)
+				Controleur.creerPanelAjouterTitre(0, "");
 		if (b.equals(boutonAjouterParagraphe))
-			Controleur.creerPanelAjouterParagraphe(0, "");
+			if (path != null && path.getPathCount() == 3)
+				Controleur.creerPanelAjouterParagraphe(0, "");
 		if (b.equals(boutonAjouterImage))
-			Controleur.creerPanelAjouterImage(0);
+			if (path != null && path.getPathCount() == 3)
+				Controleur.creerPanelAjouterImage(0);
 		if (b.equals(boutonDescendre))
 		{
-			// on recupere le path de l'arborescence
-			TreePath path = Controleur.fenetre.getArborescence().getPath();
 			// si la taille de path est de 3 c'est une page
-			if (path != null && path.getPathCount()  == 3)
+			if (path != null && path.getPathCount() == 3)
 				Controleur.descendrePage();
 			// si la taille de path est de 4 c'est un element
-			if (path != null && path.getPathCount()  == 4)
+			if (path != null && path.getPathCount() == 4)
 				Controleur.descendreElement();
 		}
 		if (b.equals(boutonMonter))
 		{
-			// on recupere le path de l'arborescence
-			TreePath path = Controleur.fenetre.getArborescence().getPath();
 			// si la taille de path est de 3 c'est une page
-			if (path != null && path.getPathCount()  == 3)
+			if (path != null && path.getPathCount() == 3)
 				Controleur.monterPage();
 			// si la taille de path est de 4 c'est un element
-			if (path != null && path.getPathCount()  == 4)
+			if (path != null && path.getPathCount() == 4)
 				Controleur.monterElement();
 		}			
-	}
-
-	public void activerBoutonAjoutPage()
-	{
-		boutonCreerPage.removeActionListener(this);
-		boutonCreerPage.addActionListener(this);
-	}
-
-	public void activerBoutonAjoutElement()
-	{
-		// permet de ne pas ouvrir n fenetres
-		boutonAjouterTitre.removeActionListener(this);
-		boutonAjouterTitre.addActionListener(this);
-
-		// permet de ne pas ouvrir n fenetres
-		boutonAjouterParagraphe.removeActionListener(this);
-		boutonAjouterParagraphe.addActionListener(this);
-
-		// permet de ne pas ouvrir n fenetres
-		boutonAjouterImage.removeActionListener(this);
-		boutonAjouterImage.addActionListener(this);
-	}
-
-	public void desactiverBoutonAjoutElement()
-	{
-		boutonAjouterTitre.removeActionListener(this);
-		boutonAjouterParagraphe.removeActionListener(this);
-		boutonAjouterImage.removeActionListener(this);
 	}
 
 	class MyPopupButton extends PopupButton

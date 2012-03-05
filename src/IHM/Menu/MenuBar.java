@@ -5,6 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.text.*;
+import javax.swing.tree.TreePath;
 
 import Main.*;
 import util.*;
@@ -128,12 +129,15 @@ public class MenuBar implements ActionListener
 		// Initialisation des items pour le menu ajouter
 		itemTitre = new JMenuItem("Ajouter un titre");
 		itemTitre.setIcon(new ImageIcon("images/add-title.png"));
+		itemTitre.addActionListener(this);
 		
 		itemParagraphe = new JMenuItem("Ajouter un paragraphe");
 		itemParagraphe.setIcon(new ImageIcon("images/Text-Editor.png"));
+		itemParagraphe.addActionListener(this);
 		
 		itemImage = new JMenuItem("Ajouter une image");
 		itemImage.setIcon(new ImageIcon("images/picture_add.jpg"));
+		itemImage.addActionListener(this);
 		
 		itemAide = new JMenuItem("Aide");
 		itemAide.setIcon(new ImageIcon("images/info.gif"));
@@ -184,6 +188,9 @@ public class MenuBar implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{		
 		JMenuItem mi = (JMenuItem) e.getSource();
+		// on recupere le treepath pour savoir quel noeud on utilise
+		TreePath path = Controleur.fenetre.getArborescence().getPath();
+		
 		if (mi.equals(itemClose))
 		{
 			int option = Controleur.CreerOptionPaneConfirm("Sauvegarder", "Voulez-vous sauvegarder avant de quitter ?");
@@ -192,16 +199,26 @@ public class MenuBar implements ActionListener
 			if (option != JOptionPane.CANCEL_OPTION)
 				System.exit(0);
 		}
+		
+		// actions pour la creation de projet et de page
 		if (mi.equals(itemNewProject))
 			Controleur.creerPanelCreerProjet();
         if (mi.equals(itemNewPage))
-        	Controleur.creerPanelCreerPage();
+        	if (path != null && path.getPathCount() > 1)
+        		Controleur.creerPanelCreerPage();
+        
+        // Actions pour ajouter titre/paragraphe/image
 		if (mi.equals(itemTitre))
-			Controleur.creerPanelAjouterTitre(0,"");
+			if (path != null && path.getPathCount() == 3)
+				Controleur.creerPanelAjouterTitre(0,"");
 		if (mi.equals(itemParagraphe))
-			Controleur.creerPanelAjouterParagraphe(0,"");
+			if (path != null && path.getPathCount() == 3)
+				Controleur.creerPanelAjouterParagraphe(0,"");
 		if (mi.equals(itemImage))
-			Controleur.creerPanelAjouterImage(0);
+			if (path != null && path.getPathCount() == 3)
+				Controleur.creerPanelAjouterImage(0);
+		
+		// actions pour Generer
 		if (mi.equals(itemGenererPage))
 		{
 			Projet projet = Controleur.metier.getProjetSelectionne();
@@ -220,35 +237,8 @@ public class MenuBar implements ActionListener
 				Controleur.metier.getGenerator().generateFile(projet, page);
 			}
 		}
+		// action pour sauvegarder l'arbre et les listes
 		if (mi.equals(itemSave))
 			Controleur.enregistrer();
-	}
-	
-	public void activerCreationPage()
-	{
-		itemNewPage.removeActionListener(this);
-		itemNewPage.addActionListener(this);
-	}
-	
-	public void activerAjout()
-	{
-		// permet de ne pas ouvrir 5 fenetres
-		itemTitre.removeActionListener(this);
-		itemTitre.addActionListener(this);
-		
-		// permet de ne pas ouvrir 5 fenetres
-		itemParagraphe.removeActionListener(this);
-		itemParagraphe.addActionListener(this);
-		
-		// permet de ne pas ouvrir 5 fenetres
-		itemImage.removeActionListener(this);
-		itemImage.addActionListener(this);
-	}
-
-	public void desactiveAjout()
-	{
-		itemTitre.removeActionListener(this);
-		itemParagraphe.removeActionListener(this);
-		itemImage.removeActionListener(this);
 	}
 }

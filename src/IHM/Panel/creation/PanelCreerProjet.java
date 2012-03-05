@@ -214,7 +214,6 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 		Controleur.metier.ajouterProjet(projet);
 		Controleur.metier.setProjetSelectionne(projet);
 		Controleur.fenetre.getArborescence().ajoutFils(null, "projet", nomProjet);
-		Controleur.fenetre.getMenu().activerCreationPage();
 		
 		return true;
 	}
