@@ -10,6 +10,7 @@ import util.*;
 public class PanelAjouterTitre extends JPanel implements ActionListener
 {
 	private JTextField	tf;
+	private String	 	oldText;
 	private int			statue;
 	private int			indiceTitre;
 
@@ -36,6 +37,7 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 		}
 		else
 		{
+			oldText = tf.getText();
 			modifier = new JButton("Modifier");
 			modifier.addActionListener(this);
 			add(modifier);
@@ -71,7 +73,7 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 		{
 			for (cpt=0; cpt < page.getAlTitre().size(); cpt++)
 			{
-				if (page.getAlTitre().get(cpt).equals(tf.getText()))
+				if (page.getAlTitre().get(cpt).equals(oldText))
 					break;
 			}
 			page.modTitre(tf.getText(), cpt);

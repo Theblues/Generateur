@@ -78,8 +78,8 @@ public class Page implements Serializable
 	 */
 	public void modTitre(String titre, int indice) 
 	{
-		alTitre.remove(indice-1);
-		alTitre.add(indice-1, titre);
+		alTitre.remove(indice);
+		alTitre.add(indice, titre);
 	}
 	
 	public void modParagraphe(String paragraphe, int indice)
