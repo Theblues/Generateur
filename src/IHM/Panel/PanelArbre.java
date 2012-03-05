@@ -268,7 +268,6 @@ public class PanelArbre extends JPanel implements Serializable
 	private boolean modifierNoeudElement(TreePath path)
 	{
 		Object[] tabObj = path.getPath();
-		System.out.println(path);
 		if (tabObj.length < 4)
 			return false;
 		

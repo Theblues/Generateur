@@ -32,33 +32,13 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 		editorPane.setEditable(true);
 		editorPane.setContentType("text/html");
 		
-		/*
-		 * Test html
-		 */
-		paragraphe = "";
-		try
-		{
-			// lecture du fichier rtf
-			FileReader fr = new FileReader("temp/doc.txt");
-			Scanner sc = new Scanner (fr);
-			sc.useDelimiter("\n");
-			while (sc.hasNext())
-				paragraphe += sc.next() + "\n";
-			
-			fr.close();
-		}catch(IOException e){}
-		
-		/*
-		 * Fin du test
-		 */
-		
 		editorPane.setText(paragraphe);
 
 		JScrollPane scroller = new JScrollPane(editorPane,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
 		
-		listeActionFont = new PanelListeModFont(editorPane);
+		listeActionFont = new PanelListeModFont();
 		
 		add(listeActionFont, BorderLayout.NORTH);
 		add(scroller);
@@ -105,20 +85,17 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 			
 		// permet de traiter le html
 		ArrayList<String> alS = new ArrayList<String>();
-			
+		
 		Scanner sc = new Scanner (paragrapheHTML);
 		sc.useDelimiter("\n");
 		while (sc.hasNext())
 			alS.add(sc.next());
 			
 		String paragraphe = traitementHTML(alS);
-			
-		/*		
-		 En Attendant le traitement de l'HTML
 		 	
 		int cpt;
 		
-		if (statue == 0) 
+		if (statue == 0)
 		{
 			page.ajouterParagraphe(paragraphe);
 			page.ajouterParagrapheHTML(paragrapheHTML);
@@ -128,17 +105,16 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 		}
 		else
 		{
-			for (cpt=0; cpt < page.getAlParagraphe().size(); cpt++)
+			for (cpt = 0; cpt < page.getAlParagraphe().size(); cpt++)
 			{
-				if (page.getAlParagraphe().get(cpt).equals(traitementHTML(oldText)))
+				if (page.getAlParagraphe().get(cpt).equals(oldText))
 					break;
 			}
 			page.modParagraphe(paragraphe, cpt);
 			page.modParagrapheHTML(paragrapheHTML, cpt);
 		}
 		
-		Controleur.creerPanelAjouterParagraphe(1, paragraphe);
-		*/
+		Controleur.creerPanelAjouterParagraphe(1, paragrapheHTML);
 	}
 
 	private String traitementHTML(ArrayList<String> alS)
@@ -152,21 +128,31 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 		{
 			if (ligne.contains("<p "))
 				continue;
-			if(ligne.contains("</p>"))
+			if(ligne.contains("</p>") && !(ligne.contains("</i>") || ligne.contains("</b>")))
 			{
-				s += "\n";
+				s += "<br />\n";
 				continue;
 			}
-			if (ligne.contains("<u>"))
+			if(ligne.contains("</p>") && ligne.contains("</i>"))
 			{
-				s = ligne.replace("<u>", "<a href=\"");
+				s += "</i><br />\n";
+				continue;
 			}
+			if(ligne.contains("</p>") && ligne.contains("</b>"))
+			{
+				s += "</b><br />\n";
+				continue;
+			}
+		/*	if (ligne.contains("<u><font color=\"#0000ff\">"))
+			{
+				String lien = ligne.replace("<u><font color=\"#0000ff\">", "<a href=\"");
+				System.out.println(lien);
+			}*/
 			if (ligne.contains("</body>"))
 				break;
 			
 			s += ligne;
 		}
-		System.out.println(s);
 		return s;
 	}
 }

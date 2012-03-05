@@ -100,13 +100,13 @@ public class PanelListeAction extends JPanel implements ActionListener
 			if (path != null && path.getPathCount() > 1)
 				Controleur.creerPanelCreerPage();
 		if (b.equals(boutonAjouterTitre))
-			if (path != null && path.getPathCount() == 3)
+			if (path != null && path.getPathCount() >= 3)
 				Controleur.creerPanelAjouterTitre(0, "");
 		if (b.equals(boutonAjouterParagraphe))
-			if (path != null && path.getPathCount() == 3)
+			if (path != null && path.getPathCount() >= 3)
 				Controleur.creerPanelAjouterParagraphe(0, "");
 		if (b.equals(boutonAjouterImage))
-			if (path != null && path.getPathCount() == 3)
+			if (path != null && path.getPathCount() >= 3)
 				Controleur.creerPanelAjouterImage(0);
 		if (b.equals(boutonDescendre))
 		{

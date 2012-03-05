@@ -1,14 +1,12 @@
 package IHM.Panel;
 
 import java.awt.*;
-import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.text.*;
 
-public class PanelListeModFont extends JPanel implements ActionListener 
+public class PanelListeModFont extends JPanel
 {
-	private JEditorPane editorPane;
-
 	private JButton boutonDroite;
 	private JButton boutonCentre;
 	private JButton boutonGauche;
@@ -16,35 +14,36 @@ public class PanelListeModFont extends JPanel implements ActionListener
 	private JButton boutonItalique;
 	private JButton boutonLien;
 
-	public PanelListeModFont(JEditorPane editorPane) 
-	{
-		this.editorPane = editorPane;
-		
+	public PanelListeModFont() 
+	{		
 		JPanel p = new JPanel();
 
+		Action boldAction = new StyledEditorKit.BoldAction();
+		
 		boutonGras = new JButton();
-		boutonGras.addActionListener(this);
 		boutonGras.setBorder(null);
 		boutonGras.setPreferredSize(new Dimension(35, 35));
 		boutonGras.setIcon(new ImageIcon("images/gras.jpg"));
 		boutonGras.setToolTipText("Gras");
-
+		boutonGras.addActionListener(boldAction);
+		
+		Action italicAction = new StyledEditorKit.ItalicAction();
 		boutonItalique = new JButton();
-		boutonItalique.addActionListener(this);
 		boutonItalique.setBorder(null);
 		boutonItalique.setPreferredSize(new Dimension(35, 35));
 		boutonItalique.setIcon(new ImageIcon("images/italique.jpg"));
 		boutonItalique.setToolTipText("Italique");
-
+		boutonItalique.addActionListener(italicAction);
+/*
+ 	Le prof a dit que ne le faisait pas je crois
+ 	
 		boutonGauche = new JButton();
-		boutonGauche.addActionListener(this);
 		boutonGauche.setBorder(null);
 		boutonGauche.setPreferredSize(new Dimension(35, 35));
 		boutonGauche.setIcon(new ImageIcon("images/gauche.jpg"));
 		boutonGauche.setToolTipText("Aligne a gauche");
 
 		boutonCentre = new JButton();
-		boutonCentre.addActionListener(this);
 		boutonCentre.setBorder(null);
 		boutonCentre.setPreferredSize(new Dimension(35, 35));
 		boutonCentre.setIcon(new ImageIcon("images/centre.jpg"));
@@ -56,40 +55,24 @@ public class PanelListeModFont extends JPanel implements ActionListener
 		boutonDroite.setPreferredSize(new Dimension(35, 35));
 		boutonDroite.setIcon(new ImageIcon("images/droite.jpg"));
 		boutonDroite.setToolTipText("Aligne a droite");
-
+*/
+		Action underlineAction = new StyledEditorKit.UnderlineAction();
+		Action fontAction = new StyledEditorKit.ForegroundAction("blue", Color.BLUE);
 		boutonLien = new JButton();
 		boutonLien.setBorder(null);
 		boutonLien.setPreferredSize(new Dimension(35, 35));
 		boutonLien.setIcon(new ImageIcon("images/lien.jpg"));
 		boutonLien.setToolTipText("Hyperlien");
+		boutonLien.addActionListener(underlineAction);
+		boutonLien.addActionListener(fontAction);
 
 		p.add(boutonGras);
 		p.add(boutonItalique);
-		p.add(boutonGauche);
+		/*p.add(boutonGauche);
 		p.add(boutonCentre);
-		p.add(boutonDroite);
+		p.add(boutonDroite);*/
 		p.add(boutonLien);
 
 		add(p);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) 
-	{
-		/*
-		String texte = textPane.getSelectedText();		
-		if (e.getSource() instanceof JButton)
-		{
-			JButton b = (JButton) e.getSource();
-			
-			if (b.equals(boutonGras))
-			{
-				ajouterGras(texte);
-			}
-			
-			// TODO autre bouton
-		}
-		// TODO comboBox
-		*/
 	}
 }
