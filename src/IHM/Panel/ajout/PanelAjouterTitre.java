@@ -12,7 +12,6 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 	private JTextField	tf;
 	private String	 	oldText;
 	private int			statue;
-	private int			indiceTitre;
 
 	private JButton		modifier;
 	private JButton		valider;
@@ -20,7 +19,6 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 	public PanelAjouterTitre(int statue, String titre)
 	{		
 		this.statue = statue;
-		this.indiceTitre = indiceTitre;
 		
 		JLabel l = new JLabel("Entrer un titre :");
 		add(l);

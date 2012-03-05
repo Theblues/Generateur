@@ -199,7 +199,7 @@ public class MenuBar implements ActionListener
 		if (mi.equals(itemTitre))
 			Controleur.creerPanelAjouterTitre(0,"");
 		if (mi.equals(itemParagraphe))
-			Controleur.creerPanelAjouterParagraphe(0,"",0);
+			Controleur.creerPanelAjouterParagraphe(0,"");
 		if (mi.equals(itemImage))
 			Controleur.creerPanelAjouterImage(0);
 		if (mi.equals(itemGenererPage))

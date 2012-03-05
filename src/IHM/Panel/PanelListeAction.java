@@ -87,7 +87,7 @@ public class PanelListeAction extends JPanel implements ActionListener
 		if (b.equals(boutonAjouterTitre))
 			Controleur.creerPanelAjouterTitre(0, "");
 		if (b.equals(boutonAjouterParagraphe))
-			Controleur.creerPanelAjouterParagraphe(0, "", 0);
+			Controleur.creerPanelAjouterParagraphe(0, "");
 		if (b.equals(boutonAjouterImage))
 			Controleur.creerPanelAjouterImage(0);
 		if (b.equals(boutonDescendreElement))

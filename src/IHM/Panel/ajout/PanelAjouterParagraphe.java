@@ -20,13 +20,11 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 	private JButton valider;
 	
 	private int statue;
-	private int indiceParagraphe;
 	private String oldText;
 	
-	public PanelAjouterParagraphe(int statue, String paragraphe, int indiceParagraphe)
+	public PanelAjouterParagraphe(int statue, String paragraphe)
 	{
 		this.statue = statue;
-		this.indiceParagraphe = indiceParagraphe;
 		
 		setLayout(new BorderLayout());
 		
@@ -139,7 +137,7 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 			page.modParagrapheHTML(paragrapheHTML, cpt);
 		}
 		
-		Controleur.creerPanelAjouterTitre(1, paragraphe, cpt);
+		Controleur.creerPanelAjouterParagraphe(1, paragraphe);
 		*/
 	}
 
