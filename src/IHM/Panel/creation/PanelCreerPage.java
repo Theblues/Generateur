@@ -63,6 +63,7 @@ public class PanelCreerPage extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		Page page = null;
 		if (e.getSource() instanceof JButton)
 		{
 			JButton b = (JButton) e.getSource();
@@ -96,10 +97,10 @@ public class PanelCreerPage extends JPanel implements ActionListener
 				}
 				
 				Controleur.fenetre.getArborescence().ajoutFils(null, "fichier", nomPage);
-				p.ajouterPage(new Page(f, nomPage));
+				page = new Page(f, nomPage);
+				p.ajouterPage(page);
+				Controleur.creerPanelPropriete(page);
 			}
 		}
-		
-		Controleur.fenetre.getPanelAjout().supprimerPanel();
 	}
 }

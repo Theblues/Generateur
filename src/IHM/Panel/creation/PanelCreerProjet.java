@@ -122,16 +122,16 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 		JButton b = (JButton) e.getSource();
 		if (b.equals(valider))
 		{
-			if (creerProjet())
+			Projet projet = creerProjet();
+			if (projet != null)
 			{
 				Controleur.fenetre.getPanelAjout().supprimerPanel();
-				return;
+				Controleur.creerPanelPropriete(projet);
 			}
 		}
 		else if (b.equals(annuler))
 		{
 			Controleur.fenetre.getPanelAjout().supprimerPanel();
-			return;
 		}
 		else if (b.equals(parcourir))
 			choisirDossier();			
@@ -151,21 +151,23 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 			txChemin.setText(chooser.getSelectedFile().getAbsolutePath());
 	}
 
-	private boolean creerProjet()
+	private Projet creerProjet()
 	{
 		String nomProjet = txNom.getText();
 		String auteur = txAuteur.getText();
 		String chemin = txChemin.getText();
 		
+		// verification que toutes les informations sont presentes
 		if (nomProjet.length() == 0  || chemin.length() == 0 || auteur.length() == 0)
 		{
 			Controleur.creerOptionPane("warning", "Veuillez saisir toutes les informations");
-			return false;
+			return null;
 		}
 		
 		Scanner sc = new Scanner(nomProjet);
 		sc.useDelimiter(" ");
 		
+		// on renomme le fichier
 		String nameProjet = sc.next();
 		while (sc.hasNext())
 			nameProjet += "_" + sc.next();
@@ -173,6 +175,7 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 		File file = new File(chemin + "/" + nameProjet);
 		file.mkdir();
 		
+		// on cree les dossiers que l'on a besoin
 		File content = new File (chemin + "/" + nameProjet + "/content");
 		File css = new File (chemin + "/" + nameProjet + "/content/CSS");
 		File img = new File (chemin + "/" + nameProjet + "/content/IMG");
@@ -215,6 +218,6 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 		Controleur.metier.setProjetSelectionne(projet);
 		Controleur.fenetre.getArborescence().ajoutFils(null, "projet", nomProjet);
 		
-		return true;
+		return projet;
 	}
 }

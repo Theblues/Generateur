@@ -55,7 +55,7 @@ public class Generator
 				"\t\t\t<footer>\n" +
 				"\t\t\t\t<!-- Bas de page -->\n";
 		
-		code += "\t\t\t\t&copy" + projet.getAuteur() + " - " + projet.getAnnee() + " - Tous Droits Reserves.\n";
+		code += "\t\t\t\t&copy;" + projet.getAuteur() + " - " + projet.getAnnee() + " - Tous Droits Reserves.\n";
 		code +=	"\t\t\t</footer>\n" +
 				"\t\t</div>\n";
 		
