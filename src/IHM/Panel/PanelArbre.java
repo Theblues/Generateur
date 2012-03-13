@@ -159,8 +159,14 @@ public class PanelArbre extends JPanel implements Serializable
 		if (path != null)
 		{
 			int location = path.getPathCount();
-			
-			if (location > 3)
+			// projet
+			if (location == 2)
+				Controleur.creerPanelPropriete(projetSelectionne);
+			// page
+			else if (location == 3)
+				Controleur.creerPanelPropriete(pageSelectionnee);
+			// element
+			else if (location > 3)
 			{
 				Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
 				String str = sc.next();
@@ -341,12 +347,14 @@ public class PanelArbre extends JPanel implements Serializable
 	{
 		DefaultMutableTreeNode noeud = (DefaultMutableTreeNode) parentNodeProjet;
 		noeud.setUserObject(nom);
+		updateTree(parentNodeProjet);
 	}
 	
 	public void renommerPage(String nom)
 	{
 		DefaultMutableTreeNode noeud = (DefaultMutableTreeNode) parentNodePage;
 		noeud.setUserObject(nom);
+		updateTree(parentNodePage);
 	}
 
 	private void updateTree(Object o)

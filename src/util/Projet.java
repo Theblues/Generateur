@@ -55,16 +55,26 @@ public class Projet implements Serializable
 	
 	public void setNom(String nom)
 	{
+		// on recupere le fichier du dossier
 		File file = new File(cheminDossier + "/"+ this.nom);
-		
+		// on modifie le nom du dossier
 		this.nom = nom;
-		
+		// on modifie l'arbre
 		Controleur.fenetre.getArborescence().renommerProjet(nom);
 		
-		file.renameTo(new File(cheminDossier + "/" + nom));
+		// on renomme le nom
+		Scanner sc = new Scanner(nom);
+		sc.useDelimiter(" ");
+		String nameProjet = sc.next();
+		while (sc.hasNext())
+			nameProjet += "_" + sc.next();
 		
+		// on renomme le fichier
+		file.renameTo(new File(cheminDossier + "/" + nameProjet));
+		
+		// on modifie toutes les pages
 		for (Page p : alPage)
-			p.setFile(new File(cheminDossier + "/" + nom + "/" + p.getNom() + ".html"));
+			p.setFile(new File(cheminDossier + "/" + nameProjet + "/" + p.getNom() + ".html"));
 	}
 
 	public void ajouterPage(Page p)

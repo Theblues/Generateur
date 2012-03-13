@@ -3,6 +3,8 @@ package util;
 import java.io.*;
 import java.util.*;
 
+import Main.Controleur;
+
 public class Page implements Serializable
 {
 	// fichier de la page
@@ -50,7 +52,26 @@ public class Page implements Serializable
 	{
 		this.nom = nom;
 		
-		// TODO modif du fichier
+		// on modifie le nom dans l'arbre
+		Controleur.fenetre.getArborescence().renommerPage(nom);
+		
+		// on renomme le nom
+		Scanner sc = new Scanner(nom);
+		sc.useDelimiter(" ");
+		String namePage = sc.next();
+		while (sc.hasNext())
+			namePage += "_" + sc.next();
+		
+		String chemin = file.getAbsolutePath();
+		
+		// on recupere le chemin sans le nom de la page
+		String [] tabString = chemin.split("/");
+		chemin = "";
+		for (int i = 0; i < tabString.length-1; i++)
+			chemin += "/" + tabString[i];
+		
+		// on modifie le fichier
+		setFile(new File(chemin + "/" + namePage + ".html"));
 	}
 	
 	public void setFile(File file)

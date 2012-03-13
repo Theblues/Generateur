@@ -20,10 +20,7 @@ public class PanelPropriete extends JPanel implements ActionListener
 	private Page page = null;
 	
 	public PanelPropriete(Object type)
-	{
-		// Configuration panel
-		setLayout(new BorderLayout());
-		
+	{		
 		String title = "";
 		
 		if (type instanceof Projet) 
