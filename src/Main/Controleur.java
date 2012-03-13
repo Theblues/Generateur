@@ -1,6 +1,7 @@
 package Main;
 
 import IHM.Frame.*;
+import IHM.Panel.*;
 import IHM.Panel.creation.*;
 import IHM.Panel.ajout.*;
 import IHM.util.*;
@@ -48,9 +49,10 @@ public class Controleur
 		fenetre.getPanelAjout().ajouterPanel(new PanelAjouterImage(statue));			
 	}
 	
-	public static void creerFenetrePropriete(Object type)
+	public static void creerPanelPropriete(Object type)
 	{		
-		new FenetrePropriete(type);
+		fenetre.getPanelAjout().supprimerPanel();
+		fenetre.getPanelAjout().ajouterPanel(new PanelPropriete(type));
 	}
 	
 	public static void creerFenetreAide()

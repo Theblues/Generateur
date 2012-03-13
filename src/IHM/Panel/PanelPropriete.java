@@ -1,36 +1,30 @@
-package IHM.Frame;
+package IHM.Panel;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.awt.event.*;
 
 import javax.swing.*;
 
 import util.*;
 
-public class FenetrePropriete extends JFrame implements ActionListener
+public class PanelPropriete extends JPanel implements ActionListener
 {
 	private Object type;
-	private JButton quitter;
+	private JButton modifier;
 	private JPanel info;
 
 	
-	public FenetrePropriete(Object type)
+	public PanelPropriete(Object type)
 	{
 		// Configuration fenetres
-		setLocation(400, 400);
 		setLayout(new BorderLayout());
-		setSize(350,200);
 
-		
 		// Attribut 
 		this.type = type;
-		
-		
+		String title = "";
 		if (type instanceof Projet ) 
 		{	
-			setTitle("Proprietes Projet");
+			title = "Proprietes Projet";
 			
 			Projet p = (Projet) type;
 			info = new JPanel(new GridLayout(4,1));
@@ -43,12 +37,10 @@ public class FenetrePropriete extends JFrame implements ActionListener
 			info.add (nbPages);
 			JLabel chemin = new JLabel("Chemin du Projet  :   " + p.getCheminDossier());
 			info.add (chemin);
-			
-	
 		}
 		else if ( type instanceof Page)
 		{	
-			setTitle("Proprietes Page");
+			title = "Proprietes Page";
 			
 			Page p = ( Page ) type;
 			info = new JPanel(new GridLayout(4,1));		
@@ -63,11 +55,21 @@ public class FenetrePropriete extends JFrame implements ActionListener
 			info.add (nbPara);
 		}
 
+		this.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createCompoundBorder(
+						BorderFactory.createTitledBorder(title),
+						BorderFactory.createEmptyBorder(2, 2, 2, 2)),
+						this.getBorder()));
 		add(info);
 		
-		quitter = new JButton("Quitter");
-		quitter.addActionListener(this);
-		add (quitter, "South");
+		JPanel panelSouth = new JPanel();
+		panelSouth.setLayout(new BorderLayout());
+		
+		modifier = new JButton("Modifier");
+		modifier.addActionListener(this);
+		panelSouth.add(modifier, BorderLayout.EAST);
+		
+		add(panelSouth, BorderLayout.SOUTH);
 
 		setVisible(true);
 	}
@@ -75,7 +77,5 @@ public class FenetrePropriete extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		JButton b = (JButton) e.getSource();
-		if (b.equals(quitter))
-			this.dispose();
 	}
 }

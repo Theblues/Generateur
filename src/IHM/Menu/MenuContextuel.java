@@ -189,7 +189,7 @@ public class MenuContextuel implements ActionListener
 			
 			// proprietes
 			if (mi.equals(itemPropriete))
-				Controleur.creerFenetrePropriete(projet);
+				Controleur.creerPanelPropriete(projet);
 
 			if (mi.equals(itemSupprimer))
 			{
@@ -208,7 +208,7 @@ public class MenuContextuel implements ActionListener
 			
 			// Proprietes
 			if (mi.equals(itemPropriete))
-				Controleur.creerFenetrePropriete(page);
+				Controleur.creerPanelPropriete(page);
 		}
 		// si c'est un element
 		else if (location >= 3)
