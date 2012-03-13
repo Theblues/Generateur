@@ -336,6 +336,18 @@ public class PanelArbre extends JPanel implements Serializable
 			ajoutFils(oPage1, "element", s);
 		
 	}
+	
+	public void renommerProjet(String nom)
+	{
+		DefaultMutableTreeNode noeud = (DefaultMutableTreeNode) parentNodeProjet;
+		noeud.setUserObject(nom);
+	}
+	
+	public void renommerPage(String nom)
+	{
+		DefaultMutableTreeNode noeud = (DefaultMutableTreeNode) parentNodePage;
+		noeud.setUserObject(nom);
+	}
 
 	private void updateTree(Object o)
 	{

@@ -17,7 +17,7 @@ public class PanelAjouterTitre extends JPanel implements ActionListener
 	private JButton		valider;
 
 	public PanelAjouterTitre(int statue, String titre)
-	{		
+	{
 		this.statue = statue;
 		
 		JLabel l = new JLabel("Entrer un titre :");

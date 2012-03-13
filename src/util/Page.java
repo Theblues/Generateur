@@ -44,6 +44,25 @@ public class Page implements Serializable
 
 	
 	/*
+	 * Modificateurs
+	 */
+	public void setNom(String nom)
+	{
+		this.nom = nom;
+		
+		// TODO modif du fichier
+	}
+	
+	public void setFile(File file)
+	{
+		// on renomme le fichier en vrai
+		this.file.renameTo(file);
+		// on remplace le fichier dans le programme
+		this.file = file;
+	}
+	
+	
+	/*
 	 * Ajout aux listes des elements
 	 */
 	
