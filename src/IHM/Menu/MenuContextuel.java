@@ -224,12 +224,12 @@ public class MenuContextuel implements ActionListener
 			Projet projet = Controleur.metier.getProjet(noeud[1].toString());
 			Page page = projet.getPage(noeud[2].toString());
 			
+			Scanner sc = new Scanner(noeud[3].toString()).useDelimiter(" ");
+			String str = sc.next();
+			int indice = Integer.parseInt(sc.next());
+			
 			if (mi.equals(itemModifier))
 			{
-				Scanner sc = new Scanner(noeud[3].toString()).useDelimiter(" ");
-				String str = sc.next();
-				int indice = Integer.parseInt(sc.next());
-				
 				if (str.equals("Titre"))
 				{
 					String ancienTitre = page.getAlTitre().get(indice-1);
@@ -242,6 +242,29 @@ public class MenuContextuel implements ActionListener
 				}
 				if (str.equals("Image"))
 					Controleur.creerPanelAjouterImage(1);
+			}
+			else if (mi.equals(itemSupprimer))
+			{
+				String nomElement = noeud[3].toString();
+
+				int ind = page.getIndice(nomElement);
+				
+				if (ind != -1)
+					Controleur.fenetre.getArborescence().supprimerNoeud(noeud[2], ind);
+				
+				if (str.equals("Titre"))
+				{
+					page.getAlTitre().remove(indice-1);
+				}
+				if (str.equals("Paragraphe"))
+				{
+					page.getAlParagraphe().remove(indice-1);
+					page.getAlParagrapheHTML().remove(indice-1);
+				}
+				if (str.equals("Image"))
+				{
+					page.getAlImage().remove(indice-1);
+				}
 			}
 		}
 		

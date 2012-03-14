@@ -377,4 +377,10 @@ public class PanelArbre extends JPanel implements Serializable
 			e.printStackTrace();
 		}
 	}
+
+	public void supprimerNoeud(Object object, int indice) 
+	{
+		((DefaultMutableTreeNode) object).remove(indice);
+		updateTree(object);
+	}
 }

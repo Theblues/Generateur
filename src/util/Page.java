@@ -170,4 +170,18 @@ public class Page implements Serializable
 		return "Page [nom=" + nom + ", alTitre=" + alTitre + ", alParagraphe="
 				+ alParagraphe + ", alImage=" + alImage + "]";
 	}
+
+	public int getIndice(String nomElement) 
+	{
+		int i = 0;
+		for (String s : alOrdre)
+		{
+			if (s.equals(nomElement))
+				return i;
+			
+			i++;
+		}
+				
+		return -1;
+	}
 }
