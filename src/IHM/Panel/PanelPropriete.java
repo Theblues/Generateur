@@ -9,50 +9,87 @@ import util.*;
 
 public class PanelPropriete extends JPanel implements ActionListener
 {
-	private Object type;
 	private JButton modifier;
 	private JPanel info;
 
+	// element pour les modifications
+	private JTextField txNom;
+	
+	// Permet la modification
+	private Projet projet = null;
+	private Page page = null;
 	
 	public PanelPropriete(Object type)
-	{
-		// Configuration fenetres
-		setLayout(new BorderLayout());
-
-		// Attribut 
-		this.type = type;
+	{		
 		String title = "";
-		if (type instanceof Projet ) 
+		
+		if (type instanceof Projet) 
 		{	
-			title = "Proprietes Projet";
 			
-			Projet p = (Projet) type;
-			info = new JPanel(new GridLayout(4,1));
+			title = "Proprietes du Projet";
 			
-			JLabel nom = new JLabel("Nom du Projet :   " + p.getNom());
+			this.projet = (Projet) type;
+			info = new JPanel(new GridLayout(4,2));
+			
+			JLabel nom = new JLabel("Nom du Projet : ");
+			txNom = new JTextField(projet.getNom());
 			info.add (nom);
-			JLabel style = new JLabel("Nom du Style :   " + p.getStyle());
+			info.add(txNom);
+			
+			JLabel style = new JLabel("Nom du Style : ");
+			JTextField tx1 = new JTextField(projet.getStyle());
+			tx1.setEditable(false);
 			info.add (style);
-			JLabel nbPages = new JLabel("Nombre de Pages contenu : " + p.getAlPage().size());
+			info.add(tx1);
+			
+			JLabel nbPages = new JLabel("Nombre de Pages contenu : ");
+			JTextField tx2 = new JTextField("" + projet.getAlPage().size());
+			tx2.setEditable(false);
 			info.add (nbPages);
-			JLabel chemin = new JLabel("Chemin du Projet  :   " + p.getCheminDossier());
+			info.add(tx2);
+			
+			JLabel chemin = new JLabel("Chemin du Projet  : ");
+			JTextField tx3 = new JTextField(projet.getCheminDossier());
+			tx3.setEditable(false);
 			info.add (chemin);
+			info.add(tx3);
 		}
-		else if ( type instanceof Page)
+		else if (type instanceof Page)
 		{	
-			title = "Proprietes Page";
+			title = "Proprietes de la Page";
 			
-			Page p = ( Page ) type;
-			info = new JPanel(new GridLayout(4,1));		
+			page = (Page) type;
+			info = new JPanel(new GridLayout(5 ,2));		
 			
-			JLabel nom = new JLabel("Nom  :   " + p.getNom());			
+			JLabel nom = new JLabel("Nom  : ");
+			txNom = new JTextField(page.getNom());
 			info.add (nom);
-			JLabel test = new JLabel("Nombre d'element : " + p.getAlOrdre().size());
+			info.add (txNom);
+			
+			JLabel test = new JLabel("Nombre d'element : ");
+			JTextField tx1 = new JTextField("" + page.getAlOrdre().size());
+			tx1.setEditable(false);
 			info.add(test);
-			JLabel nbTitre = new JLabel("Nombre de Titres : " + p.getAlTitre().size());
+			info.add(tx1);
+			
+			JLabel nbTitre = new JLabel("Nombre de Titres : ");
+			JTextField tx2 = new JTextField("" + page.getAlTitre().size());
+			tx2.setEditable(false);
 			info.add (nbTitre);
-			JLabel nbPara = new JLabel("Nombre de Paragraphes  :   " + p.getAlParagraphe().size());
+			info.add(tx2);
+			
+			JLabel nbPara = new JLabel("Nombre de Paragraphes  : ");
+			JTextField tx3 = new JTextField("" + page.getAlParagraphe().size());
+			tx3.setEditable(false);
 			info.add (nbPara);
+			info.add(tx3);
+			
+			JLabel nbImage = new JLabel("Nombre d'Images : ");
+			JTextField tx4 = new JTextField("" + page.getAlImage().size());
+			tx4.setEditable(false);
+			info.add (nbImage);
+			info.add(tx4);
+			
 		}
 
 		this.setBorder(BorderFactory.createCompoundBorder(
@@ -77,5 +114,12 @@ public class PanelPropriete extends JPanel implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		JButton b = (JButton) e.getSource();
+		if (b.equals(modifier))
+		{
+			if (projet != null)
+				projet.setNom(txNom.getText());
+			else if (page != null)
+				page.setNom(txNom.getText());
+		}
 	}
 }

@@ -4,6 +4,8 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 
+import Main.Controleur;
+
 public class Projet implements Serializable
 {
 	private String nom;
@@ -49,6 +51,30 @@ public class Projet implements Serializable
 	public void setPageSelectionne(Page p)
 	{
 		pageSelectionne = p;
+	}
+	
+	public void setNom(String nom)
+	{
+		// on recupere le fichier du dossier
+		File file = new File(cheminDossier + "/"+ this.nom);
+		// on modifie le nom du dossier
+		this.nom = nom;
+		// on modifie l'arbre
+		Controleur.fenetre.getArborescence().renommerProjet(nom);
+		
+		// on renomme le nom
+		Scanner sc = new Scanner(nom);
+		sc.useDelimiter(" ");
+		String nameProjet = sc.next();
+		while (sc.hasNext())
+			nameProjet += "_" + sc.next();
+		
+		// on renomme le fichier
+		file.renameTo(new File(cheminDossier + "/" + nameProjet));
+		
+		// on modifie toutes les pages
+		for (Page p : alPage)
+			p.setFile(new File(cheminDossier + "/" + nameProjet + "/" + p.getNom() + ".html"));
 	}
 
 	public void ajouterPage(Page p)

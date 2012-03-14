@@ -1,9 +1,10 @@
 package IHM.Panel;
 
 import java.awt.*;
+import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.text.*;
+import javax.swing.text.StyledEditorKit;
 
 public class PanelListeModFont extends JPanel
 {
