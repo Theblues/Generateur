@@ -3,6 +3,8 @@ package IHM.Menu;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.event.*;
+import java.util.Scanner;
+
 import javax.swing.*;
 
 import Main.*;
@@ -209,6 +211,12 @@ public class MenuContextuel implements ActionListener
 			// Proprietes
 			if (mi.equals(itemPropriete))
 				Controleur.creerPanelPropriete(page);
+			else if (mi.equals(itemAjoutTitre))
+				Controleur.creerPanelAjouterTitre(0, "");
+			else if (mi.equals(itemAjoutParagraphe))
+				Controleur.creerPanelAjouterParagraphe(0, "");
+			else if (mi.equals(itemAjoutImage))
+				Controleur.creerPanelAjouterImage(0);
 		}
 		// si c'est un element
 		else if (location >= 3)
@@ -216,7 +224,25 @@ public class MenuContextuel implements ActionListener
 			Projet projet = Controleur.metier.getProjet(noeud[1].toString());
 			Page page = projet.getPage(noeud[2].toString());
 			
-			// TODO le reste
+			if (mi.equals(itemModifier))
+			{
+				Scanner sc = new Scanner(noeud[3].toString()).useDelimiter(" ");
+				String str = sc.next();
+				int indice = Integer.parseInt(sc.next());
+				
+				if (str.equals("Titre"))
+				{
+					String ancienTitre = page.getAlTitre().get(indice-1);
+					Controleur.creerPanelAjouterTitre(1, ancienTitre);
+				}
+				if (str.equals("Paragraphe"))
+				{
+					String ancienParagraphe = page.getAlParagrapheHTML().get(indice-1);
+					Controleur.creerPanelAjouterParagraphe(1, ancienParagraphe);
+				}
+				if (str.equals("Image"))
+					Controleur.creerPanelAjouterImage(1);
+			}
 		}
 		
 		if (mi.equals(itemNouveauProjet))
