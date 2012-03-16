@@ -189,7 +189,6 @@ public class MenuContextuel implements ActionListener
 			
 			jpm.add(menuNouveau);
 			jpm.add(menuGenerer);
-			jpm.add(menuAjout);
 			jpm.add(itemMonter);
 			jpm.add(itemDescendre);
 			jpm.add(itemModifier);
