@@ -90,6 +90,11 @@ public class Projet implements Serializable
 		for (Page p : alPage)
 			p.setFile(new File(cheminDossier + "/" + nameProjet + "/" + p.getNom() + ".html"));
 	}
+	
+	public void setAuteur(String auteur)
+	{
+		this.auteur = auteur;
+	}	
 
 	public void ajouterPage(Page p)
 	{
@@ -121,5 +126,5 @@ public class Projet implements Serializable
 	{
 		return "Projet [nom=" + nom + ", alPage=" + alPage
 				+ ", pageSelectionne=" + pageSelectionne + "]";
-	}	
+	}
 }

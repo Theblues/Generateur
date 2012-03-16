@@ -14,41 +14,39 @@ import util.*;
 
 public class PanelCreerProjet extends JPanel implements ActionListener
 {	
+	// Bouton choix utilisateur
 	private JTextField 	txNom;
 	private JTextField 	txAuteur;
 	private JTextField 	txChemin;
 	private JComboBox 	combo;
 	
+	// bouton choix dossier
 	private JButton parcourir;
 	
-	private JButton annuler;
 	private JButton valider;
 	
 	public PanelCreerProjet()
 	{
-		setLayout(new BorderLayout());
+		setLayout(new FlowLayout(FlowLayout.LEFT, 300, 0));
 		
-		// Panel Nom
-		JPanel panelNom = new JPanel();
-		panelNom.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 10));
+		JPanel panelElement = new JPanel();
+		panelElement.setLayout(new GridLayout(3,2));
+		
+		// Element nom
 		JLabel label = new JLabel("Nom du projet :");
 		txNom = new JTextField(20);
 		
-		panelNom.add(label);
-		panelNom.add(txNom);
+		panelElement.add(label);
+		panelElement.add(txNom);
 		
-		// Panel auteur
-		JPanel panelAuteur = new JPanel();
-		panelAuteur.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 10));
+		// Element auteur
 		label = new JLabel("Nom de l'auteur :");
 		txAuteur = new JTextField(20);
 		
-		panelAuteur.add(label);
-		panelAuteur.add(txAuteur);
+		panelElement.add(label);
+		panelElement.add(txAuteur);
 		
-		// Panel Theme
-		JPanel panelTheme = new JPanel();
-		panelTheme.setLayout(new FlowLayout(FlowLayout.LEFT, 50 ,10));
+		// Element Theme
 		label = new JLabel("Choisissez un theme");
 		combo = new JComboBox();
 		combo.setPreferredSize(new Dimension(100, 30));
@@ -56,12 +54,11 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 		combo.addItem("Theme 2");
 		combo.addItem("Theme 3");
 		
-		panelTheme.add(label);
-		panelTheme.add(combo);
+		panelElement.add(label);
+		panelElement.add(combo);
 		
 		// Panel Dossier
 		JPanel panelDossier = new JPanel();
-		panelDossier.setLayout(new FlowLayout(FlowLayout.LEFT, 65, 10));
 		
 		label = new JLabel("Dossier :");
 		txChemin = new JTextField(20);
@@ -77,36 +74,23 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 		parcourir = new JButton("Parcourir");
 		parcourir.addActionListener(this);
 		
-		panelDossier.add(label, BorderLayout.WEST);
+		panelDossier.add(label);
 		panelDossier.add(txChemin);
-		panelDossier.add(parcourir, BorderLayout.EAST);
+		panelDossier.add(parcourir);
 		
 		// Panel englobant le tout
 		JPanel panelCentre = new JPanel();
-		panelCentre.setSize(800, 500);
-		panelCentre.setLayout(new GridLayout(4, 1));
-		//panelCentre.setLayout(new BorderLayout(3,1));
-		panelCentre.add(panelNom);
-		panelCentre.add(panelAuteur);
-		panelCentre.add(panelTheme);
+		panelCentre.setLayout(new GridLayout(2, 1));
+		panelCentre.add(panelElement);
 		panelCentre.add(panelDossier);
-		
-		add(panelCentre);
-		
-		JPanel panSud = new JPanel();
-		panSud.setLayout(new BorderLayout());
-		
-		JPanel panBouton = new JPanel();
-		annuler = new JButton("Annuler");
-		panBouton.add(annuler);
 		
 		valider = new JButton("Valider");
 		valider.addActionListener(this);
-		panBouton.add(valider);
 		
-		panSud.add(panBouton, BorderLayout.EAST);
-		add(panSud, BorderLayout.SOUTH);
+		add(panelCentre);
+		add(valider);
 		
+		// on ajoute une bordure
 		this.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createCompoundBorder(
 						BorderFactory.createTitledBorder("Creation d'un nouveau projet"),
@@ -128,10 +112,6 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 				Controleur.fenetre.getPanelAjout().supprimerPanel();
 				Controleur.creerPanelPropriete(projet);
 			}
-		}
-		else if (b.equals(annuler))
-		{
-			Controleur.fenetre.getPanelAjout().supprimerPanel();
 		}
 		else if (b.equals(parcourir))
 			choisirDossier();			

@@ -14,14 +14,14 @@ public class PanelCreerPage extends JPanel implements ActionListener
 {
 	private JTextField	txNom;
 
-	private JButton annuler;
 	private JButton valider; 
 
 	public PanelCreerPage()
 	{
-		setLayout(new BorderLayout());
-		JPanel panel = new JPanel();
+		setLayout(new FlowLayout(FlowLayout.LEFT, 250, 10));
 		
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(2,2));
 		// Choix du projet
 		JLabel label = new JLabel("Projet selectionne :");		
 		panel.add(label);
@@ -35,23 +35,13 @@ public class PanelCreerPage extends JPanel implements ActionListener
 		txNom = new JTextField(30);
 		panel.add(txNom);
 		
-		add(panel);
-		
-		JPanel panSud = new JPanel();
-		panSud.setLayout(new BorderLayout());
-		
-		JPanel panBouton = new JPanel();
-		annuler = new JButton("Annuler");
-		annuler.addActionListener(this);
-		panBouton.add(annuler);
-		
 		valider = new JButton("Valider");
 		valider.addActionListener(this);
-		panBouton.add(valider);
 		
-		panSud.add(panBouton, BorderLayout.EAST);
-		add(panSud, BorderLayout.SOUTH);
+		add(panel);
+		add(valider);
 
+		// on ajoute une bordure
 		this.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createCompoundBorder(
 						BorderFactory.createTitledBorder("Creation d'une nouvelle page"),

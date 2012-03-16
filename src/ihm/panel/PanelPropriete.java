@@ -10,49 +10,53 @@ import util.*;
 public class PanelPropriete extends JPanel implements ActionListener
 {
 	private JButton modifier;
-	private JPanel info;
 
 	// element pour les modifications
 	private JTextField txNom;
+	private JTextField txAuteur;
 	
 	// Permet la modification
 	private Projet projet = null;
 	private Page page = null;
 	
 	public PanelPropriete(Object type)
-	{		
+	{
+		setLayout(new FlowLayout(FlowLayout.LEFT, 325,10));
+		
 		String title = "";
+		JPanel info = null;
 		
 		if (type instanceof Projet) 
-		{	
-			
+		{
 			title = "Proprietes du Projet";
 			
 			this.projet = (Projet) type;
-			info = new JPanel(new GridLayout(4,2));
+			info = new JPanel(new GridLayout(5,2));
 			
 			JLabel nom = new JLabel("Nom du Projet : ");
 			txNom = new JTextField(projet.getNom());
 			info.add (nom);
 			info.add(txNom);
 			
-			JLabel style = new JLabel("Nom du Style : ");
-			JTextField tx1 = new JTextField(projet.getStyle());
-			tx1.setEditable(false);
-			info.add (style);
-			info.add(tx1);
+			JLabel auteur = new JLabel("Auteur du Projet : ");
+			txAuteur = new JTextField(projet.getAuteur());
+			info.add (auteur);
+			info.add(txAuteur);
 			
-			JLabel nbPages = new JLabel("Nombre de Pages contenu : ");
-			JTextField tx2 = new JTextField("" + projet.getAlPage().size());
-			tx2.setEditable(false);
-			info.add (nbPages);
-			info.add(tx2);
+			JLabel style1 = new JLabel("Nom du Style : ");
+			JLabel style2 = new JLabel(projet.getStyle());
+			info.add (style1);
+			info.add(style2);
 			
-			JLabel chemin = new JLabel("Chemin du Projet  : ");
-			JTextField tx3 = new JTextField(projet.getCheminDossier());
-			tx3.setEditable(false);
-			info.add (chemin);
-			info.add(tx3);
+			JLabel nbPages1 = new JLabel("Nombre de Pages contenu : ");
+			JLabel nbPages2 = new JLabel("" + projet.getAlPage().size());
+			info.add (nbPages1);
+			info.add(nbPages2);
+			
+			JLabel chemin1 = new JLabel("Chemin du Projet  : ");
+			JLabel chemin2 = new JLabel(projet.getCheminDossier());
+			info.add (chemin1);
+			info.add(chemin2);
 		}
 		else if (type instanceof Page)
 		{	
@@ -66,48 +70,40 @@ public class PanelPropriete extends JPanel implements ActionListener
 			info.add (nom);
 			info.add (txNom);
 			
-			JLabel test = new JLabel("Nombre d'element : ");
-			JTextField tx1 = new JTextField("" + page.getAlOrdre().size());
-			tx1.setEditable(false);
-			info.add(test);
-			info.add(tx1);
+			JLabel nbElement1 = new JLabel("Nombre d'element : ");
+			JLabel nbElement2 = new JLabel("" + page.getAlOrdre().size());
+			info.add(nbElement1);
+			info.add(nbElement2);
 			
-			JLabel nbTitre = new JLabel("Nombre de Titres : ");
-			JTextField tx2 = new JTextField("" + page.getAlTitre().size());
-			tx2.setEditable(false);
-			info.add (nbTitre);
-			info.add(tx2);
+			JLabel nbTitre1 = new JLabel("Nombre de Titres : ");
+			JLabel nbTitre2 = new JLabel("" + page.getAlTitre().size());
+			info.add (nbTitre1);
+			info.add(nbTitre2);
 			
-			JLabel nbPara = new JLabel("Nombre de Paragraphes  : ");
-			JTextField tx3 = new JTextField("" + page.getAlParagraphe().size());
-			tx3.setEditable(false);
-			info.add (nbPara);
-			info.add(tx3);
+			JLabel nbPara1 = new JLabel("Nombre de Paragraphes  : ");
+			JLabel nbPara2 = new JLabel("" + page.getAlParagraphe().size());
+			info.add (nbPara1);
+			info.add(nbPara2);
 			
-			JLabel nbImage = new JLabel("Nombre d'Images : ");
-			JTextField tx4 = new JTextField("" + page.getAlImage().size());
-			tx4.setEditable(false);
-			info.add (nbImage);
-			info.add(tx4);
+			JLabel nbImage1 = new JLabel("Nombre d'Images : ");
+			JLabel nbImage2 = new JLabel("" + page.getAlImage().size());
+			info.add (nbImage1);
+			info.add(nbImage2);
 			
 		}
+				
+		modifier = new JButton("Modifier");
+		modifier.addActionListener(this);
+
+		add(info);
+		add(modifier);
 
 		this.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createCompoundBorder(
 						BorderFactory.createTitledBorder(title),
 						BorderFactory.createEmptyBorder(2, 2, 2, 2)),
 						this.getBorder()));
-		add(info);
 		
-		JPanel panelSouth = new JPanel();
-		panelSouth.setLayout(new BorderLayout());
-		
-		modifier = new JButton("Modifier");
-		modifier.addActionListener(this);
-		panelSouth.add(modifier, BorderLayout.EAST);
-		
-		add(panelSouth, BorderLayout.SOUTH);
-
 		setVisible(true);
 	}
 
@@ -117,7 +113,10 @@ public class PanelPropriete extends JPanel implements ActionListener
 		if (b.equals(modifier))
 		{
 			if (projet != null)
+			{
 				projet.setNom(txNom.getText());
+				projet.setAuteur(txAuteur.getText());
+			}
 			else if (page != null)
 				page.setNom(txNom.getText());
 		}

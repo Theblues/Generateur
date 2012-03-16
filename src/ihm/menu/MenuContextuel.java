@@ -16,12 +16,12 @@ import util.*;
  *  ________________		 _______________		 _______________
  * | Nouveau ->		|		| Nouveau ->	|		| Nouveau ->	|
  * | Generer Projet	|		| Generer ->	|		| Generer ->	|
- * | Renommer		|		| Ajouter ->	|		| Ajouter ->	|
- * | Supprimer		|		| Monter 		|		| Monter		|
- * | Propriete		|		| Descendre		|		| Descendre		|
- * |________________|		| Renommer		|		| Modifier		|
- * 							| Supprimer		|		| Supprimer		|
- * 							| Propriete		|		|_______________|
+ * | Renommer		|		| Ajouter ->	|		| Monter		|
+ * | Supprimer		|		| Monter 		|		| Descendre		|
+ * | Propriete		|		| Descendre		|		| Modifier		|
+ * |________________|		| Renommer		|		| Supprimer		|
+ * 							| Supprimer		|		|_______________|
+ * 							| Propriete		|		
  * 							|_______________|		
  * 
  * 
@@ -335,39 +335,31 @@ public class MenuContextuel implements ActionListener
 			if (mi.equals(itemGenererPage))
 				Controleur.metier.getGenerator().generateFile(projet, page);
 			
-			// Menu ajouter
-			if (mi.equals(itemAjoutTitre))
-				Controleur.creerPanelAjouterTitre(0, "");
-			if (mi.equals(itemAjoutParagraphe))
-				Controleur.creerPanelAjouterParagraphe(0, "");
-			if (mi.equals(itemAjoutImage))
-				Controleur.creerPanelAjouterImage(0);
-			
-			// on recupere le type et l'indice de l'element
-			Scanner sc = new Scanner(noeud[3].toString()).useDelimiter(" ");
-			String str = sc.next();
-			int indice = Integer.parseInt(sc.next());
-			
 			// Monter/Descendre
 			if (mi.equals(itemMonter))
 				Controleur.monterElement();
 			if (mi.equals(itemDescendre))
 				Controleur.descendreElement();
 			
+			// on recupere le type et l'indice de l'element
+			Scanner sc = new Scanner(noeud[3].toString()).useDelimiter(" ");
+			String type = sc.next();
+			int indice = Integer.parseInt(sc.next());
+						
 			// Modifier
 			if (mi.equals(itemModifier))
 			{
-				if (str.equals("Titre"))
+				if (type.equals("Titre"))
 				{
 					String ancienTitre = page.getAlTitre().get(indice-1);
 					Controleur.creerPanelAjouterTitre(1, ancienTitre);
 				}
-				if (str.equals("Paragraphe"))
+				if (type.equals("Paragraphe"))
 				{
 					String ancienParagraphe = page.getAlParagrapheHTML().get(indice-1);
 					Controleur.creerPanelAjouterParagraphe(1, ancienParagraphe);
 				}
-				if (str.equals("Image"))
+				if (type.equals("Image"))
 					Controleur.creerPanelAjouterImage(1);
 			}
 			
@@ -384,16 +376,16 @@ public class MenuContextuel implements ActionListener
 					if (ind != -1)
 						Controleur.fenetre.getArborescence().supprimerNoeud(noeud[2], ind);
 					
-					if (str.equals("Titre"))
+					if (type.equals("Titre"))
 					{
 						page.getAlTitre().remove(indice-1);
 					}
-					if (str.equals("Paragraphe"))
+					if (type.equals("Paragraphe"))
 					{
 						page.getAlParagraphe().remove(indice-1);
 						page.getAlParagrapheHTML().remove(indice-1);
 					}
-					if (str.equals("Image"))
+					if (type.equals("Image"))
 					{
 						page.getAlImage().remove(indice-1);
 					}
