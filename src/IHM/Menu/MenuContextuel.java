@@ -265,6 +265,7 @@ public class MenuContextuel implements ActionListener
 				{
 					page.getAlImage().remove(indice-1);
 				}
+				page.getAlOrdre().remove(ind);
 			}
 		}
 		
