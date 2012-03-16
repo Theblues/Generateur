@@ -4,7 +4,7 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 
-import Main.Controleur;
+import main.Controleur;
 
 public class Projet implements Serializable
 {
@@ -74,7 +74,7 @@ public class Projet implements Serializable
 		// on modifie le nom du dossier
 		this.nom = nom;
 		// on modifie l'arbre
-		Controleur.fenetre.getArborescence().renommerProjet(nom);
+		Controleur.fenetre.getArborescence().renommerNoeud("projet", nom);
 		
 		// on renomme le nom
 		Scanner sc = new Scanner(nom);

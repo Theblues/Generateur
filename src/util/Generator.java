@@ -3,8 +3,6 @@ package util;
 import java.io.*;
 import java.util.*;
 
-import Main.*;
-
 public class Generator
 {
 	private String headerHTML(String style) 
@@ -134,6 +132,5 @@ public class Generator
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Controleur.creerOptionPane("info", "Generation de la page \"" + page.getNom() + "\" accomplie");
 	}
 }

@@ -3,7 +3,7 @@ package util;
 import java.io.*;
 import java.util.*;
 
-import Main.Controleur;
+import main.Controleur;
 
 public class Page implements Serializable
 {
@@ -71,7 +71,7 @@ public class Page implements Serializable
 		this.nom = nom;
 		
 		// on modifie le nom dans l'arbre
-		Controleur.fenetre.getArborescence().renommerPage(nom);
+		Controleur.fenetre.getArborescence().renommerNoeud("page", nom);
 		
 		// on renomme le nom
 		Scanner sc = new Scanner(nom);
