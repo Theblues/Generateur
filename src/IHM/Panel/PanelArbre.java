@@ -235,7 +235,7 @@ public class PanelArbre extends JPanel implements Serializable
 	public boolean monterNode(String type)
 	{
 		// on recupere path du noeud suivant
-		TreePath path = arbre.getPathForRow(locationRow - 1);
+		TreePath path = arbre.getPathForRow(locationRow - 1); // TODO bug
 		if (path != null)
 		{
 			if (type.equals("element"))
@@ -254,7 +254,7 @@ public class PanelArbre extends JPanel implements Serializable
 	public boolean descendreNode(String type)
 	{
 		// on recupere path du noeud precedent
-		TreePath path = arbre.getPathForRow(locationRow + 1);
+		TreePath path = arbre.getPathForRow(locationRow + 1); // TODO bug
 		if (path != null)
 		{
 			if (type.equals("element"))

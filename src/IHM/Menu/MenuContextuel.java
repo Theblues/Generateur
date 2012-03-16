@@ -1,7 +1,5 @@
 package IHM.Menu;
 
-import java.awt.Component;
-import java.awt.Graphics;
 import java.awt.event.*;
 import java.io.File;
 import java.util.Scanner;

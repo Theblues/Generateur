@@ -22,16 +22,12 @@ public class PanelListeAction extends JPanel implements ActionListener
 	private JButton boutonAjouterParagraphe;
 	private JButton boutonAjouterImage;
 
-	// bouton temporaire !!
-	private JButton boutonMonter;
-	private JButton boutonDescendre;
-
 	public PanelListeAction()
 	{
 		// tous mettre a gauche
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 
-		MyPopupButton popupGenerer = new MyPopupButton("Générer le projet", new String[] {"Generer le projet", "Generer la page" }, this);
+		MyPopupButton popupGenerer = new MyPopupButton("Générer", new String[] {"Generer le projet", "Generer la page" }, this);
 		popupGenerer.setIcon(new ImageIcon("images/generate.png"));
 		popupGenerer.setToolTipText("Generer");
 		
@@ -64,18 +60,6 @@ public class PanelListeAction extends JPanel implements ActionListener
 		boutonAjouterImage.setIcon(new ImageIcon("images/add-image.png"));
 		boutonAjouterImage.setToolTipText("Ajouter une image a la page");
 		boutonAjouterImage.addActionListener(this);
-		
-		// bouton Monter Selection
-		/*boutonMonter = new JButton("Monter");
-		boutonMonter.setIcon(new ImageIcon("images/select-up.png"));
-		boutonMonter.setToolTipText("Monter la selection");
-		boutonMonter.addActionListener(this);
-		
-		// bouton Descendre Selection
-		boutonDescendre = new JButton("Descendre");
-		boutonDescendre.setIcon(new ImageIcon("images/select-down.png"));
-		boutonDescendre.setToolTipText("Descendre la selection");
-		boutonDescendre.addActionListener(this);*/
 
 		add(popupGenerer);
 		add(boutonCreerProjet);
@@ -83,8 +67,6 @@ public class PanelListeAction extends JPanel implements ActionListener
 		add(boutonAjouterTitre);
 		add(boutonAjouterParagraphe);
 		add(boutonAjouterImage);
-		//add(boutonMonter);
-		//add(boutonDescendre);
 	}
 
 	@Override
@@ -107,25 +89,7 @@ public class PanelListeAction extends JPanel implements ActionListener
 				Controleur.creerPanelAjouterParagraphe(0, "");
 		if (b.equals(boutonAjouterImage))
 			if (path != null && path.getPathCount() >= 3)
-				Controleur.creerPanelAjouterImage(0);
-		if (b.equals(boutonDescendre))
-		{
-			// si la taille de path est de 3 c'est une page
-			if (path != null && path.getPathCount() == 3)
-				Controleur.descendrePage();
-			// si la taille de path est de 4 c'est un element
-			if (path != null && path.getPathCount() == 4)
-				Controleur.descendreElement();
-		}
-		if (b.equals(boutonMonter))
-		{
-			// si la taille de path est de 3 c'est une page
-			if (path != null && path.getPathCount() == 3)
-				Controleur.monterPage();
-			// si la taille de path est de 4 c'est un element
-			if (path != null && path.getPathCount() == 4)
-				Controleur.monterElement();
-		}			
+				Controleur.creerPanelAjouterImage(0);		
 	}
 
 	class MyPopupButton extends PopupButton
