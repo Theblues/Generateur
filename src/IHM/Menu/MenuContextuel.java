@@ -114,12 +114,12 @@ public class MenuContextuel implements ActionListener
 		menuAjout.add(itemAjoutImage);
 		
 		// item monter
-		itemMonter = new JMenuItem("Monter la selection");
+		itemMonter = new JMenuItem("Monter");
 		itemMonter.setIcon(new ImageIcon("images/select-up.png"));
 		itemMonter.addActionListener(this);
 		
 		// item descendre
-		itemDescendre = new JMenuItem("Descendre la selection");
+		itemDescendre = new JMenuItem("Descendre");
 		itemDescendre.setIcon(new ImageIcon("images/select-down.png"));
 		itemDescendre.addActionListener(this);
 		

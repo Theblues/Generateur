@@ -31,51 +31,51 @@ public class PanelListeAction extends JPanel implements ActionListener
 		// tous mettre a gauche
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 
-		MyPopupButton popupGenerer = new MyPopupButton("", new String[] {"Generer le projet", "Generer la page" }, this);
+		MyPopupButton popupGenerer = new MyPopupButton("Générer le projet", new String[] {"Generer le projet", "Generer la page" }, this);
 		popupGenerer.setIcon(new ImageIcon("images/generate.png"));
 		popupGenerer.setToolTipText("Generer");
 		
 		// bouton Creation Projet
-		boutonCreerProjet = new JButton();
+		boutonCreerProjet = new JButton("Nouveau projet");
 		boutonCreerProjet.setIcon(new ImageIcon("images/project-new.png"));
 		boutonCreerProjet.setToolTipText("Creer un nouveau projet");
 		boutonCreerProjet.addActionListener(this);
 		
 		// bouton Creation Page
-		boutonCreerPage = new JButton();
+		boutonCreerPage = new JButton("Nouvelle page");
 		boutonCreerPage.setIcon(new ImageIcon("images/page-new.png"));
 		boutonCreerPage.setToolTipText("Creer une nouvelle page");
 		boutonCreerPage.addActionListener(this);
 
 		// bouton Ajout Titre
-		boutonAjouterTitre = new JButton();
+		boutonAjouterTitre = new JButton("Ajouter un titre");
 		boutonAjouterTitre.setIcon(new ImageIcon("images/add-title.png"));
 		boutonAjouterTitre.setToolTipText("Ajouter un titre a la page");
 		boutonAjouterTitre.addActionListener(this);
 
 		// bouton Ajout Paragraphe
-		boutonAjouterParagraphe = new JButton();
-		boutonAjouterParagraphe.setIcon(new ImageIcon("images/Text-Editor.png"));
+		boutonAjouterParagraphe = new JButton("Ajouter un paragraphe");
+		boutonAjouterParagraphe.setIcon(new ImageIcon("images/add-paragraph.png"));
 		boutonAjouterParagraphe.setToolTipText("Ajouter un paragraphe a la page");
 		boutonAjouterParagraphe.addActionListener(this);
 
 		// bouton Ajout Image
-		boutonAjouterImage = new JButton();
-		boutonAjouterImage.setIcon(new ImageIcon("images/picture_add.jpg"));
+		boutonAjouterImage = new JButton("Ajouter une image");
+		boutonAjouterImage.setIcon(new ImageIcon("images/add-image.png"));
 		boutonAjouterImage.setToolTipText("Ajouter une image a la page");
 		boutonAjouterImage.addActionListener(this);
 		
 		// bouton Monter Selection
-		boutonMonter = new JButton();
+		/*boutonMonter = new JButton("Monter");
 		boutonMonter.setIcon(new ImageIcon("images/select-up.png"));
 		boutonMonter.setToolTipText("Monter la selection");
 		boutonMonter.addActionListener(this);
 		
 		// bouton Descendre Selection
-		boutonDescendre = new JButton();
+		boutonDescendre = new JButton("Descendre");
 		boutonDescendre.setIcon(new ImageIcon("images/select-down.png"));
 		boutonDescendre.setToolTipText("Descendre la selection");
-		boutonDescendre.addActionListener(this);
+		boutonDescendre.addActionListener(this);*/
 
 		add(popupGenerer);
 		add(boutonCreerProjet);
@@ -83,8 +83,8 @@ public class PanelListeAction extends JPanel implements ActionListener
 		add(boutonAjouterTitre);
 		add(boutonAjouterParagraphe);
 		add(boutonAjouterImage);
-		add(boutonMonter);
-		add(boutonDescendre);
+		//add(boutonMonter);
+		//add(boutonDescendre);
 	}
 
 	@Override
