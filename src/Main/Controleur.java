@@ -71,10 +71,10 @@ public class Controleur
 			op.optionPaneErreur(texte);
 	}
 	
-	public static int creerOptionPaneConfirm(String titre, String texte)
+	public static int creerOptionPaneConfirm(String titre, String texte, int option)
 	{
 		OptionPane op = new OptionPane();
-		return op.optionPaneConfirmation(titre, texte);
+		return op.optionPaneConfirmation(titre, texte, option);
 	}
 	
 	public static void enregistrer()

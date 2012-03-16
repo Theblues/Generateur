@@ -48,6 +48,18 @@ public class Metier
 		return null;
 	}
 	
+	public int getIndiceProjet(Projet projet)
+	{
+		int i = 0;
+		for (Projet p : alProjet)
+		{
+			if (p.equals(projet))
+				return i;
+			i++;
+		}
+		return -1;
+	}
+	
 	public void setProjetSelectionne(Projet p)
 	{
 		projetSelectionne = p;
