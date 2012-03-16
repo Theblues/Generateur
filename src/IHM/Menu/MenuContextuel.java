@@ -19,9 +19,10 @@ import util.*;
  * | Nouveau ->		|		| Nouveau ->	|		| Nouveau ->	|
  * | Generer Projet	|		| Generer ->	|		| Generer ->	|
  * | Renommer		|		| Ajouter ->	|		| Ajouter ->	|
- * | Supprimer		|		| TODO nom		|		| TODO nom		|
- * | Propriete		|		| Renommer		|		| Modifier		|
- * |________________|		| Supprimer		|		| Supprimer		|
+ * | Supprimer		|		| Monter 		|		| Monter		|
+ * | Propriete		|		| Descendre		|		| Descendre		|
+ * |________________|		| Renommer		|		| Modifier		|
+ * 							| Supprimer		|		| Supprimer		|
  * 							| Propriete		|		|_______________|
  * 							|_______________|		
  * 
@@ -36,8 +37,6 @@ import util.*;
  * 			  Paragraphe
  * 			  Image
  * 
- * Changer Niveau  -> Monter
- * 			  		  Descendre
  */
 
 public class MenuContextuel implements ActionListener
@@ -46,20 +45,28 @@ public class MenuContextuel implements ActionListener
 	private Object[] noeud;
 	private int location;
 	
+	// item pour le menu Nouveau
 	private JMenuItem itemNouveauProjet;
 	private JMenuItem itemNouvellePage;
 	
+	// item pour le menu Generer
 	private JMenuItem itemGenererProjet;
 	private JMenuItem itemGenererPage;
 	
+	// item pour le menu Ajouter
 	private JMenuItem itemAjoutTitre;
 	private JMenuItem itemAjoutParagraphe;
 	private JMenuItem itemAjoutImage;
 	
+	// item pour monter/descendre une page/un element
+	private JMenuItem itemMonter;
+	private JMenuItem itemDescendre;
+	
+	// autre item
 	private JMenuItem itemRenommer;
 	private JMenuItem itemModifier;
-	private JMenuItem itemPropriete;
 	private JMenuItem itemSupprimer;
+	private JMenuItem itemPropriete;
 	
 	public MenuContextuel(MouseEvent me, int location, Object[] obj)
 	{
@@ -105,6 +112,16 @@ public class MenuContextuel implements ActionListener
 		menuAjout.add(itemAjoutTitre);
 		menuAjout.add(itemAjoutParagraphe);
 		menuAjout.add(itemAjoutImage);
+		
+		// item monter
+		itemMonter = new JMenuItem("Monter la selection");
+		itemMonter.setIcon(new ImageIcon("images/select-up.png"));
+		itemMonter.addActionListener(this);
+		
+		// item descendre
+		itemDescendre = new JMenuItem("Descendre la selection");
+		itemDescendre.setIcon(new ImageIcon("images/select-down.png"));
+		itemDescendre.addActionListener(this);
 		
 		// item Renommer
 		itemRenommer = new JMenuItem("Renommer");
@@ -152,6 +169,8 @@ public class MenuContextuel implements ActionListener
 			jpm.add(menuNouveau);
 			jpm.add(menuGenerer);
 			jpm.add(menuAjout);
+			jpm.add(itemMonter);
+			jpm.add(itemDescendre);
 			jpm.add(itemRenommer);
 			jpm.add(itemSupprimer);
 			jpm.add(itemPropriete);
@@ -171,6 +190,8 @@ public class MenuContextuel implements ActionListener
 			jpm.add(menuNouveau);
 			jpm.add(menuGenerer);
 			jpm.add(menuAjout);
+			jpm.add(itemMonter);
+			jpm.add(itemDescendre);
 			jpm.add(itemModifier);
 			jpm.add(itemSupprimer);
 		}
@@ -185,15 +206,29 @@ public class MenuContextuel implements ActionListener
 	{
 		JMenuItem mi = (JMenuItem) e.getSource();
 		
+		// Menu nouveau
+		if (mi.equals(itemNouveauProjet))
+			Controleur.creerPanelCreerProjet();
+		if (mi.equals(itemNouvellePage) && noeud[1] != null)
+			Controleur.creerPanelCreerPage();
+		
 		// si c'est un projet
 		if (location == 2)
 		{
 			Projet projet = Controleur.metier.getProjet(noeud[1].toString());
 			
-			// proprietes
-			if (mi.equals(itemPropriete))
-				Controleur.creerPanelPropriete(projet);
-
+			// Generer
+			if (mi.equals(itemGenererProjet))
+			{
+				for (Page page : projet.getAlPage())
+				{
+					if (page == null)
+						continue;
+					Controleur.metier.getGenerator().generateFile(projet, page);
+				}
+			}
+			
+			// supprimer
 			if (mi.equals(itemSupprimer))
 			{
 				int option = Controleur.creerOptionPaneConfirm("Supprimer", "Etes-vous sur de vouloir supprimer le " + projet.getNom() + " ?", JOptionPane.YES_NO_OPTION);
@@ -221,6 +256,10 @@ public class MenuContextuel implements ActionListener
 					}
 				}
 			}
+			
+			// proprietes
+			if (mi.equals(itemPropriete))
+				Controleur.creerPanelPropriete(projet);
 		}
 		// si c'est un page
 		else if (location == 3)
@@ -228,15 +267,34 @@ public class MenuContextuel implements ActionListener
 			Projet projet = Controleur.metier.getProjet(noeud[1].toString());
 			Page page = projet.getPage(noeud[2].toString());
 			
-			// Proprietes
-			if (mi.equals(itemPropriete))
-				Controleur.creerPanelPropriete(page);
-			else if (mi.equals(itemAjoutTitre))
+			// Menu generer
+			if (mi.equals(itemGenererProjet))
+			{
+				for (Page p : projet.getAlPage())
+				{
+					if (p == null)
+						continue;
+					Controleur.metier.getGenerator().generateFile(projet, p);
+				}
+			}
+			if (mi.equals(itemGenererPage))
+				Controleur.metier.getGenerator().generateFile(projet, page);
+			
+			// Menu ajouter
+			if (mi.equals(itemAjoutTitre))
 				Controleur.creerPanelAjouterTitre(0, "");
-			else if (mi.equals(itemAjoutParagraphe))
+			if (mi.equals(itemAjoutParagraphe))
 				Controleur.creerPanelAjouterParagraphe(0, "");
-			else if (mi.equals(itemAjoutImage))
+			if (mi.equals(itemAjoutImage))
 				Controleur.creerPanelAjouterImage(0);
+			
+			// Monter/Descendre
+			if (mi.equals(itemMonter))
+				Controleur.monterPage();
+			if (mi.equals(itemDescendre))
+				Controleur.descendrePage();
+			
+			// Supprimer
 			if (mi.equals(itemSupprimer))
 			{
 				int option = Controleur.creerOptionPaneConfirm("Supprimer", "Etes-vous sur de vouloir supprimer la page " + page.getNom() + " ?", JOptionPane.YES_NO_OPTION);
@@ -256,8 +314,10 @@ public class MenuContextuel implements ActionListener
 						file.delete();
 					}
 				}
-					
 			}
+			// Proprietes
+			if (mi.equals(itemPropriete))
+				Controleur.creerPanelPropriete(page);
 		}
 		// si c'est un element
 		else if (location >= 3)
@@ -265,10 +325,39 @@ public class MenuContextuel implements ActionListener
 			Projet projet = Controleur.metier.getProjet(noeud[1].toString());
 			Page page = projet.getPage(noeud[2].toString());
 			
+			// Menu generer
+			if (mi.equals(itemGenererProjet))
+			{
+				for (Page p : projet.getAlPage())
+				{
+					if (p == null)
+						continue;
+					Controleur.metier.getGenerator().generateFile(projet, p);
+				}
+			}
+			if (mi.equals(itemGenererPage))
+				Controleur.metier.getGenerator().generateFile(projet, page);
+			
+			// Menu ajouter
+			if (mi.equals(itemAjoutTitre))
+				Controleur.creerPanelAjouterTitre(0, "");
+			if (mi.equals(itemAjoutParagraphe))
+				Controleur.creerPanelAjouterParagraphe(0, "");
+			if (mi.equals(itemAjoutImage))
+				Controleur.creerPanelAjouterImage(0);
+			
+			// on recupere le type et l'indice de l'element
 			Scanner sc = new Scanner(noeud[3].toString()).useDelimiter(" ");
 			String str = sc.next();
 			int indice = Integer.parseInt(sc.next());
 			
+			// Monter/Descendre
+			if (mi.equals(itemMonter))
+				Controleur.monterElement();
+			if (mi.equals(itemDescendre))
+				Controleur.descendreElement();
+			
+			// Modifier
 			if (mi.equals(itemModifier))
 			{
 				if (str.equals("Titre"))
@@ -284,7 +373,9 @@ public class MenuContextuel implements ActionListener
 				if (str.equals("Image"))
 					Controleur.creerPanelAjouterImage(1);
 			}
-			else if (mi.equals(itemSupprimer))
+			
+			//Supprimer
+			if (mi.equals(itemSupprimer))
 			{
 				int option = Controleur.creerOptionPaneConfirm("Supprimer", "Etes-vous sur de vouloir supprimer l'element ?", JOptionPane.YES_NO_OPTION);
 				if (option == JOptionPane.OK_OPTION)
@@ -311,11 +402,6 @@ public class MenuContextuel implements ActionListener
 					}
 				}
 			}
-		}
-		
-		if (mi.equals(itemNouveauProjet))
-			Controleur.creerPanelCreerProjet();
-		else if (mi.equals(itemNouvellePage) && noeud[1] != null)
-			Controleur.creerPanelCreerPage();
+		}		
 	}
 }
