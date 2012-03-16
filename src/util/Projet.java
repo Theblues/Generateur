@@ -48,6 +48,20 @@ public class Projet implements Serializable
 		return null;
 	}
 	
+	public int getIndicePage(Page page)
+	{
+		int i = 0;
+		for (Page p : alPage)
+		{
+			if (p.equals(page))
+				return i;
+			
+			i++;
+		}
+		
+		return -1;
+	}
+	
 	public void setPageSelectionne(Page p)
 	{
 		pageSelectionne = p;
@@ -107,7 +121,5 @@ public class Projet implements Serializable
 	{
 		return "Projet [nom=" + nom + ", alPage=" + alPage
 				+ ", pageSelectionne=" + pageSelectionne + "]";
-	}
-
-	
+	}	
 }

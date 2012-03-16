@@ -63,7 +63,7 @@ public class Fenetre extends JFrame
         {
             public void windowClosing(WindowEvent e) 
             {
-            	int option = Controleur.creerOptionPaneConfirm("Sauvegarder", "Voulez-vous sauvegarder avant de quitter ?");
+            	int option = Controleur.creerOptionPaneConfirm("Sauvegarder", "Voulez-vous sauvegarder avant de quitter ?", JOptionPane.YES_NO_CANCEL_OPTION);
             	if (option == JOptionPane.OK_OPTION)
     				Controleur.enregistrer();
             	if (option != JOptionPane.CANCEL_OPTION)

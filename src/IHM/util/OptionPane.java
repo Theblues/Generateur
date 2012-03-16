@@ -26,8 +26,8 @@ public class OptionPane
 		jop.showMessageDialog(null, texte, "Attention", JOptionPane.WARNING_MESSAGE);
 	}
 	
-	public int optionPaneConfirmation(String titreFenetre, String texte)
+	public int optionPaneConfirmation(String titreFenetre, String texte, int option)
 	{
-		return jop.showConfirmDialog(null, texte, titreFenetre, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+		return jop.showConfirmDialog(null, texte, titreFenetre, option, JOptionPane.QUESTION_MESSAGE);
 	}
 }

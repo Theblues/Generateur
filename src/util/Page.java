@@ -44,6 +44,24 @@ public class Page implements Serializable
 	public ArrayList<String> getAlParagrapheHTML()	{	return alParagrapheHTML;	}
 	public ArrayList<String> getAlImage()			{	return alImage;				}
 
+	/*
+	 * @return int
+	 * retourne l'indice de l'element
+	 */
+	public int getIndiceElement(String nomElement) 
+	{
+		int i = 0;
+		for (String s : alOrdre)
+		{
+			if (s.equals(nomElement))
+				return i;
+			
+			i++;
+		}
+				
+		return -1;
+	}
+	
 	
 	/*
 	 * Modificateurs
@@ -169,19 +187,5 @@ public class Page implements Serializable
 	{
 		return "Page [nom=" + nom + ", alTitre=" + alTitre + ", alParagraphe="
 				+ alParagraphe + ", alImage=" + alImage + "]";
-	}
-
-	public int getIndice(String nomElement) 
-	{
-		int i = 0;
-		for (String s : alOrdre)
-		{
-			if (s.equals(nomElement))
-				return i;
-			
-			i++;
-		}
-				
-		return -1;
 	}
 }

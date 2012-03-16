@@ -3,6 +3,7 @@ package IHM.Menu;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.event.*;
+import java.io.File;
 import java.util.Scanner;
 
 import javax.swing.*;
@@ -195,10 +196,29 @@ public class MenuContextuel implements ActionListener
 
 			if (mi.equals(itemSupprimer))
 			{
-				int option = Controleur.creerOptionPaneConfirm("Supprimez le projet", "Voulez-vous supprimez le projet ?");
+				int option = Controleur.creerOptionPaneConfirm("Supprimer", "Etes-vous sur de vouloir supprimer le " + projet.getNom() + " ?", JOptionPane.YES_NO_OPTION);
 				if (option == JOptionPane.OK_OPTION)
 				{
-					// TODO code pour supprimer l'element
+					int ind = Controleur.metier.getIndiceProjet(projet);
+					
+					if (ind != -1)
+					{
+						// on supprime le noeud a l'arbre
+						Controleur.fenetre.getArborescence().supprimerNoeud(noeud[0], ind);
+						// on supprime le projet de la liste
+						Controleur.metier.getAlProjet().remove(ind);
+						
+						// supprimer le fichier
+						String nom = projet.getNom();
+						Scanner sc = new Scanner(nom);
+						sc.useDelimiter(" ");
+						String nameProjet = sc.next();
+						while (sc.hasNext())
+							nameProjet += "_" + sc.next();
+						
+						File file = new File (projet.getCheminDossier() + "/" + nameProjet);
+						file.delete();
+					}
 				}
 			}
 		}
@@ -217,6 +237,27 @@ public class MenuContextuel implements ActionListener
 				Controleur.creerPanelAjouterParagraphe(0, "");
 			else if (mi.equals(itemAjoutImage))
 				Controleur.creerPanelAjouterImage(0);
+			if (mi.equals(itemSupprimer))
+			{
+				int option = Controleur.creerOptionPaneConfirm("Supprimer", "Etes-vous sur de vouloir supprimer la page " + page.getNom() + " ?", JOptionPane.YES_NO_OPTION);
+				if (option == JOptionPane.OK_OPTION)
+				{					
+					int ind = projet.getIndicePage(page);
+					
+					if (ind != -1)
+					{
+						// on supprime le noeud a l'arbre
+						Controleur.fenetre.getArborescence().supprimerNoeud(noeud[1], ind);
+						// on supprime le projet de la liste
+						projet.getAlPage().remove(ind);
+						
+						// supprimer le fichier
+						File file = page.getFile();
+						file.delete();
+					}
+				}
+					
+			}
 		}
 		// si c'est un element
 		else if (location >= 3)
@@ -245,25 +286,29 @@ public class MenuContextuel implements ActionListener
 			}
 			else if (mi.equals(itemSupprimer))
 			{
-				String nomElement = noeud[3].toString();
-
-				int ind = page.getIndice(nomElement);
-				
-				if (ind != -1)
-					Controleur.fenetre.getArborescence().supprimerNoeud(noeud[2], ind);
-				
-				if (str.equals("Titre"))
+				int option = Controleur.creerOptionPaneConfirm("Supprimer", "Etes-vous sur de vouloir supprimer l'element ?", JOptionPane.YES_NO_OPTION);
+				if (option == JOptionPane.OK_OPTION)
 				{
-					page.getAlTitre().remove(indice-1);
-				}
-				if (str.equals("Paragraphe"))
-				{
-					page.getAlParagraphe().remove(indice-1);
-					page.getAlParagrapheHTML().remove(indice-1);
-				}
-				if (str.equals("Image"))
-				{
-					page.getAlImage().remove(indice-1);
+					String nomElement = noeud[3].toString();
+	
+					int ind = page.getIndiceElement(nomElement);
+					
+					if (ind != -1)
+						Controleur.fenetre.getArborescence().supprimerNoeud(noeud[2], ind);
+					
+					if (str.equals("Titre"))
+					{
+						page.getAlTitre().remove(indice-1);
+					}
+					if (str.equals("Paragraphe"))
+					{
+						page.getAlParagraphe().remove(indice-1);
+						page.getAlParagrapheHTML().remove(indice-1);
+					}
+					if (str.equals("Image"))
+					{
+						page.getAlImage().remove(indice-1);
+					}
 				}
 			}
 		}
