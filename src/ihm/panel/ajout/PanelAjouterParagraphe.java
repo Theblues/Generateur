@@ -10,53 +10,49 @@ import ihm.panel.*;
 import main.*;
 import util.*;
 
-/*
- * TODO 	- faire les liens
- */
 public class PanelAjouterParagraphe extends JPanel implements ActionListener
 {
 	private PanelListeModFont listeActionFont;
 	private JEditorPane editorPane;
-	
+
 	private JButton modifier;
 	private JButton valider;
-	
+
 	private int statue;
 	private String oldText;
-	
+
 	public PanelAjouterParagraphe(int statue, String paragraphe)
 	{
 		this.statue = statue;
-		
+
 		setLayout(new BorderLayout());
-		
+
 		editorPane = new JTextPane();
 		editorPane.setEditable(true);
 		editorPane.setContentType("text/html");
-		
+
 		editorPane.setText(paragraphe);
 
 		JScrollPane scroller = new JScrollPane(editorPane,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
-		
-		listeActionFont = new PanelListeModFont();
-		
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+		listeActionFont = new PanelListeModFont(this);
+
 		add(listeActionFont, BorderLayout.NORTH);
 		add(scroller);
-		
+
 		JPanel panSud = new JPanel();
 		panSud.setLayout(new BorderLayout());
-		
+
 		JPanel panBouton = new JPanel();
-		
+
 		if (statue == 0)
 		{
 			valider = new JButton("Valider");
 			valider.addActionListener(this);
 			panBouton.add(valider);
-		}
-		else
+		} else
 		{
 			oldText = editorPane.getText();
 			modifier = new JButton("Modifier");
@@ -66,57 +62,60 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 
 		panSud.add(panBouton, BorderLayout.EAST);
 		add(panSud, BorderLayout.SOUTH);
-		
-		this.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createCompoundBorder(
+
+		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory
+				.createCompoundBorder(
 						BorderFactory.createTitledBorder("Votre paragraphe"),
-						BorderFactory.createEmptyBorder(2, 2, 2, 2)),
-						this.getBorder()));
-		
+						BorderFactory.createEmptyBorder(2, 2, 2, 2)), this
+				.getBorder()));
+
 		setVisible(true);
 	}
 
-	public void actionPerformed(ActionEvent ae) 
+	public JEditorPane getJEditorPane()
+	{
+		return editorPane;
+	}
+
+	public void actionPerformed(ActionEvent ae)
 	{
 		Projet projet = Controleur.metier.getProjetSelectionne();
 		Page page = projet.getPageSelectionne();
-			
+
 		String paragrapheHTML = editorPane.getText();
 		if (paragrapheHTML.length() == 0)
 			return;
-			
+
 		// permet de traiter le html
 		ArrayList<String> alS = new ArrayList<String>();
-		
-		Scanner sc = new Scanner (paragrapheHTML);
+
+		Scanner sc = new Scanner(paragrapheHTML);
 		sc.useDelimiter("\n");
 		while (sc.hasNext())
 			alS.add(sc.next());
-			
+
 		String paragraphe = traitementHTML(alS);
-		 	
+
 		int cpt;
-		
+
 		if (statue == 0)
 		{
-			page.ajouterParagraphe(paragraphe);
-			page.ajouterParagrapheHTML(paragrapheHTML);
-			cpt = page.getAlParagraphe().size();
+			page.ajouterParagrapheHTML(paragraphe);
+			cpt = page.getAlParagrapheHTML().size();
 			page.ajouterOrdre("Paragraphe " + cpt);
-			Controleur.fenetre.getArborescence().ajoutFils(null, "element", "Paragraphe " + cpt);
-		}
-		else
+			Controleur.fenetre.getArborescence().ajoutFils(null, "element",
+					"Paragraphe " + cpt);
+		} else
 		{
-			for (cpt = 0; cpt < page.getAlParagraphe().size(); cpt++)
+			for (cpt = 0; cpt < page.getAlParagrapheHTML().size(); cpt++)
 			{
-				if (page.getAlParagraphe().get(cpt).equals(oldText))
+				if (page.getAlParagrapheHTML().get(cpt).equals(oldText))
 					break;
 			}
-			page.modParagraphe(paragraphe, cpt);
-			page.modParagrapheHTML(paragrapheHTML, cpt);
+			page.modParagrapheHTML(paragraphe, cpt);
 		}
-		
-		Controleur.creerPanelAjouterParagraphe(1, paragrapheHTML);
+
+		Controleur.creerPanelAjouterParagraphe(1, paragraphe);
 	}
 
 	private String traitementHTML(ArrayList<String> alS)
@@ -125,35 +124,40 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 		// les 5 premieres lignes sont inutiles
 		for (int i = 0; i < 5; i++)
 			alS.remove(0);
-		
-		for (String ligne: alS)
+
+		for (String ligne : alS)
 		{
+			if (ligne.length() == 0)
+				continue;
 			if (ligne.contains("<p "))
 				continue;
-			if(ligne.contains("</p>") && !(ligne.contains("</i>") || ligne.contains("</b>")))
+			else if (ligne.contains("</p>") && !(ligne.contains("</i>") || ligne.contains("</b>")))
+				continue;
+			else if (ligne.contains("</p>") && ligne.contains("</i>"))
 			{
-				s += "<br />\n";
+				s += "</i>\n";
 				continue;
 			}
-			if(ligne.contains("</p>") && ligne.contains("</i>"))
+			else if (ligne.contains("</p>") && ligne.contains("</b>"))
 			{
-				s += "</i><br />\n";
+				s += "</b>\n";
 				continue;
 			}
-			if(ligne.contains("</p>") && ligne.contains("</b>"))
-			{
-				s += "</b><br />\n";
-				continue;
-			}
-		/*	if (ligne.contains("<u><font color=\"#0000ff\">"))
-			{
-				String lien = ligne.replace("<u><font color=\"#0000ff\">", "<a href=\"");
-				System.out.println(lien);
-			}*/
+			
 			if (ligne.contains("</body>"))
 				break;
+
+			// l'editeur met 6 espaces au debut des lignes
+			ligne = ligne.replace("      ", "");
 			
-			s += ligne;
+			if (ligne.length() > 74)
+			{
+				String ligneDebut = ligne.substring(0, 74);
+				String ligneFin = ligne.substring(74);
+				s += "\t\t\t\t\t" + ligneDebut + "\n\t\t\t\t\t" + ligneFin + "<br />\n";
+			}
+			else
+				s += "\t\t\t\t\t" + ligne + "<br />\n";
 		}
 		return s;
 	}

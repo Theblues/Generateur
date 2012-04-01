@@ -30,4 +30,5 @@ public class OptionPane
 	{
 		return jop.showConfirmDialog(null, texte, titreFenetre, option, JOptionPane.QUESTION_MESSAGE);
 	}
+
 }

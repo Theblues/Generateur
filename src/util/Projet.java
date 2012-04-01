@@ -69,10 +69,12 @@ public class Projet implements Serializable
 	
 	public void setNom(String nom)
 	{
-		// on recupere le fichier du dossier
-		File file = new File(cheminDossier + "/"+ this.nom);
 		// on modifie le nom du dossier
 		this.nom = nom;
+		
+		// on recupere le fichier du dossier
+		File file = new File(cheminDossier + "/"+ nom);
+		
 		// on modifie l'arbre
 		Controleur.fenetre.getArborescence().renommerNoeud("projet", nom);
 		

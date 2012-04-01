@@ -43,10 +43,10 @@ public class Controleur
 		fenetre.getPanelAjout().ajouterPanel(new PanelAjouterTitre(statue, titre));
 	}
 	
-	public static void creerPanelAjouterImage(int statue)		
+	public static void creerPanelAjouterImage(int statue, String chemin)		
 	{
 		fenetre.getPanelAjout().supprimerPanel();
-		fenetre.getPanelAjout().ajouterPanel(new PanelAjouterImage(statue));			
+		fenetre.getPanelAjout().ajouterPanel(new PanelAjouterImage(statue, chemin));			
 	}
 	
 	public static void creerPanelPropriete(Object type)
@@ -81,6 +81,7 @@ public class Controleur
 	{
 		fenetre.getArborescence().enregistrerArbre();
     	metier.enregistrerContenu();
+    	creerOptionPane("info", "Sauvegarde effectuee avec succes");
 	}
 
 	public static void monterElement()

@@ -74,7 +74,12 @@ public class PanelCreerPage extends JPanel implements ActionListener
 				while (sc.hasNext())
 					nomFichier += "_" + sc.next();
 
-
+				// on remplace les accents
+				nomFichier = nomFichier.replaceAll("éèêë", "e");
+				nomFichier = nomFichier.replaceAll("àâä", "a");
+				nomFichier = nomFichier.replaceAll("ùû", "u");
+				nomFichier = nomFichier.replaceAll("ô", "o");
+				
 				File f = new File(p.getCheminDossier() + "/" + nomFichier + ".html");
 				
 				try

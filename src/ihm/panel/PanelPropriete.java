@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.tree.TreePath;
+
+import main.Controleur;
 
 import util.*;
 
@@ -81,7 +84,7 @@ public class PanelPropriete extends JPanel implements ActionListener
 			info.add(nbTitre2);
 			
 			JLabel nbPara1 = new JLabel("Nombre de Paragraphes  : ");
-			JLabel nbPara2 = new JLabel("" + page.getAlParagraphe().size());
+			JLabel nbPara2 = new JLabel("" + page.getAlParagrapheHTML().size());
 			info.add (nbPara1);
 			info.add(nbPara2);
 			
@@ -112,12 +115,13 @@ public class PanelPropriete extends JPanel implements ActionListener
 		JButton b = (JButton) e.getSource();
 		if (b.equals(modifier))
 		{
-			if (projet != null)
+			TreePath path = Controleur.fenetre.getArborescence().getPath();
+			if (projet != null && path != null && path.getPathCount() == 2)
 			{
 				projet.setNom(txNom.getText());
 				projet.setAuteur(txAuteur.getText());
 			}
-			else if (page != null)
+			else if (page != null && path != null && path.getPathCount() == 3)
 				page.setNom(txNom.getText());
 		}
 	}

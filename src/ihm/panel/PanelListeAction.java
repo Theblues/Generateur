@@ -27,16 +27,17 @@ public class PanelListeAction extends JPanel implements ActionListener
 		// tous mettre a gauche
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 
-		MyPopupButton popupGenerer = new MyPopupButton("Générer", new String[] {"Generer le projet", "Generer la page" }, this);
+		MyPopupButton popupGenerer = new MyPopupButton("Generer", new String[] {
+				"Generer le projet", "Generer la page" }, this);
 		popupGenerer.setIcon(new ImageIcon("images/generate.png"));
 		popupGenerer.setToolTipText("Generer");
-		
+
 		// bouton Creation Projet
 		boutonCreerProjet = new JButton("Nouveau projet");
 		boutonCreerProjet.setIcon(new ImageIcon("images/project-new.png"));
 		boutonCreerProjet.setToolTipText("Creer un nouveau projet");
 		boutonCreerProjet.addActionListener(this);
-		
+
 		// bouton Creation Page
 		boutonCreerPage = new JButton("Nouvelle page");
 		boutonCreerPage.setIcon(new ImageIcon("images/page-new.png"));
@@ -51,8 +52,10 @@ public class PanelListeAction extends JPanel implements ActionListener
 
 		// bouton Ajout Paragraphe
 		boutonAjouterParagraphe = new JButton("Ajouter un paragraphe");
-		boutonAjouterParagraphe.setIcon(new ImageIcon("images/add-paragraph.png"));
-		boutonAjouterParagraphe.setToolTipText("Ajouter un paragraphe a la page");
+		boutonAjouterParagraphe.setIcon(new ImageIcon(
+				"images/add-paragraph.png"));
+		boutonAjouterParagraphe
+				.setToolTipText("Ajouter un paragraphe a la page");
 		boutonAjouterParagraphe.addActionListener(this);
 
 		// bouton Ajout Image
@@ -75,21 +78,33 @@ public class PanelListeAction extends JPanel implements ActionListener
 		JButton b = (JButton) e.getSource();
 		// on recupere le treepath pour savoir quel noeud on utilise
 		TreePath path = Controleur.fenetre.getArborescence().getPath();
-		
+
 		if (b.equals(boutonCreerProjet))
 			Controleur.creerPanelCreerProjet();
+
 		if (b.equals(boutonCreerPage))
 			if (path != null && path.getPathCount() > 1)
 				Controleur.creerPanelCreerPage();
+			else
+				Controleur.creerOptionPane("warning", "Action Impossible");
+
 		if (b.equals(boutonAjouterTitre))
 			if (path != null && path.getPathCount() >= 3)
 				Controleur.creerPanelAjouterTitre(0, "");
+			else
+				Controleur.creerOptionPane("warning", "Action Impossible");
+
 		if (b.equals(boutonAjouterParagraphe))
 			if (path != null && path.getPathCount() >= 3)
 				Controleur.creerPanelAjouterParagraphe(0, "");
+			else
+				Controleur.creerOptionPane("warning", "Action Impossible");
+
 		if (b.equals(boutonAjouterImage))
 			if (path != null && path.getPathCount() >= 3)
-				Controleur.creerPanelAjouterImage(0);		
+				Controleur.creerPanelAjouterImage(0, "");
+			else
+				Controleur.creerOptionPane("warning", "Action Impossible");
 	}
 
 	class MyPopupButton extends PopupButton
@@ -102,30 +117,50 @@ public class PanelListeAction extends JPanel implements ActionListener
 		public void actionPerformed(ActionEvent evt)
 		{
 			JMenuItem item = (JMenuItem) evt.getSource();
-			
+
 			if (item.getText().equals("Generer le projet"))
 			{
 				Projet projet = Controleur.metier.getProjetSelectionne();
 				if (projet == null)
-					return;
-				for (Page page : projet.getAlPage())
+					Controleur.creerOptionPane("warning", "Action Impossible");
+				else
 				{
-					if (page == null)
-						continue;
-					Controleur.metier.getGenerator().generateFile(projet, page);
+					for (Page page : projet.getAlPage())
+					{
+						if (page == null)
+							continue;
+						Controleur.metier.getGenerator().generateFile(projet,
+								page);
+					}
+
+					Controleur.creerOptionPane("info", "Generation du projet "
+							+ projet.getNom() + " accompli");
 				}
-				Controleur.creerOptionPane("info", "Generation du projet " + projet.getNom() + " accompli");
 			}
 			else if (item.getText().equals("Generer la page"))
 			{
 				Projet projet = Controleur.metier.getProjetSelectionne();
+
+				Page page = null;
 				if (projet == null)
-					return;
-				Page page = projet.getPageSelectionne();
-				if (page == null)
-					return;
-				Controleur.metier.getGenerator().generateFile(projet, page);
-				Controleur.creerOptionPane("info", "Generation de la page " + page.getNom() + " accomplie");
+				{
+					Controleur.creerOptionPane("warning", "Action Impossible");
+				}
+				else
+				{
+					page = projet.getPageSelectionne();
+
+					if (page == null)
+						Controleur.creerOptionPane("warning", "Action Impossible");
+
+					else
+					{
+						Controleur.metier.getGenerator().generateFile(projet, page);
+						Controleur.creerOptionPane("info",
+								"Generation de la page " + page.getNom()
+										+ " accomplie");
+					}
+				}
 			}
 		}
 	}

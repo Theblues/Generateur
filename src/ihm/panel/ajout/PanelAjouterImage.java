@@ -21,32 +21,41 @@ public class PanelAjouterImage extends JPanel implements ActionListener
 	
 	private String nom;
 	private String chemin;
+	private String cheminHTML;
 	
 	private int statue;
 
-	public PanelAjouterImage(int statue)
+	public PanelAjouterImage(int statue, String chemin)
 	{
 		setLayout(new BorderLayout());
 		
 		this.statue = statue;
+		this.chemin = chemin;
 		
-		choisirImage();
+		if (statue == 0)
+			choisirImage();	
+		
 		if (chemin == null)
 			return;
 		
-		image = new PanelImage(chemin);
+		// on creer le panel avec le chemin de l'image
+		image = new PanelImage(this.chemin);
+		
 		add(image);
 		
 		JPanel pan = new JPanel();
-		
-		annuler = new JButton("Annuler");
-		annuler.addActionListener(this);
-		pan.add(annuler);
-		
+	
+		if (statue == 0)
+		{
+			annuler = new JButton("Annuler");
+			annuler.addActionListener(this);
+			pan.add(annuler);
+		}
+	
 		valider = new JButton("Valider");
 		valider.addActionListener(this);
 		pan.add(valider);
-		
+	
 		add(pan, BorderLayout.SOUTH);
 		
 		this.setBorder(BorderFactory.createCompoundBorder(
@@ -66,19 +75,24 @@ public class PanelAjouterImage extends JPanel implements ActionListener
 		
 		JButton b = (JButton) e.getSource();
 		
-		if ( statue == 0 )
+		if (statue == 0 )
 		{
 			if (b.equals(valider))
 			{
-				enregistrerImage(chemin);
+				// on enregistre l'image dans le dossier du projet
+				enregistrerImage();
+				// on ajoute les chemin dans les listes
 				page.ajouterImage(chemin);
+				page.ajouterImageHTML(cheminHTML);
 				int cpt = page.getAlImage().size();
 				page.ajouterOrdre("Image " + cpt);
+				// on ajoute l'element dans l'arbre
 				Controleur.fenetre.getArborescence().ajoutFils(null, "element", "Image " + cpt);
-
+				Controleur.creerPanelAjouterImage(1, chemin);
 			}
 		}
-		Controleur.fenetre.getPanelAjout().supprimerPanel();
+		else
+			Controleur.creerPanelPropriete(page);
 	}
 	
 	private void choisirImage()
@@ -89,8 +103,8 @@ public class PanelAjouterImage extends JPanel implements ActionListener
 		// on peut selectionner qu'une image
 		chooser.setMultiSelectionEnabled(false);
 		// on ajoute un filtre
-		chooser.setFileFilter(new MonFiltre(new String[] { "gif", "tif", "jpeg", "jpg" }, 
-							"les fichiers image (*.gif, *.jpg,*.jpeg)"));
+		chooser.setFileFilter(new MonFiltre(new String[] { "gif", "png", "jpeg", "jpg" }, 
+							"Les fichiers images (*.gif, *.png, *.jpg,*.jpeg)"));
 		// on ouvre la fenetre de selection
 		int fichier = chooser.showOpenDialog(null);
 		
@@ -103,7 +117,7 @@ public class PanelAjouterImage extends JPanel implements ActionListener
 		}
 	}
 
-	private void enregistrerImage(String chemin)
+	private void enregistrerImage()
 	{
 		Projet projet = Controleur.metier.getProjetSelectionne();
 		String cheminArr = projet.getCheminDossier() +  "/" + projet.getNom() + "/content/img/";
@@ -119,6 +133,6 @@ public class PanelAjouterImage extends JPanel implements ActionListener
 		}
 		catch (FileNotFoundException e1){	e1.printStackTrace();	}
 		catch (IOException e)			{	e.printStackTrace();	}
-		this.chemin = "./content/img/" + nom;
+		cheminHTML = "./content/img/" + nom;
 	}
 }

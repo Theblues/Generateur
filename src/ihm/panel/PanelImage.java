@@ -24,13 +24,14 @@ public class PanelImage extends Canvas
 	{
 		if ((info & (WIDTH | HEIGHT)) != 0)
 		{
-			if (l < largeurEcran && h < hauteurEcran)
-				setSize(l, h);
-			else
-				setSize(l/2, h/2);
+			if (l > largeurEcran || h > hauteurEcran)
+			{
+				// trouver en essayant de dormir dans le car ;)
+				l /= l % largeurEcran;
+				h /= h % hauteurEcran;
+			}
 		}
-			
-
+		
 		if ((info & (ALLBITS)) != 0)
 		{
 			repaint();

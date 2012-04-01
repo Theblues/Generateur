@@ -1,19 +1,25 @@
 package ihm.panel;
 
+import ihm.frame.FenetreLien;
+import ihm.panel.ajout.PanelAjouterParagraphe;
+
 import java.awt.*;
+import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.text.StyledEditorKit;
 
-public class PanelListeModFont extends JPanel
+public class PanelListeModFont extends JPanel implements ActionListener
 {
 	private JButton boutonGras;
 	private JButton boutonItalique;
 	private JButton boutonLien;
+	private PanelAjouterParagraphe panAjoutParagraphe;
 
-	public PanelListeModFont() 
+	public PanelListeModFont(PanelAjouterParagraphe panAjoutParagraphe) 
 	{		
 		JPanel p = new JPanel();
+		this.panAjoutParagraphe = panAjoutParagraphe;
 
 		Action boldAction = new StyledEditorKit.BoldAction();
 		
@@ -32,20 +38,22 @@ public class PanelListeModFont extends JPanel
 		boutonItalique.setToolTipText("Italique");
 		boutonItalique.addActionListener(italicAction);
 
-		Action underlineAction = new StyledEditorKit.UnderlineAction();
-		Action fontAction = new StyledEditorKit.ForegroundAction("blue", Color.BLUE);
 		boutonLien = new JButton();
 		boutonLien.setBorder(null);
 		boutonLien.setPreferredSize(new Dimension(35, 35));
 		boutonLien.setIcon(new ImageIcon("images/lien.jpg"));
 		boutonLien.setToolTipText("Hyperlien");
-		boutonLien.addActionListener(underlineAction);
-		boutonLien.addActionListener(fontAction);
+		boutonLien.addActionListener(this);
 
 		p.add(boutonGras);
 		p.add(boutonItalique);
 		p.add(boutonLien);
 
 		add(p);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent a) {
+		new FenetreLien(panAjoutParagraphe);
 	}
 }

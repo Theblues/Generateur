@@ -19,13 +19,14 @@ public class PanelAjout<T extends JPanel> extends JPanel
 	
 	public void ajouterPanel(T panel)
 	{
-		this.add(panel);
-		this.validate();
+		setBorder(null);
+		add(panel);
+		validate();
 	}
 	
 	public void supprimerPanel()
 	{
-		this.removeAll();
-		this.validate();
+		removeAll();
+		validate();
 	}
 }

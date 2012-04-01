@@ -27,7 +27,7 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 	
 	public PanelCreerProjet()
 	{
-		setLayout(new FlowLayout(FlowLayout.LEFT, 300, 0));
+		setLayout(new FlowLayout(FlowLayout.LEFT, 310, 0));
 		
 		JPanel panelElement = new JPanel();
 		panelElement.setLayout(new GridLayout(3,2));
@@ -114,7 +114,7 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 			}
 		}
 		else if (b.equals(parcourir))
-			choisirDossier();			
+			choisirDossier();
 	}
 
 	private void choisirDossier()
@@ -151,6 +151,12 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 		String nameProjet = sc.next();
 		while (sc.hasNext())
 			nameProjet += "_" + sc.next();
+		
+		// on remplace les accents
+		nameProjet = nameProjet.replaceAll("éèêë", "e");
+		nameProjet = nameProjet.replaceAll("àâä", "a");
+		nameProjet = nameProjet.replaceAll("ùû", "u");
+		nameProjet = nameProjet.replaceAll("ô", "o");
 		
 		File file = new File(chemin + "/" + nameProjet);
 		file.mkdir();

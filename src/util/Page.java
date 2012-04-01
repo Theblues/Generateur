@@ -11,15 +11,15 @@ public class Page implements Serializable
 	private File file;
 	// nom de la page
 	private String nom;
-	// ArrayList qui permet d'avoir les titres/paragraphes dans l'ordre
+	// List qui permet d'avoir les titres/paragraphes dans l'ordre
 	private ArrayList<String> alOrdre;
-	// ArrayList ou il y a les titres
+	// List ou il y a les titres
 	private ArrayList<String> alTitre;
-	// ArrayList ou il y a les paragraphes
-	private ArrayList<String> alParagraphe;
-	// ArrayList ou il y a les paragraphes generes en HTML
+	// List ou il y a les paragraphes qui sera dans le code HTML
 	private ArrayList<String> alParagrapheHTML;
-	// ArrayList ou il y a les "images"
+	// List ou il y a le chemin des images qui sera dans le code HTML
+	private ArrayList<String> alImageHTML;
+	// List ou il y a le chemin de l'image
 	private ArrayList<String> alImage;
 	
 	public Page(File file, String nom)
@@ -28,8 +28,8 @@ public class Page implements Serializable
 		this.nom = nom;
 		alOrdre = new ArrayList<String>();
 		alTitre = new ArrayList<String>();
-		alParagraphe = new ArrayList<String>();
 		alParagrapheHTML = new ArrayList<String>();
+		alImageHTML = new ArrayList<String>();
 		alImage = new ArrayList<String>();
 	}
 	
@@ -40,8 +40,8 @@ public class Page implements Serializable
 	public String getNom()							{	return nom;					}
 	public ArrayList<String> getAlOrdre()			{	return alOrdre;				}
 	public ArrayList<String> getAlTitre()			{	return alTitre;				}
-	public ArrayList<String> getAlParagraphe()		{	return alParagraphe;		}
 	public ArrayList<String> getAlParagrapheHTML()	{	return alParagrapheHTML;	}
+	public ArrayList<String> getAlImageHTML()		{	return alImageHTML;			}
 	public ArrayList<String> getAlImage()			{	return alImage;				}
 
 	/*
@@ -115,19 +115,19 @@ public class Page implements Serializable
 		alTitre.add(titre);
 	}
 	
+	public void ajouterParagrapheHTML(String s)
+	{
+	    alParagrapheHTML.add(s);
+	}
+	
 	public void ajouterImage(String s)
 	{
 	    alImage.add(s);
 	}
 	
-	public void ajouterParagraphe(String s)
+	public void ajouterImageHTML(String s)
 	{
-	    alParagraphe.add(s);
-	}
-	
-	public void ajouterParagrapheHTML(String s)
-	{
-	    alParagrapheHTML.add(s);
+	    alImageHTML.add(s);
 	}
 	
 	
@@ -140,10 +140,10 @@ public class Page implements Serializable
 		alTitre.add(indice, titre);
 	}
 	
-	public void modParagraphe(String paragraphe, int indice)
+	public void modImageHTML(String chemin, int indice)
 	{
-	    alParagraphe.remove(indice-1);
-		alParagraphe.add(indice-1, paragraphe);
+		alImageHTML.remove(indice-1);
+		alImageHTML.add(indice-1, chemin);
 	}
 	
 	public void modParagrapheHTML(String paragrapheHTML, int indice)
@@ -180,12 +180,5 @@ public class Page implements Serializable
 			alOrdre.add(i-1, type);
 		if (niveau.equals("descendre"))
 			alOrdre.add(i+1, type);
-	}
-	
-	@Override
-	public String toString()
-	{
-		return "Page [nom=" + nom + ", alTitre=" + alTitre + ", alParagraphe="
-				+ alParagraphe + ", alImage=" + alImage + "]";
 	}
 }

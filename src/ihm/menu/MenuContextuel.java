@@ -16,14 +16,12 @@ import util.*;
  *  ________________		 _______________		 _______________
  * | Nouveau ->		|		| Nouveau ->	|		| Nouveau ->	|
  * | Generer Projet	|		| Generer ->	|		| Generer ->	|
- * | Renommer		|		| Ajouter ->	|		| Monter		|
- * | Supprimer		|		| Monter 		|		| Descendre		|
- * | Propriete		|		| Descendre		|		| Modifier		|
- * |________________|		| Renommer		|		| Supprimer		|
- * 							| Supprimer		|		|_______________|
- * 							| Propriete		|		
- * 							|_______________|		
- * 
+ * | Supprimer		|		| Ajouter ->	|		| Monter		|
+ * | Propriete		|		| Monter 		|		| Descendre		|
+ * |________________|		| Descendre		|		| Modifier		|
+ * 							| Supprimer		|		| Supprimer		|
+ * 							| Propriete		|		|_______________|
+ * 							|_______________|
  * 
  * Nouveau -> Projet
  * 			  Page
@@ -56,12 +54,14 @@ public class MenuContextuel implements ActionListener
 	private JMenuItem itemAjoutParagraphe;
 	private JMenuItem itemAjoutImage;
 	
+	// item pour importer
+	private JMenuItem itemImporter;
+	
 	// item pour monter/descendre une page/un element
 	private JMenuItem itemMonter;
 	private JMenuItem itemDescendre;
 	
 	// autre item
-	private JMenuItem itemRenommer;
 	private JMenuItem itemModifier;
 	private JMenuItem itemSupprimer;
 	private JMenuItem itemPropriete;
@@ -96,6 +96,10 @@ public class MenuContextuel implements ActionListener
 		itemGenererPage.setIcon(new ImageIcon("images/generate.png"));
 		itemGenererPage.addActionListener(this);
 		
+		// item Importer
+		itemImporter = new JMenuItem("Importer une page");
+		itemImporter.addActionListener(this);
+		
 		// item ajouts
 		JMenu menuAjout = new JMenu("Ajouter");
 		menuAjout.setIcon(new ImageIcon("images/add.png"));
@@ -105,7 +109,7 @@ public class MenuContextuel implements ActionListener
 		itemAjoutParagraphe = new JMenuItem("Ajouter un paragraphe");
 		itemAjoutParagraphe.addActionListener(this);
 		itemAjoutImage = new JMenuItem("Ajouter une image");
-		itemAjoutTitre.addActionListener(this);
+		itemAjoutImage.addActionListener(this);
 		
 		menuAjout.add(itemAjoutTitre);
 		menuAjout.add(itemAjoutParagraphe);
@@ -120,11 +124,6 @@ public class MenuContextuel implements ActionListener
 		itemDescendre = new JMenuItem("Descendre");
 		itemDescendre.setIcon(new ImageIcon("images/select-down.png"));
 		itemDescendre.addActionListener(this);
-		
-		// item Renommer
-		itemRenommer = new JMenuItem("Renommer");
-		itemRenommer.setIcon(new ImageIcon("images/rename.jpeg"));
-		itemRenommer.addActionListener(this);
 		
 		// item Modifier
 		itemModifier = new JMenuItem("Modifier");
@@ -148,7 +147,7 @@ public class MenuContextuel implements ActionListener
 		{
 			jpm.add(menuNouveau);
 			jpm.add(itemGenererProjet);
-			jpm.add(itemRenommer);
+			jpm.add(itemImporter);
 			jpm.add(itemSupprimer);
 			jpm.add(itemPropriete);
 		}
@@ -169,7 +168,6 @@ public class MenuContextuel implements ActionListener
 			jpm.add(menuAjout);
 			jpm.add(itemMonter);
 			jpm.add(itemDescendre);
-			jpm.add(itemRenommer);
 			jpm.add(itemSupprimer);
 			jpm.add(itemPropriete);
 		}
@@ -250,9 +248,15 @@ public class MenuContextuel implements ActionListener
 						
 						File file = new File (projet.getCheminDossier() + "/" + nameProjet);
 						file.delete();
+						// on change le panel de droite
+						Controleur.creerPanelCreerProjet();
 					}
 				}
 			}
+			
+			// Importer
+			if (mi.equals(itemImporter))
+				new ImportPage();
 			
 			// proprietes
 			if (mi.equals(itemPropriete))
@@ -283,7 +287,7 @@ public class MenuContextuel implements ActionListener
 			if (mi.equals(itemAjoutParagraphe))
 				Controleur.creerPanelAjouterParagraphe(0, "");
 			if (mi.equals(itemAjoutImage))
-				Controleur.creerPanelAjouterImage(0);
+				Controleur.creerPanelAjouterImage(0, "");
 			
 			// Monter/Descendre
 			if (mi.equals(itemMonter))
@@ -309,6 +313,7 @@ public class MenuContextuel implements ActionListener
 						// supprimer le fichier
 						File file = page.getFile();
 						file.delete();
+						Controleur.creerPanelCreerPage();
 					}
 				}
 			}
@@ -330,10 +335,15 @@ public class MenuContextuel implements ActionListener
 					if (p == null)
 						continue;
 					Controleur.metier.getGenerator().generateFile(projet, p);
+					
 				}
+				Controleur.creerOptionPane("info", "Generation du projet " + projet.getNom() + " accompli");
 			}
 			if (mi.equals(itemGenererPage))
+			{
 				Controleur.metier.getGenerator().generateFile(projet, page);
+				Controleur.creerOptionPane("info", "Generation de la page " + page.getNom() + " accompli");
+			}
 			
 			// Monter/Descendre
 			if (mi.equals(itemMonter))
@@ -360,7 +370,10 @@ public class MenuContextuel implements ActionListener
 					Controleur.creerPanelAjouterParagraphe(1, ancienParagraphe);
 				}
 				if (type.equals("Image"))
-					Controleur.creerPanelAjouterImage(1);
+				{
+					String chemin = page.getAlImage().get(indice-1);
+					Controleur.creerPanelAjouterImage(1, chemin);
+				}
 			}
 			
 			//Supprimer
@@ -370,26 +383,24 @@ public class MenuContextuel implements ActionListener
 				if (option == JOptionPane.OK_OPTION)
 				{
 					String nomElement = noeud[3].toString();
-	
+					// on recupere l'indice de l'element
 					int ind = page.getIndiceElement(nomElement);
 					
 					if (ind != -1)
 						Controleur.fenetre.getArborescence().supprimerNoeud(noeud[2], ind);
 					
 					if (type.equals("Titre"))
-					{
 						page.getAlTitre().remove(indice-1);
-					}
 					if (type.equals("Paragraphe"))
-					{
-						page.getAlParagraphe().remove(indice-1);
 						page.getAlParagrapheHTML().remove(indice-1);
-					}
 					if (type.equals("Image"))
 					{
+						page.getAlImageHTML().remove(indice-1);
 						page.getAlImage().remove(indice-1);
 					}
+					
 					page.getAlOrdre().remove(ind);
+					Controleur.creerPanelPropriete(page);
 				}
 			}
 		}		
