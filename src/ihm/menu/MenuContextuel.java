@@ -221,6 +221,7 @@ public class MenuContextuel implements ActionListener
 						continue;
 					Controleur.metier.getGenerator().generateFile(projet, page);
 				}
+				Controleur.creerOptionPane("info", "Generation du projet " + projet.getNom() + " accompli");
 			}
 			
 			// supprimer
@@ -276,10 +277,14 @@ public class MenuContextuel implements ActionListener
 					if (p == null)
 						continue;
 					Controleur.metier.getGenerator().generateFile(projet, p);
+					Controleur.creerOptionPane("info", "Generation du projet " + projet.getNom() + " accompli");
 				}
 			}
 			if (mi.equals(itemGenererPage))
+			{
 				Controleur.metier.getGenerator().generateFile(projet, page);
+				Controleur.creerOptionPane("info", "Generation de la page " + page.getNom() + " accompli");
+			}
 			
 			// Menu ajouter
 			if (mi.equals(itemAjoutTitre))

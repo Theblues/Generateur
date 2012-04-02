@@ -60,13 +60,11 @@ public class PanelArbre extends JPanel implements Serializable
 		});
 
 		JScrollPane editeurScrollHorizontal = new JScrollPane(arbre);
-		editeurScrollHorizontal
-				.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		editeurScrollHorizontal.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		editeurScrollHorizontal.setPreferredSize(new Dimension(250, 145));
 
 		JScrollPane editeurScrollVertical = new JScrollPane(arbre);
-		editeurScrollVertical
-				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		editeurScrollVertical.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		editeurScrollVertical.setPreferredSize(new Dimension(250, 145));
 
 		add(editeurScrollHorizontal);
@@ -95,12 +93,10 @@ public class PanelArbre extends JPanel implements Serializable
 						parentNodeElement = null;
 
 						// on recupere le projet selectionne
-						projetSelectionne = Controleur.metier
-								.getProjet(parentNodeProjet.toString());
+						projetSelectionne = Controleur.metier.getProjet(parentNodeProjet.toString());
 
 						// on modifie le projet selectionne
-						Controleur.metier
-								.setProjetSelectionne(projetSelectionne);
+						Controleur.metier.setProjetSelectionne(projetSelectionne);
 
 						Controleur.creerPanelPropriete(projetSelectionne);
 
@@ -113,44 +109,34 @@ public class PanelArbre extends JPanel implements Serializable
 						parentNodePage = tabObj[2];
 
 						// on recupere le projet et la page selectionnee
-						projetSelectionne = Controleur.metier
-								.getProjet(parentNodeProjet.toString());
-						pageSelectionnee = projetSelectionne
-								.getPage(parentNodePage.toString());
+						projetSelectionne = Controleur.metier.getProjet(parentNodeProjet.toString());
+						pageSelectionnee = projetSelectionne.getPage(parentNodePage.toString());
 
 						// on modifie le projet et la page selectionnee
-						Controleur.metier
-								.setProjetSelectionne(projetSelectionne);
+						Controleur.metier.setProjetSelectionne(projetSelectionne);
 						projetSelectionne.setPageSelectionne(pageSelectionnee);
 
 						if (location > 3)
 						{
 							parentNodeElement = tabObj[3];
 
-							Scanner sc = new Scanner(path
-									.getLastPathComponent().toString())
-									.useDelimiter(" ");
+							Scanner sc = new Scanner(path.getLastPathComponent().toString()).useDelimiter(" ");
 							String str = sc.next();
 							int indice = Integer.parseInt(sc.next());
 
 							if (str.equals("Titre"))
 							{
-								String ancienTitre = pageSelectionnee
-										.getAlTitre().get(indice - 1);
-								Controleur.creerPanelAjouterTitre(1,
-										ancienTitre);
+								String ancienTitre = pageSelectionnee.getAlTitre().get(indice - 1);
+								Controleur.creerPanelAjouterTitre(1,ancienTitre);
 							}
 							if (str.equals("Paragraphe"))
 							{
-								String ancienParagraphe = pageSelectionnee
-										.getAlParagrapheHTML().get(indice - 1);
-								Controleur.creerPanelAjouterParagraphe(1,
-										ancienParagraphe);
+								String ancienParagraphe = pageSelectionnee.getAlParagrapheHTML().get(indice - 1);
+								Controleur.creerPanelAjouterParagraphe(1,ancienParagraphe);
 							}
 							if (str.equals("Image"))
 							{
-								String chemin = pageSelectionnee.getAlImage()
-										.get(indice - 1);
+								String chemin = pageSelectionnee.getAlImage().get(indice - 1);
 								Controleur.creerPanelAjouterImage(1, chemin);
 							}
 
@@ -174,11 +160,9 @@ public class PanelArbre extends JPanel implements Serializable
 			ObjectInputStream ois = new ObjectInputStream(fichier);
 			arbre = (JTree) ois.readObject();
 			racine = (DefaultMutableTreeNode) ois.readObject();
-		} catch (IOException ignored)
-		{
-		} catch (ClassNotFoundException e)
-		{
-		}
+		} 
+		catch (IOException ignored)	{} 
+		catch (ClassNotFoundException e)	{}
 		if (arbre != null && racine != null)
 			updateTree(racine);
 	}
@@ -312,8 +296,7 @@ public class PanelArbre extends JPanel implements Serializable
 				if (modifierNoeudPage(tpath))
 					return true;
 		}
-		Controleur
-				.creerOptionPane("error", "Impossible de monter la selection");
+		Controleur.creerOptionPane("error", "Impossible de monter la selection");
 		return false;
 	}
 
@@ -356,8 +339,7 @@ public class PanelArbre extends JPanel implements Serializable
 					return true;
 		}
 
-		Controleur.creerOptionPane("error",
-				"Impossible de descendre la selection");
+		Controleur.creerOptionPane("error",	"Impossible de descendre la selection");
 		return false;
 	}
 
@@ -425,10 +407,8 @@ public class PanelArbre extends JPanel implements Serializable
 		((DefaultMutableTreeNode) oPage2).removeAllChildren();
 
 		// on recupere les 2 pages
-		Page page1 = Controleur.metier.getProjetSelectionne().getPage(
-				oPage1.toString());
-		Page page2 = Controleur.metier.getProjetSelectionne().getPage(
-				oPage2.toString());
+		Page page1 = Controleur.metier.getProjetSelectionne().getPage(oPage1.toString());
+		Page page2 = Controleur.metier.getProjetSelectionne().getPage(oPage2.toString());
 
 		// on ajoute les elements de la 1ere page, au 2e noeud
 		for (String s : page1.getAlOrdre())
