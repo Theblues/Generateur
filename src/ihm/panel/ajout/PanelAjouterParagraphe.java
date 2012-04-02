@@ -131,14 +131,14 @@ public class PanelAjouterParagraphe extends JPanel implements ActionListener
 				continue;
 			if (ligne.contains("<p "))
 				continue;
-			else if (ligne.contains("</p>") && !(ligne.contains("</i>") || ligne.contains("</b>")))
+			if (ligne.contains("</p>") && !(ligne.contains("</i>") || ligne.contains("</b>")))
 				continue;
-			else if (ligne.contains("</p>") && ligne.contains("</i>"))
+			if (ligne.contains("</p>") && ligne.contains("</i>"))
 			{
 				s += "</i>\n";
 				continue;
 			}
-			else if (ligne.contains("</p>") && ligne.contains("</b>"))
+			if (ligne.contains("</p>") && ligne.contains("</b>"))
 			{
 				s += "</b>\n";
 				continue;

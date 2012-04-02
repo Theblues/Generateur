@@ -3,6 +3,8 @@ package ihm.panel.creation;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Scanner;
 
 import javax.swing.*;
@@ -50,9 +52,12 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 		label = new JLabel("Choisissez un theme");
 		combo = new JComboBox();
 		combo.setPreferredSize(new Dimension(100, 30));
+		combo.addItem("Aucun");
 		combo.addItem("Theme 1");
 		combo.addItem("Theme 2");
 		combo.addItem("Theme 3");
+		combo.addActionListener(this);
+		
 		
 		panelElement.add(label);
 		panelElement.add(combo);
@@ -103,18 +108,59 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		JButton b = (JButton) e.getSource();
-		if (b.equals(valider))
+		// si l'action vient d'un bouton
+		if (e.getSource() instanceof JButton)
 		{
-			Projet projet = creerProjet();
-			if (projet != null)
+			JButton b = (JButton) e.getSource();
+			if (b.equals(valider))
 			{
-				Controleur.fenetre.getPanelAjout().supprimerPanel();
-				Controleur.creerPanelPropriete(projet);
+				Projet projet = creerProjet();
+				if (projet != null)
+				{
+					Controleur.fenetre.getPanelAjout().supprimerPanel();
+					Controleur.creerPanelPropriete(projet);
+				}
+			}
+			else if (b.equals(parcourir))
+				choisirDossier();
+		}
+		// si l'action vient d'un JCombo
+		else if (e.getSource() instanceof JComboBox)
+		{
+			JComboBox cb = (JComboBox) e.getSource();
+			String nameCombo = cb.getSelectedItem().toString();
+			
+			String nomDossier = System.getProperty("user.dir");
+			
+			if (nameCombo.equals("Theme 1"))
+			{
+				// on ouvre un navigateur pour un onglet dans un navigateur pour montrer les themes
+				try
+				{
+					Desktop.getDesktop().browse(new URI("file:///" + nomDossier + "/util/Previsualisation_du_theme_1/Page_1.html"));
+				}
+				catch (IOException e1)			{	e1.printStackTrace();	} 
+				catch (URISyntaxException e1) 	{	e1.printStackTrace();	}
+			}
+			else if (nameCombo.equals("Theme 2"))
+			{
+				try
+				{
+					Desktop.getDesktop().browse(new URI("file:///" + nomDossier + "/util/Previsualisation_du_theme_2/Page_1.html"));
+				} 
+				catch (IOException e1)			{	e1.printStackTrace();	} 
+				catch (URISyntaxException e1) 	{	e1.printStackTrace();	}
+			}
+			else if (nameCombo.equals("Theme 3"))
+			{
+				try
+				{
+					Desktop.getDesktop().browse(new URI("file:///" + nomDossier + "/util/Previsualisation_du_theme_3/Page_1.html"));
+				} 
+				catch (IOException e1)			{	e1.printStackTrace();	} 
+				catch (URISyntaxException e1) 	{	e1.printStackTrace();	}
 			}
 		}
-		else if (b.equals(parcourir))
-			choisirDossier();
 	}
 
 	private void choisirDossier()
@@ -136,9 +182,10 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 		String nomProjet = txNom.getText();
 		String auteur = txAuteur.getText();
 		String chemin = txChemin.getText();
+		String style = combo.getSelectedItem().toString();
 		
 		// verification que toutes les informations sont presentes
-		if (nomProjet.length() == 0  || chemin.length() == 0 || auteur.length() == 0)
+		if (nomProjet.length() == 0  || chemin.length() == 0 || auteur.length() == 0 || combo.getSelectedItem().equals("Aucun"))
 		{
 			Controleur.creerOptionPane("warning", "Veuillez saisir toutes les informations");
 			return null;
@@ -153,11 +200,12 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 			nameProjet += "_" + sc.next();
 		
 		// on remplace les accents
-		nameProjet = nameProjet.replaceAll("éèêë", "e");
-		nameProjet = nameProjet.replaceAll("àâä", "a");
-		nameProjet = nameProjet.replaceAll("ùû", "u");
-		nameProjet = nameProjet.replaceAll("ô", "o");
+		nameProjet = nameProjet.replaceAll("[éèêë]", "e");
+		nameProjet = nameProjet.replaceAll("[àâä]", "a");
+		nameProjet = nameProjet.replaceAll("[ùûü]", "u");
+		nameProjet = nameProjet.replaceAll("[ôö]", "o");
 		
+		// on cree le fichier
 		File file = new File(chemin + "/" + nameProjet);
 		file.mkdir();
 		
@@ -169,29 +217,29 @@ public class PanelCreerProjet extends JPanel implements ActionListener
 		content.mkdir();
 		css.mkdir();
 		img.mkdir();
-		
+
 		InputStream input = null;
 		OutputStream output = null;
 		
-		String style = "";
 		try
 		{
+			// on selectionne le theme puis on l'ajoute au dossier
 			if (combo.getSelectedItem().equals("Theme 1"))
 			{
 				style = "style1";
-				input = new FileInputStream("styles/style1.css");
+				input = new FileInputStream("util/style1.css");
 				output = new FileOutputStream(chemin + "/" + nameProjet + "/content/css/style1.css");
 			}
 			else if (combo.getSelectedItem().equals("Theme 2"))
 			{
 				style = "style2";
-				input = new FileInputStream("styles/style2.css");
+				input = new FileInputStream("util/style2.css");
 				output = new FileOutputStream(chemin + "/" + nameProjet + "/content/css/style2.css");
 			}
 			else if (combo.getSelectedItem().equals("Theme 3"))
 			{
 				style = "style3";
-				input = new FileInputStream("styles/style3.css");
+				input = new FileInputStream("util/style3.css");
 				output = new FileOutputStream(chemin + "/" + nameProjet + "/content/css/style3.css");
 			}
 			IOUtils.copy(input, output);	
