@@ -77,7 +77,7 @@ public class FenetreLien extends JFrame implements ActionListener
 			{
 				String ligne = sc.next();
 				// si la ligne contient la balise de fin de paragraphe, on ajoute le lien
-				if (ligne.contains("</p>"))
+				if (ligne.contains("</body>"))
 					texteFinal += 	"<a href=\"" + url + "\">" + lien + "</a>&nbsp;\n";
 				else	
 					texteFinal += ligne+"\n"; // on ajoute la ligne au texte
